@@ -1,24 +1,16 @@
 package gui;
 
 import javax.swing.JFrame;
-
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.Window;
-
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.ImageIcon;
-import javax.swing.SpringLayout;
 import javax.swing.JButton;
 
 public class Login {
-	private JLabel username;
 	
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("NMBS");
