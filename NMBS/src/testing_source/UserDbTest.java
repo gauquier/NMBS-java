@@ -82,7 +82,7 @@ public class UserDbTest {
 	}
 	// ----------------------------------- toString Tests
 		@Test
-		public void toString_jsonStringTest() {
+		public void toString_Test() {
 			userDb = new UserDb(userId, rollId, username, password);
 			assertEquals(jsonString, userDb.toString());
 		}

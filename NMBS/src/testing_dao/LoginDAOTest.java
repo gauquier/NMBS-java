@@ -17,9 +17,9 @@ public class LoginDAOTest {
 		// de volgende is de setup van/voor 1 user, namelijk de test user die al
 		// bestaan in DB
 		userId = 1;
-		fakeUserID = -1;
+		fakeUserID = 999;
 		rollId = 1;
-		fakeRollId = -1;
+		fakeRollId = 999;
 
 		username = "test";
 		password = "test";
@@ -54,7 +54,7 @@ public class LoginDAOTest {
 	}
 
 	@Test
-	public void getUsernameUsingNonExistentUserame() {
+	public void getUsernameUsingNonExistentUsername() {
 		// fail test
 		// assertEquals(null, LoginDao.getUserName(username));
 		// success test
@@ -93,7 +93,7 @@ public class LoginDAOTest {
 		// fail test
 		// assertEquals(null, LoginDao.getRoll(username));
 		// success test
-		assertEquals(null, LoginDao.getRoll(fakeUsername));
+		assertEquals(0, LoginDao.getRoll(fakeUsername));
 	}
 
 	// ----------------------------------- getUserId Tests
@@ -137,7 +137,7 @@ public class LoginDAOTest {
 		// fail test
 		// assertEquals(password, LoginDao.getWachtwoord(fakeUsername));
 		// success test
-		assertEquals(password, LoginDao.getRoll(username));
+		assertEquals(password, LoginDao.getWachtwoord(username));
 	}
 
 	@Test
