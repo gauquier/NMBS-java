@@ -1,20 +1,53 @@
 package source;
 
 public class Login {
-	private static int rollId;
-	private static String username;
-	
+	private String username;
+	private String password;
 
-	public static int getRollId() {
-		return rollId;
+	/**
+	 * 
+	 */
+	public Login() {
+		// default constructor
 	}
-	public static void setRollId(int rollId) {
-		Login.rollId = rollId;
+
+	/**
+	 * @param username
+	 * @param password
+	 */
+	public Login(String username, String password) {
+		this.username = username;
+		this.password = password;
 	}
-	public static String getUsername() {
+
+	/**
+	 * @return username (gebruikersnaam)
+	 */
+	public String getUsername() {
 		return username;
 	}
-	public static void setUsername(String username) {
-		Login.username = username;
+
+	/**
+	 * @param username
+	 *            gebruikersnaam
+	 */
+	public void setUsername(String username) {
+		this.username = username;
 	}
+
+	/**
+	 * @return password (wachtwoord)
+	 */
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	 * @param password
+	 *            wachtwoord
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 }
