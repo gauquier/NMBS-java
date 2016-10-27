@@ -19,6 +19,8 @@ public class AdminGui extends JFrame {
 	JPanel vorigeKeuze, HuidigeKeuze;
     public String navigation;
     
+    JMenuBar menubar;
+    JMenu home, verkoop, routeInfo, stationInfo, verlorenVoorwerpen, intstellingen;
 
 	public JPanel getHuidigeKeuze() {
 		return HuidigeKeuze;
@@ -32,7 +34,7 @@ public class AdminGui extends JFrame {
 		if (HuidigeKeuze!=null)
 		{
 		HuidigeKeuze.setVisible(true);
-		Controller.adminInterface.add(getHuidigeKeuze());
+		Controller.adminInterface.getContentPane().add(getHuidigeKeuze());
 		}
 		else {
 		Controller.adminInterface.dispose();
@@ -65,8 +67,15 @@ public class AdminGui extends JFrame {
 	}
 	
 	private void createMenu() {
-			
-			
+		menubar = new JMenuBar();
+		home = new JMenu("Home");
+		verkoop = new JMenu("Verkoop");
+		routeInfo = new JMenu("Route info");
+		stationInfo = new JMenu("Station info");
+		
+		
+		menubar.add(home);
+		setJMenuBar(menubar);
 	}
 	
 	public static void Home()

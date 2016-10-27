@@ -49,7 +49,7 @@ public class LoginDao {
 
 		try {
 			connection = Connection.getDBConnection();
-			stmt = connection.prepareStatement("SELECT Username FROM User WHERE UserId = ?");
+			stmt = connection.prepareStatement("SELECT Username FROM Login WHERE UserId = ?");
 			stmt.setInt(1, userId);
 			data = stmt.executeQuery();
 
@@ -78,7 +78,7 @@ public class LoginDao {
 
 		try {
 			connection = Connection.getDBConnection();
-			stmt = connection.prepareStatement("SELECT Password FROM User WHERE UserId = ?");
+			stmt = connection.prepareStatement("SELECT pass FROM Login WHERE UserId = ?");
 			stmt.setInt(1, userId);
 			data = stmt.executeQuery();
 
@@ -107,7 +107,7 @@ public class LoginDao {
 
 		try {
 			connection = Connection.getDBConnection();
-			stmt = connection.prepareStatement("SELECT Username FROM User WHERE Username = ?");
+			stmt = connection.prepareStatement("SELECT Username FROM Login WHERE Username = ?");
 			stmt.setString(1, user);
 			data = stmt.executeQuery();
 
@@ -132,7 +132,7 @@ public class LoginDao {
 		return username1;
 	}
 
-	public static int getRoll(String user){
+/*	public static int getRoll(String user){
 
 		try {
 			connection = Connection.getDBConnection();
@@ -158,7 +158,7 @@ public class LoginDao {
 			}
 		}
 		return rollid;
-	}
+	} 
 
 	public static int userId(String username, String password){
 		int userId=0;
@@ -188,13 +188,13 @@ public class LoginDao {
 			}
 		}
 		return userId;
-	}
+	} */
 
 
 	public static String getWachtwoord(String user){
 		try {
 			connection = Connection.getDBConnection();            
-			stmt = connection.prepareStatement("Select Password from User where Username=?");
+			stmt = connection.prepareStatement("Select pass from Login where Username=?");
 			stmt.setString(1, user);
 			data = stmt.executeQuery();
 
