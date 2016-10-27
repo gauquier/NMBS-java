@@ -1,16 +1,16 @@
 package source;
-import java.util.Date;
+import java.util.Calendar;
 
 public class Abonnement extends Aankoop {
 	
 	private int abonnementId;
-	private Date startDate;
-	private Date endDate;
+	private Calendar startDate;
+	private Calendar endDate;
 	private String regio;
 	private int klantId;//Foreign key met Klant
 	private boolean actief;
 	
-	public Abonnement(int aankoopId, double korting, double prijs, VerkoopType verkoop, int abonnementId, Date startDate, Date endDate, String regio, int klantId, boolean actief) {
+	public Abonnement(int aankoopId, double korting, double prijs, VerkoopType verkoop, int abonnementId, Calendar startDate, Calendar endDate, String regio, int klantId, boolean actief) {
 		super(aankoopId, korting, prijs, verkoop);
 		setAbonnementId(abonnementId);
 		setStartDate(startDate);
@@ -32,16 +32,16 @@ public class Abonnement extends Aankoop {
 	public void setKlantId(int klantId) {
 		this.klantId = klantId;
 	}
-	public Date getStartDate() {
+	public Calendar getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(Date startDate) {
+	public void setStartDate(Calendar startDate) {
 		this.startDate = startDate;
 	}
-	public Date getEndDate() {
+	public Calendar getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(Date endDate) {
+	public void setEndDate(Calendar endDate) {
 		this.endDate = endDate;
 	}
 	public String getRegio() {

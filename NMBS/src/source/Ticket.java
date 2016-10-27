@@ -1,11 +1,12 @@
 package source;
+import java.util.Calendar;
 import java.util.Date;
 
 import source.Aankoop.VerkoopType;
 
 public class Ticket extends Aankoop {
 	private int ticketId;
-	private Date dag;
+	private Calendar dag;
 	private String dep;
 	private String arr;
 	private int aantal;
@@ -13,7 +14,7 @@ public class Ticket extends Aankoop {
 	
 	//constructor zonder aankoopId en ticketId maken?
 	
-	public Ticket(int aankoopId, double korting, double prijs, VerkoopType verkoop, int ticketId, Date dag, String dep, String arr, int aantal, boolean actief) {
+	public Ticket(int aankoopId, double korting, double prijs, VerkoopType verkoop, int ticketId, Calendar dag, String dep, String arr, int aantal, boolean actief) {
 		super(aankoopId, korting, prijs, verkoop);
 		setTicketId(ticketId);
 		setDag(dag);
@@ -23,6 +24,14 @@ public class Ticket extends Aankoop {
 		setActief(actief);
 	}
 	
+	private void setDag(Calendar dag) {
+		this.dag = dag;
+	}
+	
+	public Calendar getDag() {
+		return dag;
+	}
+
 	public int getTicketId() {
 		return ticketId;
 	}
