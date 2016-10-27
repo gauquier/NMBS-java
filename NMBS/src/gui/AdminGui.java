@@ -1,6 +1,7 @@
 package gui;
 /* http://zetcode.com/tutorials/javaswingtutorial/menusandtoolbars/ */
 
+import java.awt.ComponentOrientation;
 import java.awt.Container;
 import java.util.ResourceBundle;
 
@@ -20,7 +21,8 @@ public class AdminGui extends JFrame {
     public String navigation;
     
     JMenuBar menubar;
-    JMenu home, verkoop, routeInfo, stationInfo, verlorenVoorwerpen, intstellingen;
+    JMenu home, verkoop, routeInfo, stationInfo, verlorenVoorwerpen, instellingen;
+    JMenuItem abonnementVerkoop, abonnementBeheer, uitloggen;
 
 	public JPanel getHuidigeKeuze() {
 		return HuidigeKeuze;
@@ -72,9 +74,21 @@ public class AdminGui extends JFrame {
 		verkoop = new JMenu("Verkoop");
 		routeInfo = new JMenu("Route info");
 		stationInfo = new JMenu("Station info");
+		instellingen = new JMenu("Instellingen");
 		
+		abonnementBeheer = new JMenuItem("Abbonement beheer");
+		abonnementVerkoop = new JMenuItem("Abbonement verkoop");
+		verkoop.add(abonnementVerkoop);
+		verkoop.add(abonnementBeheer);
+		
+		uitloggen = new JMenuItem("Uitloggen");
+		instellingen.add(uitloggen);
 		
 		menubar.add(home);
+		menubar.add(verkoop);
+		menubar.add(routeInfo);
+		menubar.add(stationInfo);
+		menubar.add(instellingen);
 		setJMenuBar(menubar);
 	}
 	
