@@ -1,7 +1,7 @@
 package source;
 
 public class Personeel extends Persoon {
-	private String functie;
+	private static int functie;
 	private Login login;
 
 	/**
@@ -18,7 +18,7 @@ public class Personeel extends Persoon {
 	 * @param functie
 	 * @param login
 	 */
-	public Personeel(int persoonId, String voornaam, String achternaam, int adresId, String functie, Login login) {
+	public Personeel(int persoonId, String voornaam, String achternaam, int adresId, int functie, Login login) {
 		super(persoonId, voornaam, achternaam, adresId);
 		this.functie = functie;
 		this.login = login;
@@ -63,7 +63,7 @@ public class Personeel extends Persoon {
 	/**
 	 * @return functie van personeel
 	 */
-	public String getFunctie() {
+	public static int getFunctie() {
 		return functie;
 	}
 
@@ -71,7 +71,7 @@ public class Personeel extends Persoon {
 	 * @param functie
 	 *            functie van personeel
 	 */
-	public void setFunctie(String functie) {
+	public void setFunctie(int functie) {
 		this.functie = functie;
 	}
 

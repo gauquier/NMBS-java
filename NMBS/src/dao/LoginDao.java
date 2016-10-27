@@ -4,14 +4,46 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+
+import javax.sql.DataSource;
+
+import source.Login;
 
 public class LoginDao {
 	private static String username1, password1;
 	private static int rollid;
 	
 	private static java.sql.Connection connection;
+	private static Statement command;
 	private static ResultSet data;
 	private static PreparedStatement stmt = null;
+	
+	public static int addLogin(Login login){
+		int id = 0;
+		DataSource ds = null;
+		
+		try {
+	        if (connection == null){connection = Connection.getDBConnection();}
+	        command = connection.createStatement();
+	        
+	        stmt = connection.prepareStatement("INSERT INTO Login (username, pass, email) VALUES(?,?,?);");
+	        stmt.setString(1, login.getUsername());
+	        stmt.setString(2,login.getPassword());
+	        stmt.setString(3, login.getEmail());
+	        stmt.executeUpdate();
+	        data = command.executeQuery("SELECT MAX(adressId) FROM adress");
+	        if (data.next()) {
+	        	id=data.getInt(1);
+	        }
+	        data.close();
+	    }catch (SQLException e){
+	        e.printStackTrace();
+	    }catch(Exception e) {
+	        e.printStackTrace();
+	    }   
+	    return id;
+	}
 	
 	public static String getUsername(int userId){
 

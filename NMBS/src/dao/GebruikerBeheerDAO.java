@@ -3,10 +3,9 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.sun.javafx.geom.AreaOp.AddOp;
 
 import source.*;
 
@@ -17,7 +16,44 @@ public class GebruikerBeheerDAO {
 	private static final String KLANT_ZOEKEN_OP_VOORNAAM = "SELECT DISTINCT Persoon.persoonId, Persoon.voornaam, Persoon.achternaam,Persoon.adresId,Klant.email,Klant.info,Klant.nieuws FROM Klant INNER JOIN Persoon ON Klant.persoonId=Persoon.persoonId WHERE Persoon.voornaam LIKE ? ";
 	private static final String KLANT_ZOEKEN_OP_ACHTERNAAM = "SELECT DISTINCT Persoon.persoonId, Persoon.voornaam, Persoon.achternaam,Persoon.adresId,Klant.email,Klant.info,Klant.nieuws FROM Klant INNER JOIN Persoon ON Klant.persoonId=Persoon.persoonId WHERE Persoon.achternaam LIKE ? ";
 	private static final String KLANT_ZOEKEN_OP_EMAIL = "SELECT DISTINCT Persoon.persoonId, Persoon.voornaam, Persoon.achternaam,Persoon.adresId,Klant.email,Klant.info,Klant.nieuws FROM Klant INNER JOIN Persoon ON Klant.persoonId=Persoon.persoonId WHERE Klant.email LIKE ? ";
-
+	
+	private static java.sql.Connection connection;
+	private static Statement command;
+	private static ResultSet data;
+	private static PreparedStatement stmt = null;
+	
+	public static boolean addGebruiker(Login login, Persoon persoon, Rol rol, Adres adres){
+		int loginId =  0, persoonId = 0;
+		boolean opslagGelukt= true;
+	    try {
+	        connection = Connection.getDBConnection();        
+	        loginId = LoginDao.addLogin(login);
+	        persoonId = PersoonDao.addPersoon(persoon, adres);
+	       
+	        stmt = connection.prepareStatement("INSERT INTO Medewerker (loginId, persoonId, rolId, actief) VALUES(?,?,?,?);");
+	        stmt.setInt(1, loginId);
+	        stmt.setInt(2, persoonId);
+	        stmt.setInt(3, Personeel.getFunctie());
+	        stmt.setString(5,  "ACTIVE" );
+	        stmt.executeUpdate();
+	        //connection.close();
+	    }catch (SQLException e){
+	        e.printStackTrace();
+	        opslagGelukt=false;
+	    }catch(Exception e) {//Handle errors for Class.forName
+	        e.printStackTrace();
+	        opslagGelukt=false;
+	    }finally{
+	    	try{
+	    		if (data!=null){data.close();}
+	            if(connection!=null)connection.close();
+	        }catch(SQLException se2){
+	            se2.printStackTrace();
+	        }
+	    }    
+	    return opslagGelukt;
+	}
+	
 	public static List<Klant> zoekKlantenOpEmail(String email) {
 		if (email == null) {
 			return null;
