@@ -12,13 +12,12 @@ import source.*;
 
 public class GebruikerBeheerDAO {
 
-	 
 	private static final String KLANT_WIJZIGEN = "UPDATE Klant SET persoonId = ?, info = ?, email = ?, nieuws = ? WHERE persoonId = ?";
 	private static final String KLANT_ZOEKEN_OP_ID = "SELECT persoonId, info, email, nieuws WHERE persoonId = ?";
 	private static final String KLANT_ZOEKEN_OP_VOORNAAM = "SELECT DISTINCT Persoon.persoonId, Persoon.voornaam, Persoon.achternaam,Persoon.adresId,Klant.email,Klant.info,Klant.nieuws FROM Klant INNER JOIN Persoon ON Klant.persoonId=Persoon.persoonId WHERE Persoon.voornaam LIKE ? ";
 	private static final String KLANT_ZOEKEN_OP_ACHTERNAAM = "SELECT DISTINCT Persoon.persoonId, Persoon.voornaam, Persoon.achternaam,Persoon.adresId,Klant.email,Klant.info,Klant.nieuws FROM Klant INNER JOIN Persoon ON Klant.persoonId=Persoon.persoonId WHERE Persoon.achternaam LIKE ? ";
-	private static final String KLANT_ZOEKEN_OP_EMAIL ="SELECT DISTINCT Persoon.persoonId, Persoon.voornaam, Persoon.achternaam,Persoon.adresId,Klant.email,Klant.info,Klant.nieuws FROM Klant INNER JOIN Persoon ON Klant.persoonId=Persoon.persoonId WHERE Klant.email LIKE ? ";
-	
+	private static final String KLANT_ZOEKEN_OP_EMAIL = "SELECT DISTINCT Persoon.persoonId, Persoon.voornaam, Persoon.achternaam,Persoon.adresId,Klant.email,Klant.info,Klant.nieuws FROM Klant INNER JOIN Persoon ON Klant.persoonId=Persoon.persoonId WHERE Klant.email LIKE ? ";
+
 	public static List<Klant> zoekKlantenOpEmail(String email) {
 		if (email == null) {
 			return null;
@@ -33,7 +32,7 @@ public class GebruikerBeheerDAO {
 			connection = Connection.getDBConnection();
 			connection.setAutoCommit(false);
 			stmt = connection.prepareStatement(KLANT_ZOEKEN_OP_EMAIL);
-			stmt.setString(1, "%"+email+"%");
+			stmt.setString(1, "%" + email + "%");
 			resultSet = stmt.executeQuery();
 			ArrayList<Klant> klanten = new ArrayList<>();
 			while (resultSet.next()) {
@@ -64,6 +63,7 @@ public class GebruikerBeheerDAO {
 		}
 		return null;
 	}
+
 	public static List<Klant> zoekKlantenOpAchternaam(String achternaam) {
 		if (achternaam == null) {
 			return null;
@@ -78,7 +78,7 @@ public class GebruikerBeheerDAO {
 			connection = Connection.getDBConnection();
 			connection.setAutoCommit(false);
 			stmt = connection.prepareStatement(KLANT_ZOEKEN_OP_ACHTERNAAM);
-			stmt.setString(1, "%"+achternaam+"%");
+			stmt.setString(1, "%" + achternaam + "%");
 			resultSet = stmt.executeQuery();
 			ArrayList<Klant> klanten = new ArrayList<>();
 			while (resultSet.next()) {
@@ -124,7 +124,7 @@ public class GebruikerBeheerDAO {
 			connection = Connection.getDBConnection();
 			connection.setAutoCommit(false);
 			stmt = connection.prepareStatement(KLANT_ZOEKEN_OP_VOORNAAM);
-			stmt.setString(1, "%"+voornaam+"%");
+			stmt.setString(1, "%" + voornaam + "%");
 			resultSet = stmt.executeQuery();
 			ArrayList<Klant> klanten = new ArrayList<>();
 			while (resultSet.next()) {
@@ -239,7 +239,8 @@ public class GebruikerBeheerDAO {
 		}
 		return success;
 
-	}  
+	}
+
 	private static final String PERSOON_WIJZIGEN = "UPDATE Persoon SET adresId = ?, voornaam = ?, achternaam = ? WHERE persoonId = ?";
 	private static final String PERSOON_ZOEKEN_OP_ID = "SELECT persoonId, voornaam, achternaam, adresId FROM Persoon WHERE persoonId = ?";
 	private static final String PERSOON_ZOEKEN_OP_ADRES = "SELECT persoonId, voornaam, achternaam, adresId FROM Persoon WHERE adresId = ?";
@@ -260,7 +261,7 @@ public class GebruikerBeheerDAO {
 			connection = Connection.getDBConnection();
 			connection.setAutoCommit(false);
 			stmt = connection.prepareStatement(PERSOON_ZOEKEN_OP_ACHTERNAAM);
-			stmt.setString(1, "%"+achternaam+"%");
+			stmt.setString(1, "%" + achternaam + "%");
 			resultSet = stmt.executeQuery();
 			ArrayList<Persoon> personen = new ArrayList<>();
 			while (resultSet.next()) {
@@ -305,7 +306,7 @@ public class GebruikerBeheerDAO {
 			connection = Connection.getDBConnection();
 			connection.setAutoCommit(false);
 			stmt = connection.prepareStatement(PERSOON_ZOEKEN_OP_VOORNAAM);
-			stmt.setString(1, "%"+voornaam+"%");
+			stmt.setString(1, "%" + voornaam + "%");
 			resultSet = stmt.executeQuery();
 			ArrayList<Persoon> personen = new ArrayList<>();
 			while (resultSet.next()) {
@@ -390,9 +391,9 @@ public class GebruikerBeheerDAO {
 			stmt = connection.prepareStatement(PERSOON_ZOEKEN_OP_ID);
 			stmt.setInt(1, persoonId);
 			resultSet = stmt.executeQuery();
-			Persoon persoon=null;
+			Persoon persoon = null;
 			while (resultSet.next()) {
-				persoon=new Persoon(persoonId, resultSet.getString(2), resultSet.getString(3), resultSet.getInt(4));
+				persoon = new Persoon(persoonId, resultSet.getString(2), resultSet.getString(3), resultSet.getInt(4));
 				resultSet.close();
 				stmt.close();
 				connection.close();
@@ -527,9 +528,9 @@ public class GebruikerBeheerDAO {
 			stmt = connection.prepareStatement(ADRES_ZOEKEN_OP_ID);
 			stmt.setInt(1, adresId);
 			resultSet = stmt.executeQuery();
-			Adres adres=null;
+			Adres adres = null;
 			while (resultSet.next()) {
-				adres=new Adres(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),
+				adres = new Adres(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),
 						resultSet.getInt(4), resultSet.getInt(5));
 				resultSet.close();
 				stmt.close();
@@ -581,7 +582,7 @@ public class GebruikerBeheerDAO {
 			connection = Connection.getDBConnection();
 			connection.setAutoCommit(false);
 			stmt = connection.prepareStatement(ADRES_ZOEKEN_OP_STRAAT);
-			stmt.setString(1, "%"+straat+"%");
+			stmt.setString(1, "%" + straat + "%");
 			resultSet = stmt.executeQuery();
 			ArrayList<Adres> adressen = new ArrayList<>();
 			while (resultSet.next()) {
@@ -640,7 +641,7 @@ public class GebruikerBeheerDAO {
 			connection = Connection.getDBConnection();
 			connection.setAutoCommit(false);
 			stmt = connection.prepareStatement(ADRES_ZOEKEN_OP_WOONPLAATS);
-			stmt.setString(1, "%"+woonplaats+"%");
+			stmt.setString(1, "%" + woonplaats + "%");
 			resultSet = stmt.executeQuery();
 			ArrayList<Adres> adressen = new ArrayList<>();
 			while (resultSet.next()) {
