@@ -3,6 +3,8 @@ package gui;
 
 import java.awt.ComponentOrientation;
 import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
 
 import javax.swing.Box;
@@ -21,8 +23,8 @@ public class AdminGui extends JFrame {
     public String navigation;
     
     JMenuBar menubar;
-    JMenu home, verkoop, routeInfo, stationInfo, verlorenVoorwerpen, instellingen;
-    JMenuItem abonnementVerkoop, abonnementBeheer, uitloggen;
+    JMenu home, verkoop, routeInfo, stationInfo, verlorenVoorwerpen, instellingen, gebruikers;
+    JMenuItem abonnementVerkoop, abonnementBeheer, uitloggen, gebruikersToevoegen, gebruikersVerwijderen;
 
 	public JPanel getHuidigeKeuze() {
 		return HuidigeKeuze;
@@ -74,12 +76,19 @@ public class AdminGui extends JFrame {
 		verkoop = new JMenu("Verkoop");
 		routeInfo = new JMenu("Route info");
 		stationInfo = new JMenu("Station info");
+		gebruikers = new JMenu("Gebruikers");
 		instellingen = new JMenu("Instellingen");
 		
 		abonnementBeheer = new JMenuItem("Abbonement beheer");
 		abonnementVerkoop = new JMenuItem("Abbonement verkoop");
 		verkoop.add(abonnementVerkoop);
 		verkoop.add(abonnementBeheer);
+		
+		gebruikersToevoegen = new JMenuItem("Gebruiker toevoegen");
+		gebruikersToevoegen.addActionListener(new MenuItemHandler());
+		gebruikersVerwijderen = new JMenuItem("Gebruiker verwijderen");
+		gebruikers.add(gebruikersToevoegen);
+		gebruikers.add(gebruikersVerwijderen);
 		
 		uitloggen = new JMenuItem("Uitloggen");
 		instellingen.add(uitloggen);
@@ -88,6 +97,7 @@ public class AdminGui extends JFrame {
 		menubar.add(verkoop);
 		menubar.add(routeInfo);
 		menubar.add(stationInfo);
+		menubar.add(gebruikers);
 		menubar.add(instellingen);
 		setJMenuBar(menubar);
 	}
@@ -100,6 +110,16 @@ public class AdminGui extends JFrame {
 			    Controller.adminInterface.setHome();     
 			    }});  
 			    t1.start();
+	}
+	
+	private class MenuItemHandler implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == gebruikersToevoegen) {	
+				navigation= "gebruikerToevoegen";
+				setHuidigeKeuze(new GebruikerToevoegenGui());
+			}
+		}
 	}
 	
 }
