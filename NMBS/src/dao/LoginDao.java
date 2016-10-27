@@ -12,7 +12,7 @@ import source.Login;
 
 public class LoginDao {
 	private static String username1, password1;
-	private static int rollid;
+	private static int rollid, loginId;
 	
 	private static java.sql.Connection connection;
 	private static Statement command;
@@ -132,12 +132,12 @@ public class LoginDao {
 		return username1;
 	}
 
-/*	public static int getRoll(String user){
+	public static int getRoll(int loginId){
 
 		try {
 			connection = Connection.getDBConnection();
-			stmt = connection.prepareStatement("SELECT Rollid FROM User WHERE Username = ?");
-			stmt.setString(1, user);
+			stmt = connection.prepareStatement("SELECT rolId FROM Medewerker WHERE loginId = ?");
+			stmt.setInt(1, loginId);
 			data = stmt.executeQuery();
 
 			while(data.next()){
@@ -147,7 +147,7 @@ public class LoginDao {
 			connection.close();
 		}catch (SQLException e){
 			e.printStackTrace();
-		}catch(Exception e) {//Handle errors for Class.forName
+		}catch(Exception e) {
 			e.printStackTrace();
 		}finally{
 			try{
@@ -159,8 +159,36 @@ public class LoginDao {
 		}
 		return rollid;
 	} 
+	
+	public static int getLoginId(String username){
 
-	public static int userId(String username, String password){
+		try {
+			connection = Connection.getDBConnection();
+			stmt = connection.prepareStatement("SELECT loginId FROM Login WHERE username = ?");
+			stmt.setString(1, username);
+			data = stmt.executeQuery();
+
+			while(data.next()){
+				loginId=data.getInt(1);
+			}
+			data.close();
+			connection.close();
+		}catch (SQLException e){
+			e.printStackTrace();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			try{
+				if(data!=null) data.close();
+				if(connection!=null)connection.close();
+			}catch(SQLException se2){
+				se2.printStackTrace();
+			}
+		}
+		return loginId;
+	} 
+
+	/* public static int userId(String username, String password){
 		int userId=0;
 		try {
 			connection = Connection.getDBConnection();

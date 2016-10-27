@@ -95,9 +95,10 @@ public class LoginGui {
 				if (databasePassword != null && databaseUsername != null) {
 					if (databasePassword.equals(password) && databaseUsername.equals(username)) {
 
-						// int rollId = LoginDao.getRoll(username);
-
-						// Login.setUsername(username);
+						int loginId = LoginDao.getLoginId(username);
+						int rollId = LoginDao.getRoll(loginId);
+						
+						System.out.println(rollId);
 						System.out.println("User " + username + " is aangelogd.");
 
 						closeFrame();
