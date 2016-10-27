@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="NMBS/src"/>
+	<classpathentry kind="src" path="testing_dao"/>
+	<classpathentry kind="src" path="testing_source"/>
 	<classpathentry kind="lib" path="NMBS/lib/apache-commons-net.jar"/>
 	<classpathentry kind="lib" path="NMBS/lib/mysql-connector-java-5.1.35-bin.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
