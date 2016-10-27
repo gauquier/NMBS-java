@@ -15,9 +15,9 @@ public class GebruikerBeheerDAO {
 	 
 	private static final String KLANT_WIJZIGEN = "UPDATE Klant SET persoonId = ?, info = ?, email = ?, nieuws = ? WHERE persoonId = ?";
 	private static final String KLANT_ZOEKEN_OP_ID = "SELECT persoonId, info, email, nieuws WHERE persoonId = ?";
-	private static final String KLANT_ZOEKEN_OP_VOORNAAM = "SELECT DISTINCT Persoon.persoonId, Persoon.voornaam, Persoon.achternaam,Persoon.adresId,Klant.email,Klant.info,Klant.nieuws FROM Klant INNER JOIN Persoon ON Klant.persoonId=Persoon.persoonId WHERE Persoon.voornaam LIKE '%?%' ";
-	private static final String KLANT_ZOEKEN_OP_ACHTERNAAM = "SELECT DISTINCT Persoon.persoonId, Persoon.voornaam, Persoon.achternaam,Persoon.adresId,Klant.email,Klant.info,Klant.nieuws FROM Klant INNER JOIN Persoon ON Klant.persoonId=Persoon.persoonId WHERE Persoon.achternaam LIKE '%?%' ";
-	private static final String KLANT_ZOEKEN_OP_EMAIL ="SELECT DISTINCT Persoon.persoonId, Persoon.voornaam, Persoon.achternaam,Persoon.adresId,Klant.email,Klant.info,Klant.nieuws FROM Klant INNER JOIN Persoon ON Klant.persoonId=Persoon.persoonId WHERE Klant.email LIKE '%?%' ";
+	private static final String KLANT_ZOEKEN_OP_VOORNAAM = "SELECT DISTINCT Persoon.persoonId, Persoon.voornaam, Persoon.achternaam,Persoon.adresId,Klant.email,Klant.info,Klant.nieuws FROM Klant INNER JOIN Persoon ON Klant.persoonId=Persoon.persoonId WHERE Persoon.voornaam LIKE ? ";
+	private static final String KLANT_ZOEKEN_OP_ACHTERNAAM = "SELECT DISTINCT Persoon.persoonId, Persoon.voornaam, Persoon.achternaam,Persoon.adresId,Klant.email,Klant.info,Klant.nieuws FROM Klant INNER JOIN Persoon ON Klant.persoonId=Persoon.persoonId WHERE Persoon.achternaam LIKE ? ";
+	private static final String KLANT_ZOEKEN_OP_EMAIL ="SELECT DISTINCT Persoon.persoonId, Persoon.voornaam, Persoon.achternaam,Persoon.adresId,Klant.email,Klant.info,Klant.nieuws FROM Klant INNER JOIN Persoon ON Klant.persoonId=Persoon.persoonId WHERE Klant.email LIKE ? ";
 	
 	public static List<Klant> zoekKlantenOpEmail(String email) {
 		if (email == null) {
@@ -33,7 +33,7 @@ public class GebruikerBeheerDAO {
 			connection = Connection.getDBConnection();
 			connection.setAutoCommit(false);
 			stmt = connection.prepareStatement(KLANT_ZOEKEN_OP_EMAIL);
-			stmt.setString(1, email);
+			stmt.setString(1, "%"+email+"%");
 			resultSet = stmt.executeQuery();
 			ArrayList<Klant> klanten = new ArrayList<>();
 			while (resultSet.next()) {
@@ -78,7 +78,7 @@ public class GebruikerBeheerDAO {
 			connection = Connection.getDBConnection();
 			connection.setAutoCommit(false);
 			stmt = connection.prepareStatement(KLANT_ZOEKEN_OP_ACHTERNAAM);
-			stmt.setString(1, achternaam);
+			stmt.setString(1, "%"+achternaam+"%");
 			resultSet = stmt.executeQuery();
 			ArrayList<Klant> klanten = new ArrayList<>();
 			while (resultSet.next()) {
@@ -124,7 +124,7 @@ public class GebruikerBeheerDAO {
 			connection = Connection.getDBConnection();
 			connection.setAutoCommit(false);
 			stmt = connection.prepareStatement(KLANT_ZOEKEN_OP_VOORNAAM);
-			stmt.setString(1, voornaam);
+			stmt.setString(1, "%"+voornaam+"%");
 			resultSet = stmt.executeQuery();
 			ArrayList<Klant> klanten = new ArrayList<>();
 			while (resultSet.next()) {
@@ -243,8 +243,8 @@ public class GebruikerBeheerDAO {
 	private static final String PERSOON_WIJZIGEN = "UPDATE Persoon SET adresId = ?, voornaam = ?, achternaam = ? WHERE persoonId = ?";
 	private static final String PERSOON_ZOEKEN_OP_ID = "SELECT persoonId, voornaam, achternaam, adresId FROM Persoon WHERE persoonId = ?";
 	private static final String PERSOON_ZOEKEN_OP_ADRES = "SELECT persoonId, voornaam, achternaam, adresId FROM Persoon WHERE adresId = ?";
-	private static final String PERSOON_ZOEKEN_OP_VOORNAAM = "SELECT persoonId, voornaam, achternaam, adresId FROM Persoon WHERE voornaam LIKE '%?%'";
-	private static final String PERSOON_ZOEKEN_OP_ACHTERNAAM = "SELECT persoonId, voornaam, achternaam, adresId FROM Persoon WHERE achternaam LIKE '%?%'";
+	private static final String PERSOON_ZOEKEN_OP_VOORNAAM = "SELECT persoonId, voornaam, achternaam, adresId FROM Persoon WHERE voornaam LIKE ?";
+	private static final String PERSOON_ZOEKEN_OP_ACHTERNAAM = "SELECT persoonId, voornaam, achternaam, adresId FROM Persoon WHERE achternaam LIKE ?";
 
 	public static List<Persoon> zoekPersonenOpAchternaam(String achternaam) {
 		if (achternaam == null) {
@@ -260,7 +260,7 @@ public class GebruikerBeheerDAO {
 			connection = Connection.getDBConnection();
 			connection.setAutoCommit(false);
 			stmt = connection.prepareStatement(PERSOON_ZOEKEN_OP_ACHTERNAAM);
-			stmt.setString(1, achternaam);
+			stmt.setString(1, "%"+achternaam+"%");
 			resultSet = stmt.executeQuery();
 			ArrayList<Persoon> personen = new ArrayList<>();
 			while (resultSet.next()) {
@@ -305,7 +305,7 @@ public class GebruikerBeheerDAO {
 			connection = Connection.getDBConnection();
 			connection.setAutoCommit(false);
 			stmt = connection.prepareStatement(PERSOON_ZOEKEN_OP_VOORNAAM);
-			stmt.setString(1, voornaam);
+			stmt.setString(1, "%"+voornaam+"%");
 			resultSet = stmt.executeQuery();
 			ArrayList<Persoon> personen = new ArrayList<>();
 			while (resultSet.next()) {
@@ -452,8 +452,8 @@ public class GebruikerBeheerDAO {
 	private static final String ADRES_WIJZIGEN = "UPDATE Adres SET straat = ?, woonplaats = ?, postcode = ?, bus = ? WHERE adresId = ?";
 	private static final String ADRES_ZOEKEN_OP_ID = "SELECT * FROM Adres WHERE adresId = ?";
 	private static final String ADRES_ZOEKEN_OP_POSTCODE = "SELECT * FROM Adres WHERE postcode = ?";
-	private static final String ADRES_ZOEKEN_OP_STRAAT = "SELECT * FROM Adres WHERE straat LIKE '%?%'";
-	private static final String ADRES_ZOEKEN_OP_WOONPLAATS = "SELECT * FROM Adres WHERE woonplaats LIKE '%?%'";
+	private static final String ADRES_ZOEKEN_OP_STRAAT = "SELECT * FROM Adres WHERE straat LIKE ?";
+	private static final String ADRES_ZOEKEN_OP_WOONPLAATS = "SELECT * FROM Adres WHERE woonplaats LIKE ?";
 
 	/**
 	 * Een bestande adress wijzigen. Hier is het belangrijk dat er al een
@@ -581,7 +581,7 @@ public class GebruikerBeheerDAO {
 			connection = Connection.getDBConnection();
 			connection.setAutoCommit(false);
 			stmt = connection.prepareStatement(ADRES_ZOEKEN_OP_STRAAT);
-			stmt.setString(1, straat);
+			stmt.setString(1, "%"+straat+"%");
 			resultSet = stmt.executeQuery();
 			ArrayList<Adres> adressen = new ArrayList<>();
 			while (resultSet.next()) {
@@ -640,7 +640,7 @@ public class GebruikerBeheerDAO {
 			connection = Connection.getDBConnection();
 			connection.setAutoCommit(false);
 			stmt = connection.prepareStatement(ADRES_ZOEKEN_OP_WOONPLAATS);
-			stmt.setString(1, woonplaats);
+			stmt.setString(1, "%"+woonplaats+"%");
 			resultSet = stmt.executeQuery();
 			ArrayList<Adres> adressen = new ArrayList<>();
 			while (resultSet.next()) {
