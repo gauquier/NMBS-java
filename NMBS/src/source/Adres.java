@@ -7,6 +7,7 @@ public class Adres {
 	private String woonplaats;
 	private int postcode;
 	private int bus;
+	private int huisNr;
 
 	public Adres() {
 		// default constructor
@@ -22,12 +23,13 @@ public class Adres {
 	 * @param bus
 	 *            bus nummer vb 32
 	 */
-	public Adres(String straat, String woonplaats, int postcode, int bus) {
+	public Adres(String straat, int huisNr, String woonplaats, int postcode, int bus) {
 		super();
 		this.straat = straat;
 		this.woonplaats = woonplaats;
 		this.postcode = postcode;
 		this.bus = bus;
+		this.huisNr = huisNr;
 	}
 
 	/**
@@ -42,13 +44,14 @@ public class Adres {
 	 * @param bus
 	 *            bus nummer vb 32
 	 */
-	public Adres(int adresId, String straat, String woonplaats, int postcode, int bus) {
+	public Adres(int adresId, String straat, int huisNr, String woonplaats, int postcode, int bus) {
 		super();
 		this.adresId = adresId;
 		this.straat = straat;
 		this.woonplaats = woonplaats;
 		this.postcode = postcode;
 		this.bus = bus;
+		this.huisNr = huisNr;
 	}
 
 	/**
@@ -125,4 +128,11 @@ public class Adres {
 		this.bus = bus;
 	}
 
+	public int getHuisNr() {
+		return huisNr;
+	}
+
+	public void setHuisNr(int huisNr) {
+		this.huisNr = huisNr;
+	}
 }

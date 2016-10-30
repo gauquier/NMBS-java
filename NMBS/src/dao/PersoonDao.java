@@ -19,23 +19,22 @@ public class PersoonDao {
 	private static PreparedStatement stmt = null;
 	
 	public static int addPersoon(Persoon persoon, Adres adres){
-		int adresId = 0;
+		int adresId = 0, persoonId = 0;
 		adresId = AdressDAO.addAdress(adres);
 		DataSource ds = null;
 		
 		try {
-			adresId = AdressDAO.addAdress(adres);
 	        if (connection == null){connection = Connection.getDBConnection();}
 	        command = connection.createStatement();
 	        
-	        stmt = connection.prepareStatement("INSERT INTO Login (adresId, voornaam, achternaam) VALUES(?,?,?);");
+	        stmt = connection.prepareStatement("INSERT INTO Persoon (adresId, voornaam, achternaam) VALUES(?,?,?);");
 	        stmt.setInt(1, adresId);
 	        stmt.setString(2,persoon.getVoornaam());
 	        stmt.setString(3, persoon.getAchternaam());
 	        stmt.executeUpdate();
-	        data = command.executeQuery("SELECT MAX(adressId) FROM adress");
+	        data = command.executeQuery("SELECT MAX(persoonId) FROM Persoon");
 	        if (data.next()) {
-	        	adresId=data.getInt(1);
+	        	persoonId=data.getInt(1);
 	        }
 	        data.close();
 	    }catch (SQLException e){
@@ -43,6 +42,6 @@ public class PersoonDao {
 	    }catch(Exception e) {
 	        e.printStackTrace();
 	    }   
-	    return adresId;
+	    return persoonId;
 	}
 }

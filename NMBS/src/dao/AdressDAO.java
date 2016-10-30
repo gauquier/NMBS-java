@@ -25,13 +25,14 @@ public class AdressDAO {
 	        if (connection == null){connection = Connection.getDBConnection();}
 	        command = connection.createStatement();
 	        
-	        stmt = connection.prepareStatement("INSERT INTO adress (straat, woonplaats, postcode, bus) VALUES(?,?,?,?);");
+	        stmt = connection.prepareStatement("INSERT INTO Adres (straat, huisnr, woonplaats, postcode, bus) VALUES(?,?,?,?,?);");
 	        stmt.setString(1, adres.getStraat());
-	        stmt.setString(2,adres.getWoonplaats());
-	        stmt.setInt(3, adres.getPostcode() );
-	        stmt.setInt(4, adres.getBus());
+	        stmt.setInt(2,adres.getHuisNr());
+	        stmt.setString(3,adres.getWoonplaats());
+	        stmt.setInt(4, adres.getPostcode() );
+	        stmt.setInt(5, adres.getBus());
 	        stmt.executeUpdate();
-	        data = command.executeQuery("SELECT MAX(adressId) FROM adress");
+	        data = command.executeQuery("SELECT MAX(adresId) FROM Adres");
 	        if (data.next()) {
 	        	id=data.getInt(1);
 	        }

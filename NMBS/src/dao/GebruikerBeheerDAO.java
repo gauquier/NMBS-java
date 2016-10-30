@@ -22,19 +22,19 @@ public class GebruikerBeheerDAO {
 	private static ResultSet data;
 	private static PreparedStatement stmt = null;
 	
-	public static boolean addGebruiker(Login login, Persoon persoon, Rol rol, Adres adres){
+	public static boolean addGebruiker(Login login, Persoon persoon, int rollId, Adres adres){
 		int loginId =  0, persoonId = 0;
 		boolean opslagGelukt= true;
 	    try {
 	        connection = Connection.getDBConnection();        
 	        loginId = LoginDao.addLogin(login);
 	        persoonId = PersoonDao.addPersoon(persoon, adres);
-	       
+
 	        stmt = connection.prepareStatement("INSERT INTO Medewerker (loginId, persoonId, rolId, actief) VALUES(?,?,?,?);");
 	        stmt.setInt(1, loginId);
 	        stmt.setInt(2, persoonId);
-	        stmt.setInt(3, Personeel.getFunctie());
-	        stmt.setString(5,  "ACTIVE" );
+	        stmt.setInt(3, 1); // rollid staat nu vast moet nog aangepast worden
+	        stmt.setInt(4,  1 );
 	        stmt.executeUpdate();
 	        //connection.close();
 	    }catch (SQLException e){
@@ -566,8 +566,8 @@ public class GebruikerBeheerDAO {
 			resultSet = stmt.executeQuery();
 			Adres adres = null;
 			while (resultSet.next()) {
-				adres = new Adres(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),
-						resultSet.getInt(4), resultSet.getInt(5));
+				adres = new Adres(resultSet.getInt(1), resultSet.getString(2), resultSet.getInt(3),
+						resultSet.getString(4), resultSet.getInt(5), resultSet.getInt(6) );
 				resultSet.close();
 				stmt.close();
 				connection.close();
@@ -622,8 +622,8 @@ public class GebruikerBeheerDAO {
 			resultSet = stmt.executeQuery();
 			ArrayList<Adres> adressen = new ArrayList<>();
 			while (resultSet.next()) {
-				adressen.add(new Adres(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),
-						resultSet.getInt(4), resultSet.getInt(5)));
+				adressen.add(new Adres(resultSet.getInt(1), resultSet.getString(2), resultSet.getInt(3),
+						resultSet.getString(4), resultSet.getInt(5), resultSet.getInt(6) ));
 			}
 			resultSet.close();
 			stmt.close();
@@ -681,8 +681,8 @@ public class GebruikerBeheerDAO {
 			resultSet = stmt.executeQuery();
 			ArrayList<Adres> adressen = new ArrayList<>();
 			while (resultSet.next()) {
-				adressen.add(new Adres(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),
-						resultSet.getInt(4), resultSet.getInt(5)));
+				adressen.add(new Adres(resultSet.getInt(1), resultSet.getString(2), resultSet.getInt(3),
+						resultSet.getString(4), resultSet.getInt(5), resultSet.getInt(6)));
 			}
 			resultSet.close();
 			stmt.close();
@@ -734,8 +734,8 @@ public class GebruikerBeheerDAO {
 			resultSet = stmt.executeQuery();
 			ArrayList<Adres> adressen = new ArrayList<>();
 			while (resultSet.next()) {
-				adressen.add(new Adres(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),
-						resultSet.getInt(4), resultSet.getInt(5)));
+				adressen.add(new Adres(resultSet.getInt(1), resultSet.getString(2), resultSet.getInt(3),
+						resultSet.getString(4), resultSet.getInt(5), resultSet.getInt(6)));
 			}
 			resultSet.close();
 			stmt.close();

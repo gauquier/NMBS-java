@@ -10,6 +10,15 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import dao.GebruikerBeheerDAO;
+import dao.LoginDao;
+import source.Adres;
+import source.Login;
+import source.Personeel;
+import source.Persoon;
+import source.Rol;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -29,6 +38,11 @@ public class GebruikerToevoegenGui extends JPanel{
 	private JTextField txtUsername;
 	private JTextField txtPassword;
 	private JTextField txtEmail;
+	private Adres adres;
+	private Login login;
+	private Personeel personeel;
+	private Persoon persoon;
+	private Rol rol;
 	
 	public GebruikerToevoegenGui()
 	{
@@ -185,6 +199,15 @@ public class GebruikerToevoegenGui extends JPanel{
 			if (e.getSource() == btnToevoegen){
 				if (!txtVoornaam.getText().isEmpty() && !txtAchternaam.getText().isEmpty() && !txtStraat.getText().isEmpty() && !txtHuisnr.getText().isEmpty()&& !txtBus.getText().isEmpty() 
 						&& !txtGemeente.getText().isEmpty()&& !txtPostcode.getText().isEmpty() && !txtUsername.getText().isEmpty() && !txtPassword.getText().isEmpty() && !txtEmail.getText().isEmpty()){
+					
+					login = new Login(txtUsername.getText().trim(), txtPassword.getText().trim(), txtEmail.getText().trim());
+					login.toString();
+					adres = new Adres(txtStraat.getText().trim(), Integer.parseInt(txtHuisnr.getText()), txtGemeente.getText().trim(), Integer.parseInt(txtPostcode.getText()), Integer.parseInt(txtBus.getText().trim()));
+					adres.toString();
+					persoon = new Persoon(adres.getAdresId(), txtVoornaam.getText().trim(), txtAchternaam.getText().trim());
+					persoon.toString();
+					int rollId=1;
+					GebruikerBeheerDAO.addGebruiker(login,persoon,rollId, adres);
 				}
 				else{
 					JOptionPane.showMessageDialog(new JFrame(),"Please fill in all required fields!");

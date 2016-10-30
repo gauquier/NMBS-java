@@ -24,7 +24,7 @@ public class LoginDao {
 		DataSource ds = null;
 		
 		try {
-	        if (connection == null){connection = Connection.getDBConnection();}
+			connection = Connection.getDBConnection();
 	        command = connection.createStatement();
 	        
 	        stmt = connection.prepareStatement("INSERT INTO Login (username, pass, email) VALUES(?,?,?);");
@@ -32,7 +32,7 @@ public class LoginDao {
 	        stmt.setString(2,login.getPassword());
 	        stmt.setString(3, login.getEmail());
 	        stmt.executeUpdate();
-	        data = command.executeQuery("SELECT MAX(adressId) FROM adress");
+	        data = command.executeQuery("SELECT MAX(loginId) FROM Login");
 	        if (data.next()) {
 	        	id=data.getInt(1);
 	        }
@@ -41,7 +41,14 @@ public class LoginDao {
 	        e.printStackTrace();
 	    }catch(Exception e) {
 	        e.printStackTrace();
-	    }   
+	    }finally{
+	    	try{
+	    		if (data!=null){data.close();}
+	            if(connection!=null)connection.close();
+	        }catch(SQLException se2){
+	            se2.printStackTrace();
+	        }
+	    }     
 	    return id;
 	}
 	
