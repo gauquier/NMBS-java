@@ -1,7 +1,2 @@
-/dao/
-/gui/
-/handler/
-/source/
-/testing_dao/
-/testing_source/
 /be/
+/api_logic/
