@@ -33,7 +33,7 @@ public class GebruikerBeheerDAO {
 	        stmt = connection.prepareStatement("INSERT INTO Medewerker (loginId, persoonId, rolId, actief) VALUES(?,?,?,?);");
 	        stmt.setInt(1, loginId);
 	        stmt.setInt(2, persoonId);
-	        stmt.setInt(3, Personeel.getFunctie());
+	       // stmt.setInt(3, Medewerker.getRol().getRolId());
 	        stmt.setString(5,  "ACTIVE" );
 	        stmt.executeUpdate();
 	        //connection.close();
