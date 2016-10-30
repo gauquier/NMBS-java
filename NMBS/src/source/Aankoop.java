@@ -1,16 +1,17 @@
 package source;
 
 public class Aankoop {
-	public enum VerkoopType {
-		STANDAARD, GROEP, STUDENT, PLUS60
-	}
 	
 	protected int aankoopId;
 	protected double korting;
 	protected double prijs;
 	protected VerkoopType verkoop;
 	
-	//constructor zonder aankoopId maken?
+	public Aankoop(double korting, double prijs, VerkoopType verkoop) {
+		setKorting(korting);
+		setPrijs(prijs);
+		setVerkoop(verkoop);
+	}
 	
 	public Aankoop(int aankoopId, double korting, double prijs, VerkoopType verkoop) {
 		setAankoopId(aankoopId);
