@@ -44,6 +44,3 @@ public class AankoopDAO {
 	    return id;
 	}
 }
-
-	
-}
