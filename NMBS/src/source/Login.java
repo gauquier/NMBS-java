@@ -1,6 +1,7 @@
 package source;
 
 public class Login {
+	private int loginId;
 	private String username;
 	private String password;
 	private String email;
@@ -10,12 +11,20 @@ public class Login {
 	 */
 	public Login() {
 		// default constructor
-	}
-
+	} 
 	/**
+	 * @param loginId
 	 * @param username
 	 * @param password
+	 * @param email
 	 */
+	public Login(int loginId, String username, String password, String email) {
+		this.loginId = loginId;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+	}
+
 	public Login(String username, String password, String email) {
 		this.username = username;
 		this.password = password;
@@ -58,6 +67,18 @@ public class Login {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	/**
+	 * @return loginId
+	 */
+	public int getLoginId() {
+		return loginId;
+	}
+	/**
+	 * @param loginId 
+	 */
+	public void setLoginId(int loginId) {
+		this.loginId = loginId;
 	}
 
 }

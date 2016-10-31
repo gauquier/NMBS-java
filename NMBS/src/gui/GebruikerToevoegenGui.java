@@ -15,7 +15,6 @@ import dao.GebruikerBeheerDAO;
 import dao.LoginDao;
 import source.Adres;
 import source.Login;
-import source.Personeel;
 import source.Persoon;
 import source.Rol;
 
@@ -40,7 +39,6 @@ public class GebruikerToevoegenGui extends JPanel{
 	private JTextField txtEmail;
 	private Adres adres;
 	private Login login;
-	private Personeel personeel;
 	private Persoon persoon;
 	private Rol rol;
 	

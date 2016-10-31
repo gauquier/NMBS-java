@@ -36,7 +36,6 @@ public class GebruikerBeheerDAO {
 	        stmt.setInt(3, 1); // rollid staat nu vast moet nog aangepast worden
 	        stmt.setInt(4,  1 );
 	        stmt.executeUpdate();
-	        //connection.close();
 	    }catch (SQLException e){
 	        e.printStackTrace();
 	        opslagGelukt=false;

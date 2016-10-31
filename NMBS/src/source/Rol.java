@@ -1,6 +1,7 @@
 package source;
 
 public class Rol {
+
 	private int rollId;
 	private String Rol;
 	public int getRollId() {
@@ -9,22 +10,48 @@ public class Rol {
 	public void setRollId(int rollId) {
 		this.rollId = rollId;
 	}
-	public String getRol() {
-		return Rol;
-	}
-	public void setRol(String rol) {
-		Rol = rol;
-	}
-	public Rol(int rollId, String rol) {
-		super();
-		this.rollId = rollId;
-		Rol = rol;
-	}
 	public Rol(int rollId) {
 		super();
 		this.rollId = rollId;
 	}
 	
-	
-	
+	private int rolId;
+	private String rol;
+	/**
+	 * 
+	 */
+	public Rol() {
+	}
+	/**
+	 * @param rolId de rol id als deze rol
+	 * @param rol de rol benaming
+	 */
+	public Rol(int rolId, String rol) {
+		this.rolId = rolId;
+		this.rol = rol;
+	}
+	/**
+	 * @return de rolId
+	 */
+	public int getRolId() {
+		return rolId;
+	}
+	/**
+	 * @return de rol
+	 */
+	public String getRol() {
+		return rol;
+	}
+	/**
+	 * @param rolId de rolId 
+	 */
+	public void setRolId(int rolId) {
+		this.rolId = rolId;
+	}
+	/**
+	 * @param rol de rol benaming
+	 */
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
 }
