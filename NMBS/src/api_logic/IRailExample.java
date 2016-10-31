@@ -1,7 +1,6 @@
 package api_logic;
-import be.irail.api.IRail;
-import be.irail.api.data.Connection;
-import be.irail.api.data.TripNode;
+import api.*;
+
 import java.util.Calendar;
 import java.util.List;
 
