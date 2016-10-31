@@ -2,7 +2,8 @@ package source;
 import java.util.Calendar;
 import java.util.Date;
 
-import source.Aankoop.VerkoopType;
+import source.Aankoop;
+import source.VerkoopType;
 
 public class Ticket extends Aankoop {
 	private int ticketId;

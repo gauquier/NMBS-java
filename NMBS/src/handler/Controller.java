@@ -9,8 +9,8 @@ public class Controller extends LoginGui{
 	public static AdminGui adminInterface;
 	
 	public static void main(String[] args) throws Exception {
-		//runProgram();
-		DBA dba = new DBA();
+		runProgram();
+		/*DBA dba = new DBA();
 		
 		dba.createInsert("Test");
 		dba.addValue("jonas");
@@ -31,7 +31,7 @@ public class Controller extends LoginGui{
 		dba.addWhere("naam", "jonas");
 		rs = dba.commit();
 		if(rs.next())
-			System.out.println(rs.getString(1) +" " + rs.getString(2) + " " + rs.getString(3));
+			System.out.println(rs.getString(1) +" " + rs.getString(2) + " " + rs.getString(3));*/
     }
 	public static void runProgram(){
 		LoginGui.start();						
