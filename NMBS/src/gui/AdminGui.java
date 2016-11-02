@@ -87,10 +87,12 @@ public class AdminGui extends JFrame {
 		gebruikersToevoegen = new JMenuItem("Gebruiker toevoegen");
 		gebruikersToevoegen.addActionListener(new MenuItemHandler());
 		gebruikersVerwijderen = new JMenuItem("Gebruiker verwijderen");
+		gebruikersVerwijderen.addActionListener(new MenuItemHandler());
 		gebruikers.add(gebruikersToevoegen);
 		gebruikers.add(gebruikersVerwijderen);
 		
 		uitloggen = new JMenuItem("Uitloggen");
+		uitloggen.addActionListener(new MenuItemHandler());
 		instellingen.add(uitloggen);
 		
 		menubar.add(home);
@@ -118,6 +120,15 @@ public class AdminGui extends JFrame {
 			if (e.getSource() == gebruikersToevoegen) {	
 				navigation= "gebruikerToevoegen";
 				setHuidigeKeuze(new GebruikerToevoegenGui());
+			}
+			else if (e.getSource() == gebruikersVerwijderen) {	
+				navigation= "gebruikersVerwijderen";
+				setHuidigeKeuze(new GebruikerVerwijderenGui());
+			}
+			else if (e.getSource()==uitloggen)
+			{
+				setHuidigeKeuze(null);
+				LoginGui.start();
 			}
 		}
 	}
