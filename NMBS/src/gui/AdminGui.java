@@ -5,16 +5,25 @@ import java.awt.ComponentOrientation;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ResourceBundle;
 
+import javax.imageio.ImageIO;
 import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import handler.Controller;
+import java.awt.BorderLayout;
+import javax.swing.SwingConstants;
 
 public class AdminGui extends JFrame {
 	private Container c = getContentPane();	
@@ -23,7 +32,8 @@ public class AdminGui extends JFrame {
     public String navigation;
     
     JMenuBar menubar;
-    JMenu home, verkoop, routeInfo, stationInfo, verlorenVoorwerpen, instellingen, gebruikers;
+    JMenuItem home , routeInfo, stationInfo;
+    JMenu verkoop, verlorenVoorwerpen, instellingen, gebruikers;
     JMenuItem abonnementVerkoop, abonnementBeheer, uitloggen, gebruikersToevoegen, gebruikersVerwijderen;
 
 	public JPanel getHuidigeKeuze() {
@@ -72,10 +82,11 @@ public class AdminGui extends JFrame {
 	
 	private void createMenu() {
 		menubar = new JMenuBar();
-		home = new JMenu("Home");
+		home = new JMenuItem("Home");
+		home.addActionListener(new MenuItemHandler());
 		verkoop = new JMenu("Verkoop");
-		routeInfo = new JMenu("Route info");
-		stationInfo = new JMenu("Station info");
+		routeInfo = new JMenuItem("Route info");
+		stationInfo = new JMenuItem("Station info");
 		gebruikers = new JMenu("Gebruikers");
 		instellingen = new JMenu("Instellingen");
 		
@@ -129,6 +140,9 @@ public class AdminGui extends JFrame {
 			{
 				setHuidigeKeuze(null);
 				LoginGui.start();
+			}
+			else if (e.getSource() == home){
+				setHuidigeKeuze(new HomeGui());
 			}
 		}
 	}

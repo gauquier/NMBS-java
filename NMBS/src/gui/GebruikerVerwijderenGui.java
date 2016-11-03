@@ -2,7 +2,10 @@ package gui;
 
 import javax.swing.JPanel;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -10,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import dao.GebruikerBeheerDAO;
+import dao.PersoonDao;
 import source.Persoon;
 
 import javax.swing.JComboBox;
@@ -19,9 +24,14 @@ import javax.swing.JButton;
 public class GebruikerVerwijderenGui extends JPanel {
 	private JTextField txtVoornaam;
 	private JTextField txtAchternaam;
-	ArrayList <Persoon> personen;
+	private JButton btnZoek;
+	private String achternaam;
+	List<Persoon> personen;
 	public GebruikerVerwijderenGui() {
+		
 		personen= new ArrayList <Persoon>();
+		personen = GebruikerBeheerDAO.zoekPersonenOpAchternaam(achternaam);
+		
 		JLabel lblVoornaam = new JLabel("Voornaam");
 		
 		txtVoornaam = new JTextField();
@@ -32,9 +42,11 @@ public class GebruikerVerwijderenGui extends JPanel {
 		txtAchternaam = new JTextField();
 		txtAchternaam.setColumns(10);
 		
-		JButton btnZoek = new JButton("Zoek");
+		btnZoek = new JButton("Zoek");
+		btnZoek.addActionListener(new MenuItemHandler());
 		
 		JComboBox comboBox = new JComboBox();
+		
 		comboBox.setMaximumRowCount(15);
 		
 		JButton btnVerwijder = new JButton("Verwijder");
@@ -87,5 +99,17 @@ public class GebruikerVerwijderenGui extends JPanel {
 					.addContainerGap(65, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
+	}
+	
+	private class MenuItemHandler implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == btnZoek) {	
+				
+			}
+			
+		}
+		
 	}
 }
