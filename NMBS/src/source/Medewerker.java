@@ -6,7 +6,12 @@ public class Medewerker extends Persoon {
 	private Login login;
 	private boolean actief;
 
-	/**
+	/** 
+	 * Medewerker1 == Medewerker1 als 
+	 * Medewerker1.getPersoonId==Medewerker2.getPersoonId
+	 * Medewerker1.getMedewerkerId==Medewerker2.getMedewerkerId
+	 * Medewerker1.getLogin.getLoginId== Medewerker2.getLogin.getLoginId
+	 * Medewerker1.getLogin.getUsername== Medewerker2.getLogin.getUsername
 	 * 
 	 */
 	public Medewerker() {
@@ -142,6 +147,44 @@ public class Medewerker extends Persoon {
 	 */
 	public void setMedewerkerId(int medewerkerId) {
 		this.medewerkerId = medewerkerId;
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((login == null) ? 0 : login.hashCode());
+		result = prime * result + medewerkerId;
+		return result;
+	}
+	/* 
+	 * Medewerker1 == Medewerker2 als 
+	 * Medewerker1.getPersoonId==Medewerker2.getPersoonId
+	 * Medewerker1.getMedewerkerId==Medewerker2.getMedewerkerId
+	 * Medewerker1.getLogin.getLoginId== Medewerker2.getLogin.getLoginId
+	 * Medewerker1.getLogin.getUsername== Medewerker2.getLogin.getUsername 
+	 *  
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Medewerker other = (Medewerker) obj;
+		if (login == null) {
+			if (other.login != null)
+				return false;
+		} else if (!login.equals(other.login))
+			return false;
+		if (medewerkerId != other.medewerkerId)
+			return false;
+		return true;
 	}
 
 }

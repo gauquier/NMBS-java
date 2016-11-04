@@ -246,4 +246,14 @@ public class LoginDao {
 		}
 		return password1;
 	}
+	 
+	public static void loginWijzigen(Login login) throws Exception{ 
+	}
+	public static Login loginZoekenOpLoginId(int loginId) throws Exception{
+		return null; 
+	}
+	public static Login loginZoekenOpLoginId(Login login) throws Exception{
+		return null;
+		
+	}
 }
