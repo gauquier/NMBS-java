@@ -9,6 +9,7 @@ import javax.sql.DataSource;
 
 import source.Adres;
 import source.Login;
+import source.Medewerker;
 import source.Persoon;
 
 public class PersoonDao {
@@ -43,5 +44,15 @@ public class PersoonDao {
 	        e.printStackTrace();
 	    }   
 	    return persoonId;
+	}
+	public static boolean persoonWijzigen(Persoon persoon) throws Exception{
+		
+		return false;
+	}
+	public static Persoon zoekPersoonOpPersoonId(int persoonId) {
+		return null;
+	}
+	public static Persoon zoekPersoonOpPersoonId(Persoon medewerker) { 
+		return null;
 	}
 }

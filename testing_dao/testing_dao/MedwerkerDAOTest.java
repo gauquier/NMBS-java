@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import dao.Connection;
+import dao.MedewerkerDAO;
 import source.Medewerker;
 
 public class MedwerkerDAOTest {
@@ -23,7 +24,7 @@ public class MedwerkerDAOTest {
 		PreparedStatement stmt = null;
 		java.sql.Connection connection = null;
 		ResultSet resultSet = null;
-		 
+//		 MedewerkerDAO.
 			connection = Connection.getDBConnection();
 			try {
 				connection.setAutoCommit(false);
