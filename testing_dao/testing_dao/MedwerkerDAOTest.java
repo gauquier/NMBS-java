@@ -24,7 +24,7 @@ public class MedwerkerDAOTest {
 		PreparedStatement stmt = null;
 		java.sql.Connection connection = null;
 		ResultSet resultSet = null;
-//		 MedewerkerDAO.
+		 //MedewerkerDAO.me
 			connection = Connection.getDBConnection();
 			try {
 				connection.setAutoCommit(false);
@@ -52,8 +52,14 @@ public class MedwerkerDAOTest {
 	}
 	
 	@Test
-	public void medewerkerToevoegenTest() {
-		 
+	public void medewerkerToevoegenTest() { 
 	}
+	@Test
+	public void medewerkerWijzigenTest() { 
+	}
+	@Test
+	public void medewerkerZoekenOpMedewerkerIdTest() { 
+	}
+	 
 
 }

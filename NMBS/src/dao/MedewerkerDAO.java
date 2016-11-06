@@ -18,7 +18,7 @@ public class MedewerkerDAO {
 
 	private static final String MEDEWERKER_ZOEKEN_OP_MEDEWERKERID = "SELECT medewerkerId,loginId, persoonId, rolId, actief WHERE medewerkerId = ?";
 
-	private static final String MEDEWERKER_INFO_WIJZIGEN = "!undercontruction (eerst afsprekken met team hoe dit werkt";
+	private static final String MEDEWERKER_INFO_WIJZIGEN = "UPDATE Medewerker SET actief = ? WHERE medewerkerId = ?";
 	private static final String MEDEWERKER_ZOEKEN_OP_NAAM = "!undercontruction (eerst afsprekken met team hoe dit werkt";
 	private static final String MEDEWERKER_ZOEKEN_OP_PERSOONID = "!undercontruction (eerst afsprekken met team hoe dit werkt";
 
@@ -32,7 +32,8 @@ public class MedewerkerDAO {
 	 * @return een <b>medewerker</b> object die een id heeft van zowel
 	 *         Persoon.persoonId en Medewerker.medewerkerId en alle info die
 	 *         bijhoren <br>
-	 * 		<br>
+	 *         <br>
+	 *         <b>Werking: </b><br>
 	 *         Medewerker wordt niet toegevoegd tenzij alle stapen in order zijn
 	 * 
 	 *         <ol>
@@ -177,53 +178,75 @@ public class MedewerkerDAO {
 		return null;
 	}
 
+	/**
+	 * Medewerker wijzigen
+	 * 
+	 * @param medewerker
+	 *            de tewijzigen medewerker
+	 * @return true als medewerker gegevens gewijzigd zijn
+	 * @exception ExceptionMetBericht
+	 *                medewerker gegevens niet juist bv. als een combinatie van
+	 *                persoonId en medewerkerId en login(en zijn equals is niet
+	 *                gelijk aan die van deze medewerker) <br>
+	 *                <br>
+	 *                <b>Werking:</b><br>
+	 *                <ol>
+	 *                <li><b>stap 1</b> checken of medewerker in DB staat</li>
+	 *                <li><b>stap 2</b> checken of medewerker in DB = medewerker
+	 *                die gegeven wordt als parameter. met behulp van
+	 *                custom(aangepast) medewerker.equals</li>
+	 *                <li><b>stap 3</b> persoon info. wijzigen mbv
+	 *                PersoonDao.persoonWijzigen(medewerker);</li>
+	 *                <li><b>stap 4</b> de rol van medewerker wijzigen. Als die
+	 *                rolnaam die gegeven wordt niet in DB voorkomt wordt een
+	 *                exception gegooid en verder wijzigingen stoppen daar maar
+	 *                als de rol naam bestaat in DB wordt medewerker rol
+	 *                gewijzigd</li>
+	 *                <li><b>stap 5</b> de login van wedewerker wordt gewijzigd.
+	 *                <ol>
+	 *                <li>Als de login naam niet uniek is en dus bestaat al in
+	 *                DB wordt er verwacht dat
+	 *                LoginDao.loginWijzigen(medewerker.getLogin()) een
+	 *                exception gooit.</li>
+	 *                <li>Als de naam wel uniek is dan loopt medewerkerWijzigen
+	 *                verder</li>
+	 *                </ol>
+	 *                </li>
+	 *                <li><b>stap 6</b> Medewerker tabel wordt gewijzigd. De
+	 *                kolom actief wordt gewijzigd</li>
+	 *                </ol>
+	 */
 	public static boolean medewerkerWijzigen(Medewerker medewerker) throws Exception {
 		// waarom gebruik ik zo veel thows Exception ?
-		// omdat return van boolean niet veel informatie terug geeft 
-		// van wat er miss loopt 
-		
-		// stap 1 checken of medewerker in DB staat
-		// stap 2 checken of medewerker in DB = medewerker die gegeven wordt als
-		// parameter
-		// met behulp van medewerker.equals
-		// stap 3 checken of login gevevens geldig zijn
-		// als bv gebruikers naam al bestaat falt de hele methode
-		//	thows exception
-		// er wordt verwacht dat LoginDao.loginWijzigen(...) een exception
-		// zou throwen als de login gegeven niet geldig zijn
-		// stap 4 checken of the Rolnaam al bestaat of niet
-		// 	stap 4.1 als rolnaam niet bestaat in db wordt fals 
-		//	
-		// stap 1 Login van medewerker wijzigen met behulp van
-		// LoginDAO.loginWijzigen(...)
-		
-		
-		boolean success=false;
+		// omdat return van boolean niet veel informatie terug geeft
+		// van wat er miss loopt
+
+		boolean success = false;
 		if (medewerker == null) {
 			throw new Exception("gegeven medewerker parameter is null");
 		}
 		PreparedStatement stmt = null;
-		java.sql.Connection connection = null; 
+		java.sql.Connection connection = null;
 		try {
-			Medewerker dbMedewerker=MedewerkerDAO.medewerkerZoekenOpMedewerkerId(medewerker);
-			if(dbMedewerker==medewerker){ 
+			Medewerker dbMedewerker = MedewerkerDAO.medewerkerZoekenOpMedewerkerId(medewerker);
+			if (dbMedewerker == medewerker) {
 				connection = Connection.getDBConnection();
-				connection.setAutoCommit(false); 
+				connection.setAutoCommit(false);
 				PersoonDao.persoonWijzigen(medewerker);
-				
-				medewerker.setRol(RolDAO.zoekRolOpRolNaam(medewerker.getRol()));//eerst zien of gegeven Rol bestaat of niet dan die wijzigen
-				
-				LoginDao.loginWijzigen(medewerker.getLogin()); 
-				
-				
+				// eerst zien of gegeven Rol bestaat of niet dan die wijzigen
+				medewerker.setRol(RolDAO.zoekRolOpRolNaam(medewerker.getRol()));
+
+				LoginDao.loginWijzigen(medewerker.getLogin());
+
 				stmt = connection.prepareStatement(MEDEWERKER_INFO_WIJZIGEN);
-				stmt.setInt(1, medewerker.getMedewerkerId());
+				stmt.setInt(1, medewerker.isActief()?1:0);
+				stmt.setInt(2, medewerker.getMedewerkerId());
 				stmt.executeUpdate();
 				connection.commit();
-				success=true;
+				success = true;
 			}
 		} catch (Exception e) {
-			throw new Exception(e.getMessage()); 
+			throw new Exception(e.getMessage());
 		} finally {
 			try {
 				if (stmt != null)
@@ -233,10 +256,42 @@ public class MedewerkerDAO {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		} 
+		}
 		return success;
 	}
-
+/**
+ * Zoekt medewerker op medewerker id
+ * @param medewerkerId
+ * @return Medewerker met alle informatie van deze medewerker ingevuld
+ * @throws ExceptionmedewerkerZoekenOpMedewerkerId als:<br><br>
+ * <ol>
+ * <li>medewerkerId = 0</li> 
+ * <li>medewerker wordt niet gevonden in DB</li> 
+ * <li>een van de onderligende subklassen zoals LoginDAO heeft een exception gegooid</li> 
+ * </ol>
+ * <br>
+ * <b>Werking:</b>
+ * <ol>
+ * <li>stap 1 zoeken in DB voor medewerker op medewerker Id. Niet persoonId</li> 
+ * <li>stap 2 als medewerker wordt gevonden dan vul local medewerker object met medewerker tabel info
+	 * <ol>
+	 * <li>als medewerker niet gevonden dan wordt er een exception gegooid</li>  
+	 * </ol> </li> 
+ * <li>stap 3 alle andere medewerker gegevens worden ingevuld als volgt:
+  * <ol>
+	 * <li>Persoon gegevens dat medewerker class overerft van Persson worden ingevuld mbv PersoonDAO. 
+	 * Het is de job van PersoonDAO om te zorgen dat alles goed ingevuld wordt van persoon</li>  
+	 *  <li>
+	 *  Login gegevens van medewerker worden goed ingevuld mbv LoginDAO
+	 *  </li>
+	 *  <li>Rol gegeven van medewerker worden goed ingevuld mbv. RolDAO</li> 
+	 * </ol> </li>  
+ * <li></li> 
+ * <li></li> 
+ * <li></li> 
+ * <li></li> 
+ * </ol> 
+ * */
 	public static Medewerker medewerkerZoekenOpMedewerkerId(int medewerkerId) throws Exception {
 		if (medewerkerId == 0) {
 			throw new Exception("gegeven medewerkerId parameter is 0");
@@ -286,9 +341,42 @@ public class MedewerkerDAO {
 		}
 		return null;
 	}
-
+	/**
+	 * Zoekt medewerker op medewerker id
+	 * @param medewerker
+	 * @return Medewerker met alle informatie van deze medewerker ingevuld
+	 * @throws ExceptionmedewerkerZoekenOpMedewerkerId als:<br><br>
+	 * <ol>
+	 * <li>medewerker = null</li> 
+	 * <li>medewerkerId = 0</li> 
+	 * <li>medewerker wordt niet gevonden in DB</li> 
+	 * <li>een van de onderligende subklassen zoals LoginDAO heeft een exception gegooid</li> 
+	 * </ol>
+	 * <br>
+	 * <b>Werking:</b>
+	 * <ol>
+	 * <li>stap 1 zoeken in DB voor medewerker op medewerker Id. Niet persoonId</li> 
+	 * <li>stap 2 als medewerker wordt gevonden dan vul local medewerker object met medewerker tabel info
+		 * <ol>
+		 * <li>als medewerker niet gevonden dan wordt er een exception gegooid</li>  
+		 * </ol> </li> 
+	 * <li>stap 3 alle andere medewerker gegevens worden ingevuld als volgt:
+	  * <ol>
+		 * <li>Persoon gegevens dat medewerker class overerft van Persson worden ingevuld mbv PersoonDAO. 
+		 * Het is de job van PersoonDAO om te zorgen dat alles goed ingevuld wordt van persoon</li>  
+		 *  <li>
+		 *  Login gegevens van medewerker worden goed ingevuld mbv LoginDAO
+		 *  </li>
+		 *  <li>Rol gegeven van medewerker worden goed ingevuld mbv. RolDAO</li> 
+		 * </ol> </li>  
+	 * <li></li> 
+	 * <li></li> 
+	 * <li></li> 
+	 * <li></li> 
+	 * </ol> 
+	 * */
 	public static Medewerker medewerkerZoekenOpMedewerkerId(Medewerker medewerker) throws Exception {
-		if(medewerker==null){
+		if (medewerker == null) {
 			throw new Exception("gegeven medewerker parameter is null");
 		}
 		try {
