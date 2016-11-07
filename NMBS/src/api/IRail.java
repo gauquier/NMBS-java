@@ -14,7 +14,7 @@ import java.util.Date;
 
 public class IRail 
 {
-    private static final String DEFAULT_LANGUAGE    ="en";
+    private static final String DEFAULT_LANGUAGE    ="nl";
     private static final String WRAPPER_SUFFIX      ="IRailForJ";
     private static final int    NO_MAX_RESULTS      =0;
     
