@@ -27,7 +27,7 @@ public class AdressDAO {
 	        
 	        stmt = connection.prepareStatement("INSERT INTO Adres (straat, huisnr, woonplaats, postcode, bus) VALUES(?,?,?,?,?);");
 	        stmt.setString(1, adres.getStraat());
-	        stmt.setInt(2,adres.getHuisNr());
+	        stmt.setInt(2,adres.getHuisnr());
 	        stmt.setString(3,adres.getWoonplaats());
 	        stmt.setInt(4, adres.getPostcode() );
 	        stmt.setInt(5, adres.getBus());

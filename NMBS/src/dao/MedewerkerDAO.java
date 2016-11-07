@@ -209,7 +209,7 @@ public class MedewerkerDAO {
 			if(dbMedewerker==medewerker){ 
 				connection = Connection.getDBConnection();
 				connection.setAutoCommit(false); 
-				PersoonDao.persoonWijzigen(medewerker);
+				PersoonDAO.persoonWijzigen(medewerker);
 				
 				medewerker.setRol(RolDAO.zoekRolOpRolNaam(medewerker.getRol()));//eerst zien of gegeven Rol bestaat of niet dan die wijzigen
 				
@@ -262,11 +262,11 @@ public class MedewerkerDAO {
 				connection.close();
 				medewerker.setLogin(LoginDao.loginZoekenOpLoginId(medewerker.getLogin()));
 				medewerker.setRol(RolDAO.zoekRolOpRolNaam(medewerker.getRol()));
-				Persoon persoon = PersoonDao.zoekPersoonOpPersoonId(medewerker);
+				Persoon persoon = PersoonDAO.zoekPersoonOpPersoonId(medewerker);
 
 				medewerker.setAchternaam(persoon.getAchternaam());
 				medewerker.setVoornaam(persoon.getVoornaam());
-				medewerker.setAdresId(persoon.getAdresId());
+				medewerker.setAdres(persoon.getAdres());
 				return medewerker;
 			}
 			throw new Exception("gegeven medewerkerId parameter is niet gevonden in DB");

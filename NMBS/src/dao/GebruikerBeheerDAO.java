@@ -28,7 +28,7 @@ public class GebruikerBeheerDAO {
 	    try {
 	        connection = Connection.getDBConnection();        
 	        loginId = LoginDao.addLogin(login);
-	        persoonId = PersoonDao.addPersoon(persoon, adres);
+	        persoonId = PersoonDAO.addPersoon(persoon, adres);
 
 	        stmt = connection.prepareStatement("INSERT INTO Medewerker (loginId, persoonId, rolId, actief) VALUES(?,?,?,?);");
 	        stmt.setInt(1, loginId);

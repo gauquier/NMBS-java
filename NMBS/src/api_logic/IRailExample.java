@@ -1,5 +1,7 @@
 package api_logic;
 import api.*;
+import api.datastructs.Connection;
+import api.datastructs.TripNode;
 
 import java.util.Calendar;
 import java.util.List;
