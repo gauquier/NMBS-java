@@ -7,30 +7,23 @@ import source.VerkoopType;
 
 public class Ticket extends Aankoop {
 	private int ticketId;
-	private Calendar dag;
-	private String dep;
-	private String arr;
-	private int aantal;
+	private int medewerkerId;
+	private String depZone;
+	private String arrZone;
 	private boolean actief;
+	private Calendar verkoopDatum;
 	
-	//constructor zonder aankoopId en ticketId maken?
 	
-	public Ticket(int aankoopId, double korting, double prijs, VerkoopType verkoop, int ticketId, Calendar dag, String dep, String arr, int aantal, boolean actief) {
+	
+
+	public Ticket(int aankoopId, double korting, double prijs, VerkoopType verkoop, int ticketId, int medewerkerId, String depZone, String arrZone, boolean actief , Calendar verkoopDatum) {
 		super(aankoopId, korting, prijs, verkoop);
 		setTicketId(ticketId);
-		setDag(dag);
-		setDep(dep);
-		setArr(arr);
-		setAantal(aantal);
+		setMedewerkerId(medewerkerId);
+		setDepZone(depZone);
+		setArrZone(arrZone);
 		setActief(actief);
-	}
-	
-	private void setDag(Calendar dag) {
-		this.dag = dag;
-	}
-	
-	public Calendar getDag() {
-		return dag;
+		setVerkoopDatum(verkoopDatum);
 	}
 
 	public int getTicketId() {
@@ -39,29 +32,43 @@ public class Ticket extends Aankoop {
 	public void setTicketId(int ticketId) {
 		this.ticketId = ticketId;
 	}
-	public String getDep() {
-		return dep;
-	}
-	public void setDep(String dep) {
-		this.dep = dep;
-	}
-	public String getArr() {
-		return arr;
-	}
-	public void setArr(String arr) {
-		this.arr = arr;
-	}
-	public int getAantal() {
-		return aantal;
-	}
-	public void setAantal(int aantal) {
-		this.aantal = aantal;
-	}
-	public boolean isActief() {
+	
+	public boolean getActief() {
 		return actief;
 	}
 	public void setActief(boolean actief) {
 		this.actief = actief;
 	}
 	
+	public int getMedewerkerId() {
+		return medewerkerId;
+	}
+
+	public void setMedewerkerId(int medewerkerId) {
+		this.medewerkerId = medewerkerId;
+	}
+
+	public String getDepZone() {
+		return depZone;
+	}
+
+	public void setDepZone(String depZone) {
+		this.depZone = depZone;
+	}
+
+	public String getArrZone() {
+		return arrZone;
+	}
+
+	public void setArrZone(String arrZone) {
+		this.arrZone = arrZone;
+	}
+
+	public Calendar getVerkoopDatum() {
+		return verkoopDatum;
+	}
+
+	public void setVerkoopDatum(Calendar verkoopDatum) {
+		this.verkoopDatum = verkoopDatum;
+	}
 }

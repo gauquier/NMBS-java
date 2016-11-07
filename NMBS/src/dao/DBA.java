@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 
+import source.*;
+
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 
@@ -126,6 +128,30 @@ public class DBA {
 			}
 		}
 
+		
+		public void addValue(VerkoopType value) //haal type STRING uit enum
+		{
+			if(type == Type.INSERT)
+			{
+			sql = sql + ", " + value;
+			}
+			else{
+				System.out.println("can only add values when type = INSERT");
+			}
+		}
+		
+		public void addValue(Calendar value) //haal type STRING uit enum
+		{
+			if(type == Type.INSERT)
+			{
+			sql = sql + ", " + value;
+			}
+			else{
+				System.out.println("can only add values when type = INSERT");
+			}
+		}
+		
+		
 		/*public void addValue(Calendar value)
 		{
 			if(type == Type.INSERT)
@@ -198,6 +224,23 @@ public class DBA {
 			}
 		}
 
+		public void addWhere(String columnName, Calendar value) // ... WHERE columnName = value
+		{
+			if(type == Type.UPDATE || type == Type.SELECT)
+			{
+				if(!isWhere)
+				{
+					sql = sql + " WHERE";
+					isWhere = true;
+				}
+				sql = sql + " " + columnName + " = '" + value + "' AND";
+			}
+			else{
+				System.out.println("can only add WHERE clausule when type = UPDATE or type = SELECT");
+			}
+		}
+		
+		
 		public ResultSet commit()
 		{
 
