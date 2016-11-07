@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
@@ -92,6 +93,7 @@ public class DBA {
 				System.out.println("can only add values when type = INSERT");
 			}
 		}
+		
 		public void addValue(double value)
 		{
 			if(type == Type.INSERT)
@@ -124,6 +126,20 @@ public class DBA {
 			}
 		}
 
+		/*public void addValue(Calendar value)
+		{
+			if(type == Type.INSERT)
+			{
+			String datum;
+			datum = value;
+			sql = sql + ", '" + datum + "'";
+			
+			}
+			else{
+				System.out.println("can only add values when type = INSERT");
+			}
+		}*/
+		
 		public void addWhere(String columnName, String value) // ... WHERE columnName = value
 		{
 			if(type == Type.UPDATE || type == Type.SELECT)

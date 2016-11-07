@@ -3,6 +3,7 @@ package handler;
 import gui.*;
 import dao.DBA;
 import java.sql.ResultSet;
+import java.util.Calendar;
 
 public class Controller extends LoginGui{
 	
@@ -10,6 +11,8 @@ public class Controller extends LoginGui{
 	
 	public static void main(String[] args) throws Exception {
 		//runProgram();
+		
+		/*
 		DBA dba = new DBA();
 		
 		dba.createInsert("Test");
@@ -32,7 +35,7 @@ public class Controller extends LoginGui{
 		rs = dba.commit();
 		if(rs.next())
 			System.out.println(rs.getString(1) +" " + rs.getString(2) + " " + rs.getString(3));
-    }
+    */}
 	public static void runProgram(){
 		LoginGui.start();						
 	}
