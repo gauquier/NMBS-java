@@ -14,20 +14,21 @@ public class Medewerker extends Persoon {
 	 * Medewerker1.getLogin.getUsername== Medewerker2.getLogin.getUsername
 	 * 
 	 */
-	public Medewerker() {
-	} 
+	
+	
+
 	/**
 	 * @param persoonId
 	 * @param voornaam
 	 * @param achternaam
-	 * @param adresId
+	 * @param adres
 	 * @param medewerkerId
 	 * @param rol
 	 * @param login
 	 * @param actief
 	 */
-	public Medewerker(int persoonId, String voornaam, String achternaam, int adresId,int medewerkerId, Rol rol, Login login, boolean actief) {
-		super(persoonId, voornaam, achternaam, adresId);
+	public Medewerker(int persoonId, String voornaam, String achternaam, String email, Adres adres, int medewerkerId, Rol rol, Login login, boolean actief) {
+		super(persoonId, voornaam, achternaam, email, adres);
 		this.medewerkerId = medewerkerId;
 		this.rol = rol;
 		this.login = login;
@@ -43,8 +44,8 @@ public class Medewerker extends Persoon {
 	 * @param login
 	 * @param actief
 	 */
-	public Medewerker(int persoonId, String voornaam, String achternaam, int adresId, Rol rol, Login login, boolean actief) {
-		super(persoonId, voornaam, achternaam, adresId);
+	public Medewerker(int persoonId, String voornaam, String achternaam, String email, Adres adres, Rol rol, Login login, boolean actief) {
+		super(persoonId, voornaam, achternaam, email, adres);
 		this.rol = rol;
 		this.login = login;
 		this.actief=actief;
@@ -54,10 +55,10 @@ public class Medewerker extends Persoon {
 	 * @param persoonId
 	 * @param voornaam
 	 * @param achternaam
-	 * @param adresId
+	 * @param adres
 	 */
-	public Medewerker(int persoonId, String voornaam, String achternaam, int adresId) {
-		super(persoonId, voornaam, achternaam, adresId);
+	public Medewerker(int persoonId, String voornaam, String achternaam, String email, Adres adres) {
+		super(persoonId, voornaam, achternaam, email, adres);
 	}
 
 	/**
@@ -72,10 +73,10 @@ public class Medewerker extends Persoon {
 	/**
 	 * @param voornaam
 	 * @param achternaam
-	 * @param adresId
+	 * @param adres
 	 */
-	public Medewerker(String voornaam, String achternaam, int adresId) {
-		super(voornaam, achternaam, adresId);
+	public Medewerker(String voornaam, String achternaam, Adres adres) {
+		super(voornaam, achternaam, adres);
 	}
 
 	/**
