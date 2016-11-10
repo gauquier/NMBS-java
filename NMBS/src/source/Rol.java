@@ -15,7 +15,7 @@ public class Rol {
 		this.rollId = rollId;
 	}
 	
-	private int rolId;
+	private static int rolId;
 	private String rol;
 	/**
 	 * 
@@ -33,7 +33,7 @@ public class Rol {
 	/**
 	 * @return de rolId
 	 */
-	public int getRolId() {
+	public static int getRolId() {
 		return rolId;
 	}
 	/**

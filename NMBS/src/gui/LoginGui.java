@@ -16,6 +16,8 @@ import javax.swing.JTextField;
 import dao.LoginDao;
 import handler.Controller;
 import source.Login;
+import source.Medewerker;
+import source.Rol;
 
 public class LoginGui {
 
@@ -102,8 +104,15 @@ public class LoginGui {
 						System.out.println("User " + username + " is aangelogd.");
 
 						closeFrame();
-						Controller.adminInterface = new AdminGui();
-						Controller.adminInterface.setHome();
+						// if(Rol.getRolId()== 1){
+							Controller.adminInterface = new AdminGui();
+							Controller.adminInterface.setHome();
+						// }
+						/* else if(Rol.getRolId()== 2){
+							Controller.medewerkerInterface = new MedewerkerGui();
+							Controller.medewerkerInterface.setHome();
+						} */
+						
 
 					} else {
 						JOptionPane.showMessageDialog(new JFrame(), "Username or password wrong.");

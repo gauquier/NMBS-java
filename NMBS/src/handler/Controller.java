@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 public class Controller extends LoginGui{
 	
 	public static AdminGui adminInterface;
+	public static MedewerkerGui medewerkerInterface;
 	
 	public static void main(String[] args) throws Exception {
 		runProgram();

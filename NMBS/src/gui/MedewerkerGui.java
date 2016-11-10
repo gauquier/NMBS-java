@@ -1,31 +1,18 @@
 package gui;
-/* http://zetcode.com/tutorials/javaswingtutorial/menusandtoolbars/ */
 
-import java.awt.ComponentOrientation;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ResourceBundle;
 
-import javax.imageio.ImageIO;
-import javax.swing.Box;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import handler.Controller;
-import java.awt.BorderLayout;
-import javax.swing.SwingConstants;
 
-public class AdminGui extends JFrame {
+public class MedewerkerGui  extends JFrame {
 	private Container c = getContentPane();	
 	
 	JPanel vorigeKeuze, HuidigeKeuze;
@@ -33,10 +20,10 @@ public class AdminGui extends JFrame {
     
     JMenuBar menubar;
     JMenuItem home , routeInfo, stationInfo;
-    JMenu verkoop, verlorenVoorwerpen, instellingen, gebruikers;
-    JMenuItem abonnementVerkoop, abonnementBeheer, uitloggen, gebruikersToevoegen, gebruikersVerwijderen, ticketVerkoop, verlorenVoorwerpToevoegen, verlorenVoorwerpZoeken;
-
-	public JPanel getHuidigeKeuze() {
+    JMenu verkoop, verlorenVoorwerpen, instellingen;
+    JMenuItem abonnementVerkoop, abonnementBeheer, uitloggen, ticketVerkoop, verlorenVoorwerpToevoegen, verlorenVoorwerpZoeken;
+    
+    public JPanel getHuidigeKeuze() {
 		return HuidigeKeuze;
 	}
 	
@@ -48,15 +35,15 @@ public class AdminGui extends JFrame {
 		if (HuidigeKeuze!=null)
 		{
 		HuidigeKeuze.setVisible(true);
-		Controller.adminInterface.getContentPane().add(getHuidigeKeuze());
+		Controller.medewerkerInterface.getContentPane().add(getHuidigeKeuze());
 		}
 		else {
-		Controller.adminInterface.dispose();
-		Controller.adminInterface.setVisible(false);
+		Controller.medewerkerInterface.dispose();
+		Controller.medewerkerInterface.setVisible(false);
 		LoginGui.start();
 		}
 	}
-
+	
 	public void setHome(){
 		navigation= "home";
 		setHuidigeKeuze(new HomeGui());
@@ -67,10 +54,12 @@ public class AdminGui extends JFrame {
 	public void setC(Container c) {
 		this.c = c;
 	}
-	public AdminGui() {
+	
+	MedewerkerGui(){
 		this.setResizable(true);
-		menuGUI();		
+		menuGUI();
 	}
+	
 	private void menuGUI() {
 		createMenu();
 		setTitle("NMBS");
@@ -90,7 +79,6 @@ public class AdminGui extends JFrame {
 		
 		stationInfo = new JMenuItem("Station info");
 		stationInfo.addActionListener(new MenuItemHandler());
-		gebruikers = new JMenu("Gebruikers");
 		
 		verlorenVoorwerpen = new JMenu("Verloren voorwerpen");
 		verlorenVoorwerpToevoegen = new JMenuItem("Voorwerpen toevoegen");
@@ -107,13 +95,6 @@ public class AdminGui extends JFrame {
 		verkoop.add(abonnementVerkoop);
 		verkoop.add(abonnementBeheer);
 		
-		gebruikersToevoegen = new JMenuItem("Gebruiker toevoegen");
-		gebruikersToevoegen.addActionListener(new MenuItemHandler());
-		gebruikersVerwijderen = new JMenuItem("Gebruiker verwijderen");
-		gebruikersVerwijderen.addActionListener(new MenuItemHandler());
-		gebruikers.add(gebruikersToevoegen);
-		gebruikers.add(gebruikersVerwijderen);
-		
 		ticketVerkoop = new JMenuItem("Ticketverkoop");
 		ticketVerkoop.addActionListener(new MenuItemHandler());
 		verkoop.add(ticketVerkoop);
@@ -126,7 +107,6 @@ public class AdminGui extends JFrame {
 		menubar.add(verkoop);
 		menubar.add(routeInfo);
 		menubar.add(stationInfo);
-		menubar.add(gebruikers);
 		menubar.add(verlorenVoorwerpen);
 		menubar.add(instellingen);
 		setJMenuBar(menubar);
@@ -137,7 +117,7 @@ public class AdminGui extends JFrame {
 		 Thread t1 = new Thread(new Runnable() {
 			    public void run()
 			    {
-			    Controller.adminInterface.setHome();     
+			    Controller.medewerkerInterface.setHome();     
 			    }});  
 			    t1.start();
 	}
@@ -145,15 +125,7 @@ public class AdminGui extends JFrame {
 	private class MenuItemHandler implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == gebruikersToevoegen) {	
-				navigation= "gebruikerToevoegen";
-				setHuidigeKeuze(new GebruikerToevoegenGui());
-			}
-			else if (e.getSource() == gebruikersVerwijderen) {	
-				navigation= "gebruikersVerwijderen";
-				setHuidigeKeuze(new GebruikerVerwijderenGui());
-			}
-			else if (e.getSource()==uitloggen)
+			if (e.getSource()==uitloggen)
 			{
 				setHuidigeKeuze(null);
 				LoginGui.start();
@@ -178,5 +150,4 @@ public class AdminGui extends JFrame {
 			}
 		}
 	}
-	
 }
