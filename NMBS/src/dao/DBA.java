@@ -259,7 +259,7 @@ public class DBA {
 				e.printStackTrace();
 			}
 
-		if(rs != null)
+		if (rs != null)
 			try {
 				rs.close();
 				rs = null;
@@ -267,5 +267,4 @@ public class DBA {
 				e.printStackTrace();
 			}
 	}
-
 }

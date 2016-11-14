@@ -80,7 +80,7 @@ public class MedewerkerDAO {
 			return null;
 		}
 		medewerker.setLogin(LoginDao.loginToevoegen(medewerker.getLogin()));
-		Persoon persoon= PersoonDAO.persoonToevoegen(medewerker);
+		Persoon persoon= PersoonDao.persoonToevoegen(medewerker);
 		
 		
 		
@@ -243,13 +243,6 @@ public class MedewerkerDAO {
 			Medewerker dbMedewerker = MedewerkerDAO.medewerkerZoekenOpMedewerkerId(medewerker);
 			if (dbMedewerker == medewerker) {
 				connection = Connection.getDBConnection();
-				connection.setAutoCommit(false); 
-				PersoonDAO.persoonWijzigen(medewerker);
-				
-				medewerker.setRol(RolDAO.zoekRolOpRolNaam(medewerker.getRol()));//eerst zien of gegeven Rol bestaat of niet dan die wijzigen
-				
-				LoginDao.loginWijzigen(medewerker.getLogin()); 
-				
 				connection.setAutoCommit(false);
 				PersoonDao.persoonWijzigen(medewerker);
 				// eerst zien of gegeven Rol bestaat of niet dan die wijzigen
@@ -336,7 +329,7 @@ public class MedewerkerDAO {
 				connection.close();
 				medewerker.setLogin(LoginDao.loginZoekenOpLoginId(medewerker.getLogin()));
 				medewerker.setRol(RolDAO.zoekRolOpRolNaam(medewerker.getRol()));
-				Persoon persoon = PersoonDAO.zoekPersoonOpPersoonId(medewerker);
+				Persoon persoon = PersoonDao.zoekPersoonOpPersoonId(medewerker);
 
 				medewerker.setAchternaam(persoon.getAchternaam());
 				medewerker.setVoornaam(persoon.getVoornaam());
