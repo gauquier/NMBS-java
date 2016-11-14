@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import source.Periode;
 
-
+//VERY MUCH WORK-IN-PROGRESS!!!! NIET GEBRUIKEN. DO NOT USE. -Boris
 public class PeriodeDAO {
 
 

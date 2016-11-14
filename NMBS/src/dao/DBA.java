@@ -182,6 +182,12 @@ public class DBA {
 			}
 		}
 
+		public void addValue(Date value)
+		{
+			String ss = value.getDate() + "-" + value.getMonth() + "-" + (value.getYear() + 1900);
+			addValue(ss);
+		}
+
 		public ResultSet commit()
 		{
 
