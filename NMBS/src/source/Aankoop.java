@@ -5,7 +5,7 @@ public class Aankoop {
 	protected int aankoopId;
 	protected double korting;
 	protected double prijs;
-	protected VerkoopType verkoop;
+	protected VerkoopType verkoop;//"soort" in DB
 	
 	public Aankoop(double korting, double prijs, VerkoopType verkoop) {
 		setKorting(korting);

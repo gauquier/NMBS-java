@@ -4,19 +4,19 @@ import java.util.Calendar;
 public class Abonnement extends Aankoop {
 	
 	private int abonnementId;
-	private Calendar startDate;
-	private Calendar endDate;
-	private String regio;
+	private int periodeId;
 	private int klantId;//Foreign key met Klant
+	private String depZone;
+	private String arrZone;
 	private boolean actief;
 	
-	public Abonnement(int aankoopId, double korting, double prijs, VerkoopType verkoop, int abonnementId, Calendar startDate, Calendar endDate, String regio, int klantId, boolean actief) {
+	public Abonnement(int aankoopId, double korting, double prijs, VerkoopType verkoop, int abonnementId, int periodeId, int klantId, String depZone, String arrZone, boolean actief) {
 		super(aankoopId, korting, prijs, verkoop);
 		setAbonnementId(abonnementId);
-		setStartDate(startDate);
-		setEndDate(endDate);
-		setRegio(regio);
+		setPeriodeId(periodeId);
 		setKlantId(klantId);
+		setDepZone(depZone);
+		setArrZone(arrZone);
 		setActief(actief);
 	}
 	
@@ -32,29 +32,38 @@ public class Abonnement extends Aankoop {
 	public void setKlantId(int klantId) {
 		this.klantId = klantId;
 	}
-	public Calendar getStartDate() {
-		return startDate;
-	}
-	public void setStartDate(Calendar startDate) {
-		this.startDate = startDate;
-	}
-	public Calendar getEndDate() {
-		return endDate;
-	}
-	public void setEndDate(Calendar endDate) {
-		this.endDate = endDate;
-	}
-	public String getRegio() {
-		return regio;
-	}
-	public void setRegio(String regio) {
-		this.regio = regio;
-	}
+	
 	public boolean isActief() {
 		return actief;
 	}
 	public void setActief(boolean actief) {
 		this.actief = actief;
 	}
+
+	public int getPeriodeId() {
+		return periodeId;
+	}
+
+	public void setPeriodeId(int periodeId) {
+		this.periodeId = periodeId;
+	}
+
+	public String getDepZone() {
+		return depZone;
+	}
+
+	public void setDepZone(String depZone) {
+		this.depZone = depZone;
+	}
+
+	public String getArrZone() {
+		return arrZone;
+	}
+
+	public void setArrZone(String arrZone) {
+		this.arrZone = arrZone;
+	}
+	
+	
 	
 }
