@@ -256,4 +256,14 @@ public class LoginDao {
 		return null;
 		
 	}
+
+	public static Login loginZoekenOpUsername(Login login) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public static Login loginToevoegen(Login login) throws Exception{
+		return null;
+		
+	}
 }

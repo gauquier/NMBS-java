@@ -56,4 +56,7 @@ public class PersoonDao {
 	public static Persoon zoekPersoonOpPersoonId(Persoon medewerker) { 
 		return null;
 	}
+	public static Persoon persoonToevoegen(Persoon persoon) {
+		return null;
+	}
 }

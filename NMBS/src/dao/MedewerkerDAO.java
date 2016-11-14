@@ -20,7 +20,7 @@ public class MedewerkerDAO {
 
 	private static final String MEDEWERKER_INFO_WIJZIGEN = "UPDATE Medewerker SET actief = ? WHERE medewerkerId = ?";
 	private static final String MEDEWERKER_ZOEKEN_OP_NAAM = "!undercontruction (eerst afsprekken met team hoe dit werkt";
-	private static final String MEDEWERKER_ZOEKEN_OP_PERSOONID = "!undercontruction (eerst afsprekken met team hoe dit werkt";
+	private static final String MEDEWERKER_ZOEKEN_OP_PERSOONID = "SELECT medewerkerId,loginId, persoonId, rolId, actief WHERE persoonId = ?";
 
 	/**
 	 * Medewerker Toevoegen Als Medewerker al bestaat in databank return null
@@ -64,13 +64,26 @@ public class MedewerkerDAO {
 	 *         <li><b>stap 9</b><br>
 	 *         return medewerker object met alles ingevuld</li>
 	 *         </ol>
+	 * @throws  Exception  medewerkerException met een bericht van waar in het process van werker toevoegen de exception komt
+	 * bv. Login naam is all in gebruik
 	 */
-	public static Medewerker medewerkerToevoegen(Medewerker medewerker) {
+	public static Medewerker medewerkerToevoegen(Medewerker medewerker)throws  Exception  {
+		
+		boolean [] medewerkerToevoegenSuccessArray= new boolean[5];
+		for(boolean success:medewerkerToevoegenSuccessArray){
+			success=false;
+		}
+		
 		// ik heb dit in stappen gedaan
 
 		if (medewerker == null) {
 			return null;
 		}
+		medewerker.setLogin(LoginDao.loginToevoegen(medewerker.getLogin()));
+		Persoon persoon= PersoonDao.persoonToevoegen(medewerker);
+		
+		
+		
 		PreparedStatement stmt = null;
 		java.sql.Connection connection = null;
 		ResultSet resultSet = null;
@@ -149,13 +162,12 @@ public class MedewerkerDAO {
 			stmt.setInt(3, medewerker.isActief() ? 1 : 0);
 			connection.commit();
 
-			stmt = connection.prepareStatement(MEDEWERKER_ZOEKEN_OP_NAAM_EN_ACHTERNAAM);
-			stmt.setString(1, medewerker.getVoornaam());
-			stmt.setString(2, medewerker.getAchternaam());
+			stmt = connection.prepareStatement(MEDEWERKER_ZOEKEN_OP_PERSOONID);
+			stmt.setInt(1, medewerker.getPersoonId());
 			resultSet = stmt.executeQuery();
 			resultSet.next();
 			medewerker.setMedewerkerId(resultSet.getInt(1));
-
+			
 			resultSet.close();
 			stmt.close();
 			connection.close();
