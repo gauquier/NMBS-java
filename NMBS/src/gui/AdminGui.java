@@ -26,6 +26,7 @@ import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.UIManager;
+import java.awt.Toolkit;
 
 public class AdminGui extends JFrame {
 	private Container c = getContentPane();	
@@ -71,7 +72,7 @@ public class AdminGui extends JFrame {
 	}
 	public AdminGui() {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
-		getContentPane().setBackground(UIManager.getColor("RadioButtonMenuItem.selectionBackground"));
+		getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		this.setResizable(true);
 		menuGUI();		
 	}
@@ -87,7 +88,7 @@ public class AdminGui extends JFrame {
 	private void createMenu() {
 		menubar = new JMenuBar();
 		menubar.setForeground(Color.BLACK);
-		menubar.setBackground(Color.CYAN);
+		menubar.setBackground(Color.WHITE);
 		home = new JMenuItem("Home");
 		home.setBackground(Color.WHITE);
 		home.addActionListener(new MenuItemHandler());

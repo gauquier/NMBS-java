@@ -23,7 +23,7 @@ import java.awt.Color;
 
 public class LoginGui {
 
-	JFrame frame;
+	JFrame frmNmbs;
 	private JTextField txtUsername;
 	private JButton btnLogin;
 	private JPasswordField txtPassword;
@@ -35,11 +35,11 @@ public class LoginGui {
 
 	public static void start() {
 		window = new LoginGui();
-		window.frame.setVisible(true);
+		window.frmNmbs.setVisible(true);
 	}
 
 	public void closeFrame() {
-		window.frame.dispose();
+		window.frmNmbs.dispose();
 	}
 
 	public static void centreWindow(Window frame) {
@@ -49,38 +49,40 @@ public class LoginGui {
 		frame.setLocation(x, y);
 	}
 
-	private void initialize() {
-		frame = new JFrame();
-		frame.getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
+	private void initialize() {		
+		frmNmbs = new JFrame();
+		frmNmbs.setIconImage(Toolkit.getDefaultToolkit().getImage("/Users/jonas/Desktop/NMBS-java/NMBS/lib/logo-nmbs.png"));
+		frmNmbs.setTitle("NMBS");
+		frmNmbs.getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 
-		frame.setBounds(0, 0, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setResizable(false);
-		centreWindow(frame);
+		frmNmbs.setBounds(0, 0, 450, 300);
+		frmNmbs.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmNmbs.getContentPane().setLayout(null);
+		frmNmbs.setResizable(false);
+		centreWindow(frmNmbs);
 
 		btnLogin = new JButton("Login");
 		btnLogin.setBounds(208, 200, 116, 25);
-		frame.getContentPane().add(btnLogin);
+		frmNmbs.getContentPane().add(btnLogin);
 
 		txtUsername = new JTextField();
 		txtUsername.setBounds(208, 100, 116, 22);
-		frame.getContentPane().add(txtUsername);
+		frmNmbs.getContentPane().add(txtUsername);
 		txtUsername.setColumns(10);
 
 		JLabel lblUser = new JLabel("User");
 		lblUser.setForeground(Color.WHITE);
 		lblUser.setBounds(116, 90, 84, 38);
-		frame.getContentPane().add(lblUser);
+		frmNmbs.getContentPane().add(lblUser);
 
 		JLabel lblPassword = new JLabel("Password");
 		lblPassword.setForeground(Color.WHITE);
 		lblPassword.setBounds(116, 140, 84, 38);
-		frame.getContentPane().add(lblPassword);
+		frmNmbs.getContentPane().add(lblPassword);
 
 		txtPassword = new JPasswordField();
 		txtPassword.setBounds(208, 150, 116, 22);
-		frame.getContentPane().add(txtPassword);
+		frmNmbs.getContentPane().add(txtPassword);
 		btnLogin.addActionListener(new ButtonHandler());
 		txtPassword.addActionListener(new ButtonHandler());
 

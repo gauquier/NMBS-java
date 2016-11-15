@@ -4,6 +4,8 @@ import gui.*;
 import dao.DBA;
 import java.sql.ResultSet;
 
+import javax.swing.UIManager;
+
 public class Controller extends LoginGui{
 	
 	public static AdminGui adminInterface;
