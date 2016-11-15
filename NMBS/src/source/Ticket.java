@@ -1,67 +1,116 @@
 package source;
-import java.util.Calendar;
-import java.util.Date;
 
+import java.util.Date;
 import source.Aankoop;
 import source.VerkoopType;
 
 public class Ticket extends Aankoop {
-	private int ticketId;
-	private Calendar dag;
-	private String dep;
-	private String arr;
-	private int aantal;
-	private boolean actief;
+
+	private int medewerkerId;
+	private String depZone;
+	private String arrZone;
+	private int verkoopStation;
+	private int klasse = 2;
+	private int aantal = 1;
+	private Date verkoopDatum;
+	private Date heenDatum;
+	private Date terugDatum = null;
 	
-	//constructor zonder aankoopId en ticketId maken?
 	
-	public Ticket(int aankoopId, double korting, double prijs, VerkoopType verkoop, int ticketId, Calendar dag, String dep, String arr, int aantal, boolean actief) {
+	public Ticket(int aankoopId,   int medewerkerId, String depZone, String arrZone,int verkoopStation, double prijs, VerkoopType verkoop,double korting,int klasse, int aantal, Date verkoopDatum, Date heenDatum, Date terugDatum) {
 		super(aankoopId, korting, prijs, verkoop);
-		setTicketId(ticketId);
-		setDag(dag);
-		setDep(dep);
-		setArr(arr);
+		setMedewerkerId(medewerkerId);
+		setDepZone(depZone);
+		setArrZone(arrZone);
+		setVerkoopStation(verkoopStation);
+		setKlasse(klasse);
 		setAantal(aantal);
-		setActief(actief);
-	}
-	
-	private void setDag(Calendar dag) {
-		this.dag = dag;
-	}
-	
-	public Calendar getDag() {
-		return dag;
+		setVerkoopDatum(verkoopDatum);
+		setHeenDatum(heenDatum);
+		setTerugDatum(terugDatum);
 	}
 
-	public int getTicketId() {
-		return ticketId;
+	public Ticket(int aankoopId, int medewerkerId, String depZone,
+			String arrZone, int verkoopStation,double prijs, VerkoopType verkoop,double korting, Date verkoopDatum, Date heenDatum) {
+		super(aankoopId,korting, prijs, verkoop);
+		this.medewerkerId = medewerkerId;
+		this.depZone = depZone;
+		this.arrZone = arrZone;
+		this.verkoopStation = verkoopStation;
+		this.verkoopDatum = verkoopDatum;
+		this.heenDatum = heenDatum;
 	}
-	public void setTicketId(int ticketId) {
-		this.ticketId = ticketId;
+
+	
+	public int getMedewerkerId() {
+		return medewerkerId;
 	}
-	public String getDep() {
-		return dep;
+
+	public void setMedewerkerId(int medewerkerId) {
+		this.medewerkerId = medewerkerId;
 	}
-	public void setDep(String dep) {
-		this.dep = dep;
+
+	public String getDepZone() {
+		return depZone;
 	}
-	public String getArr() {
-		return arr;
+
+	public void setDepZone(String depZone) {
+		this.depZone = depZone;
 	}
-	public void setArr(String arr) {
-		this.arr = arr;
+
+	public String getArrZone() {
+		return arrZone;
 	}
+
+	public void setArrZone(String arrZone) {
+		this.arrZone = arrZone;
+	}
+
+	public Date getVerkoopDatum() {
+		return verkoopDatum;
+	}
+
+	public void setVerkoopDatum(Date verkoopDatum) {
+		this.verkoopDatum = verkoopDatum;
+	}
+	
+	public int getKlasse() {
+		return klasse;
+	}
+
+	public void setKlasse(int klasse) {
+		this.klasse = klasse;
+	}
+
 	public int getAantal() {
 		return aantal;
 	}
+
 	public void setAantal(int aantal) {
 		this.aantal = aantal;
 	}
-	public boolean isActief() {
-		return actief;
+
+	public Date getHeenDatum() {
+		return heenDatum;
 	}
-	public void setActief(boolean actief) {
-		this.actief = actief;
+
+	public void setHeenDatum(Date heenDatum) {
+		this.heenDatum = heenDatum;
 	}
-	
+
+	public Date getTerugDatum() {
+		return terugDatum;
+	}
+
+	public void setTerugDatum(Date terugDatum) {
+		this.terugDatum = terugDatum;
+	}
+
+	public int getVerkoopStation() {
+		return verkoopStation;
+	}
+
+	public void setVerkoopStation(int verkoopStation) {
+		this.verkoopStation = verkoopStation;
+	}
 }

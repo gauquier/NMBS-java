@@ -1,16 +1,55 @@
 package source;
 
+import java.util.ArrayList;
+
 public class Station {
-	public int aantalLoketten;
-	public int parkingplaatsen;
-	public int wifi;
-	public int gehandicapt;
-	public Station(int aantalLoketten, int parkingplaatsen, int wifi, int gehandicapt) {
+	private int stationID;
+	private String zone;
+	private int aantalLoketten;
+	private int parkingplaatsen;
+	private boolean wifi;
+	private boolean gehandicapte;
+	private ArrayList<VerlorenVoorwerp> verlorenVoorwerpen = new ArrayList<VerlorenVoorwerp>();
+	
+	public Station(int stationID, String zone, int aantalLoketten, int parkingplaatsen, boolean wifi,
+			boolean gehandicapte, ArrayList<VerlorenVoorwerp> verlorenVoorwerpen) {
 		super();
+		this.stationID = stationID;
+		this.zone = zone;
 		this.aantalLoketten = aantalLoketten;
 		this.parkingplaatsen = parkingplaatsen;
 		this.wifi = wifi;
-		this.gehandicapt = gehandicapt;
+		this.gehandicapte = gehandicapte;
+	}
+	
+	public void addVerlorenVoorwerp(VerlorenVoorwerp station){
+		verlorenVoorwerpen.add(station);
+	}
+	
+	public void delVerlorenVoorwerp(VerlorenVoorwerp station){
+		verlorenVoorwerpen.remove(station);
+	}
+	
+	public ArrayList<VerlorenVoorwerp> getVerlorenVoorwerpen() {
+		return verlorenVoorwerpen;
+	}
+
+	public void setVerlorenVoorwerpen(ArrayList<VerlorenVoorwerp> verlorenVoorwerpen) {
+		this.verlorenVoorwerpen = verlorenVoorwerpen;
+	}
+
+	public int getStationID() {
+		return stationID;
+	}
+	
+	public void setStationID(int stationID) {
+		this.stationID = stationID;
+	}
+	public String getZone() {
+		return zone;
+	}
+	public void setZone(String zone) {
+		this.zone = zone;
 	}
 	public int getAantalLoketten() {
 		return aantalLoketten;
@@ -24,31 +63,32 @@ public class Station {
 	public void setParkingplaatsen(int parkingplaatsen) {
 		this.parkingplaatsen = parkingplaatsen;
 	}
-	public int getWifi() {
+
+	public boolean getWifi() {
 		return wifi;
 	}
-	public void setWifi(int wifi) {
+	public void setWifi(boolean wifi) {
 		this.wifi = wifi;
 	}
-	public int getGehandicapt() {
-		return gehandicapt;
+	public boolean getGehandicapte() {
+		return gehandicapte;
 	}
-	public void setGehandicapt(int gehandicapt) {
-		this.gehandicapt = gehandicapt;
+	public void setGehandicapte(boolean gehandicapte) {
+		this.gehandicapte = gehandicapte;
 	}
+	
 	@Override
 	public String toString() {
-		return "Station [aantalLoketten=" + aantalLoketten + ", parkingplaatsen=" + parkingplaatsen + ", wifi=" + wifi
-				+ ", gehandicapt=" + gehandicapt + "]";
+		return "Station [stationID=" + stationID + ", zone=" + zone + ", aantalLoketten=" + aantalLoketten
+				+ ", parkingplaatsen=" + parkingplaatsen + ", wifi=" + wifi + ", gehandicapte=" + gehandicapte + "]";
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + aantalLoketten;
-		result = prime * result + gehandicapt;
 		result = prime * result + parkingplaatsen;
-		result = prime * result + wifi;
 		return result;
 	}
 	@Override
@@ -62,7 +102,7 @@ public class Station {
 		Station other = (Station) obj;
 		if (aantalLoketten != other.aantalLoketten)
 			return false;
-		if (gehandicapt != other.gehandicapt)
+		if (gehandicapte != other.gehandicapte)
 			return false;
 		if (parkingplaatsen != other.parkingplaatsen)
 			return false;
@@ -70,6 +110,4 @@ public class Station {
 			return false;
 		return true;
 	}
-	
-	
 }
