@@ -10,29 +10,37 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
+import javax.swing.UIManager;
+import java.awt.Color;
 
 public class StationInfoGui extends JPanel {
 	private JTextField txtDatum;
 	private JTextField txtTijd;
 	public StationInfoGui() {
+		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
 		JLabel lblStation = new JLabel("Station");
+		lblStation.setForeground(Color.WHITE);
 		
 		JComboBox cmbbStation = new JComboBox();
 		
 		JLabel lblDatum = new JLabel("Datum");
+		lblDatum.setForeground(Color.WHITE);
 		
 		txtDatum = new JTextField();
 		txtDatum.setColumns(10);
 		
 		JLabel lblTijd = new JLabel("Tijd");
+		lblTijd.setForeground(Color.WHITE);
 		
 		txtTijd = new JTextField();
 		txtTijd.setColumns(10);
 		
 		ButtonGroup buttonGroup = new ButtonGroup();
 		JRadioButton rdbtnVertrek = new JRadioButton("Vertrek");
+		rdbtnVertrek.setForeground(Color.WHITE);
 		JRadioButton rdbtnAankomst = new JRadioButton("Aankomst");
+		rdbtnAankomst.setForeground(Color.WHITE);
 		buttonGroup.add(rdbtnVertrek);
 		buttonGroup.add(rdbtnAankomst);
 		

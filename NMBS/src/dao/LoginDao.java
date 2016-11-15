@@ -27,10 +27,9 @@ public class LoginDao {
 			connection = Connection.getDBConnection();
 	        command = connection.createStatement();
 	        
-	        stmt = connection.prepareStatement("INSERT INTO Login (username, pass, email) VALUES(?,?,?);");
+	        stmt = connection.prepareStatement("INSERT INTO Login (username, pass) VALUES(?,?,?);");
 	        stmt.setString(1, login.getUsername());
 	        stmt.setString(2,login.getPassword());
-	        stmt.setString(3, login.getEmail());
 	        stmt.executeUpdate();
 	        data = command.executeQuery("SELECT MAX(loginId) FROM Login");
 	        if (data.next()) {

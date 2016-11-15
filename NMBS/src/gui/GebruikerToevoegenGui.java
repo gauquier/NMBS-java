@@ -21,6 +21,8 @@ import source.Rol;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.UIManager;
+import java.awt.Color;
 
 public class GebruikerToevoegenGui extends JPanel{
 	private JTextField txtVoornaam;
@@ -44,20 +46,28 @@ public class GebruikerToevoegenGui extends JPanel{
 	
 	public GebruikerToevoegenGui()
 	{
+		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
 		JLabel lblVoornaam = new JLabel("Voornaam");
+		lblVoornaam.setForeground(Color.WHITE);
 		
 		JLabel lblAchternaam = new JLabel("Achternaam");
+		lblAchternaam.setForeground(Color.WHITE);
 		
 		JLabel lblStraat = new JLabel("Straat");
+		lblStraat.setForeground(Color.WHITE);
 		
 		JLabel lblHuisnummer = new JLabel("Huisnummer");
+		lblHuisnummer.setForeground(Color.WHITE);
 		
 		JLabel lblGemeente = new JLabel("Gemeente");
+		lblGemeente.setForeground(Color.WHITE);
 		
 		JLabel lblPostcode = new JLabel("Postcode");
+		lblPostcode.setForeground(Color.WHITE);
 		
 		JLabel lblBus = new JLabel("Bus");
+		lblBus.setForeground(Color.WHITE);
 		
 		txtVoornaam = new JTextField();
 		txtVoornaam.setColumns(10);
@@ -84,10 +94,13 @@ public class GebruikerToevoegenGui extends JPanel{
 		btnToevoegen.addActionListener(new MenuItemHandler());
 		
 		lblUsername = new JLabel("Username");
+		lblUsername.setForeground(Color.WHITE);
 		
 		lblPassword = new JLabel("Password");
+		lblPassword.setForeground(Color.WHITE);
 		
 		lblEmail = new JLabel("Email");
+		lblEmail.setForeground(Color.WHITE);
 		
 		txtUsername = new JTextField();
 		txtUsername.setColumns(10);
@@ -200,7 +213,7 @@ public class GebruikerToevoegenGui extends JPanel{
 					
 					login = new Login(txtUsername.getText().trim(), txtPassword.getText().trim(), txtEmail.getText().trim());
 					login.toString();
-					adres = new Adres(txtStraat.getText().trim(), Integer.parseInt(txtHuisnr.getText()), txtGemeente.getText().trim(), Integer.parseInt(txtPostcode.getText()), Integer.parseInt(txtBus.getText().trim()));
+					adres = new Adres(txtStraat.getText().trim(), Integer.parseInt(txtHuisnr.getText()), txtGemeente.getText().trim(), Integer.parseInt(txtPostcode.getText()), txtBus.getText().trim().charAt(0));
 					adres.toString();
 					persoon = new Persoon(adres.getAdresId(), txtVoornaam.getText().trim(), txtAchternaam.getText().trim());
 					persoon.toString();

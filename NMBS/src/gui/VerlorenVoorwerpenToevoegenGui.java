@@ -8,16 +8,21 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
+import javax.swing.UIManager;
+import java.awt.Color;
 
 public class VerlorenVoorwerpenToevoegenGui extends JPanel{
 	private JTextField txtDatum;
 	public VerlorenVoorwerpenToevoegenGui() {
+		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
 		JLabel lblBeschrijving = new JLabel("Beschrijving");
+		lblBeschrijving.setForeground(Color.WHITE);
 		
 		JTextArea txtrBeschrijving = new JTextArea();
 		
 		JLabel lblDatum = new JLabel("Datum");
+		lblDatum.setForeground(Color.WHITE);
 		
 		txtDatum = new JTextField();
 		txtDatum.setColumns(10);

@@ -11,6 +11,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import handler.Controller;
+import javax.swing.UIManager;
 
 public class MedewerkerGui  extends JFrame {
 	private Container c = getContentPane();	
@@ -56,6 +57,8 @@ public class MedewerkerGui  extends JFrame {
 	}
 	
 	MedewerkerGui(){
+		getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
+		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		this.setResizable(true);
 		menuGUI();
 	}

@@ -29,10 +29,9 @@ public class PersoonDao {
 	        if (connection == null){connection = Connection.getDBConnection();}
 	        command = connection.createStatement();
 	        
-	        stmt = connection.prepareStatement("INSERT INTO Login (adresId, voornaam, achternaam) VALUES(?,?,?);");
-	        stmt.setInt(1, adresId);
-	        stmt.setString(2,persoon.getVoornaam());
-	        stmt.setString(3, persoon.getAchternaam());
+	        stmt = connection.prepareStatement("INSERT INTO Login (voornaam, achternaam) VALUES(?,?,?);");
+	        stmt.setString(1,persoon.getVoornaam());
+	        stmt.setString(2, persoon.getAchternaam());
 	        stmt.executeUpdate();
 	        data = command.executeQuery("SELECT MAX(adressId) FROM adress");
 	        if (data.next()) {

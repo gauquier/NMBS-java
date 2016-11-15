@@ -7,6 +7,7 @@ import java.io.File;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 public class HomeGui extends JPanel {
 	/**
@@ -32,7 +33,7 @@ public class HomeGui extends JPanel {
 		jPanel2 = new JPanel();		
 		
 		jPanel2.setLayout(new BorderLayout());
-		
+		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
 		jPanel2.add(jPanel);
 		add(jPanel);

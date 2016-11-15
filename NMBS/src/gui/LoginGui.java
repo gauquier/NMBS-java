@@ -18,6 +18,8 @@ import handler.Controller;
 import source.Login;
 import source.Medewerker;
 import source.Rol;
+import javax.swing.UIManager;
+import java.awt.Color;
 
 public class LoginGui {
 
@@ -49,6 +51,7 @@ public class LoginGui {
 
 	private void initialize() {
 		frame = new JFrame();
+		frame.getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 
 		frame.setBounds(0, 0, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,10 +69,12 @@ public class LoginGui {
 		txtUsername.setColumns(10);
 
 		JLabel lblUser = new JLabel("User");
+		lblUser.setForeground(Color.WHITE);
 		lblUser.setBounds(116, 90, 84, 38);
 		frame.getContentPane().add(lblUser);
 
 		JLabel lblPassword = new JLabel("Password");
+		lblPassword.setForeground(Color.WHITE);
 		lblPassword.setBounds(116, 140, 84, 38);
 		frame.getContentPane().add(lblPassword);
 

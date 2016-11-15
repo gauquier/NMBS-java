@@ -20,6 +20,8 @@ import source.Persoon;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JButton;
+import javax.swing.UIManager;
+import java.awt.Color;
 
 public class GebruikerVerwijderenGui extends JPanel {
 	private JTextField txtVoornaam;
@@ -28,16 +30,20 @@ public class GebruikerVerwijderenGui extends JPanel {
 	private String achternaam;
 	List<Persoon> personen;
 	public GebruikerVerwijderenGui() {
+		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
+		setForeground(Color.WHITE);
 		
 		personen= new ArrayList <Persoon>();
 		personen = GebruikerBeheerDAO.zoekPersonenOpAchternaam(achternaam);
 		
 		JLabel lblVoornaam = new JLabel("Voornaam");
+		lblVoornaam.setForeground(Color.WHITE);
 		
 		txtVoornaam = new JTextField();
 		txtVoornaam.setColumns(10);
 		
 		JLabel lblAchternaam = new JLabel("Achternaam");
+		lblAchternaam.setForeground(Color.WHITE);
 		
 		txtAchternaam = new JTextField();
 		txtAchternaam.setColumns(10);

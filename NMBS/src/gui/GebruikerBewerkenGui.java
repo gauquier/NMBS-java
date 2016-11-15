@@ -7,6 +7,8 @@ import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.UIManager;
+import java.awt.Color;
 
 public class GebruikerBewerkenGui extends JPanel {
 	private JTextField txtVoornaam;
@@ -18,22 +20,31 @@ public class GebruikerBewerkenGui extends JPanel {
 	private JTextField txtPostcode;
 	private JTextField txtBus;
 	public GebruikerBewerkenGui() {
+		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
 		JLabel lblVoornaam = new JLabel("Voornaam");
+		lblVoornaam.setForeground(Color.WHITE);
 		
 		JLabel lblAchternaam = new JLabel("Achternaam");
+		lblAchternaam.setForeground(Color.WHITE);
 		
 		JLabel lblEmail = new JLabel("Email");
+		lblEmail.setForeground(Color.WHITE);
 		
 		JLabel lblStraat = new JLabel("Straat");
+		lblStraat.setForeground(Color.WHITE);
 		
 		JLabel lblHuisnummer = new JLabel("Huisnummer");
+		lblHuisnummer.setForeground(Color.WHITE);
 		
 		JLabel lblWoonplaats = new JLabel("Woonplaats");
+		lblWoonplaats.setForeground(Color.WHITE);
 		
 		JLabel lblPostcode = new JLabel("Postcode");
+		lblPostcode.setForeground(Color.WHITE);
 		
 		JLabel lblBus = new JLabel("Bus");
+		lblBus.setForeground(Color.WHITE);
 		
 		txtVoornaam = new JTextField();
 		txtVoornaam.setColumns(10);

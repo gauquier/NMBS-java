@@ -24,6 +24,8 @@ import javax.swing.JPanel;
 import handler.Controller;
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
+import java.awt.Color;
+import javax.swing.UIManager;
 
 public class AdminGui extends JFrame {
 	private Container c = getContentPane();	
@@ -68,6 +70,8 @@ public class AdminGui extends JFrame {
 		this.c = c;
 	}
 	public AdminGui() {
+		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
+		getContentPane().setBackground(UIManager.getColor("RadioButtonMenuItem.selectionBackground"));
 		this.setResizable(true);
 		menuGUI();		
 	}
@@ -82,9 +86,13 @@ public class AdminGui extends JFrame {
 	
 	private void createMenu() {
 		menubar = new JMenuBar();
+		menubar.setForeground(Color.BLACK);
+		menubar.setBackground(Color.CYAN);
 		home = new JMenuItem("Home");
+		home.setBackground(Color.WHITE);
 		home.addActionListener(new MenuItemHandler());
 		verkoop = new JMenu("Verkoop");
+		verkoop.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		routeInfo = new JMenuItem("Route info");
 		routeInfo.addActionListener(new MenuItemHandler());
 		
@@ -103,7 +111,9 @@ public class AdminGui extends JFrame {
 		instellingen = new JMenu("Instellingen");
 		
 		abonnementBeheer = new JMenuItem("Abbonement beheer");
+		abonnementBeheer.setBackground(Color.WHITE);
 		abonnementVerkoop = new JMenuItem("Abbonement verkoop");
+		abonnementVerkoop.setBackground(Color.WHITE);
 		verkoop.add(abonnementVerkoop);
 		verkoop.add(abonnementBeheer);
 		
@@ -115,6 +125,7 @@ public class AdminGui extends JFrame {
 		gebruikers.add(gebruikersVerwijderen);
 		
 		ticketVerkoop = new JMenuItem("Ticketverkoop");
+		ticketVerkoop.setBackground(Color.WHITE);
 		ticketVerkoop.addActionListener(new MenuItemHandler());
 		verkoop.add(ticketVerkoop);
 		

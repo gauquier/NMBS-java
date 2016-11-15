@@ -7,18 +7,23 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
+import javax.swing.UIManager;
+import java.awt.Color;
 
 public class VerlorenVoorwerpenZoekenGui extends JPanel {
 	private JTextField txtBeschrijving;
 	private JTextField txtDatum;
 	public VerlorenVoorwerpenZoekenGui() {
+		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
 		JLabel lblBeschrijving = new JLabel("Beschrijving");
+		lblBeschrijving.setForeground(Color.WHITE);
 		
 		txtBeschrijving = new JTextField();
 		txtBeschrijving.setColumns(10);
 		
 		JLabel lblDatum = new JLabel("Datum");
+		lblDatum.setForeground(Color.WHITE);
 		
 		txtDatum = new JTextField();
 		txtDatum.setColumns(10);

@@ -9,6 +9,8 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
+import javax.swing.UIManager;
+import java.awt.Color;
 
 public class RouteZoekenGui extends JPanel {
 	private JTextField txtVan;
@@ -16,30 +18,37 @@ public class RouteZoekenGui extends JPanel {
 	private JTextField txtDatum;
 	private JTextField txtUur;
 	public RouteZoekenGui() {
+		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
 		JLabel lblVan = new JLabel("Van");
+		lblVan.setForeground(Color.WHITE);
 		
 		txtVan = new JTextField();
 		txtVan.setColumns(10);
 		
 		JLabel lblNaar = new JLabel("Naar");
+		lblNaar.setForeground(Color.WHITE);
 		
 		txtNaar = new JTextField();
 		txtNaar.setColumns(10);
 		
 		JLabel lblDatum = new JLabel("Datum");
+		lblDatum.setForeground(Color.WHITE);
 		
 		txtDatum = new JTextField();
 		txtDatum.setColumns(10);
 		
 		JLabel lblUur = new JLabel("Uur");
+		lblUur.setForeground(Color.WHITE);
 		
 		txtUur = new JTextField();
 		txtUur.setColumns(10);
 		
 		ButtonGroup buttonGroup = new ButtonGroup();
 		JRadioButton rdbtnVertrek = new JRadioButton("Vertrek");
+		rdbtnVertrek.setForeground(Color.WHITE);
 		JRadioButton rdbtnAankomst = new JRadioButton("Aankomst");
+		rdbtnAankomst.setForeground(Color.WHITE);
 		buttonGroup.add(rdbtnVertrek);
 		buttonGroup.add(rdbtnAankomst);
 		
