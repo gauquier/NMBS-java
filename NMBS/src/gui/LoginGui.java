@@ -106,19 +106,16 @@ public class LoginGui {
 
 						int loginId = LoginDao.getLoginId(username);
 						int rollId = LoginDao.getRoll(loginId);
-						
-						System.out.println(rollId);
-						System.out.println("User " + username + " is aangelogd.");
 
 						closeFrame();
-						// if(Rol.getRolId()== 1){
+						 if(rollId == 1){
 							Controller.adminInterface = new AdminGui();
 							Controller.adminInterface.setHome();
-						// }
-						/* else if(Rol.getRolId()== 2){
+						 }
+						 else if(rollId == 2){
 							Controller.medewerkerInterface = new MedewerkerGui();
 							Controller.medewerkerInterface.setHome();
-						} */
+						} 
 						
 
 					} else {

@@ -1,8 +1,8 @@
 package source;
 
 public class Login {
-	private int loginId;
-	private String username;
+	private static int loginId;
+	private static String username;
 	private String password;
 	private String email;
 
@@ -34,7 +34,7 @@ public class Login {
 	/**
 	 * @return username (gebruikersnaam)
 	 */
-	public String getUsername() {
+	public static String getUsername() {
 		return username;
 	}
 
@@ -71,7 +71,7 @@ public class Login {
 	/**
 	 * @return loginId
 	 */
-	public int getLoginId() {
+	public static int getLoginId() {
 		return loginId;
 	}
 	/**
