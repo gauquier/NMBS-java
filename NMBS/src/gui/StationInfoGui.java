@@ -12,6 +12,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import javax.swing.UIManager;
 import java.awt.Color;
+import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 public class StationInfoGui extends JPanel {
 	private JTextField txtDatum;
@@ -45,6 +46,8 @@ public class StationInfoGui extends JPanel {
 		buttonGroup.add(rdbtnAankomst);
 		
 		JButton btnZoeken = new JButton("Zoeken");
+		
+		JLabel lblStationInfo = DefaultComponentFactory.getInstance().createTitle("Station info");
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -69,13 +72,18 @@ public class StationInfoGui extends JPanel {
 										.addComponent(cmbbStation, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE)))))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(109)
-							.addComponent(btnZoeken)))
+							.addComponent(btnZoeken))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(37)
+							.addComponent(lblStationInfo)))
 					.addContainerGap(155, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(57)
+					.addGap(23)
+					.addComponent(lblStationInfo)
+					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblStation)
 						.addComponent(cmbbStation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))

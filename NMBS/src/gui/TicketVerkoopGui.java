@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.UIManager;
 import java.awt.Color;
+import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 public class TicketVerkoopGui extends JPanel {
 	private JTextField txtVan;
@@ -53,6 +54,8 @@ public class TicketVerkoopGui extends JPanel {
 		buttonGroup.add(rdbtnHeen);
 		buttonGroup.add(rdbtnHeenEnTerug);
 		
+		JLabel lblTicketVerkoop = DefaultComponentFactory.getInstance().createTitle("Ticket verkoop");
+		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -64,12 +67,9 @@ public class TicketVerkoopGui extends JPanel {
 								.addGroup(groupLayout.createSequentialGroup()
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 										.addComponent(rdbtnHeen)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(lblNaar)
-												.addComponent(lblVan)
-												.addComponent(lblDatum))
-											.addGap(16)))
+										.addComponent(lblNaar)
+										.addComponent(lblVan)
+										.addComponent(lblDatum))
 									.addGap(12))
 								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(lblSoortBiljet)
@@ -84,13 +84,18 @@ public class TicketVerkoopGui extends JPanel {
 									.addComponent(rdbtnHeenEnTerug))))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(116)
-							.addComponent(btnVerkoop)))
-					.addContainerGap(123, Short.MAX_VALUE))
+							.addComponent(btnVerkoop))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(27)
+							.addComponent(lblTicketVerkoop)))
+					.addContainerGap(127, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(20)
+					.addContainerGap()
+					.addComponent(lblTicketVerkoop)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblVan)
 						.addComponent(txtVan, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))

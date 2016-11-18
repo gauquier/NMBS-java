@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.UIManager;
 import java.awt.Color;
+import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 public class GebruikerBewerkenGui extends JPanel {
 	private JTextField txtVoornaam;
@@ -71,12 +72,15 @@ public class GebruikerBewerkenGui extends JPanel {
 		txtBus.setColumns(10);
 		
 		JButton btnOpslaan = new JButton("Opslaan");
+		
+		JLabel lblGebruikerBewerken = DefaultComponentFactory.getInstance().createTitle("Gebruiker bewerken");
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(37)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblGebruikerBewerken)
 						.addComponent(lblPostcode)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
@@ -103,7 +107,9 @@ public class GebruikerBewerkenGui extends JPanel {
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(34)
+					.addGap(12)
+					.addComponent(lblGebruikerBewerken)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblVoornaam)
 						.addComponent(txtVoornaam, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
@@ -137,7 +143,7 @@ public class GebruikerBewerkenGui extends JPanel {
 						.addComponent(txtBus, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(28)
 					.addComponent(btnOpslaan)
-					.addContainerGap(37, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 	}

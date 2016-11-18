@@ -12,10 +12,10 @@ import source.VerlorenVoorwerp;
 
 public class VerlorenVoorwerpDAO {
 
-	private DBA dba = new DBA();
-	private StationDAO stationDAO;
+	private static DBA dba = new DBA();
+	private static StationDAO stationDAO;
 	
-	public int insertVerlorenVoorwerp(VerlorenVoorwerp verlorenVoorwerp){
+	public static int insertVerlorenVoorwerp(VerlorenVoorwerp verlorenVoorwerp){
 		if(getVerlorenVoorwerpId(verlorenVoorwerp) == 0){
 			dba.createInsert("VerlorenVoorwerp");
 			dba.addValue(stationDAO.insertStation(verlorenVoorwerp.getStation()));
@@ -27,7 +27,7 @@ public class VerlorenVoorwerpDAO {
 		return getVerlorenVoorwerpId(verlorenVoorwerp);
 	}
 	
-	public int getVerlorenVoorwerpId(VerlorenVoorwerp verlorenVoorwerp){
+	public static int getVerlorenVoorwerpId(VerlorenVoorwerp verlorenVoorwerp){
 		
 		dba.createSelect("VerlorenVoorwerp", "verlorenVoorwerpId");
 		dba.addWhere("stationId", stationDAO.getStationId(verlorenVoorwerp.getStation())); 
