@@ -1,5 +1,7 @@
 package source;
+
 import java.util.ArrayList;
+
 public class Station {
 	private int stationID;
 	private String zone;
@@ -61,6 +63,7 @@ public class Station {
 	public void setParkingplaatsen(int parkingplaatsen) {
 		this.parkingplaatsen = parkingplaatsen;
 	}
+
 	public boolean getWifi() {
 		return wifi;
 	}
@@ -80,6 +83,31 @@ public class Station {
 				+ ", parkingplaatsen=" + parkingplaatsen + ", wifi=" + wifi + ", gehandicapte=" + gehandicapte + "]";
 	}
 	
-	
-
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + aantalLoketten;
+		result = prime * result + parkingplaatsen;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Station other = (Station) obj;
+		if (aantalLoketten != other.aantalLoketten)
+			return false;
+		if (gehandicapte != other.gehandicapte)
+			return false;
+		if (parkingplaatsen != other.parkingplaatsen)
+			return false;
+		if (wifi != other.wifi)
+			return false;
+		return true;
+	}
 }

@@ -1,7 +1,6 @@
 package source;
-import java.util.Calendar;
-import java.util.Date;
 
+import java.util.Date;
 import source.Aankoop;
 import source.VerkoopType;
 
