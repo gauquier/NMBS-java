@@ -13,7 +13,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import dao.GebruikerBeheerDAO;
 import dao.PersoonDao;
 import source.Persoon;
 
@@ -32,9 +31,6 @@ public class GebruikerVerwijderenGui extends JPanel {
 	public GebruikerVerwijderenGui() {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		setForeground(Color.WHITE);
-		
-		personen= new ArrayList <Persoon>();
-		personen = GebruikerBeheerDAO.zoekPersonenOpAchternaam(achternaam);
 		
 		JLabel lblVoornaam = new JLabel("Voornaam");
 		lblVoornaam.setForeground(Color.WHITE);

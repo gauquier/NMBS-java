@@ -2,7 +2,7 @@ package source;
 
 public class Medewerker extends Persoon {
 	private int medewerkerId;
-	private Rol rol;
+	private static Rol rol;
 	private Login login;
 	private boolean actief;
 
@@ -90,7 +90,7 @@ public class Medewerker extends Persoon {
 	/**
 	 * @return rol van personeel
 	 */
-	public Rol getRol() {
+	public static Rol getRol() {
 		return rol;
 	}
 

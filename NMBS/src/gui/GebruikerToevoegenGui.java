@@ -11,8 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import dao.GebruikerBeheerDAO;
 import dao.LoginDao;
+import dao.MedewerkerDAO;
 import source.Adres;
 import source.Login;
 import source.Persoon;
@@ -215,10 +215,14 @@ public class GebruikerToevoegenGui extends JPanel{
 					login.toString();
 					adres = new Adres(txtStraat.getText().trim(), Integer.parseInt(txtHuisnr.getText()), txtGemeente.getText().trim(), Integer.parseInt(txtPostcode.getText()), txtBus.getText().trim().charAt(0));
 					adres.toString();
-					persoon = new Persoon(adres.getAdresId(), txtVoornaam.getText().trim(), txtAchternaam.getText().trim());
+					persoon = new Persoon(txtVoornaam.getText().trim(), txtAchternaam.getText().trim(), txtEmail.getText().trim(), persoon.getAdres());
 					persoon.toString();
-					int rollId=1;
-					GebruikerBeheerDAO.addGebruiker(login,persoon,rollId, adres);
+					int rolid = 2;
+					rol = new Rol(rolid);
+					rol.setRolId(rolid);
+					MedewerkerDAO.addMedewerker(login, persoon, rol, adres);
+					close();
+					JOptionPane.showMessageDialog(new JFrame(),"Medewerker is toegevoegd!");
 				}
 				else{
 					JOptionPane.showMessageDialog(new JFrame(),"Please fill in all required fields!");

@@ -1,50 +1,46 @@
 package dao;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-
-import javax.sql.DataSource;
 
 import source.Adres;
-import source.Login;
-import source.Medewerker;
 import source.Persoon;
+
 
 public class PersoonDao {
 	
-	private static java.sql.Connection connection;
-	private static Statement command;
-	private static ResultSet data;
-	private static PreparedStatement stmt = null;
+	private static DBA dba = new DBA();
+	private static AdresDAO adresDAO;
 	
 	public static int addPersoon(Persoon persoon, Adres adres){
-		int adresId = 0;
-		adresId = AdressDAO.addAdress(adres);
-		DataSource ds = null;
-		
-		try {
-			adresId = AdressDAO.addAdress(adres);
-	        if (connection == null){connection = Connection.getDBConnection();}
-	        command = connection.createStatement();
-	        
-	        stmt = connection.prepareStatement("INSERT INTO Login (voornaam, achternaam) VALUES(?,?,?);");
-	        stmt.setString(1,persoon.getVoornaam());
-	        stmt.setString(2, persoon.getAchternaam());
-	        stmt.executeUpdate();
-	        data = command.executeQuery("SELECT MAX(adressId) FROM adress");
-	        if (data.next()) {
-	        	adresId=data.getInt(1);
-	        }
-	        data.close();
-	    }catch (SQLException e){
-	        e.printStackTrace();
-	    }catch(Exception e) {
-	        e.printStackTrace();
-	    }   
-	    return adresId;
+			dba.createInsert("Persoon");
+			dba.addValue(AdresDAO.insertAdres(adres));
+			dba.addValue(persoon.getVoornaam());
+			dba.addValue(persoon.getAchternaam());
+			dba.addValue(persoon.getEmail());
+			dba.commit();
+		return getPersoonId(persoon, adres);
 	}
+	
+	public static int getPersoonId(Persoon persoon, Adres adres){
+		
+		dba.createSelect("Persoon", "persoonId");
+		dba.addWhere("adresId", adresDAO.getId(adres)); 
+		dba.addWhere("voornaam", persoon.getVoornaam());
+		dba.addWhere("achternaam", persoon.getAchternaam());
+		dba.addWhere("email", persoon.getEmail());
+		ResultSet rs = dba.commit();
+		try {
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		return 0;
+	}
+	
 	public static boolean persoonWijzigen(Persoon persoon) throws Exception{
 		
 		return false;

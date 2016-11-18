@@ -6,11 +6,19 @@ public class Persoon {
 	private String voornaam;
 	private String achternaam;
 	private String email;
-	private Adres adres;
+	private static Adres adres;
 	
 	public Persoon(int persoonId, String voornaam, String achternaam, String email, Adres adres) {
 		super();
 		this.persoonId = persoonId;
+		this.voornaam = voornaam;
+		this.achternaam = achternaam;
+		this.email = email;
+		this.adres = adres;
+	}
+	
+	public Persoon( String voornaam, String achternaam, String email, Adres adres) {
+		super();
 		this.voornaam = voornaam;
 		this.achternaam = achternaam;
 		this.email = email;
@@ -54,7 +62,7 @@ public class Persoon {
 		this.achternaam = achternaam;
 	}
 
-	public Adres getAdres() {
+	public static Adres getAdres() {
 		return adres;
 	}
 

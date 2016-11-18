@@ -94,9 +94,10 @@ public class LoginGui {
 
 				String username = txtUsername.getText().trim();
 				String password = new String(txtPassword.getPassword());
-
+				
 				String databasePassword = LoginDao.getWachtwoord(username);
 				String databaseUsername = LoginDao.getUserName(username);
+				
 				if (databasePassword == null || databaseUsername == null) {
 					JOptionPane.showMessageDialog(new JFrame(), "User is not allowed.");
 					return;
@@ -116,7 +117,6 @@ public class LoginGui {
 							Controller.medewerkerInterface = new MedewerkerGui();
 							Controller.medewerkerInterface.setHome();
 						} 
-						
 
 					} else {
 						JOptionPane.showMessageDialog(new JFrame(), "Username or password wrong.");
