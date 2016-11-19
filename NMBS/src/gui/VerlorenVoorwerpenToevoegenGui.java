@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
+import source.Station;
 import source.VerlorenVoorwerp;
 
 import java.awt.Color;
@@ -25,6 +26,7 @@ import java.util.Date;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
+import dao.StationDAO;
 import dao.VerlorenVoorwerpDAO;
 
 public class VerlorenVoorwerpenToevoegenGui extends JPanel{
@@ -33,6 +35,7 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel{
 	private JButton btnToevoegen;
 	JTextArea txtrBeschrijving;
 	VerlorenVoorwerp verlorenVoorwerp;
+	Station station;
 	private JTextField txtStation;
 	
 	public VerlorenVoorwerpenToevoegenGui() {
@@ -41,7 +44,7 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel{
 		JLabel lblBeschrijving = new JLabel("Beschrijving");
 		lblBeschrijving.setForeground(Color.WHITE);
 		
-		JTextArea txtrBeschrijving = new JTextArea();
+		txtrBeschrijving = new JTextArea();
 		
 		JLabel lblDatum = new JLabel("Datum");
 		lblDatum.setForeground(Color.WHITE);
@@ -49,7 +52,7 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel{
 		txtDatum = new JTextField();
 		txtDatum.setColumns(10);
 		
-		JButton btnToevoegen = new JButton("Toevoegen");
+		btnToevoegen = new JButton("Toevoegen");
 		btnToevoegen.addActionListener(new MenuItemHandler());
 		
 		JLabel lblStation = new JLabel("Station");	
@@ -115,15 +118,11 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel{
 				if(!txtrBeschrijving.getText().isEmpty() && !txtDatum.getText().isEmpty()){
 					boolean gevonden = false;
 					String startDateString = txtDatum.getText();
-		            DateFormat df = new SimpleDateFormat("MM/dd/yyyy"); 
-		            Date startDate = null;
-					try {
-						startDate = df.parse(startDateString);
-					} catch (ParseException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					verlorenVoorwerp = new VerlorenVoorwerp(txtStation.getText().trim(), txtrBeschrijving.getText().trim(), (java.sql.Date) startDate ,gevonden);
+					java.util.Date myDate = new java.util.Date(startDateString);
+					java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
+					int stationId = StationDAO.getStationId(txtStation.getText().trim());
+					station = new Station(stationId);
+					verlorenVoorwerp = new VerlorenVoorwerp(stationId, txtrBeschrijving.getText().trim(), sqlDate ,gevonden);
 					VerlorenVoorwerpDAO.insertVerlorenVoorwerp(verlorenVoorwerp);
 				}
 				else{

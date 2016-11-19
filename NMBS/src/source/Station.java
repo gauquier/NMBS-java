@@ -3,7 +3,7 @@ package source;
 import java.util.ArrayList;
 
 public class Station {
-	private int stationID;
+	private static int stationID;
 	private String zone;
 	private int aantalLoketten;
 	private int parkingplaatsen;
@@ -22,6 +22,10 @@ public class Station {
 		this.gehandicapte = gehandicapte;
 	}
 	
+	public Station(int stationID){
+		this.stationID = stationID;
+	}
+	
 	public void addVerlorenVoorwerp(VerlorenVoorwerp station){
 		verlorenVoorwerpen.add(station);
 	}
@@ -38,7 +42,7 @@ public class Station {
 		this.verlorenVoorwerpen = verlorenVoorwerpen;
 	}
 
-	public int getStationID() {
+	public static int getStationID() {
 		return stationID;
 	}
 	

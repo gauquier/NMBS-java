@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import source.Station;
 import source.VerlorenVoorwerp;
 
 public class VerlorenVoorwerpDAO {
@@ -16,23 +17,21 @@ public class VerlorenVoorwerpDAO {
 	private static StationDAO stationDAO;
 	
 	public static int insertVerlorenVoorwerp(VerlorenVoorwerp verlorenVoorwerp){
-		if(getVerlorenVoorwerpId(verlorenVoorwerp) == 0){
 			dba.createInsert("VerlorenVoorwerp");
-			dba.addValue(stationDAO.insertStation(verlorenVoorwerp.getStation()));
+			dba.addValue(Station.getStationID());
 			dba.addValue(verlorenVoorwerp.getBeschrijving());
 			dba.addValue(verlorenVoorwerp.getDate());
 			dba.addValue(verlorenVoorwerp.getGevonden());
 			dba.commit();
-		}
 		return getVerlorenVoorwerpId(verlorenVoorwerp);
 	}
 	
 	public static int getVerlorenVoorwerpId(VerlorenVoorwerp verlorenVoorwerp){
 		
 		dba.createSelect("VerlorenVoorwerp", "verlorenVoorwerpId");
-		dba.addWhere("stationId", stationDAO.getStationId(verlorenVoorwerp.getStation())); 
+		dba.addWhere("stationId", Station.getStationID()); 
 		dba.addWhere("beschrijving", verlorenVoorwerp.getBeschrijving());
-		dba.addWhere("datum", verlorenVoorwerp.getBeschrijving()	);
+		dba.addWhere("datum", verlorenVoorwerp.getDate()	);
 		dba.addWhere("gevonden", verlorenVoorwerp.getGevonden());
 		ResultSet rs = dba.commit();
 		try {

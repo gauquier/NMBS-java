@@ -8,7 +8,7 @@ public class VerlorenVoorwerp {
 	private String beschrijving;
 	private Date date;
 	private boolean gevonden;
-	private String stationString;
+	private int stationString;
 	
 	
 	public VerlorenVoorwerp(int verlorenVoorwerpId, Station station, String beschrijving, Date date,
@@ -21,9 +21,9 @@ public class VerlorenVoorwerp {
 		this.gevonden = gevonden;
 	}
 	
-	public VerlorenVoorwerp( String stationString, String beschrijving, Date date, boolean gevonden) {
+	public VerlorenVoorwerp( int stationId, String beschrijving, Date date, boolean gevonden) {
 		super();
-		this.stationString = stationString;
+		this.stationString = stationId;
 		this.beschrijving = beschrijving;
 		this.date = date;
 		this.gevonden = gevonden;
