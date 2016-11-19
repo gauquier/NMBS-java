@@ -22,7 +22,7 @@ public class MedewerkerGui  extends JFrame {
     JMenuBar menubar;
     JMenuItem home , routeInfo, stationInfo;
     JMenu verkoop, verlorenVoorwerpen, instellingen;
-    JMenuItem abonnementVerkoop, abonnementBeheer, uitloggen, ticketVerkoop, verlorenVoorwerpToevoegen, verlorenVoorwerpZoeken;
+    JMenuItem abonnementVerkoop, abonnementBeheer, uitloggen, ticketVerkoop, verlorenVoorwerpToevoegen, verlorenVoorwerpZoeken, wachtwoordVeranderen;
     
     public JPanel getHuidigeKeuze() {
 		return HuidigeKeuze;
@@ -92,6 +92,9 @@ public class MedewerkerGui  extends JFrame {
 		verlorenVoorwerpen.add(verlorenVoorwerpZoeken);
 		
 		instellingen = new JMenu("Instellingen");
+		wachtwoordVeranderen = new JMenuItem("Wachtwoord veranderen");
+		wachtwoordVeranderen.addActionListener(new MenuItemHandler());
+		instellingen.add(wachtwoordVeranderen);
 		
 		abonnementBeheer = new JMenuItem("Abbonement beheer");
 		abonnementVerkoop = new JMenuItem("Abbonement verkoop");
@@ -150,6 +153,9 @@ public class MedewerkerGui  extends JFrame {
 			}
 			else if (e.getSource() == verlorenVoorwerpToevoegen){
 				setHuidigeKeuze(new VerlorenVoorwerpenToevoegenGui());
+			}
+			else if (e.getSource() == wachtwoordVeranderen){
+				setHuidigeKeuze(new WachtwoordVeranderenGui());
 			}
 		}
 	}
