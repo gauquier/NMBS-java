@@ -120,6 +120,12 @@ public class LoginDao {
 		return pass;
 	}
 	
+	public static void updateWachtwoord(String password){
+		dba.createUpdate("Login", "pass", password);
+		dba.addWhere("username", Login.getCurrentUser()); 
+		ResultSet rs = dba.commit();
+	}
+	
 	 
 	public static void loginWijzigen(Login login) throws Exception{ 
 	}
