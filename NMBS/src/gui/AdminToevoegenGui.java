@@ -1,31 +1,28 @@
 package gui;
 
-import javax.swing.JPanel;
-
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import dao.LoginDao;
 import dao.MedewerkerDAO;
 import source.Adres;
 import source.Login;
 import source.Persoon;
 import source.Rol;
-
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.UIManager;
-import java.awt.Color;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
-public class GebruikerToevoegenGui extends JPanel{
+public class AdminToevoegenGui extends JPanel {
 	private JTextField txtVoornaam;
 	private JTextField txtAchternaam;
 	private JTextField txtStraat;
@@ -45,7 +42,7 @@ public class GebruikerToevoegenGui extends JPanel{
 	private Persoon persoon;
 	private Rol rol;
 	
-	public GebruikerToevoegenGui()
+	public AdminToevoegenGui()
 	{
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
@@ -112,7 +109,7 @@ public class GebruikerToevoegenGui extends JPanel{
 		txtEmail = new JTextField();
 		txtEmail.setColumns(10);
 		
-		JLabel lblMedewerkerToevoegen = DefaultComponentFactory.getInstance().createTitle("Medewerker toevoegen");
+		JLabel lblAdminToevoegen = DefaultComponentFactory.getInstance().createTitle("Admin toevoegen");
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -121,19 +118,19 @@ public class GebruikerToevoegenGui extends JPanel{
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(69)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblVoornaam)
-								.addComponent(lblStraat)
-								.addComponent(lblHuisnummer)
-								.addComponent(lblBus)
-								.addComponent(lblGemeente)
-								.addComponent(lblPostcode)
-								.addComponent(lblUsername)
 								.addComponent(lblPassword)
+								.addComponent(lblUsername)
+								.addComponent(lblPostcode)
+								.addComponent(lblGemeente)
+								.addComponent(lblBus)
+								.addComponent(lblHuisnummer)
 								.addComponent(lblAchternaam)
+								.addComponent(lblStraat)
+								.addComponent(lblAdminToevoegen)
+								.addComponent(lblVoornaam)
 								.addComponent(lblEmail))
-							.addGap(50)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(7)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 								.addComponent(txtAchternaam, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtVoornaam, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtStraat, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -142,67 +139,61 @@ public class GebruikerToevoegenGui extends JPanel{
 								.addComponent(txtGemeente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtPostcode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(154)
-							.addComponent(btnToevoegen))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(30)
-							.addComponent(lblMedewerkerToevoegen)))
-					.addContainerGap(40, Short.MAX_VALUE))
+							.addGap(135)
+							.addComponent(btnToevoegen)))
+					.addContainerGap(124, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(14)
-					.addComponent(lblMedewerkerToevoegen)
+					.addComponent(lblAdminToevoegen)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblVoornaam)
 						.addComponent(txtVoornaam, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(txtAchternaam, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(txtStraat, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblAchternaam)
-							.addGap(18)
-							.addComponent(lblStraat)))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblAchternaam)
+						.addComponent(txtAchternaam, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblHuisnummer)
-						.addComponent(txtHuisnr, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblStraat)
+						.addComponent(txtStraat, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblBus)
-						.addComponent(txtBus, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(txtHuisnr, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblHuisnummer))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblGemeente)
-						.addComponent(txtGemeente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(txtBus, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblBus))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblPostcode)
-						.addComponent(txtPostcode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(txtGemeente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblGemeente))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblUsername)
-						.addComponent(txtPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(txtPostcode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblPostcode))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblPassword)
-						.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(49)
-							.addComponent(btnToevoegen))
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(lblEmail)
-							.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addGap(171))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(txtPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblUsername))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblPassword))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblEmail))
+					.addGap(18)
+					.addComponent(btnToevoegen)
+					.addGap(96))
 		);
 		setLayout(groupLayout);
 		
@@ -227,7 +218,7 @@ public class GebruikerToevoegenGui extends JPanel{
 					adres.toString();
 					persoon = new Persoon(txtVoornaam.getText().trim(), txtAchternaam.getText().trim(), txtEmail.getText().trim(), persoon.getAdres());
 					persoon.toString();
-					int rolid = 2;
+					int rolid = 1;
 					rol = new Rol(rolid);
 					rol.setRolId(rolid);
 					MedewerkerDAO.addMedewerker(login, persoon, rol, adres);

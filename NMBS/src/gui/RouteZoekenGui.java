@@ -11,6 +11,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import javax.swing.UIManager;
 import java.awt.Color;
+import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 public class RouteZoekenGui extends JPanel {
 	private JTextField txtVan;
@@ -53,6 +54,8 @@ public class RouteZoekenGui extends JPanel {
 		buttonGroup.add(rdbtnAankomst);
 		
 		JButton btnZoeken = new JButton("Zoeken");
+		
+		JLabel lblRouteZoeken = DefaultComponentFactory.getInstance().createTitle("Route zoeken");
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -83,13 +86,18 @@ public class RouteZoekenGui extends JPanel {
 										.addComponent(txtDatum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(112)
-							.addComponent(btnZoeken)))
+							.addComponent(btnZoeken))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(32)
+							.addComponent(lblRouteZoeken)))
 					.addContainerGap(201, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(45)
+					.addGap(17)
+					.addComponent(lblRouteZoeken)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblVan)
 						.addComponent(txtVan, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))

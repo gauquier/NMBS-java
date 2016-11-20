@@ -21,6 +21,7 @@ import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.UIManager;
 import java.awt.Color;
+import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 public class GebruikerVerwijderenGui extends JPanel {
 	private JTextField txtVoornaam;
@@ -52,6 +53,8 @@ public class GebruikerVerwijderenGui extends JPanel {
 		comboBox.setMaximumRowCount(15);
 		
 		JButton btnVerwijder = new JButton("Verwijder");
+		
+		JLabel lblGebruikerVerwijderen = DefaultComponentFactory.getInstance().createTitle("Gebruiker verwijderen");
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -59,9 +62,9 @@ public class GebruikerVerwijderenGui extends JPanel {
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(65)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(comboBox, Alignment.LEADING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(comboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addGroup(groupLayout.createSequentialGroup()
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 										.addGroup(groupLayout.createSequentialGroup()
 											.addComponent(lblAchternaam)
@@ -75,7 +78,10 @@ public class GebruikerVerwijderenGui extends JPanel {
 									.addComponent(btnZoek))))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(147)
-							.addComponent(btnVerwijder)))
+							.addComponent(btnVerwijder))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(32)
+							.addComponent(lblGebruikerVerwijderen)))
 					.addContainerGap(81, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
@@ -83,7 +89,9 @@ public class GebruikerVerwijderenGui extends JPanel {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(56)
+							.addGap(14)
+							.addComponent(lblGebruikerVerwijderen)
+							.addGap(26)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblVoornaam)
 								.addComponent(txtVoornaam, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))

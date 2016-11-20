@@ -37,7 +37,8 @@ public class AdminGui extends JFrame {
     JMenuBar menubar;
     JMenuItem home , routeInfo, stationInfo;
     JMenu verkoop, verlorenVoorwerpen, instellingen, gebruikers;
-    JMenuItem abonnementVerkoop, abonnementBeheer, uitloggen, gebruikersToevoegen, gebruikersVerwijderen, ticketVerkoop, verlorenVoorwerpToevoegen, verlorenVoorwerpZoeken;
+    JMenuItem abonnementVerkoop, abonnementBeheer, uitloggen, gebruikersToevoegen, gebruikersVerwijderen, ticketVerkoop
+    , verlorenVoorwerpToevoegen, verlorenVoorwerpZoeken, adminToevoegen, wachtwoordVeranderen;
 
 	public JPanel getHuidigeKeuze() {
 		return HuidigeKeuze;
@@ -110,6 +111,9 @@ public class AdminGui extends JFrame {
 		verlorenVoorwerpen.add(verlorenVoorwerpZoeken);
 		
 		instellingen = new JMenu("Instellingen");
+		wachtwoordVeranderen = new JMenuItem("Wachtwoord veranderen");
+		wachtwoordVeranderen.addActionListener(new MenuItemHandler());
+		instellingen.add(wachtwoordVeranderen);
 		
 		abonnementBeheer = new JMenuItem("Abbonement beheer");
 		abonnementBeheer.setBackground(Color.WHITE);
@@ -122,8 +126,11 @@ public class AdminGui extends JFrame {
 		gebruikersToevoegen.addActionListener(new MenuItemHandler());
 		gebruikersVerwijderen = new JMenuItem("Gebruiker verwijderen");
 		gebruikersVerwijderen.addActionListener(new MenuItemHandler());
+		adminToevoegen = new JMenuItem("Admin toevoegen");
+		adminToevoegen.addActionListener(new MenuItemHandler());
 		gebruikers.add(gebruikersToevoegen);
 		gebruikers.add(gebruikersVerwijderen);
+		gebruikers.add(adminToevoegen);
 		
 		ticketVerkoop = new JMenuItem("Ticketverkoop");
 		ticketVerkoop.setBackground(Color.WHITE);
@@ -165,6 +172,10 @@ public class AdminGui extends JFrame {
 				navigation= "gebruikersVerwijderen";
 				setHuidigeKeuze(new GebruikerVerwijderenGui());
 			}
+			else if (e.getSource() == adminToevoegen) {	
+				navigation= "adminToevoegen";
+				setHuidigeKeuze(new AdminToevoegenGui());
+			}
 			else if (e.getSource()==uitloggen)
 			{
 				setHuidigeKeuze(null);
@@ -187,6 +198,9 @@ public class AdminGui extends JFrame {
 			}
 			else if (e.getSource() == verlorenVoorwerpToevoegen){
 				setHuidigeKeuze(new VerlorenVoorwerpenToevoegenGui());
+			}
+			else if (e.getSource() == wachtwoordVeranderen){
+				setHuidigeKeuze(new WachtwoordVeranderenGui());
 			}
 		}
 	}

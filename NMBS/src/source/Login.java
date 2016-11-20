@@ -5,7 +5,24 @@ public class Login {
 	private static String username;
 	private String password;
 	private String email;
+	private static String currentUser;
 
+	/**
+	 * @return the currentUser
+	 */
+	public static String getCurrentUser() {
+		return currentUser;
+	}
+	/**
+	 * @param currentUser the currentUser to set
+	 */
+	public void setCurrentUser(String currentUser) {
+		this.currentUser = currentUser;
+	}
+	
+	public Login(String currentUser ) {
+		this.currentUser = currentUser;
+	}
 	/**
 	 * 
 	 */

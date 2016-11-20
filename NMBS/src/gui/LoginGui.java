@@ -28,6 +28,7 @@ public class LoginGui {
 	private JButton btnLogin;
 	private JPasswordField txtPassword;
 	public static LoginGui window;
+	Login login;
 
 	public LoginGui() {
 		initialize();
@@ -107,6 +108,7 @@ public class LoginGui {
 
 						int loginId = LoginDao.getLoginId(username);
 						int rollId = LoginDao.getRoll(loginId);
+						login = new Login(username);
 
 						closeFrame();
 						 if(rollId == 1){

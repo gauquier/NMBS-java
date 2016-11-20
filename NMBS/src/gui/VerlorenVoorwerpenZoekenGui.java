@@ -9,6 +9,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import javax.swing.UIManager;
 import java.awt.Color;
+import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 public class VerlorenVoorwerpenZoekenGui extends JPanel {
 	private JTextField txtBeschrijving;
@@ -29,6 +30,8 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 		txtDatum.setColumns(10);
 		
 		JButton btnZoeken = new JButton("Zoeken");
+		
+		JLabel lblVerlorenVoorwerpenZoeken = DefaultComponentFactory.getInstance().createTitle("Verloren voorwerpen zoeken");
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -45,13 +48,18 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 								.addComponent(txtBeschrijving, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(118)
-							.addComponent(btnZoeken)))
+							.addComponent(btnZoeken))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(39)
+							.addComponent(lblVerlorenVoorwerpenZoeken)))
 					.addContainerGap(154, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(57)
+					.addGap(23)
+					.addComponent(lblVerlorenVoorwerpenZoeken)
+					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblBeschrijving)
 						.addComponent(txtBeschrijving, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
