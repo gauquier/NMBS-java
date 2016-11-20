@@ -1,44 +1,46 @@
 package source;
-import java.util.Calendar;
-import java.util.Date;
 
+import java.util.Date;
 import source.Aankoop;
 import source.VerkoopType;
 
 public class Ticket extends Aankoop {
-	private int ticketId;
+
 	private int medewerkerId;
 	private String depZone;
 	private String arrZone;
-	private boolean actief;
-	private Calendar verkoopDatum;
+	private int verkoopStation;
+	private int klasse = 2;
+	private int aantal = 1;
+	private Date verkoopDatum;
+	private Date heenDatum;
+	private Date terugDatum = null;
 	
 	
-	
-
-	public Ticket(int aankoopId, double korting, double prijs, VerkoopType verkoop, int ticketId, int medewerkerId, String depZone, String arrZone, boolean actief , Calendar verkoopDatum) {
+	public Ticket(int aankoopId,   int medewerkerId, String depZone, String arrZone,int verkoopStation, double prijs, VerkoopType verkoop,double korting,int klasse, int aantal, Date verkoopDatum, Date heenDatum, Date terugDatum) {
 		super(aankoopId, korting, prijs, verkoop);
-		setTicketId(ticketId);
 		setMedewerkerId(medewerkerId);
 		setDepZone(depZone);
 		setArrZone(arrZone);
-		setActief(actief);
+		setVerkoopStation(verkoopStation);
+		setKlasse(klasse);
+		setAantal(aantal);
 		setVerkoopDatum(verkoopDatum);
+		setHeenDatum(heenDatum);
+		setTerugDatum(terugDatum);
 	}
 
-	public int getTicketId() {
-		return ticketId;
+	public Ticket(int aankoopId, int medewerkerId, String depZone,
+			String arrZone, int verkoopStation,double prijs, VerkoopType verkoop,double korting, Date verkoopDatum, Date heenDatum) {
+		super(aankoopId,korting, prijs, verkoop);
+		this.medewerkerId = medewerkerId;
+		this.depZone = depZone;
+		this.arrZone = arrZone;
+		this.verkoopStation = verkoopStation;
+		this.verkoopDatum = verkoopDatum;
+		this.heenDatum = heenDatum;
 	}
-	public void setTicketId(int ticketId) {
-		this.ticketId = ticketId;
-	}
-	
-	public boolean getActief() {
-		return actief;
-	}
-	public void setActief(boolean actief) {
-		this.actief = actief;
-	}
+
 	
 	public int getMedewerkerId() {
 		return medewerkerId;
@@ -64,11 +66,51 @@ public class Ticket extends Aankoop {
 		this.arrZone = arrZone;
 	}
 
-	public Calendar getVerkoopDatum() {
+	public Date getVerkoopDatum() {
 		return verkoopDatum;
 	}
 
-	public void setVerkoopDatum(Calendar verkoopDatum) {
+	public void setVerkoopDatum(Date verkoopDatum) {
 		this.verkoopDatum = verkoopDatum;
+	}
+	
+	public int getKlasse() {
+		return klasse;
+	}
+
+	public void setKlasse(int klasse) {
+		this.klasse = klasse;
+	}
+
+	public int getAantal() {
+		return aantal;
+	}
+
+	public void setAantal(int aantal) {
+		this.aantal = aantal;
+	}
+
+	public Date getHeenDatum() {
+		return heenDatum;
+	}
+
+	public void setHeenDatum(Date heenDatum) {
+		this.heenDatum = heenDatum;
+	}
+
+	public Date getTerugDatum() {
+		return terugDatum;
+	}
+
+	public void setTerugDatum(Date terugDatum) {
+		this.terugDatum = terugDatum;
+	}
+
+	public int getVerkoopStation() {
+		return verkoopStation;
+	}
+
+	public void setVerkoopStation(int verkoopStation) {
+		this.verkoopStation = verkoopStation;
 	}
 }

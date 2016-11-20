@@ -3,6 +3,7 @@ package dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.Date;
 
 import source.*;
 
@@ -139,17 +140,17 @@ public class DBA {
 				System.out.println("can only add values when type = INSERT");
 			}
 		}
-		
-		public void addValue(Calendar value) //haal type STRING uit enum
-		{
-			if(type == Type.INSERT)
-			{
-			sql = sql + ", " + value;
-			}
-			else{
-				System.out.println("can only add values when type = INSERT");
-			}
+		public void addValue(Date value){
+			String ss = "";
+			if(value.getDate() < 0)
+				ss = ss +"0";
+			ss = ss + value.getDate() + "-";
+			if(value.getMonth() < 10)
+				ss = ss + "0";
+			ss = ss + value.getMonth() + "-" + (value.getYear() + 1900);
+			addValue(ss);
 		}
+		
 		
 		
 		/*public void addValue(Calendar value)
@@ -224,22 +225,17 @@ public class DBA {
 			}
 		}
 
-		public void addWhere(String columnName, Calendar value) // ... WHERE columnName = value
-		{
-			if(type == Type.UPDATE || type == Type.SELECT)
-			{
-				if(!isWhere)
-				{
-					sql = sql + " WHERE";
-					isWhere = true;
-				}
-				sql = sql + " " + columnName + " = '" + value + "' AND";
-			}
-			else{
-				System.out.println("can only add WHERE clausule when type = UPDATE or type = SELECT");
-			}
-		}
 		
+		public void addWhere(String columnName, Date value){
+			String ss = "";
+			if(value.getDate() < 0)
+				ss = ss +"0";
+			ss = ss + value.getDate() + "-";
+			if(value.getMonth() < 10)
+				ss = ss + "0";
+			ss = ss + value.getMonth() + "-" + (value.getYear() + 1900);
+			addWhere(columnName, ss);
+		}
 		
 		public ResultSet commit()
 		{
