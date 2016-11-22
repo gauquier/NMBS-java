@@ -2,7 +2,7 @@ package source;
 
 public class Adres {
 
-	private int adresId;
+	private static int adresId;
 	private String straat;
 	private int huisnr;
 	private String woonplaats;
@@ -17,7 +17,15 @@ public class Adres {
 		this.postcode = postcode;
 		this.bus = bus;
 	}
-	public int getAdresId() {
+	public Adres(String straat, int huisnr, String woonplaats, int postcode, char bus) {
+		super();
+		this.straat = straat;
+		this.huisnr = huisnr;
+		this.woonplaats = woonplaats;
+		this.postcode = postcode;
+		this.bus = bus;
+	}
+	public static int getAdresId() {
 		return adresId;
 	}
 	public void setAdresId(int adresId) {

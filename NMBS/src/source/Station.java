@@ -1,42 +1,53 @@
 package source;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 public class Station {
-	int id;
-	String zone;
-	int aantalLoketten;
-	int parkingPlaatsen;
-	boolean wifi;
-	boolean gehandicapt;
-	Vector<VerlorenVoorwerp> verlorenVoorwerpen;
+	private static int stationID;
+	private String zone;
+	private int aantalLoketten;
+	private int parkingplaatsen;
+	private boolean wifi;
+	private boolean gehandicapte;
+	private ArrayList<VerlorenVoorwerp> verlorenVoorwerpen = new ArrayList<VerlorenVoorwerp>();
 	
-	public Station(int id, String zone, int aantalLoketten, int parkingPlaatsen, boolean wifi, boolean gehandicapt) {
+	public Station(int stationID, String zone, int aantalLoketten, int parkingplaatsen, boolean wifi,
+			boolean gehandicapte, ArrayList<VerlorenVoorwerp> verlorenVoorwerpen) {
 		super();
-		this.id = id;
+		this.stationID = stationID;
 		this.zone = zone;
 		this.aantalLoketten = aantalLoketten;
-		this.parkingPlaatsen = parkingPlaatsen;
+		this.parkingplaatsen = parkingplaatsen;
 		this.wifi = wifi;
-		this.gehandicapt = gehandicapt;
-		verlorenVoorwerpen = new Vector<VerlorenVoorwerp>();
+		this.gehandicapte = gehandicapte;
 	}
-	public Station(int id, String zone, int aantalLoketten, int parkingPlaatsen, boolean wifi, boolean gehandicapt, Vector<VerlorenVoorwerp> verlorenVoorwerpen) {
-		super();
-		this.id = id;
-		this.zone = zone;
-		this.aantalLoketten = aantalLoketten;
-		this.parkingPlaatsen = parkingPlaatsen;
-		this.wifi = wifi;
-		this.gehandicapt = gehandicapt;
+	
+	public Station(int stationID){
+		this.stationID = stationID;
+	}
+	
+	public void addVerlorenVoorwerp(VerlorenVoorwerp station){
+		verlorenVoorwerpen.add(station);
+	}
+	
+	public void delVerlorenVoorwerp(VerlorenVoorwerp station){
+		verlorenVoorwerpen.remove(station);
+	}
+	
+	public ArrayList<VerlorenVoorwerp> getVerlorenVoorwerpen() {
+		return verlorenVoorwerpen;
+	}
+
+	public void setVerlorenVoorwerpen(ArrayList<VerlorenVoorwerp> verlorenVoorwerpen) {
 		this.verlorenVoorwerpen = verlorenVoorwerpen;
 	}
-	public int getId() {
-		return id;
+
+	public static int getStationID() {
+		return stationID;
 	}
-	public void setId(int id) {
-		if(id > 0)
-		this.id = id;
+	
+	public void setStationID(int stationID) {
+		this.stationID = stationID;
 	}
 	public String getZone() {
 		return zone;
@@ -48,59 +59,40 @@ public class Station {
 		return aantalLoketten;
 	}
 	public void setAantalLoketten(int aantalLoketten) {
-		if(aantalLoketten >= 0)
 		this.aantalLoketten = aantalLoketten;
 	}
-	public int getParkingPlaatsen() {
-		return parkingPlaatsen;
+	public int getParkingplaatsen() {
+		return parkingplaatsen;
 	}
-	public void setParkingPlaatsen(int parkingPlaatsen) {
-		if(parkingPlaatsen >= 0)
-		this.parkingPlaatsen = parkingPlaatsen;
+	public void setParkingplaatsen(int parkingplaatsen) {
+		this.parkingplaatsen = parkingplaatsen;
 	}
-	public boolean isWifi() {
+
+	public boolean getWifi() {
 		return wifi;
 	}
 	public void setWifi(boolean wifi) {
 		this.wifi = wifi;
 	}
-	public boolean isGehandicapt() {
-		return gehandicapt;
+	public boolean getGehandicapte() {
+		return gehandicapte;
 	}
-	public void setGehandicapt(boolean gehandicapt) {
-		this.gehandicapt = gehandicapt;
+	public void setGehandicapte(boolean gehandicapte) {
+		this.gehandicapte = gehandicapte;
 	}
 	
-	public Vector<VerlorenVoorwerp> getVerlorenVoorwerpen() {
-		return verlorenVoorwerpen;
-	}
-	public void setVerlorenVoorwerpen(Vector<VerlorenVoorwerp> verlorenVoorwerpen) {
-		this.verlorenVoorwerpen = verlorenVoorwerpen;
-	}
-	public void addVerlorenVoorwerp(VerlorenVoorwerp vp){
-		if(vp != null)
-		verlorenVoorwerpen.add(vp);
-	}
-	public void removeVerlorenVoorwerp(VerlorenVoorwerp vp){
-		if(vp != null && verlorenVoorwerpen.contains(vp)){
-			verlorenVoorwerpen.remove(vp);
-		}
-	}
 	@Override
 	public String toString() {
-		return "Station [id=" + id + ", zone=" + zone + ", aantalLoketten=" + aantalLoketten + ", parkingPlaatsen="
-				+ parkingPlaatsen + ", wifi=" + wifi + ", gehandicapt=" + gehandicapt + "]";
+		return "Station [stationID=" + stationID + ", zone=" + zone + ", aantalLoketten=" + aantalLoketten
+				+ ", parkingplaatsen=" + parkingplaatsen + ", wifi=" + wifi + ", gehandicapte=" + gehandicapte + "]";
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + aantalLoketten;
-		result = prime * result + (gehandicapt ? 1231 : 1237);
-		result = prime * result + id;
-		result = prime * result + parkingPlaatsen;
-		result = prime * result + (wifi ? 1231 : 1237);
-		result = prime * result + ((zone == null) ? 0 : zone.hashCode());
+		result = prime * result + parkingplaatsen;
 		return result;
 	}
 	@Override
@@ -114,21 +106,12 @@ public class Station {
 		Station other = (Station) obj;
 		if (aantalLoketten != other.aantalLoketten)
 			return false;
-		if (gehandicapt != other.gehandicapt)
+		if (gehandicapte != other.gehandicapte)
 			return false;
-		if (id != other.id)
-			return false;
-		if (parkingPlaatsen != other.parkingPlaatsen)
+		if (parkingplaatsen != other.parkingplaatsen)
 			return false;
 		if (wifi != other.wifi)
 			return false;
-		if (zone == null) {
-			if (other.zone != null)
-				return false;
-		} else if (!zone.equals(other.zone))
-			return false;
 		return true;
 	}
-	
-	
 }

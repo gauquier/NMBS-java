@@ -4,12 +4,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import source.Adres;
+import source.Login;
 
 public class AdresDAO {
 
-	private DBA dba = new DBA();
+	private static DBA dba = new DBA();
 	
-	private void insertAdres(String straat, int huisnr, String woonplaats, int postcode, int bus){//kan ook Adres adres
+	private static void insertAdres(String straat, int huisnr, String woonplaats, int postcode, int bus){//kan ook Adres adres
 		dba.createInsert("Adres");
 		dba.addValue(straat);
 		dba.addValue(huisnr);
@@ -19,11 +20,15 @@ public class AdresDAO {
 		dba.commit();
 	}
 	
-	public int insertAdres(Adres adres){
-		if(getId(adres) == 0)
-		{
-			insertAdres(adres.getStraat(), adres.getHuisnr(), adres.getWoonplaats(), adres.getPostcode(), adres.getBus());
-		}
+	public static int insertAdres(Adres adres){
+		dba.createInsert("Adres");
+		dba.addValue(adres.getStraat());
+		dba.addValue(adres.getHuisnr());
+		dba.addValue(adres.getWoonplaats());
+		dba.addValue(adres.getPostcode());
+		dba.addValue(adres.getBus());
+		dba.commit();
+		
 		return getId(adres);
 	}
 
@@ -43,8 +48,8 @@ public class AdresDAO {
 		}
 		return adres;
 	}
-	public int getId(Adres adres){
-		dba.createSelect("Test", "adresId");
+	public static int getId(Adres adres){
+		dba.createSelect("Adres", "adresId");
 		dba.addWhere("straat", adres.getStraat());
 		dba.addWhere("huisnr", adres.getHuisnr());
 		dba.addWhere("woonplaats", adres.getWoonplaats());

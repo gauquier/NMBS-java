@@ -1,95 +1,74 @@
 package source;
-
+import java.sql.Date;
 import java.util.Calendar;
-
 public class VerlorenVoorwerp {
-	int id;
-	Calendar datum;
-	String beschrijving;
-	boolean gevonden;
+
+	private int verlorenVoorwerpId;
+	private Station station;
+	private String beschrijving;
+	private Date date;
+	private boolean gevonden;
+	private int stationString;
 	
-	public VerlorenVoorwerp(int id, Calendar datum, String beschrijving) {
+	
+	public VerlorenVoorwerp(int verlorenVoorwerpId, Station station, String beschrijving, Date date,
+			boolean gevonden) {
 		super();
-		this.id = id;
-		this.datum = datum;
+		this.verlorenVoorwerpId = verlorenVoorwerpId;
+		this.station = station;
 		this.beschrijving = beschrijving;
-		this.gevonden = false;
+		this.date = date;
+		this.gevonden = gevonden;
+	}
+	
+	public VerlorenVoorwerp( int stationId, String beschrijving, Date date, boolean gevonden) {
+		super();
+		this.stationString = stationId;
+		this.beschrijving = beschrijving;
+		this.date = date;
+		this.gevonden = gevonden;
 	}
 
-	public int getId() {
-		return id;
+
+	public int getVerlorenVoorwerpId() {
+		return verlorenVoorwerpId;
+	}
+	public void setVerlorenVoorwerpId(int verlorenVoorwerpId) {
+		this.verlorenVoorwerpId = verlorenVoorwerpId;
 	}
 
-	public void setId(int id) {
-		if(id > 0)
-		this.id = id;
+
+	public Station getStation() {
+		return station;
+	}
+	public void setStation(Station station) {
+		this.station = station;
 	}
 
-	public Calendar getDatum() {
-		return datum;
-	}
-
-	public void setDatum(Calendar datum) {
-		this.datum = datum;
-	}
 
 	public String getBeschrijving() {
 		return beschrijving;
 	}
-
 	public void setBeschrijving(String beschrijving) {
 		this.beschrijving = beschrijving;
 	}
 
-	public boolean isGevonden() {
+
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+
+	public boolean getGevonden() {
 		return gevonden;
 	}
 
+
 	public void setGevonden(boolean gevonden) {
 		this.gevonden = gevonden;
-	}
-
-	@Override
-	public String toString() {
-		return "VerlorenVoorwerp [id=" + id + ", datum=" + datum + ", beschrijving=" + beschrijving + ", gevonden="
-				+ gevonden + "]";
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((beschrijving == null) ? 0 : beschrijving.hashCode());
-		result = prime * result + ((datum == null) ? 0 : datum.hashCode());
-		result = prime * result + (gevonden ? 1231 : 1237);
-		result = prime * result + id;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		VerlorenVoorwerp other = (VerlorenVoorwerp) obj;
-		if (beschrijving == null) {
-			if (other.beschrijving != null)
-				return false;
-		} else if (!beschrijving.equals(other.beschrijving))
-			return false;
-		if (datum == null) {
-			if (other.datum != null)
-				return false;
-		} else if (!datum.equals(other.datum))
-			return false;
-		if (gevonden != other.gevonden)
-			return false;
-		if (id != other.id)
-			return false;
-		return true;
 	}
 	
 	
