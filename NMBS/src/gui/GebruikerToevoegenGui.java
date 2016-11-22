@@ -4,6 +4,8 @@ import javax.swing.JPanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Array;
+import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -13,6 +15,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import dao.LoginDao;
 import dao.MedewerkerDAO;
+import dao.PersoonDao;
 import source.Adres;
 import source.Login;
 import source.Persoon;
@@ -46,6 +49,11 @@ public class GebruikerToevoegenGui extends JPanel{
 	private Login login;
 	private Persoon persoon;
 	private Rol rol;
+	private List<Persoon> mijnpersonen;
+	
+	/*private void refresh() {
+        mijnpersonen = PersoonDao.getAllPersonen();
+    }*/
 	
 	public GebruikerToevoegenGui()
 	{
@@ -251,18 +259,34 @@ public class GebruikerToevoegenGui extends JPanel{
 		this.setVisible(false);
 	}
 	
+	
+	
 	private class MenuItemHandler implements ActionListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			//refresh();
+			
 			if (e.getSource() == btnToevoegen){
-				if (!txtVoornaam.getText().isEmpty() && !txtAchternaam.getText().isEmpty() && !txtStraat.getText().isEmpty() && !txtHuisnr.getText().isEmpty()&& !txtBus.getText().isEmpty() 
-						&& !txtGemeente.getText().isEmpty()&& !txtPostcode.getText().isEmpty() && !txtUsername.getText().isEmpty() && !txtPassword.getText().isEmpty() && !txtEmail.getText().isEmpty()){
+				txtVoornaam.setBackground(Color.white);
+				txtAchternaam.setBackground(Color.white);
+				txtEmail.setBackground(Color.white);
+				txtUsername.setBackground(Color.white);
+				txtPassword.setBackground(Color.white);
+				
+				/*for(int i=0;i<mijnpersonen.size();i++){
+					System.out.println(mijnpersonen.get(i).getPersoonId());
+				}*/
+		
+				
+				if (!txtVoornaam.getText().isEmpty() && !txtAchternaam.getText().isEmpty() && !txtUsername.getText().isEmpty() && !txtPassword.getText().isEmpty() && !txtEmail.getText().isEmpty()){
 					
 					login = new Login(txtUsername.getText().trim(), txtPassword.getText().trim(), txtEmail.getText().trim());
 					login.toString();
-					adres = new Adres(txtStraat.getText().trim(), Integer.parseInt(txtHuisnr.getText()), txtGemeente.getText().trim(), Integer.parseInt(txtPostcode.getText()), txtBus.getText().trim().charAt(0));
+					/*parseint geeft problemen als deze leeg is -> adres mag leeg zijn*/
+					adres = new Adres(txtStraat.getText().trim(), Integer.parseInt(txtHuisnr.getText()), txtGemeente.getText().trim(), Integer.parseInt(txtPostcode.getText()), Integer.parseInt(txtBus.getText()));
 					adres.toString();
+					
 					persoon = new Persoon(txtVoornaam.getText().trim(), txtAchternaam.getText().trim(), txtEmail.getText().trim(), persoon.getAdres());
 					persoon.toString();
 					int rolid = 2;
@@ -270,10 +294,27 @@ public class GebruikerToevoegenGui extends JPanel{
 					rol.setRolId(rolid);
 					MedewerkerDAO.addMedewerker(login, persoon, rol, adres);
 					close();
-					JOptionPane.showMessageDialog(new JFrame(),"Medewerker is toegevoegd!");
+					JOptionPane.showMessageDialog(new JFrame(),"Gebruiker is toegevoegd!");
 				}
 				else{
-					JOptionPane.showMessageDialog(new JFrame(),"Please fill in all required fields!");
+					JOptionPane.showMessageDialog(new JFrame(),"Vul alle verplichte velden in!");
+					
+					if(txtVoornaam.getText().isEmpty()){
+						txtVoornaam.setBackground(Color.red);
+					}
+					if(txtAchternaam.getText().isEmpty()){
+						txtAchternaam.setBackground(Color.red);
+					}
+					if(txtUsername.getText().isEmpty()){
+						txtUsername.setBackground(Color.red);
+					}
+					if(txtPassword.getText().isEmpty()){
+						txtPassword.setBackground(Color.red);
+					}
+					if(txtEmail.getText().isEmpty()){
+						txtEmail.setBackground(Color.red);
+					}
+					
 				}
 			}
 		}		    	

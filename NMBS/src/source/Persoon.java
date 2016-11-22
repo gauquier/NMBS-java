@@ -8,6 +8,12 @@ public class Persoon {
 	private String email;
 	private static Adres adres;
 	
+	
+	
+	public Persoon() {
+		super();
+	}
+
 	public Persoon(int persoonId, String voornaam, String achternaam, String email, Adres adres) {
 		super();
 		this.persoonId = persoonId;
