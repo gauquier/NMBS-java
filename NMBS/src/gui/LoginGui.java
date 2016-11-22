@@ -96,35 +96,41 @@ public class LoginGui {
 				String username = txtUsername.getText().trim();
 				String password = new String(txtPassword.getPassword());
 				
-				String databasePassword = LoginDao.getWachtwoord(username);
 				String databaseUsername = LoginDao.getUserName(username);
 				
-				if (databasePassword == null || databaseUsername == null) {
-					JOptionPane.showMessageDialog(new JFrame(), "User is not allowed.");
+				if (databaseUsername == null) {
+					JOptionPane.showMessageDialog(new JFrame(), "User is niet toegestaan.");
 					return;
 				}
-				if (databasePassword != null && databaseUsername != null) {
-					if (databasePassword.equals(password) && databaseUsername.equals(username)) {
+				if (databaseUsername != null) {
+					if (databaseUsername.equals(username)) {
+						String databasePassword = LoginDao.getWachtwoord(username);
+						if(databasePassword!= null){
+							if(databasePassword.equals(password)){
+								int loginId = LoginDao.getLoginId(username);
+								int rollId = LoginDao.getRoll(loginId);
+								login = new Login(username);
 
-						int loginId = LoginDao.getLoginId(username);
-						int rollId = LoginDao.getRoll(loginId);
-						login = new Login(username);
-
-						closeFrame();
-						 if(rollId == 1){
-							Controller.adminInterface = new AdminGui();
-							Controller.adminInterface.setHome();
-						 }
-						 else if(rollId == 2){
-							Controller.medewerkerInterface = new MedewerkerGui();
-							Controller.medewerkerInterface.setHome();
-						} 
-
+								closeFrame();
+								 if(rollId == 1){
+									Controller.adminInterface = new AdminGui();
+									Controller.adminInterface.setHome();
+								 }
+								 else if(rollId == 2){
+									Controller.medewerkerInterface = new MedewerkerGui();
+									Controller.medewerkerInterface.setHome();
+								} 
+							}else {
+								JOptionPane.showMessageDialog(new JFrame(), "Username of wachtwoord is verkeerd.");
+							}
+						}else {
+							JOptionPane.showMessageDialog(new JFrame(), "Username of wachtwoord is verkeerd.");
+						}
 					} else {
-						JOptionPane.showMessageDialog(new JFrame(), "Username or password wrong.");
+						JOptionPane.showMessageDialog(new JFrame(), "Username of wachtwoord is verkeerd.");
 					}
 				} else {
-					JOptionPane.showMessageDialog(new JFrame(), "Username or password wrong.");
+					JOptionPane.showMessageDialog(new JFrame(), "Username of wachtwoord is verkeerd.");
 				}
 			}
 		}
