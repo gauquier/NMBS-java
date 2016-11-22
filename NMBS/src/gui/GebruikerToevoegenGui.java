@@ -256,18 +256,12 @@ public class GebruikerToevoegenGui extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == btnToevoegen){
-				if (!txtVoornaam.getText().isEmpty() && !txtAchternaam.getText().isEmpty()  && !txtUsername.getText().isEmpty() && !txtPassword.getText().isEmpty() && !txtEmail.getText().isEmpty()){
+				if (!txtVoornaam.getText().isEmpty() && !txtAchternaam.getText().isEmpty() && !txtStraat.getText().isEmpty() && !txtHuisnr.getText().isEmpty()&& !txtBus.getText().isEmpty() 
+						&& !txtGemeente.getText().isEmpty()&& !txtPostcode.getText().isEmpty() && !txtUsername.getText().isEmpty() && !txtPassword.getText().isEmpty() && !txtEmail.getText().isEmpty()){
 					
 					login = new Login(txtUsername.getText().trim(), txtPassword.getText().trim(), txtEmail.getText().trim());
 					login.toString();
-					
-					if(txtStraat.getText().isEmpty() && txtHuisnr.getText().isEmpty()&& txtBus.getText().isEmpty() 
-						&& txtGemeente.getText().isEmpty()&& txtPostcode.getText().isEmpty()){
-						adres = new Adres("",0,"",0000,' ');
-					}
-					else{
 					adres = new Adres(txtStraat.getText().trim(), Integer.parseInt(txtHuisnr.getText()), txtGemeente.getText().trim(), Integer.parseInt(txtPostcode.getText()), txtBus.getText().trim().charAt(0));
-					}
 					adres.toString();
 					persoon = new Persoon(txtVoornaam.getText().trim(), txtAchternaam.getText().trim(), txtEmail.getText().trim(), persoon.getAdres());
 					persoon.toString();
