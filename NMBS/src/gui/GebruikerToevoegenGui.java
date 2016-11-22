@@ -279,82 +279,80 @@ public class GebruikerToevoegenGui extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == btnToevoegen){
-				if (e.getSource() == btnToevoegen){
-					lblVoornaamerror.setText("");
-					lblAchternaamerror.setText("");
-					lblStraaterror.setText("");
-					lblHuisnrerror.setText("");
-					lblBusError.setText("");
-					lblPostcodeerror.setText("");
-					lblGemeenteerror.setText("");
-					lblemailerror.setText("");
-					txtVoornaam.setBorder(border);
-					txtAchternaam.setBorder(border);
-					txtStraat.setBorder(border);
-					txtHuisnr.setBorder(border);
-					txtPostcode.setBorder(border);
-					txtGemeente.setBorder(border);
-					txtEmail.setBorder(border);
-					if (!txtVoornaam.getText().isEmpty() && !txtAchternaam.getText().isEmpty() && !txtStraat.getText().isEmpty() && !txtHuisnr.getText().isEmpty()
-							&& !txtGemeente.getText().isEmpty()&& !txtPostcode.getText().isEmpty() && !txtUsername.getText().isEmpty() && !txtPassword.getText().isEmpty() && !txtEmail.getText().isEmpty()){
-						if (!Validation.checkFirstName(txtVoornaam.getText())){
-							lblVoornaamerror.setText("Gelieve een juiste voornaam in te vullen!");
-							txtVoornaam.setBorder(bordererror);
+				lblVoornaamerror.setText("");
+				lblAchternaamerror.setText("");
+				lblStraaterror.setText("");
+				lblHuisnrerror.setText("");
+				lblBusError.setText("");
+				lblPostcodeerror.setText("");
+				lblGemeenteerror.setText("");
+				lblemailerror.setText("");
+				txtVoornaam.setBorder(border);
+				txtAchternaam.setBorder(border);
+				txtStraat.setBorder(border);
+				txtHuisnr.setBorder(border);
+				txtPostcode.setBorder(border);
+				txtGemeente.setBorder(border);
+				txtEmail.setBorder(border);
+				if (!txtVoornaam.getText().isEmpty() && !txtAchternaam.getText().isEmpty() && !txtStraat.getText().isEmpty() && !txtHuisnr.getText().isEmpty()
+						&& !txtGemeente.getText().isEmpty()&& !txtPostcode.getText().isEmpty() && !txtUsername.getText().isEmpty() && !txtPassword.getText().isEmpty() && !txtEmail.getText().isEmpty()){
+					if (!Validation.checkFirstName(txtVoornaam.getText())){
+						lblVoornaamerror.setText("Gelieve een juiste voornaam in te vullen!");
+						txtVoornaam.setBorder(bordererror);
 
-						}
-						if (!Validation.checkLastName(txtAchternaam.getText())){
-							lblAchternaamerror.setText("Gelieve een juiste Achternaam in te vullen!");
-							txtAchternaam.setBorder(bordererror);
+					}
+					if (!Validation.checkLastName(txtAchternaam.getText())){
+						lblAchternaamerror.setText("Gelieve een juiste Achternaam in te vullen!");
+						txtAchternaam.setBorder(bordererror);
 
-						}
-						if (!Validation.checkAlphabetical(txtStraat.getText())){
-							lblStraaterror.setText("Gelieve een bestaande straat in te vullen!");
-							txtStraat.setBorder(bordererror);
+					}
+					if (!Validation.checkAlphabetical(txtStraat.getText())){
+						lblStraaterror.setText("Gelieve een bestaande straat in te vullen!");
+						txtStraat.setBorder(bordererror);
 
-						}
-						if (!Validation.checkHouseNumber(txtHuisnr.getText())){
-							lblHuisnrerror.setText("Gelieve een bestaand huisnummer in te vullen!");
-							txtHuisnr.setBorder(bordererror);
+					}
+					if (!Validation.checkHouseNumber(txtHuisnr.getText())){
+						lblHuisnrerror.setText("Gelieve een bestaand huisnummer in te vullen!");
+						txtHuisnr.setBorder(bordererror);
 
-						}
-						if (!Validation.checkBoxNumber(txtBus.getText()) && !txtBus.getText().isEmpty()){
-							lblBusError.setText("Gelieve een bestaande bus in te vullen!");
-							txtBus.setBorder(bordererror);
+					}
+					if (!Validation.checkBoxNumber(txtBus.getText()) && !txtBus.getText().isEmpty()){
+						lblBusError.setText("Gelieve een bestaande bus in te vullen!");
+						txtBus.setBorder(bordererror);
 
-						}
-						if (!Validation.checkPostalCode(txtPostcode.getText())){
-							lblPostcodeerror.setText("Gelieve een bestaande postcode in te vullen!");
-							txtPostcode.setBorder(bordererror);
+					}
+					if (!Validation.checkPostalCode(txtPostcode.getText())){
+						lblPostcodeerror.setText("Gelieve een bestaande postcode in te vullen!");
+						txtPostcode.setBorder(bordererror);
 
-						}
-						if (!Validation.checkAlphabetical(txtGemeente.getText())){
-							lblGemeenteerror.setText("Gelieve een bestaande gemeente in te vullen!");
-							txtGemeente.setBorder(bordererror);
+					}
+					if (!Validation.checkAlphabetical(txtGemeente.getText())){
+						lblGemeenteerror.setText("Gelieve een bestaande gemeente in te vullen!");
+						txtGemeente.setBorder(bordererror);
 
-						}
-						if (!Validation.checkEmail(txtEmail.getText())){
-							lblemailerror.setText("Gelieve een juist email in te vullen!");
-							txtEmail.setBorder(bordererror);
+					}
+					if (!Validation.checkEmail(txtEmail.getText())){
+						lblemailerror.setText("Gelieve een juist email in te vullen!");
+						txtEmail.setBorder(bordererror);
 
-						}
-						else{
-							login = new Login(txtUsername.getText().trim(), txtPassword.getText().trim(), txtEmail.getText().trim());
-							login.toString();
-							adres = new Adres(txtStraat.getText().trim(), Integer.parseInt(txtHuisnr.getText()), txtGemeente.getText().trim(), Integer.parseInt(txtPostcode.getText()), txtBus.getText().trim().charAt(0));
-							adres.toString();
-							persoon = new Persoon(txtVoornaam.getText().trim(), txtAchternaam.getText().trim(), txtEmail.getText().trim(), persoon.getAdres());
-							persoon.toString();
-							int rolid = 2;
-							rol = new Rol(rolid);
-							rol.setRolId(rolid);
-							MedewerkerDAO.addMedewerker(login, persoon, rol, adres);
-							close();
-							JOptionPane.showMessageDialog(new JFrame(),"Medewerker is toegevoegd!");
-						}
 					}
 					else{
-						JOptionPane.showMessageDialog(new JFrame(),"Gelieve alle velden in te vullen!");
+						login = new Login(txtUsername.getText().trim(), txtPassword.getText().trim(), txtEmail.getText().trim());
+						login.toString();
+						adres = new Adres(txtStraat.getText().trim(), Integer.parseInt(txtHuisnr.getText()), txtGemeente.getText().trim(), Integer.parseInt(txtPostcode.getText()), Integer.parseInt(txtBus.getText()));
+						adres.toString();
+						persoon = new Persoon(txtVoornaam.getText().trim(), txtAchternaam.getText().trim(), txtEmail.getText().trim(), persoon.getAdres());
+						persoon.toString();
+						int rolid = 2;
+						rol = new Rol(rolid);
+						rol.setRolId(rolid);
+						MedewerkerDAO.addMedewerker(login, persoon, rol, adres);
+						close();
+						JOptionPane.showMessageDialog(new JFrame(),"Medewerker is toegevoegd!");
 					}
+				}
+				else{
+					JOptionPane.showMessageDialog(new JFrame(),"Gelieve alle velden in te vullen!");
 				}
 			}
 		}		    	
