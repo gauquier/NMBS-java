@@ -7,8 +7,8 @@ public class Adres {
 	private int huisnr;
 	private String woonplaats;
 	private int postcode;
-	private char bus;
-	public Adres(int adresId, String straat, int huisnr, String woonplaats, int postcode, char bus) {
+	private int bus;
+	public Adres(int adresId, String straat, int huisnr, String woonplaats, int postcode, int bus) {
 		super();
 		this.adresId = adresId;
 		this.straat = straat;
@@ -17,7 +17,7 @@ public class Adres {
 		this.postcode = postcode;
 		this.bus = bus;
 	}
-	public Adres(String straat, int huisnr, String woonplaats, int postcode, char bus) {
+	public Adres(String straat, int huisnr, String woonplaats, int postcode, int bus) {
 		super();
 		this.straat = straat;
 		this.huisnr = huisnr;
@@ -58,10 +58,10 @@ public class Adres {
 		if(postcode >= 1000 && postcode <= 9999)
 		this.postcode = postcode;
 	}
-	public char getBus() {
+	public int getBus() {
 		return bus;
 	}
-	public void setBus(char bus) {
+	public void setBus(int bus) {
 		if(bus >= 0)
 		this.bus = bus;
 	}
