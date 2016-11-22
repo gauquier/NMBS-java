@@ -27,6 +27,7 @@ import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.UIManager;
 import java.awt.Toolkit;
+import java.awt.Font;
 
 public class AdminGui extends JFrame {
 	private Container c = getContentPane();	
@@ -91,18 +92,37 @@ public class AdminGui extends JFrame {
 		menubar.setForeground(Color.BLACK);
 		menubar.setBackground(Color.WHITE);
 		home = new JMenuItem("Home");
-		home.setBackground(Color.WHITE);
+		home.setHorizontalAlignment(SwingConstants.CENTER);
+		home.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		home.setBackground(Color.ORANGE);
 		home.addActionListener(new MenuItemHandler());
 		verkoop = new JMenu("Verkoop");
-		verkoop.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
+		verkoop.setHorizontalAlignment(SwingConstants.CENTER);
+		verkoop.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		verkoop.setBackground(Color.ORANGE);
+		verkoop.setOpaque(true);
 		routeInfo = new JMenuItem("Route info");
+		routeInfo.setHorizontalAlignment(SwingConstants.CENTER);
+		routeInfo.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		routeInfo.setBackground(Color.ORANGE);
 		routeInfo.addActionListener(new MenuItemHandler());
 		
 		stationInfo = new JMenuItem("Station info");
+		stationInfo.setHorizontalAlignment(SwingConstants.CENTER);
+		stationInfo.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		stationInfo.setBackground(Color.ORANGE);
 		stationInfo.addActionListener(new MenuItemHandler());
 		gebruikers = new JMenu("Gebruikers");
+		gebruikers.setHorizontalAlignment(SwingConstants.CENTER);
+		gebruikers.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		gebruikers.setBackground(Color.ORANGE);
+		gebruikers.setOpaque(true);
 		
 		verlorenVoorwerpen = new JMenu("Verloren voorwerpen");
+		verlorenVoorwerpen.setHorizontalAlignment(SwingConstants.CENTER);
+		verlorenVoorwerpen.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		verlorenVoorwerpen.setBackground(Color.ORANGE);
+		verlorenVoorwerpen.setOpaque(true);
 		verlorenVoorwerpToevoegen = new JMenuItem("Voorwerpen toevoegen");
 		verlorenVoorwerpToevoegen.addActionListener(new MenuItemHandler());
 		verlorenVoorwerpZoeken = new JMenuItem("Voorwerpen zoeken");
@@ -111,6 +131,10 @@ public class AdminGui extends JFrame {
 		verlorenVoorwerpen.add(verlorenVoorwerpZoeken);
 		
 		instellingen = new JMenu("Instellingen");
+		instellingen.setHorizontalAlignment(SwingConstants.CENTER);
+		instellingen.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		instellingen.setBackground(Color.ORANGE);
+		instellingen.setOpaque(true);
 		wachtwoordVeranderen = new JMenuItem("Wachtwoord veranderen");
 		wachtwoordVeranderen.addActionListener(new MenuItemHandler());
 		instellingen.add(wachtwoordVeranderen);
