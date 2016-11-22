@@ -72,8 +72,8 @@ public class AdminGui extends JFrame {
 		this.c = c;
 	}
 	public AdminGui() {
-		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
-		getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
+		setBackground(new Color(0, 191, 255));
+		getContentPane().setBackground(new Color(0, 191, 255));
 		this.setResizable(true);
 		menuGUI();		
 	}

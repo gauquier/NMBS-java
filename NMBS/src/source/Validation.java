@@ -1,5 +1,8 @@
 package source;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Pattern;
 
 public class Validation {
@@ -87,6 +90,32 @@ public class Validation {
     public static boolean checkEmail(String email) {
         String regex = "[A-Za-z0-9]+@[A-Za-z0-9]+[\\.][A-Za-z]{2,4}";
         if (Pattern.matches(regex, email)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public static boolean checkDate(String dateToValidate, String dateFromat){
+		if(dateToValidate == null){
+			return false;
+		}
+		SimpleDateFormat sdf = new SimpleDateFormat(dateFromat);
+		sdf.setLenient(false);
+			Date date;
+			try {
+				date = sdf.parse(dateToValidate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return false;
+			}
+		return true;
+	}
+    
+    public static boolean checkTime(String name) { //moet nog aangepast worden
+        String regex = "[A-Za-z0-9]{2,40}";
+        if (Pattern.matches(regex, name)) {
             return true;
         } else {
             return false;

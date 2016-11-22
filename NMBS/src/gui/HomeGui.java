@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.image.DataBufferByte;
 import java.awt.image.WritableRaster;
 import java.io.File;
@@ -33,7 +34,7 @@ public class HomeGui extends JPanel {
 		jPanel2 = new JPanel();		
 		
 		jPanel2.setLayout(new BorderLayout());
-		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
+		setBackground(new Color(0, 191, 255));
 
 		jPanel2.add(jPanel);
 		add(jPanel);

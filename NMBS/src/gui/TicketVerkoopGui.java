@@ -1,25 +1,43 @@
 package gui;
 
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.Border;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.UIManager;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import com.jgoodies.forms.factories.DefaultComponentFactory;
+
+import dao.StationDAO;
+import dao.VerlorenVoorwerpDAO;
+import source.Station;
+import source.Validation;
+import source.VerlorenVoorwerp;
 
 public class TicketVerkoopGui extends JPanel {
 	private JTextField txtVan;
 	private JTextField txtNaar;
 	private JTextField txtDatum;
+	private JButton btnVerkoop;
+	private JLabel lblVanerror,lblNaarerror, lblDatumerror;
+	private Border border = BorderFactory.createEmptyBorder();
+	private Border bordererror = BorderFactory.createLineBorder(Color.RED, 3);
+	
 	public TicketVerkoopGui() {
-		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
+		setBackground(new Color(0, 191, 255));
 		
 		JLabel lblVan = new JLabel("Van");
 		lblVan.setForeground(Color.WHITE);
@@ -44,7 +62,7 @@ public class TicketVerkoopGui extends JPanel {
 		JLabel lblSoortBiljet = new JLabel("Soort Biljet");
 		lblSoortBiljet.setForeground(Color.WHITE);
 		
-		JButton btnVerkoop = new JButton("Verkoop");
+		btnVerkoop = new JButton("Verkoop");
 		
 		ButtonGroup buttonGroup = new ButtonGroup();
 		JRadioButton rdbtnHeen = new JRadioButton("Heen");
@@ -55,6 +73,15 @@ public class TicketVerkoopGui extends JPanel {
 		buttonGroup.add(rdbtnHeenEnTerug);
 		
 		JLabel lblTicketVerkoop = DefaultComponentFactory.getInstance().createTitle("Ticket verkoop");
+		
+		lblVanerror = new JLabel("");
+		lblVanerror.setForeground(Color.RED);
+		
+		lblNaarerror = new JLabel("");
+		lblNaarerror.setForeground(Color.RED);
+		
+		lblDatumerror = new JLabel("");
+		lblDatumerror.setForeground(Color.RED);
 		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -75,9 +102,18 @@ public class TicketVerkoopGui extends JPanel {
 									.addComponent(lblSoortBiljet)
 									.addPreferredGap(ComponentPlacement.RELATED)))
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(txtDatum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtVan, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtNaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(txtDatum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(lblDatumerror))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(txtVan, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(lblVanerror))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(txtNaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(lblNaarerror))
 								.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addGap(18)
@@ -88,7 +124,7 @@ public class TicketVerkoopGui extends JPanel {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(27)
 							.addComponent(lblTicketVerkoop)))
-					.addContainerGap(127, Short.MAX_VALUE))
+					.addContainerGap(104, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -98,15 +134,18 @@ public class TicketVerkoopGui extends JPanel {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblVan)
-						.addComponent(txtVan, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtVan, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblVanerror))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNaar)
-						.addComponent(txtNaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtNaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNaarerror))
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblDatum)
-						.addComponent(txtDatum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtDatum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblDatumerror))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(rdbtnHeenEnTerug)
@@ -126,4 +165,44 @@ public class TicketVerkoopGui extends JPanel {
 	{
 		this.setVisible(false);
 	}
+	
+	private class MenuItemHandler implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == btnVerkoop){
+				
+				lblVanerror.setText("");
+				lblVanerror.setBorder(border);
+				lblNaarerror.setText("");
+				lblNaarerror.setBorder(border);
+				lblDatumerror.setText("");
+				lblDatumerror.setBorder(border);
+				
+				if(!txtVan.getText().isEmpty() && !txtDatum.getText().isEmpty() && !txtNaar.getText().isEmpty()){
+					if (!Validation.checkDate(txtDatum.getText(), "dd/MM/yyyy")){
+						lblDatumerror.setText("Gelieve een juiste datum in te vullen!");
+						txtDatum.setBorder(bordererror);
+
+					}
+					if (!Validation.checkAlphabetical(txtVan.getText())){
+						lblVanerror.setText("Gelieve een juist station in te vullen!");
+						txtVan.setBorder(bordererror);
+
+					}
+					if (!Validation.checkAlphabetical(txtNaar.getText())){
+						lblNaarerror.setText("Gelieve een juist station in te vullen!");
+						txtNaar.setBorder(bordererror);
+
+					}
+					else{
+						
+					}
+				}
+				else{
+					JOptionPane.showMessageDialog(new JFrame(),"Gelieve alle velden in te vullen!");
+				}
+			}
+		}		    	
+    }
 }

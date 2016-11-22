@@ -1,6 +1,7 @@
 package gui;
 
 import javax.swing.JPanel;
+import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -8,12 +9,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-
+import javax.swing.border.Border;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
 import source.Station;
+import source.Validation;
 import source.VerlorenVoorwerp;
 
 import java.awt.Color;
@@ -37,9 +39,14 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel{
 	VerlorenVoorwerp verlorenVoorwerp;
 	Station station;
 	private JTextField txtStation;
+	private JLabel lblBeschrijvingerror;
+	private JLabel lblDatumerror;
+	private JLabel lblStationerror;
+	private Border border = BorderFactory.createEmptyBorder();
+	private Border bordererror = BorderFactory.createLineBorder(Color.RED, 3);
 	
 	public VerlorenVoorwerpenToevoegenGui() {
-		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
+		setBackground(new Color(0, 191, 255));
 		
 		JLabel lblBeschrijving = new JLabel("Beschrijving");
 		lblBeschrijving.setForeground(Color.WHITE);
@@ -62,24 +69,46 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel{
 		txtStation.setColumns(10);
 		
 		JLabel label = DefaultComponentFactory.getInstance().createTitle("Verloren voorwerp toevoegen");
+		
+		lblBeschrijvingerror = new JLabel("");
+		lblBeschrijvingerror.setForeground(Color.RED);
+		
+		lblDatumerror = new JLabel("");
+		lblDatumerror.setForeground(Color.RED);
+		
+		lblStationerror = new JLabel("");
+		lblStationerror.setForeground(Color.RED);
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(14)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(label)
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-							.addComponent(lblBeschrijving)
-							.addComponent(lblDatum)
-							.addComponent(lblStation)))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnToevoegen)
-						.addComponent(txtStation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtrBeschrijving, GroupLayout.PREFERRED_SIZE, 201, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtDatum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(101, Short.MAX_VALUE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(14)
+							.addComponent(label))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(50)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblBeschrijving)
+								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+									.addComponent(lblStation)
+									.addComponent(lblDatum)))
+							.addGap(30)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(txtStation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(lblStationerror))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(txtDatum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(lblDatumerror))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(txtrBeschrijving, GroupLayout.PREFERRED_SIZE, 201, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(lblBeschrijvingerror))
+								.addComponent(btnToevoegen))))
+					.addContainerGap(211, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -89,18 +118,22 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel{
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblBeschrijving)
-						.addComponent(txtrBeschrijving, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtrBeschrijving, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblBeschrijvingerror))
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblDatum)
 						.addComponent(txtDatum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblDatum))
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtStation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblDatumerror))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(txtStation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblStationerror))
 						.addComponent(lblStation))
 					.addGap(18)
 					.addComponent(btnToevoegen)
-					.addGap(28))
+					.addGap(68))
 		);
 		setLayout(groupLayout);
 	}
@@ -115,15 +148,33 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == btnToevoegen){
-				if(!txtrBeschrijving.getText().isEmpty() && !txtDatum.getText().isEmpty()){
-					boolean gevonden = false;
-					String startDateString = txtDatum.getText();
-					java.util.Date myDate = new java.util.Date(startDateString);
-					java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
-					int stationId = StationDAO.getStationId(txtStation.getText().trim());
-					station = new Station(stationId);
-					verlorenVoorwerp = new VerlorenVoorwerp(stationId, txtrBeschrijving.getText().trim(), sqlDate ,gevonden);
-					VerlorenVoorwerpDAO.insertVerlorenVoorwerp(verlorenVoorwerp);
+				
+				lblDatumerror.setText("");
+				lblStationerror.setText("");
+				txtDatum.setBorder(border);
+				txtStation.setBorder(border);
+				
+				if(!txtrBeschrijving.getText().isEmpty() && !txtDatum.getText().isEmpty() && !txtStation.getText().isEmpty()){
+					if (!Validation.checkDate(txtDatum.getText(), "dd/MM/yyyy")){
+						lblDatumerror.setText("Gelieve een juiste datum in te vullen!");
+						txtDatum.setBorder(bordererror);
+
+					}
+					if (!Validation.checkLastName(txtStation.getText())){
+						lblStationerror.setText("Gelieve een juist Station in te vullen!");
+						txtStation.setBorder(bordererror);
+
+					}
+					else{
+						boolean gevonden = false;
+						String startDateString = txtDatum.getText();
+						java.util.Date myDate = new java.util.Date(startDateString);
+						java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
+						int stationId = StationDAO.getStationId(txtStation.getText().trim());
+						station = new Station(stationId);
+						verlorenVoorwerp = new VerlorenVoorwerp(stationId, txtrBeschrijving.getText().trim(), sqlDate ,gevonden);
+						VerlorenVoorwerpDAO.insertVerlorenVoorwerp(verlorenVoorwerp);
+					}
 				}
 				else{
 					JOptionPane.showMessageDialog(new JFrame(),"Please fill in all required fields!");

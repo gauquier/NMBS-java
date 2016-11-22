@@ -31,7 +31,7 @@ public class WachtwoordVeranderenGui extends JPanel {
 	private JButton btnWijzigen;
 	
 	public WachtwoordVeranderenGui() {
-		setBackground(UIManager.getColor("ComboBox.selectionBackground"));
+		setBackground(new Color(0, 191, 255));
 		
 		JLabel lblWachtwoordWijzigen = DefaultComponentFactory.getInstance().createTitle("Wachtwoord wijzigen");
 		

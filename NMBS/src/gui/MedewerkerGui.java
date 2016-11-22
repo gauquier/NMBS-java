@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -57,8 +58,8 @@ public class MedewerkerGui  extends JFrame {
 	}
 	
 	MedewerkerGui(){
-		getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
-		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
+		getContentPane().setBackground(new Color(0, 191, 255));
+		setBackground(new Color(0, 191, 255));
 		this.setResizable(true);
 		menuGUI();
 	}
