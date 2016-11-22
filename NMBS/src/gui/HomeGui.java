@@ -34,7 +34,7 @@ public class HomeGui extends JPanel {
 		
 		jPanel2.setLayout(new BorderLayout());
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
-		
+
 		jPanel2.add(jPanel);
 		add(jPanel);
 		
