@@ -238,72 +238,70 @@ public class GebruikerBewerkenGui extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == btnToevoegen){
-				if (e.getSource() == btnToevoegen){
-					lblVoornaamerror.setText("");
-					lblAchternaamerror.setText("");
-					lblStraaterror.setText("");
-					lblHuisnrerror.setText("");
-					lblBusError.setText("");
-					lblPostcodeerror.setText("");
-					lblGemeenteerror.setText("");
-					lblemailerror.setText("");
-					txtVoornaam.setBorder(border);
-					txtAchternaam.setBorder(border);
-					txtStraat.setBorder(border);
-					txtHuisnr.setBorder(border);
-					txtPostcode.setBorder(border);
-					txtGemeente.setBorder(border);
-					txtEmail.setBorder(border);
-					if (!txtVoornaam.getText().isEmpty() && !txtAchternaam.getText().isEmpty() && !txtStraat.getText().isEmpty() && !txtHuisnr.getText().isEmpty()
-							&& !txtGemeente.getText().isEmpty()&& !txtPostcode.getText().isEmpty() && !txtEmail.getText().isEmpty()){
-						if (!Validation.checkFirstName(txtVoornaam.getText())){
-							lblVoornaamerror.setText("Gelieve een juiste voornaam in te vullen!");
-							txtVoornaam.setBorder(bordererror);
+				lblVoornaamerror.setText("");
+				lblAchternaamerror.setText("");
+				lblStraaterror.setText("");
+				lblHuisnrerror.setText("");
+				lblBusError.setText("");
+				lblPostcodeerror.setText("");
+				lblGemeenteerror.setText("");
+				lblemailerror.setText("");
+				txtVoornaam.setBorder(border);
+				txtAchternaam.setBorder(border);
+				txtStraat.setBorder(border);
+				txtHuisnr.setBorder(border);
+				txtPostcode.setBorder(border);
+				txtGemeente.setBorder(border);
+				txtEmail.setBorder(border);
+				if (!txtVoornaam.getText().isEmpty() && !txtAchternaam.getText().isEmpty() && !txtStraat.getText().isEmpty() && !txtHuisnr.getText().isEmpty()
+						&& !txtGemeente.getText().isEmpty()&& !txtPostcode.getText().isEmpty() && !txtEmail.getText().isEmpty()){
+					if (!Validation.checkFirstName(txtVoornaam.getText())){
+						lblVoornaamerror.setText("Gelieve een juiste voornaam in te vullen!");
+						txtVoornaam.setBorder(bordererror);
 
-						}
-						if (!Validation.checkLastName(txtAchternaam.getText())){
-							lblAchternaamerror.setText("Gelieve een juiste Achternaam in te vullen!");
-							txtAchternaam.setBorder(bordererror);
+					}
+					if (!Validation.checkLastName(txtAchternaam.getText())){
+						lblAchternaamerror.setText("Gelieve een juiste Achternaam in te vullen!");
+						txtAchternaam.setBorder(bordererror);
 
-						}
-						if (!Validation.checkAlphabetical(txtStraat.getText())){
-							lblStraaterror.setText("Gelieve een bestaande straat in te vullen!");
-							txtStraat.setBorder(bordererror);
+					}
+					if (!Validation.checkAlphabetical(txtStraat.getText())){
+						lblStraaterror.setText("Gelieve een bestaande straat in te vullen!");
+						txtStraat.setBorder(bordererror);
 
-						}
-						if (!Validation.checkHouseNumber(txtHuisnr.getText())){
-							lblHuisnrerror.setText("Gelieve een bestaand huisnummer in te vullen!");
-							txtHuisnr.setBorder(bordererror);
+					}
+					if (!Validation.checkHouseNumber(txtHuisnr.getText())){
+						lblHuisnrerror.setText("Gelieve een bestaand huisnummer in te vullen!");
+						txtHuisnr.setBorder(bordererror);
 
-						}
-						if (!Validation.checkBoxNumber(txtBus.getText()) && !txtBus.getText().isEmpty()){
-							lblBusError.setText("Gelieve een bestaande bus in te vullen!");
-							txtBus.setBorder(bordererror);
+					}
+					if (!Validation.checkBoxNumber(txtBus.getText()) && !txtBus.getText().isEmpty()){
+						lblBusError.setText("Gelieve een bestaande bus in te vullen!");
+						txtBus.setBorder(bordererror);
 
-						}
-						if (!Validation.checkPostalCode(txtPostcode.getText())){
-							lblPostcodeerror.setText("Gelieve een bestaande postcode in te vullen!");
-							txtPostcode.setBorder(bordererror);
+					}
+					if (!Validation.checkPostalCode(txtPostcode.getText())){
+						lblPostcodeerror.setText("Gelieve een bestaande postcode in te vullen!");
+						txtPostcode.setBorder(bordererror);
 
-						}
-						if (!Validation.checkAlphabetical(txtGemeente.getText())){
-							lblGemeenteerror.setText("Gelieve een bestaande gemeente in te vullen!");
-							txtGemeente.setBorder(bordererror);
+					}
+					if (!Validation.checkAlphabetical(txtGemeente.getText())){
+						lblGemeenteerror.setText("Gelieve een bestaande gemeente in te vullen!");
+						txtGemeente.setBorder(bordererror);
 
-						}
-						if (!Validation.checkEmail(txtEmail.getText())){
-							lblemailerror.setText("Gelieve een juist email in te vullen!");
-							txtEmail.setBorder(bordererror);
+					}
+					if (!Validation.checkEmail(txtEmail.getText())){
+						lblemailerror.setText("Gelieve een juist email in te vullen!");
+						txtEmail.setBorder(bordererror);
 
-						}
-						else{
-							close();
-							JOptionPane.showMessageDialog(new JFrame(),"Medewerker is bewerkt!");
-						}
 					}
 					else{
-						JOptionPane.showMessageDialog(new JFrame(),"Please fill in all required fields!");
+						close();
+						JOptionPane.showMessageDialog(new JFrame(),"Medewerker is bewerkt!");
 					}
+				}
+				else{
+					JOptionPane.showMessageDialog(new JFrame(),"Please fill in all required fields!");
 				}
 			}
 		}

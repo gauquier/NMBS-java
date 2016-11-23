@@ -129,18 +129,10 @@ public class LoginGui {
 						if(databasePassword!= null){
 							if(databasePassword.equals(password)){
 								int loginId = LoginDao.getLoginId(username);
-								int rollId = LoginDao.getRoll(loginId);
 								login = new Login(username);
 
 								closeFrame();
-								 if(rollId == 1){
-									Controller.adminInterface = new AdminGui();
-									Controller.adminInterface.setHome();
-								 }
-								 else if(rollId == 2){
-									Controller.medewerkerInterface = new MedewerkerGui();
-									Controller.medewerkerInterface.setHome();
-								} 
+								KiesStationGui.start();
 							}else {
 								JOptionPane.showMessageDialog(new JFrame(), "Username of wachtwoord is verkeerd.");
 							}

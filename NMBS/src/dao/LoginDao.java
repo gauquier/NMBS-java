@@ -62,19 +62,19 @@ public class LoginDao {
 		return user;
 	}
 	
-	public static int getRoll(int loginId){
+	public static int getRoll(int id){
 		dba.createSelect("Medewerker", "rolId");
-		dba.addWhere("loginId", Login.getLoginId()); 
+		dba.addWhere("loginId", id); 
 		ResultSet rs = dba.commit();
 		try {
 			if(rs.next()){
-				loginId = rs.getInt(1);
+				id = rs.getInt(1);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
-		return loginId;
+		return id;
 	}
 	
 	public static int getLoginId(String username){
