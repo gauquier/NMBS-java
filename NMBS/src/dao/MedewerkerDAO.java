@@ -3,25 +3,14 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import source.Klant;
 import source.Medewerker;
 import source.Persoon;
 
-public class MedewerkerDAO {
-	private static final String MEDEWERKER_ZOEKEN_OP_NAAM_EN_ACHTERNAAM = "SELECT DISTINCT Persoon.persoonId, Persoon.voornaam, Persoon.achternaam FROM Medewerker JOIN Persoon ON Medewerker.persoonId= Persoon.persoonId WHERE Persoon.voornaam = ? AND Persoon.achternaam = ? ";
-	private static final String PERSOON_TOEVOEGEN = "INSERT INTO Persoon (voornaam, achternaam) VALUES ( ? , ? )";
-	private static final String ROL_ZOEKEN_OP_NAAM = "SELECT rollId, Rol FROM Rol WHERE Rol = ?";
-	private static final String LOGIN_ZOEKEN_OP_USERNAME = "SELECT loginId, username FROM Login WHERE username = ?";
-	private static final String LOGIN_TOEVOEGEN = "INSERT INTO Login (username, pass, email) VALUES ( ? , ? , ?)";
-	private static final String MEDEWERKER_TOEVOEGEN = "INSERT INTO Medewerker (loginId, persoonId, rolId, actief) VALUES ( ? , ? , ? , ? )";
-
-	private static final String MEDEWERKER_ZOEKEN_OP_MEDEWERKERID = "SELECT medewerkerId,loginId, persoonId, rolId, actief WHERE medewerkerId = ?";
-
-	private static final String MEDEWERKER_INFO_WIJZIGEN = "UPDATE Medewerker SET actief = ? WHERE medewerkerId = ?";
-	private static final String MEDEWERKER_ZOEKEN_OP_NAAM = "!undercontruction (eerst afsprekken met team hoe dit werkt";
-	private static final String MEDEWERKER_ZOEKEN_OP_PERSOONID = "SELECT medewerkerId,loginId, persoonId, rolId, actief WHERE persoonId = ?";
-
+public class MedewerkerDAO { 
 	/**
 	 * Medewerker Toevoegen Als Medewerker al bestaat in databank return null
 	 * return Medewerker die een Medewerker id heeft als Medewerker toevoegen
@@ -34,160 +23,105 @@ public class MedewerkerDAO {
 	 *         bijhoren <br>
 	 *         <br>
 	 *         <b>Werking: </b><br>
-	 *         Medewerker wordt niet toegevoegd tenzij alle stapen in order zijn
+	 *         Medewerker wordt niet toegevoegd tenzij alle stapen in order zijn.
+	 *         Er wordt bij elke stap verwacht dat een exception wordt gegooid 
+	 *         als opdracht wordt niet met succes volbracht.
+	 *         Als een exception voorkomt in een van de stapen wordt er een rol back
+	 *         gedaan. vb als persoon al bestaat in DB en een exception wordt gegooid
+	 *         wordt de login die in de vorige stap met succes wordt toegevoed verwijderd
 	 * 
 	 *         <ol>
 	 *         <li><b>stap 1</b><br>
-	 *         checken of login geldig is zo niet falt deze methode niets word
-	 *         toegevoegd aan DB waarom? omdat volgens onze DB Login required is
-	 *         bij toevoegen van medewerker</li>
+	 *         login toevoegen  </li>
 	 *         <li><b>stap 2</b><br>
-	 *         checken of Rol van medewerker bestaat. zo niet dan wordt falt
-	 *         deze methode en null wordt return</li>
+	 *         persoon toevoegen</li>
 	 *         <li><b>stap 3</b><br>
-	 *         checken of de medewerker all bestaat. wordt gecontroleerd op
-	 *         voornaam en achternaam combinatie als die al int DB staan dan
-	 *         wordt null return</li>
+	 *        rolId nagaan of die all in DB voorkomt zo niet throw Exception en doe roll back</li>
 	 *         <li><b>stap 4</b><br>
-	 *         medewerker toevoegen aan Persoon tabel</li>
-	 *         <li><b>stap 5</b><br>
-	 *         vragen aan DB id van deze nieuw persoon om die id te bruiken bij
-	 *         medewerker toevoegen</li>
-	 *         <li><b>stap 6</b><br>
-	 *         login gegevens toevoegen aan Login tabel</li>
-	 *         <li><b>stap 7</b><br>
-	 *         vragen aan Login tabel de id van deze nieuwe login om die te
-	 *         gebruiken bij medewerker toevoegen</li>
-	 *         <li><b>stap 8</b><br>
-	 *         medewerker toevoegen aan tabel medewerken omdat ik nu alle
-	 *         informatie dat ik nodig heb in order zijn</li>
-	 *         <li><b>stap 9</b><br>
-	 *         return medewerker object met alles ingevuld</li>
+	 *         medewerker toevoegen </li> 
 	 *         </ol>
-	 * @throws  Exception  medewerkerException met een bericht van waar in het process van werker toevoegen de exception komt
-	 * bv. Login naam is all in gebruik
+	 * @throws Exception
+	 *             medewerkerException met een bericht van waar in het process
+	 *             van werker toevoegen de exception komt bv. Login naam is all
+	 *             in gebruik
 	 */
-	public static Medewerker medewerkerToevoegen(Medewerker medewerker)throws  Exception  {
-		
-		boolean [] medewerkerToevoegenSuccessArray= new boolean[5];
-		for(boolean success:medewerkerToevoegenSuccessArray){
-			success=false;
+	public static Medewerker medewerkerToevoegen(Medewerker medewerker) throws Exception {
+		/*
+		 * nieuwe manier van werken een array van success flags als het lukt met
+		 * vb login toevoegen dan wordt flag 0 true als een van de flags niet
+		 * lukt wordt een soort rol back gedaan dus bv als toevoegen van persoon
+		 * niet lukt en login toevoegen is wel gelukt dan wordt de login
+		 * verwijdert medewerkerToevoegen gooit een exception
+		 */
+		boolean[] medewerkerToevoegenSuccesArray = new boolean[4];
+		/*
+		 * [0] login toevoegen [1] persoon toevoegen [2] rol toevoegen [3]
+		 * medewerker toevoegen
+		 */
+		for (boolean success : medewerkerToevoegenSuccesArray) {
+			success = false;
 		}
-		
-		// ik heb dit in stappen gedaan
-
 		if (medewerker == null) {
-			return null;
+			throw new Exception("medewerkerToevoegen: medewerker is null");
 		}
-		medewerker.setLogin(LoginDao.loginToevoegen(medewerker.getLogin()));
-		Persoon persoon= PersoonDao.persoonToevoegen(medewerker);
-		
-		
-		
-		PreparedStatement stmt = null;
-		java.sql.Connection connection = null;
-		ResultSet resultSet = null;
+		// ik heb dit in stappen gedaan
 		try {
-			connection = Connection.getDBConnection();
-			connection.setAutoCommit(false);
 
-			stmt = connection.prepareStatement(LOGIN_ZOEKEN_OP_USERNAME);
-			stmt.setString(1, medewerker.getLogin().getUsername());
-			resultSet = stmt.executeQuery();
-			if (resultSet.next()) {
-				resultSet.close();
-				stmt.close();
-				connection.close();
-				return null;
+			medewerker.setLogin(LoginDao.loginToevoegen(medewerker.getLogin()));
+			medewerkerToevoegenSuccesArray[0] = true;
+
+			Persoon persoon = PersoonDao.persoonToevoegen(medewerker);
+			medewerker.setPersoonId(persoon.getPersoonId());
+			// omdat nu adres een id zou moeten gekregen hebben toen persoon
+			// werd toegevoegd
+			medewerker.setAdres(persoon.getAdres());
+			medewerkerToevoegenSuccesArray[1] = true;
+
+			medewerker.setRol(RolDAO.zoekRolOpRolNaam(medewerker.getRol()));
+			medewerkerToevoegenSuccesArray[2] = true;
+
+			DBA dba = new DBA();
+			dba.createInsert("Medewerker");
+			dba.addValue(medewerker.getLogin().getLoginId());
+			dba.addValue(medewerker.getPersoonId());
+			dba.addValue(medewerker.getRol().getRolId());
+			dba.addValue(medewerker.isActief() ? 1 : 0);
+			dba.commit();
+			dba.createSelect("Medewerker", "medewerkerId");
+			dba.addWhere("loginId", medewerker.getLogin().getLoginId());
+			dba.addWhere("persoonId", medewerker.getPersoonId());
+			dba.addWhere("rolId", medewerker.getRol().getRolId());
+			ResultSet rs = dba.commit();
+			if(rs==null){
+				throw new Exception("medewerkerId zoeken na het toevoegen van een nieuw medewerker is niet gelukt");
+				
 			}
-			stmt = connection.prepareStatement(ROL_ZOEKEN_OP_NAAM);
-			stmt.setString(1, medewerker.getRol().getRol());
-			resultSet = stmt.executeQuery();
-			if (resultSet.next()) {
-				medewerker.getRol().setRolId(resultSet.getInt(1));
-				medewerker.getRol().setRol(resultSet.getString(2));
-			} else {
-				// rol is required in DB. dus geveven Rol niet bestaat
-				// falt deze methode
-				resultSet.close();
-				stmt.close();
-				connection.close();
-				return null;
-			}
-
-			stmt = connection.prepareStatement(MEDEWERKER_ZOEKEN_OP_NAAM_EN_ACHTERNAAM);
-			stmt.setString(1, medewerker.getVoornaam());
-			stmt.setString(2, medewerker.getAchternaam());
-			resultSet = stmt.executeQuery();
-			if (resultSet.next()) {
-				resultSet.close();
-				stmt.close();
-				connection.close();
-				return null;
-			}
-			// alle controles zijn gedaan en hier is methode klaar om te beginen
-			// met toevoegen van medewerker
-			stmt = connection.prepareStatement(PERSOON_TOEVOEGEN);
-			stmt.setString(1, medewerker.getVoornaam());
-			stmt.setString(2, medewerker.getAchternaam());
-			stmt.executeQuery();
-			connection.commit();
-
-			stmt = connection.prepareStatement(MEDEWERKER_ZOEKEN_OP_NAAM_EN_ACHTERNAAM);
-			stmt.setString(1, medewerker.getVoornaam());
-			stmt.setString(2, medewerker.getAchternaam());
-			resultSet = stmt.executeQuery();
-			resultSet.next();
-			medewerker.setPersoonId(resultSet.getInt(1));
-
-			stmt = connection.prepareStatement(LOGIN_TOEVOEGEN);
-			stmt.setString(1, medewerker.getLogin().getUsername());
-			stmt.setString(2, medewerker.getLogin().getPassword());
-			stmt.setString(3, medewerker.getLogin().getEmail());
-			resultSet = stmt.executeQuery();
-			connection.commit();
-
-			stmt = connection.prepareStatement(LOGIN_ZOEKEN_OP_USERNAME);
-			stmt.setString(1, medewerker.getLogin().getUsername());
-			resultSet = stmt.executeQuery();
-			resultSet.next();
-			medewerker.getLogin().setLoginId(resultSet.getInt(1));
-
-			// eindelijk medewerker toevoegen an medewerker tabel zelf
-
-			stmt = connection.prepareStatement(MEDEWERKER_TOEVOEGEN);
-			stmt.setInt(1, medewerker.getLogin().getLoginId());
-			stmt.setInt(2, medewerker.getPersoonId());
-			stmt.setInt(3, medewerker.getRol().getRolId());
-			stmt.setInt(3, medewerker.isActief() ? 1 : 0);
-			connection.commit();
-
-			stmt = connection.prepareStatement(MEDEWERKER_ZOEKEN_OP_PERSOONID);
-			stmt.setInt(1, medewerker.getPersoonId());
-			resultSet = stmt.executeQuery();
-			resultSet.next();
-			medewerker.setMedewerkerId(resultSet.getInt(1));
-			
-			resultSet.close();
-			stmt.close();
-			connection.close();
-			return medewerker;
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
 			try {
-				if (stmt != null)
-					stmt.close();
-				if (connection != null)
-					connection.close();
+				if (rs.next()) {
+					medewerker.setMedewerkerId(rs.getInt(1));
+				}
 			} catch (SQLException e) {
 				e.printStackTrace();
+			} finally {
+				if (rs != null && !rs.isClosed())
+					rs.close();
 			}
+
+			return medewerker;
+
+		} catch (Exception e) {
+			try {
+				if (medewerkerToevoegenSuccesArray[0]) {
+					LoginDao.loginVerwijderen(medewerker.getLogin());
+				}
+				if (medewerkerToevoegenSuccesArray[1]) {
+					PersoonDao.persoonVerwijderen(medewerker);
+				}
+			} catch (Exception ex) {
+				throw new Exception("medewerkerToevoegen: " + ex.getMessage());
+			}
+			throw new Exception("medewerkerToevoegen: " + e.getMessage());
 		}
-		return null;
 	}
 
 	/**
@@ -233,169 +167,136 @@ public class MedewerkerDAO {
 		// omdat return van boolean niet veel informatie terug geeft
 		// van wat er miss loopt
 
-		boolean success = false;
+		boolean succes = false;
 		if (medewerker == null) {
-			throw new Exception("gegeven medewerker parameter is null");
-		}
-		PreparedStatement stmt = null;
-		java.sql.Connection connection = null;
+			throw new Exception("medewerkerWijzigen: gegeven medewerker parameter is null");
+		} 
 		try {
-			Medewerker dbMedewerker = MedewerkerDAO.medewerkerZoekenOpMedewerkerId(medewerker);
+			Medewerker dbMedewerker = MedewerkerDAO.medewerkerZoekenOpMedewerkerId(medewerker.getMedewerkerId());
 			if (dbMedewerker == medewerker) {
-				connection = Connection.getDBConnection();
-				connection.setAutoCommit(false);
-				PersoonDao.persoonWijzigen(medewerker);
-				// eerst zien of gegeven Rol bestaat of niet dan die wijzigen
-				medewerker.setRol(RolDAO.zoekRolOpRolNaam(medewerker.getRol()));
-
-				LoginDao.loginWijzigen(medewerker.getLogin());
-
-				stmt = connection.prepareStatement(MEDEWERKER_INFO_WIJZIGEN);
-				stmt.setInt(1, medewerker.isActief()?1:0);
-				stmt.setInt(2, medewerker.getMedewerkerId());
-				stmt.executeUpdate();
-				connection.commit();
-				success = true;
-			}
+			PersoonDao.persoonWijzigen(medewerker);
+			medewerker.setRol(RolDAO.zoekRolOpRolNaam(medewerker.getRol()));
+			LoginDao.loginWijzigen(medewerker.getLogin());
+			DBA dba= new DBA();
+			dba.createUpdate("Medewerker", "actief",medewerker.isActief());
+			dba.createUpdate("Medewerker", "rolId",medewerker.getRol().getRolId());
+			dba.addWhere("medewerkerId",medewerker.getMedewerkerId());
+			succes = true;
+			} else{
+				throw new Exception("medewerker bestaat niet in DB");
+			} 
+			 
 		} catch (Exception e) {
-			throw new Exception(e.getMessage());
-		} finally {
-			try {
-				if (stmt != null)
-					stmt.close();
-				if (connection != null)
-					connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return success;
+			throw new Exception("medewerkerWijzigen: "+e.getMessage());
+		}  
+		return succes;
 	}
-/**
- * Zoekt medewerker op medewerker id
- * @param medewerkerId
- * @return Medewerker met alle informatie van deze medewerker ingevuld
- * @throws ExceptionmedewerkerZoekenOpMedewerkerId als:<br><br>
- * <ol>
- * <li>medewerkerId = 0</li> 
- * <li>medewerker wordt niet gevonden in DB</li> 
- * <li>een van de onderligende subklassen zoals LoginDAO heeft een exception gegooid</li> 
- * </ol>
- * <br>
- * <b>Werking:</b>
- * <ol>
- * <li>stap 1 zoeken in DB voor medewerker op medewerker Id. Niet persoonId</li> 
- * <li>stap 2 als medewerker wordt gevonden dan vul local medewerker object met medewerker tabel info
-	 * <ol>
-	 * <li>als medewerker niet gevonden dan wordt er een exception gegooid</li>  
-	 * </ol> </li> 
- * <li>stap 3 alle andere medewerker gegevens worden ingevuld als volgt:
-  * <ol>
-	 * <li>Persoon gegevens dat medewerker class overerft van Persson worden ingevuld mbv PersoonDAO. 
-	 * Het is de job van PersoonDAO om te zorgen dat alles goed ingevuld wordt van persoon</li>  
-	 *  <li>
-	 *  Login gegevens van medewerker worden goed ingevuld mbv LoginDAO
-	 *  </li>
-	 *  <li>Rol gegeven van medewerker worden goed ingevuld mbv. RolDAO</li> 
-	 * </ol> </li>  
- * <li></li> 
- * <li></li> 
- * <li></li> 
- * <li></li> 
- * </ol> 
- * */
-	public static Medewerker medewerkerZoekenOpMedewerkerId(int medewerkerId) throws Exception {
-		if (medewerkerId == 0) {
-			throw new Exception("gegeven medewerkerId parameter is 0");
-		}
-		Medewerker medewerker = new Medewerker();
-		PreparedStatement stmt = null;
-		java.sql.Connection connection = null;
-		ResultSet resultSet = null;
-		try {
-			connection = Connection.getDBConnection();
-			connection.setAutoCommit(false);
-			stmt = connection.prepareStatement(MEDEWERKER_ZOEKEN_OP_MEDEWERKERID);
-			stmt.setInt(1, medewerkerId);
-			resultSet = stmt.executeQuery();
-			if (resultSet.next()) {
-				medewerker.setMedewerkerId(resultSet.getInt(1));
-				medewerker.setPersoonId(resultSet.getInt(2));
-				medewerker.getLogin().setLoginId(resultSet.getInt(3));
-				medewerker.getRol().setRolId(resultSet.getInt(4));
-				medewerker.setActief(resultSet.getInt(5) == 0 ? false : true);
-				resultSet.close();
-				stmt.close();
-				connection.close();
-				medewerker.setLogin(LoginDao.loginZoekenOpLoginId(medewerker.getLogin()));
-				medewerker.setRol(RolDAO.zoekRolOpRolNaam(medewerker.getRol()));
-				Persoon persoon = PersoonDao.zoekPersoonOpPersoonId(medewerker);
 
-				medewerker.setAchternaam(persoon.getAchternaam());
-				medewerker.setVoornaam(persoon.getVoornaam());
-				medewerker.setAdresId(persoon.getAdresId());
-				return medewerker;
-			}
-			throw new Exception("gegeven medewerkerId parameter is niet gevonden in DB");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			throw new Exception(e.getMessage());
-		} finally {
-			try {
-				if (stmt != null)
-					stmt.close();
-				if (connection != null)
-					connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return null;
-	}
 	/**
 	 * Zoekt medewerker op medewerker id
-	 * @param medewerker
+	 * 
+	 * @param medewerkerId
 	 * @return Medewerker met alle informatie van deze medewerker ingevuld
-	 * @throws ExceptionmedewerkerZoekenOpMedewerkerId als:<br><br>
-	 * <ol>
-	 * <li>medewerker = null</li> 
-	 * <li>medewerkerId = 0</li> 
-	 * <li>medewerker wordt niet gevonden in DB</li> 
-	 * <li>een van de onderligende subklassen zoals LoginDAO heeft een exception gegooid</li> 
-	 * </ol>
-	 * <br>
-	 * <b>Werking:</b>
-	 * <ol>
-	 * <li>stap 1 zoeken in DB voor medewerker op medewerker Id. Niet persoonId</li> 
-	 * <li>stap 2 als medewerker wordt gevonden dan vul local medewerker object met medewerker tabel info
-		 * <ol>
-		 * <li>als medewerker niet gevonden dan wordt er een exception gegooid</li>  
-		 * </ol> </li> 
-	 * <li>stap 3 alle andere medewerker gegevens worden ingevuld als volgt:
-	  * <ol>
-		 * <li>Persoon gegevens dat medewerker class overerft van Persson worden ingevuld mbv PersoonDAO. 
-		 * Het is de job van PersoonDAO om te zorgen dat alles goed ingevuld wordt van persoon</li>  
-		 *  <li>
-		 *  Login gegevens van medewerker worden goed ingevuld mbv LoginDAO
-		 *  </li>
-		 *  <li>Rol gegeven van medewerker worden goed ingevuld mbv. RolDAO</li> 
-		 * </ol> </li>  
-	 * <li></li> 
-	 * <li></li> 
-	 * <li></li> 
-	 * <li></li> 
-	 * </ol> 
-	 * */
-	public static Medewerker medewerkerZoekenOpMedewerkerId(Medewerker medewerker) throws Exception {
-		if (medewerker == null) {
-			throw new Exception("gegeven medewerker parameter is null");
+	 * @throws ExceptionmedewerkerZoekenOpMedewerkerId
+	 *             als:<br>
+	 *             <br>
+	 *             <ol>
+	 *             <li>medewerkerId = 0</li>
+	 *             <li>medewerker wordt niet gevonden in DB</li>
+	 *             <li>een van de onderligende subklassen zoals LoginDAO heeft
+	 *             een exception gegooid</li>
+	 *             </ol>
+	 *             <br>
+	 *             <b>Werking:</b>
+	 *             <ol>
+	 *             <li>stap 1 zoeken in DB voor medewerker op medewerker Id.
+	 *             Niet persoonId</li>
+	 *             <li>stap 2 als medewerker wordt gevonden dan vul local
+	 *             medewerker object met medewerker tabel info
+	 *             <ol>
+	 *             <li>als medewerker niet gevonden dan wordt er een exception
+	 *             gegooid</li>
+	 *             </ol>
+	 *             </li>
+	 *             <li>stap 3 alle andere medewerker gegevens worden ingevuld
+	 *             als volgt:
+	 *             <ol>
+	 *             <li>Persoon gegevens dat medewerker class overerft van
+	 *             Persson worden ingevuld mbv PersoonDAO. Het is de job van
+	 *             PersoonDAO om te zorgen dat alles goed ingevuld wordt van
+	 *             persoon</li>
+	 *             <li>Login gegevens van medewerker worden goed ingevuld mbv
+	 *             LoginDAO</li>
+	 *             <li>Rol gegeven van medewerker worden goed ingevuld mbv.
+	 *             RolDAO</li>
+	 *             </ol>
+	 *             </li> 
+	 *             </ol>
+	 */
+	public static Medewerker medewerkerZoekenOpMedewerkerId(int medewerkerId) throws Exception {
+		if (medewerkerId == 0) {
+			throw new Exception("medewerkerZoekenOpMedewerkerId: gegeven medewerkerId parameter is 0");
+		}
+		Medewerker medewerker = null;
+		DBA dba = new DBA(); 
+		dba.createSelect("Medewerker");
+		dba.addWhere("medewerkerId", medewerkerId); 
+		ResultSet resultSet = dba.commit();
+		if(resultSet==null){
+			throw new Exception("medewerkerId zoeken na het toevoegen van een nieuw medewerker is niet gelukt"); 
 		}
 		try {
-			medewerkerZoekenOpMedewerkerId(medewerker.getMedewerkerId());
-		} catch (Exception e) {
-			throw new Exception(e.getMessage());
+			if (resultSet.next()) {
+				medewerker=(Medewerker) PersoonDao.zoekPersoonOpPersoonId(resultSet.getInt(3));
+				medewerker.setMedewerkerId(resultSet.getInt(1));
+				medewerker.setLogin(LoginDao.loginZoekenOpLoginId(resultSet.getInt(2))); 
+				medewerker.setRol(RolDAO.zoekRolOpRolId(resultSet.getInt(4)));
+				medewerker.setActief(resultSet.getInt(5) == 0 ? false : true);
+			}else{
+				throw new Exception("medewerkerId zoeken na het toevoegen van een nieuw medewerker is niet gelukt");				
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		catch (Exception e){
+			throw new Exception("medewerkerZoekenOpMedewerkerId: "+e.getMessage());			
 		}
-		return null;
+		finally {
+			if (resultSet != null && !resultSet.isClosed())
+				resultSet.close();
+		}
+		return medewerker; 
 	}
+/**
+ * Alle medewerkers halen 
+ * @return List<Medewerker> met alle overligende gegevens(dus geen lazy loading)
+ * @exception getAlleMedewerkers
+ * 
+ * */
+ public static List<Medewerker> getAlleMedewerkers() throws Exception{
+	 DBA dba= new DBA();
+	 dba.createSelect("Medewerker");
+	 ResultSet resultSet=dba.commit();
+	 List<Medewerker>medewerkers= new ArrayList<>();
+	 try {
+		while(resultSet.next()){
+			Medewerker medewerker= (Medewerker) PersoonDao.zoekPersoonOpPersoonId(resultSet.getInt(2));
+			medewerker.setLogin(LoginDao.loginZoekenOpLoginId(resultSet.getInt(1)));
+			medewerker.setRol(RolDAO.zoekRolOpRolId(resultSet.getInt(4)));
+			medewerker.setActief(resultSet.getInt(5)==0?false:true);
+			medewerkers.add(medewerker);
+			 
+			 
+		 }
+	} catch (SQLException e) { 
+		e.printStackTrace();
+	} catch (Exception e) {
+		 throw new Exception("getAlleMedewerkers: "+e.getMessage());
+	}finally {
+		if (resultSet != null && !resultSet.isClosed())
+			resultSet.close();
+	}
+	 return medewerkers; 
+ } 
 }

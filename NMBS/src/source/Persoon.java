@@ -2,9 +2,10 @@ package source;
 
 public class Persoon {
 	private int persoonId;
+	private Adres adres;
 	private String voornaam;
 	private String achternaam;
-	private int adresId;
+	private String email;
 
 	public Persoon() {
 		// Default constructor
@@ -40,27 +41,42 @@ public class Persoon {
 	 * 
 	 * @param voornaam
 	 * @param achternaam
-	 * @param adresId
+	 * @param adres
 	 */
-	public Persoon(String voornaam, String achternaam, int adresId) {
+	public Persoon(String voornaam, String achternaam, Adres adres) {
 		this.voornaam = voornaam;
 		this.achternaam = achternaam;
-		this.adresId = adresId;
-	}
-
+		this.adres = adres;
+	} 
 	/**
 	 * Persoon eerder is opgeslagen in DB en heeft persoonId en heeft een adres
 	 * 
 	 * @param persoonId
+	 * @param adres
 	 * @param voornaam
 	 * @param achternaam
-	 * @param adresId
+	 * @param email
 	 */
-	public Persoon(int persoonId, String voornaam, String achternaam, int adresId) {
+	public Persoon(int persoonId, Adres adres, String voornaam, String achternaam, String email) { 
 		this.persoonId = persoonId;
+		this.adres = adres;
 		this.voornaam = voornaam;
 		this.achternaam = achternaam;
-		this.adresId = adresId;
+		this.email = email;
+	}
+
+	/**
+	 * @return email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * @param email 
+	 */
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	/**
@@ -106,19 +122,20 @@ public class Persoon {
 	}
 
 	/**
-	 * @return adresId als adres is toegekend of null als adres is niet
+	 * @return adres als adres is toegekend of null als adres is niet
 	 *         toegekend
 	 */
-	public int getAdresId() {
-		return adresId;
+	public Adres getAdres() {
+		return adres;
 	}
 
 	/**
-	 * @param adresId
+	 * @param adres
 	 */
-	public void setAdresId(int adresId) {
-		this.adresId = adresId;
+	public void setAdres(Adres adres) {
+		this.adres = adres;
 	}
+	//persoon = persoon als voornaam en achternaam gelijk zijn
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
@@ -127,7 +144,8 @@ public class Persoon {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + persoonId;
+		result = prime * result + ((achternaam == null) ? 0 : achternaam.hashCode());
+		result = prime * result + ((voornaam == null) ? 0 : voornaam.hashCode());
 		return result;
 	}
 
@@ -143,9 +161,18 @@ public class Persoon {
 		if (getClass() != obj.getClass())
 			return false;
 		Persoon other = (Persoon) obj;
-		if (persoonId != other.persoonId)
+		if (achternaam == null) {
+			if (other.achternaam != null)
+				return false;
+		} else if (!achternaam.equals(other.achternaam))
+			return false;
+		if (voornaam == null) {
+			if (other.voornaam != null)
+				return false;
+		} else if (!voornaam.equals(other.voornaam))
 			return false;
 		return true;
 	}
+	
 
 }

@@ -1,6 +1,5 @@
 package dao;
 
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,39 +12,41 @@ import source.Login;
 public class LoginDao {
 	private static String username1, password1;
 	private static int rollid, loginId;
-	
+
 	private static java.sql.Connection connection;
 	private static Statement command;
 	private static ResultSet data;
 	private static PreparedStatement stmt = null;
-	
-	public static int addLogin(Login login){
+
+	public static int addLogin(Login login) {
 		int id = 0;
 		DataSource ds = null;
-		
+
 		try {
-	        if (connection == null){connection = Connection.getDBConnection();}
-	        command = connection.createStatement();
-	        
-	        stmt = connection.prepareStatement("INSERT INTO Login (username, pass, email) VALUES(?,?,?);");
-	        stmt.setString(1, login.getUsername());
-	        stmt.setString(2,login.getPassword());
-	        stmt.setString(3, login.getEmail());
-	        stmt.executeUpdate();
-	        data = command.executeQuery("SELECT MAX(adressId) FROM adress");
-	        if (data.next()) {
-	        	id=data.getInt(1);
-	        }
-	        data.close();
-	    }catch (SQLException e){
-	        e.printStackTrace();
-	    }catch(Exception e) {
-	        e.printStackTrace();
-	    }   
-	    return id;
+			if (connection == null) {
+				connection = Connection.getDBConnection();
+			}
+			command = connection.createStatement();
+
+			stmt = connection.prepareStatement("INSERT INTO Login (username, pass, email) VALUES(?,?,?);");
+			stmt.setString(1, login.getUsername());
+			stmt.setString(2, login.getPassword());
+			stmt.setString(3, login.getEmail());
+			stmt.executeUpdate();
+			data = command.executeQuery("SELECT MAX(adressId) FROM adress");
+			if (data.next()) {
+				id = data.getInt(1);
+			}
+			data.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return id;
 	}
-	
-	public static String getUsername(int userId){
+
+	public static String getUsername(int userId) {
 
 		try {
 			connection = Connection.getDBConnection();
@@ -53,28 +54,30 @@ public class LoginDao {
 			stmt.setInt(1, userId);
 			data = stmt.executeQuery();
 
-			while(data.next()){
-				username1=data.getString(1);
+			while (data.next()) {
+				username1 = data.getString(1);
 				System.out.println("username: " + username1);
 			}
 			data.close();
-			//connection.close();
-		}catch (SQLException e){
+			// connection.close();
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}catch(Exception e) {//Handle errors for Class.forName
+		} catch (Exception e) {// Handle errors for Class.forName
 			e.printStackTrace();
-		}finally{
-			try{
-				if(data!=null) data.close();
-				if(connection!=null)connection.close();
-			}catch(SQLException se2){
+		} finally {
+			try {
+				if (data != null)
+					data.close();
+				if (connection != null)
+					connection.close();
+			} catch (SQLException se2) {
 				se2.printStackTrace();
 			}
 		}
 		return username1;
 	}
-	
-	public static String getPassword(int userId){
+
+	public static String getPassword(int userId) {
 
 		try {
 			connection = Connection.getDBConnection();
@@ -82,28 +85,30 @@ public class LoginDao {
 			stmt.setInt(1, userId);
 			data = stmt.executeQuery();
 
-			while(data.next()){
-				password1=data.getString(1);
+			while (data.next()) {
+				password1 = data.getString(1);
 				System.out.println("password: " + password1);
 			}
 			data.close();
-			//connection.close();
-		}catch (SQLException e){
+			// connection.close();
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}catch(Exception e) {//Handle errors for Class.forName
+		} catch (Exception e) {// Handle errors for Class.forName
 			e.printStackTrace();
-		}finally{
-			try{
-				if(data!=null) data.close();
-				if(connection!=null)connection.close();
-			}catch(SQLException se2){
+		} finally {
+			try {
+				if (data != null)
+					data.close();
+				if (connection != null)
+					connection.close();
+			} catch (SQLException se2) {
 				se2.printStackTrace();
 			}
 		}
 		return password1;
 	}
-	
-	public static String getUserName(String user){
+
+	public static String getUserName(String user) {
 
 		try {
 			connection = Connection.getDBConnection();
@@ -111,28 +116,30 @@ public class LoginDao {
 			stmt.setString(1, user);
 			data = stmt.executeQuery();
 
-			while(data.next()){
-				username1=data.getString(1);
+			while (data.next()) {
+				username1 = data.getString(1);
 				System.out.println("username: " + username1);
 			}
 			data.close();
 			connection.close();
-		}catch (SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}catch(Exception e) {//Handle errors for Class.forName
+		} catch (Exception e) {// Handle errors for Class.forName
 			e.printStackTrace();
-		}finally{
-			try{
-				if(data!=null) data.close();
-				if(connection!=null)connection.close();
-			}catch(SQLException se2){
+		} finally {
+			try {
+				if (data != null)
+					data.close();
+				if (connection != null)
+					connection.close();
+			} catch (SQLException se2) {
 				se2.printStackTrace();
 			}
 		}
 		return username1;
 	}
 
-	public static int getRoll(int loginId){
+	public static int getRoll(int loginId) {
 
 		try {
 			connection = Connection.getDBConnection();
@@ -140,27 +147,29 @@ public class LoginDao {
 			stmt.setInt(1, loginId);
 			data = stmt.executeQuery();
 
-			while(data.next()){
-				rollid=data.getInt(1);
+			while (data.next()) {
+				rollid = data.getInt(1);
 			}
 			data.close();
 			connection.close();
-		}catch (SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		}finally{
-			try{
-				if(data!=null) data.close();
-				if(connection!=null)connection.close();
-			}catch(SQLException se2){
+		} finally {
+			try {
+				if (data != null)
+					data.close();
+				if (connection != null)
+					connection.close();
+			} catch (SQLException se2) {
 				se2.printStackTrace();
 			}
 		}
 		return rollid;
-	} 
-	
-	public static int getLoginId(String username){
+	}
+
+	public static int getLoginId(String username) {
 
 		try {
 			connection = Connection.getDBConnection();
@@ -168,102 +177,94 @@ public class LoginDao {
 			stmt.setString(1, username);
 			data = stmt.executeQuery();
 
-			while(data.next()){
-				loginId=data.getInt(1);
+			while (data.next()) {
+				loginId = data.getInt(1);
 			}
 			data.close();
 			connection.close();
-		}catch (SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		}finally{
-			try{
-				if(data!=null) data.close();
-				if(connection!=null)connection.close();
-			}catch(SQLException se2){
+		} finally {
+			try {
+				if (data != null)
+					data.close();
+				if (connection != null)
+					connection.close();
+			} catch (SQLException se2) {
 				se2.printStackTrace();
 			}
 		}
 		return loginId;
-	} 
+	}
 
-	/* public static int userId(String username, String password){
-		int userId=0;
+	/*
+	 * public static int userId(String username, String password){ int userId=0;
+	 * try { connection = Connection.getDBConnection(); stmt = connection.
+	 * prepareStatement("SELECT UserId FROM User WHERE Username = ? AND Password = ?"
+	 * ); stmt.setString(1, username); stmt.setString(2, password); data =
+	 * stmt.executeQuery();
+	 * 
+	 * while(data.next()){ userId=data.getInt(1); System.out.println("userid: "
+	 * + userId); } data.close(); connection.close(); }catch (SQLException e){
+	 * e.printStackTrace(); }catch(Exception e) {//Handle errors for
+	 * Class.forName e.printStackTrace(); }finally{ try{ if(data!=null)
+	 * data.close(); if(connection!=null)connection.close(); }catch(SQLException
+	 * se2){ se2.printStackTrace(); } } return userId; }
+	 */
+
+	public static String getWachtwoord(String user) {
 		try {
 			connection = Connection.getDBConnection();
-			stmt = connection.prepareStatement("SELECT UserId FROM User WHERE Username = ? AND Password = ?");
-			stmt.setString(1, username);
-			stmt.setString(2, password);
-			data = stmt.executeQuery();
-
-			while(data.next()){
-				userId=data.getInt(1);
-				System.out.println("userid: " + userId);
-			}
-			data.close();
-			connection.close();
-		}catch (SQLException e){
-			e.printStackTrace();
-		}catch(Exception e) {//Handle errors for Class.forName
-			e.printStackTrace();
-		}finally{
-			try{
-				if(data!=null) data.close();
-				if(connection!=null)connection.close();
-			}catch(SQLException se2){
-				se2.printStackTrace();
-			}
-		}
-		return userId;
-	} */
-
-
-	public static String getWachtwoord(String user){
-		try {
-			connection = Connection.getDBConnection();            
 			stmt = connection.prepareStatement("Select pass from Login where Username=?");
 			stmt.setString(1, user);
 			data = stmt.executeQuery();
 
-			while(data.next()){
-				password1=data.getString(1);
+			while (data.next()) {
+				password1 = data.getString(1);
 				System.out.println("password1: " + password1);
 			}
 			data.close();
 			connection.close();
-		}catch (SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}catch(Exception e) {//Handle errors for Class.forName
+		} catch (Exception e) {// Handle errors for Class.forName
 			e.printStackTrace();
-		}finally{
-			try{
-				if(data!=null) data.close();
-				if(connection!=null)connection.close();
-			}catch(SQLException se2){
+		} finally {
+			try {
+				if (data != null)
+					data.close();
+				if (connection != null)
+					connection.close();
+			} catch (SQLException se2) {
 				se2.printStackTrace();
 			}
 		}
 		return password1;
 	}
-	 
-	public static void loginWijzigen(Login login) throws Exception{ 
-	}
-	public static Login loginZoekenOpLoginId(int loginId) throws Exception{
-		return null; 
-	}
-	public static Login loginZoekenOpLoginId(Login login) throws Exception{
-		return null;
-		
+
+	public static void loginWijzigen(Login login) throws Exception {
+
 	}
 
-	public static Login loginZoekenOpUsername(Login login) throws Exception {
-		// TODO Auto-generated method stub
+	public static Login loginZoekenOpLoginId(int loginId) throws Exception {
 		return null;
 	}
 
-	public static Login loginToevoegen(Login login) throws Exception{
+	public static Login loginZoekenOpUsername(String username) throws Exception {
 		return null;
-		
+	}
+
+	public static Login loginToevoegen(Login login) throws Exception {
+		return null;
+	}
+
+	public static void loginVerwijderen(Login login) throws Exception {
+
+	}
+
+	public static void loginVerwijderenOpId(int loginId) throws Exception {
+
 	}
 }

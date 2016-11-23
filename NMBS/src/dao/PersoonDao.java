@@ -22,8 +22,7 @@ public class PersoonDao {
 	public static int addPersoon(Persoon persoon, Adres adres){
 		int adresId = 0;
 		adresId = AdressDAO.addAdress(adres);
-		DataSource ds = null;
-		
+		DataSource ds = null; 
 		try {
 			adresId = AdressDAO.addAdress(adres);
 	        if (connection == null){connection = Connection.getDBConnection();}
@@ -46,17 +45,16 @@ public class PersoonDao {
 	    }   
 	    return adresId;
 	}
-	public static boolean persoonWijzigen(Persoon persoon) throws Exception{
-		
+	public static boolean persoonWijzigen(Persoon persoon) throws Exception{ 
 		return false;
 	}
-	public static Persoon zoekPersoonOpPersoonId(int persoonId) {
+	public static Persoon zoekPersoonOpPersoonId(int persoonId)throws Exception {
+		return null;
+	} 
+	public static Persoon persoonToevoegen(Persoon persoon) throws Exception{
 		return null;
 	}
-	public static Persoon zoekPersoonOpPersoonId(Persoon medewerker) { 
-		return null;
-	}
-	public static Persoon persoonToevoegen(Persoon persoon) {
-		return null;
+	public static void persoonVerwijderen(Persoon persoon)throws Exception { 
+		
 	}
 }

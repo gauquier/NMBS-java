@@ -1,80 +1,27 @@
 package source;
 
-public class Klant extends Persoon {
-	private String email;
+public class Klant extends Persoon { 
 	private String info;
-	private boolean nieuws;
-
+	private boolean nieuws; 
 	/**
 	 * 
 	 */
 	public Klant() {
-	}
-
+	} 
 	/**
+	 * @param persoonId
+	 * @param adres
+	 * @param voornaam
+	 * @param achternaam
 	 * @param email
 	 * @param info
 	 * @param nieuws
 	 */
-	public Klant(int persoonId, String voornaam, String achternaam, int adresId, String email, String info,
-			boolean nieuws) {
-		super(persoonId, voornaam, achternaam, adresId);
-		this.email = email;
-		this.info = info;
-		this.nieuws = nieuws;
-	}
-
-	/**
-	 * @param persoonId
-	 * @param voornaam
-	 * @param achternaam
-	 * @param adresId
-	 */
-	public Klant(int persoonId, String voornaam, String achternaam, int adresId) {
-		super(persoonId, voornaam, achternaam, adresId);
-	}
-
-	/**
-	 * @param persoonId
-	 * @param voornaam
-	 * @param achternaam
-	 */
-	public Klant(int persoonId, String voornaam, String achternaam) {
-		super(persoonId, voornaam, achternaam);
-	}
-
-	/**
-	 * @param voornaam
-	 * @param achternaam
-	 * @param adresId
-	 */
-	public Klant(String voornaam, String achternaam, int adresId) {
-		super(voornaam, achternaam, adresId);
-	}
-
-	/**
-	 * @param voornaam
-	 * @param achternaam
-	 */
-	public Klant(String voornaam, String achternaam) {
-		super(voornaam, achternaam);
-	}
-
-	/**
-	 * @return email van klant
-	 */
-	public String getEmail() {
-		return email;
-	}
-
-	/**
-	 * @param email
-	 *            email van klant
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
+	public Klant(int persoonId, Adres adres, String voornaam, String achternaam, String email, String info,boolean neiuws) {
+		super(persoonId, adres, voornaam, achternaam, email); 
+		this.info=info;
+		this.nieuws=neiuws;
+	} 
 	/**
 	 * @return extra klant informatie
 	 */
