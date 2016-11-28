@@ -19,7 +19,7 @@ public class MedewerkerDAO {
 		dba.createInsert("Medewerker");
 		dba.addValue(loginId);
 		dba.addValue(persoonId);
-		dba.addValue(Medewerker.getRol().getRolId());
+		dba.addValue(rol.getRolId());
 		dba.addValue(0);
 		dba.commit();
 	}

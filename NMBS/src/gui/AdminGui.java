@@ -22,6 +22,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import handler.Controller;
+import handler.VerkoopController;
+
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 import java.awt.Color;
@@ -31,7 +33,7 @@ import java.awt.Toolkit;
 public class AdminGui extends JFrame {
 	private Container c = getContentPane();	
 	
-	JPanel vorigeKeuze, HuidigeKeuze;
+	private JPanel vorigeKeuze, HuidigeKeuze;
     public String navigation;
     
     JMenuBar menubar;
@@ -182,10 +184,12 @@ public class AdminGui extends JFrame {
 				LoginGui.start();
 			}
 			else if (e.getSource() == home){
+
 				setHuidigeKeuze(new HomeGui());
 			}
 			else if (e.getSource() == ticketVerkoop){
-				setHuidigeKeuze(new TicketVerkoopGui());
+				if (HuidigeKeuze!=null){HuidigeKeuze.setVisible(false);}
+				new VerkoopController();
 			}
 			else if (e.getSource() == routeInfo){
 				setHuidigeKeuze(new RouteZoekenGui());

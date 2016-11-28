@@ -64,6 +64,21 @@ public class StationDAO {
 		}		
 		return 0;
 	}
+	public static int checkStationZone(String stationZone){
+		
+		dba.createSelect("Station", "stationId");
+		dba.addWhere("zone", stationZone);
+		ResultSet rs = dba.commit();
+		try {
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		return 0;
+	}
 
 	public Station getStation(int id){
 		Station station = null;

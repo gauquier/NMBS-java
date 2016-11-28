@@ -33,7 +33,7 @@ public class Rol {
 	/**
 	 * @return de rolId
 	 */
-	public static int getRolId() {
+	public int getRolId() {
 		return rolId;
 	}
 	/**

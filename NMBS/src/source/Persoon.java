@@ -27,7 +27,7 @@ public class Persoon {
 
 	public Persoon(int persoonId, String voornaam, String achternaam) {
 		super();
-		this.persoonId = persoonId;
+		this.id = persoonId;
 		this.voornaam = voornaam;
 		this.achternaam = achternaam;
 	}
