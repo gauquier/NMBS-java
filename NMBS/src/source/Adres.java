@@ -25,6 +25,14 @@ public class Adres {
 		this.postcode = postcode;
 		this.bus = bus;
 	}
+	public Adres(String straat, int huisnr, String woonplaats, int postcode, int bus) {
+		this.straat = straat;
+		this.huisnr = huisnr;
+		this.woonplaats = woonplaats;
+		this.postcode = postcode;
+		this.bus = (char) bus;
+		// TODO Auto-generated constructor stub
+	}
 	public static int getAdresId() {
 		return adresId;
 	}
