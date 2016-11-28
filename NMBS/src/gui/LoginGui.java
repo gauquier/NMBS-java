@@ -1,11 +1,13 @@
 package gui;
 
 import java.awt.Dimension;
+
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.*;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,6 +37,25 @@ public class LoginGui {
 	}
 
 	public static void start() {
+		//v system look and feel (i.p.v. niet-zo-mooie java look and feel) Source: https://docs.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+		try {
+            // Set System L&F
+        UIManager.setLookAndFeel(
+            UIManager.getSystemLookAndFeelClassName());
+	    } 
+	    catch (UnsupportedLookAndFeelException e) {
+	       // handle exception
+	    }
+	    catch (ClassNotFoundException e) {
+	       // handle exception
+	    }
+	    catch (InstantiationException e) {
+	       // handle exception
+	    }
+	    catch (IllegalAccessException e) {
+	       // handle exception
+	    }
+		//^ code system look and feel
 		window = new LoginGui();
 		window.frmNmbs.setVisible(true);
 	}
@@ -52,7 +73,7 @@ public class LoginGui {
 
 	private void initialize() {		
 		frmNmbs = new JFrame();
-		frmNmbs.setIconImage(Toolkit.getDefaultToolkit().getImage("/Users/jonas/Desktop/NMBS-java/NMBS/lib/logo-nmbs.png"));
+		frmNmbs.setIconImage(Toolkit.getDefaultToolkit().getImage("NMBS/lib/logo-nmbs.png"));
 		frmNmbs.setTitle("NMBS");
 		frmNmbs.getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 
