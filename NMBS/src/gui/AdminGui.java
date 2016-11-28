@@ -38,8 +38,8 @@ public class AdminGui extends JFrame {
     JMenuBar menubar;
     JMenuItem home , routeInfo, stationInfo;
     JMenu verkoop, verlorenVoorwerpen, instellingen, gebruikers;
-    JMenuItem abonnementVerkoop, abonnementBeheer, uitloggen, gebruikersToevoegen, gebruikersVerwijderen, ticketVerkoop
-    , verlorenVoorwerpToevoegen, verlorenVoorwerpZoeken, adminToevoegen, wachtwoordVeranderen;
+    JMenuItem abonnementVerkoop, abonnementBeheer, uitloggen, gebruikersToevoegen, gebruikersBeheren, ticketVerkoop
+    , verlorenVoorwerpToevoegen, verlorenVoorwerpZoeken, wachtwoordVeranderen;
 
 	public JPanel getHuidigeKeuze() {
 		return HuidigeKeuze;
@@ -148,13 +148,12 @@ public class AdminGui extends JFrame {
 		
 		gebruikersToevoegen = new JMenuItem("Gebruiker toevoegen");
 		gebruikersToevoegen.addActionListener(new MenuItemHandler());
-		gebruikersVerwijderen = new JMenuItem("Gebruiker verwijderen");
-		gebruikersVerwijderen.addActionListener(new MenuItemHandler());
-		adminToevoegen = new JMenuItem("Admin toevoegen");
-		adminToevoegen.addActionListener(new MenuItemHandler());
 		gebruikers.add(gebruikersToevoegen);
-		gebruikers.add(gebruikersVerwijderen);
-		gebruikers.add(adminToevoegen);
+		gebruikersBeheren = new JMenuItem("Gebruikers beheren");
+		gebruikersBeheren.addActionListener(new MenuItemHandler());
+		gebruikers.add(gebruikersBeheren);
+		
+		
 		
 		ticketVerkoop = new JMenuItem("Ticketverkoop");
 		ticketVerkoop.setBackground(Color.WHITE);
@@ -192,13 +191,9 @@ public class AdminGui extends JFrame {
 				navigation= "gebruikerToevoegen";
 				setHuidigeKeuze(new GebruikerToevoegenGui());
 			}
-			else if (e.getSource() == gebruikersVerwijderen) {	
-				navigation= "gebruikersVerwijderen";
-				setHuidigeKeuze(new GebruikerVerwijderenGui());
-			}
-			else if (e.getSource() == adminToevoegen) {	
-				navigation= "adminToevoegen";
-				setHuidigeKeuze(new AdminToevoegenGui());
+			else if (e.getSource() == gebruikersBeheren) {	
+				navigation= "gebruikersBeheren";
+				setHuidigeKeuze(new GebruikersBeheren());
 			}
 			else if (e.getSource()==uitloggen)
 			{
