@@ -1,30 +1,28 @@
 package source;
+
 import java.sql.Date;
-import java.util.Calendar;
+
 public class VerlorenVoorwerp {
 
 	private int verlorenVoorwerpId;
-	private Station station;
 	private String beschrijving;
 	private Date date;
+	
+
 	private boolean gevonden;
-	private int stationString;
-	
-	
-	public VerlorenVoorwerp(int verlorenVoorwerpId, Station station, String beschrijving, Date date,
-			boolean gevonden) {
+
+	public VerlorenVoorwerp(int 
+
+verlorenVoorwerpId, String beschrijving, Date 
+
+date, boolean gevonden) {
 		super();
-		this.verlorenVoorwerpId = verlorenVoorwerpId;
-		this.station = station;
-		this.beschrijving = beschrijving;
-		this.date = date;
-		this.gevonden = gevonden;
-	}
-	
-	public VerlorenVoorwerp( int stationId, String beschrijving, Date date, boolean gevonden) {
-		super();
-		this.stationString = stationId;
-		this.beschrijving = beschrijving;
+		this.verlorenVoorwerpId = 
+
+verlorenVoorwerpId;
+		this.beschrijving = 
+
+beschrijving;
 		this.date = date;
 		this.gevonden = gevonden;
 	}
@@ -33,43 +31,51 @@ public class VerlorenVoorwerp {
 	public int getVerlorenVoorwerpId() {
 		return verlorenVoorwerpId;
 	}
-	public void setVerlorenVoorwerpId(int verlorenVoorwerpId) {
-		this.verlorenVoorwerpId = verlorenVoorwerpId;
-	}
 
+	public void setVerlorenVoorwerpId(int 
 
-	public Station getStation() {
-		return station;
-	}
-	public void setStation(Station station) {
-		this.station = station;
-	}
+verlorenVoorwerpId) {
+		this.verlorenVoorwerpId = 
 
+verlorenVoorwerpId;
+	}
 
 	public String getBeschrijving() {
 		return beschrijving;
 	}
-	public void setBeschrijving(String beschrijving) {
-		this.beschrijving = beschrijving;
-	}
 
+	public void setBeschrijving(String 
+
+beschrijving) {
+		this.beschrijving = 
+
+beschrijving;
+	}
 
 	public Date getDate() {
 		return date;
 	}
+
 	public void setDate(Date date) {
 		this.date = date;
 	}
-
 
 	public boolean getGevonden() {
 		return gevonden;
 	}
 
+	public void setGevonden(boolean 
 
-	public void setGevonden(boolean gevonden) {
+gevonden) {
 		this.gevonden = gevonden;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "VerlorenVoorwerp [verlorenVoorwerpId=" + verlorenVoorwerpId + ", beschrijving=" + beschrijving
+				+ ", date=" + 
+
+date + ", gevonden=" + gevonden + "]";
+	}
+
 }
