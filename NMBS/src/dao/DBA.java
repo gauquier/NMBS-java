@@ -109,7 +109,13 @@ public class DBA {
 		}
 		public void addValue(int value)
 		{
-			addValue((double)value);
+			if(type == Type.INSERT)
+			{
+			sql = sql + ", " + value;
+			}
+			else{
+				System.out.println("can only add values when type = INSERT");
+			}
 		}
 		public void addValue(boolean value)
 		{
@@ -199,7 +205,18 @@ public class DBA {
 		}
 		public void addWhere(String columnName, int value) // ... WHERE columnName = value
 		{
-			addWhere(columnName, (double)value);
+			if(type == Type.UPDATE || type == Type.SELECT)
+			{
+				if(!isWhere)
+				{
+					sql = sql + " WHERE";
+					isWhere = true;
+				}
+				sql = sql + " " + columnName + " = " + value + " AND";
+			}
+			else{
+				System.out.println("can only add WHERE clausule when type = UPDATE or type = SELECT");
+			}
 		}		
 		public void addWhere(String columnName, boolean value) // ... WHERE columnName = value
 		{

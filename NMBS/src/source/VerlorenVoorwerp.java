@@ -11,18 +11,10 @@ public class VerlorenVoorwerp {
 
 	private boolean gevonden;
 
-	public VerlorenVoorwerp(int 
-
-verlorenVoorwerpId, String beschrijving, Date 
-
-date, boolean gevonden) {
+	public VerlorenVoorwerp(int verlorenVoorwerpId, String beschrijving, Date date, boolean gevonden) {
 		super();
-		this.verlorenVoorwerpId = 
-
-verlorenVoorwerpId;
-		this.beschrijving = 
-
-beschrijving;
+		this.verlorenVoorwerpId = verlorenVoorwerpId;
+		this.beschrijving = beschrijving;
 		this.date = date;
 		this.gevonden = gevonden;
 	}
@@ -32,24 +24,16 @@ beschrijving;
 		return verlorenVoorwerpId;
 	}
 
-	public void setVerlorenVoorwerpId(int 
-
-verlorenVoorwerpId) {
-		this.verlorenVoorwerpId = 
-
-verlorenVoorwerpId;
+	public void setVerlorenVoorwerpId(int verlorenVoorwerpId) {
+		this.verlorenVoorwerpId = verlorenVoorwerpId;
 	}
 
 	public String getBeschrijving() {
 		return beschrijving;
 	}
 
-	public void setBeschrijving(String 
-
-beschrijving) {
-		this.beschrijving = 
-
-beschrijving;
+	public void setBeschrijving(String beschrijving) {
+		this.beschrijving = beschrijving;
 	}
 
 	public Date getDate() {
@@ -64,18 +48,14 @@ beschrijving;
 		return gevonden;
 	}
 
-	public void setGevonden(boolean 
-
-gevonden) {
+	public void setGevonden(boolean gevonden) {
 		this.gevonden = gevonden;
 	}
 	
 	@Override
 	public String toString() {
 		return "VerlorenVoorwerp [verlorenVoorwerpId=" + verlorenVoorwerpId + ", beschrijving=" + beschrijving
-				+ ", date=" + 
-
-date + ", gevonden=" + gevonden + "]";
+				+ ", date=" + date + ", gevonden=" + gevonden + "]";
 	}
 
 }
