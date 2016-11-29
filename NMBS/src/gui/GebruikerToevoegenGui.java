@@ -4,8 +4,11 @@ import javax.swing.JPanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Array;
+import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -15,6 +18,7 @@ import javax.swing.border.Border;
 
 import dao.LoginDao;
 import dao.MedewerkerDAO;
+import dao.PersoonDao;
 import source.Adres;
 import source.Login;
 import source.Persoon;
@@ -27,8 +31,10 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 import java.awt.Color;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
+import java.awt.Font;
+import javax.swing.JRadioButton;
 
-public class GebruikerToevoegenGui extends JPanel{
+public class GebruikerToevoegenGui extends JPanel {
 	private JTextField txtVoornaam;
 	private JTextField txtAchternaam;
 	private JTextField txtStraat;
@@ -40,11 +46,12 @@ public class GebruikerToevoegenGui extends JPanel{
 	private JLabel lblUsername;
 	private JLabel lblPassword;
 	private JLabel lblEmail;
+	private JTextField txtPassword = new JTextField();
 	private JTextField txtUsername;
-	private JTextField txtPassword;
 	private JTextField txtEmail;
 	private Adres adres;
 	private Login login;
+	private LoginDao loginDao= new LoginDao();
 	private Persoon persoon;
 	private Rol rol;
 	private JLabel lblVoornaamerror;
@@ -57,74 +64,80 @@ public class GebruikerToevoegenGui extends JPanel{
 	private JLabel lblemailerror;
 	private Border border = BorderFactory.createEmptyBorder();
 	private Border bordererror = BorderFactory.createLineBorder(Color.RED, 3);
-	
-	public GebruikerToevoegenGui()
-	{
-		setBackground(new Color(0, 191, 255));
-		
-		JLabel lblVoornaam = new JLabel("Voornaam");
+	private List<Persoon> mijnpersonen;
+	private ButtonGroup radiobuttons;
+	private JRadioButton rbtnAdmin;
+	private JRadioButton rbtnUser;
+
+
+	public GebruikerToevoegenGui() {
+		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
+
+		JLabel lblVoornaam = new JLabel("Voornaam*:");
 		lblVoornaam.setForeground(Color.WHITE);
-		
-		JLabel lblAchternaam = new JLabel("Achternaam");
+
+		JLabel lblAchternaam = new JLabel("Achternaam*:");
 		lblAchternaam.setForeground(Color.WHITE);
-		
-		JLabel lblStraat = new JLabel("Straat");
+
+		JLabel lblStraat = new JLabel("Straat*:");
 		lblStraat.setForeground(Color.WHITE);
-		
-		JLabel lblHuisnummer = new JLabel("Huisnummer");
+
+		JLabel lblHuisnummer = new JLabel("Huisnummer*:");
 		lblHuisnummer.setForeground(Color.WHITE);
-		
-		JLabel lblGemeente = new JLabel("Gemeente");
+
+		JLabel lblGemeente = new JLabel("Gemeente*:");
 		lblGemeente.setForeground(Color.WHITE);
-		
-		JLabel lblPostcode = new JLabel("Postcode");
+
+		JLabel lblPostcode = new JLabel("Postcode*:");
 		lblPostcode.setForeground(Color.WHITE);
-		
-		JLabel lblBus = new JLabel("Bus");
+
+		JLabel lblBus = new JLabel("Bus:");
 		lblBus.setForeground(Color.WHITE);
-		
+
 		txtVoornaam = new JTextField();
 		txtVoornaam.setColumns(10);
-		
+
 		txtAchternaam = new JTextField();
 		txtAchternaam.setColumns(10);
-		
+
 		txtStraat = new JTextField();
 		txtStraat.setColumns(10);
-		
+
 		txtHuisnr = new JTextField();
 		txtHuisnr.setColumns(10);
-		
+
 		txtBus = new JTextField();
 		txtBus.setColumns(10);
-		
+
 		txtGemeente = new JTextField();
 		txtGemeente.setColumns(10);
-		
+
 		txtPostcode = new JTextField();
 		txtPostcode.setColumns(10);
-		
+
 		btnToevoegen = new JButton("Toevoegen");
+		btnToevoegen.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnToevoegen.setBackground(Color.ORANGE);
 		btnToevoegen.addActionListener(new MenuItemHandler());
-		
-		lblUsername = new JLabel("Username");
+
+		lblUsername = new JLabel("Username*:");
 		lblUsername.setForeground(Color.WHITE);
-		
-		lblPassword = new JLabel("Password");
+
+		lblPassword = new JLabel("Password*:");
 		lblPassword.setForeground(Color.WHITE);
-		
-		lblEmail = new JLabel("Email");
+
+		lblEmail = new JLabel("Email:");
 		lblEmail.setForeground(Color.WHITE);
-		
+
+		//txtUsername = new JTextField();
+		txtPassword.setColumns(10);
+
 		txtUsername = new JTextField();
 		txtUsername.setColumns(10);
-		
-		txtPassword = new JTextField();
-		txtPassword.setColumns(10);
-		
+
 		txtEmail = new JTextField();
 		txtEmail.setColumns(10);
-		
+
 		JLabel lblMedewerkerToevoegen = DefaultComponentFactory.getInstance().createTitle("Medewerker toevoegen");
 		
 		JLabel lblVoornaamerror = new JLabel("");
@@ -265,16 +278,36 @@ public class GebruikerToevoegenGui extends JPanel{
 					.addComponent(btnToevoegen, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(64, Short.MAX_VALUE))
 		);
+		lblMedewerkerToevoegen.setFont(new Font("Tahoma", Font.PLAIN, 14));
+
+		radiobuttons = new ButtonGroup();
+		rbtnAdmin = new JRadioButton("Administrator");
+		rbtnAdmin.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
+		rbtnAdmin.setForeground(Color.WHITE);
+
+		rbtnUser = new JRadioButton("Medewerker");
+		rbtnUser.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
+		rbtnUser.setForeground(Color.WHITE);
+
+		radiobuttons.add(rbtnAdmin);
+		radiobuttons.add(rbtnUser);
+		rbtnUser.setSelected(true);
+
+		JLabel label = new JLabel("Type*:");
+		label.setForeground(Color.WHITE);
+
+		JLabel label_1 = new JLabel("* Verplichte velden");
+		label_1.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		label_1.setForeground(Color.WHITE);
+
 		setLayout(groupLayout);
-		
 	}
-	
-	public void close()
-	{
+
+	public void close() {
 		this.setVisible(false);
 	}
-	
-	private class MenuItemHandler implements ActionListener{
+
+	private class MenuItemHandler implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -353,8 +386,63 @@ public class GebruikerToevoegenGui extends JPanel{
 				}
 				else{
 					JOptionPane.showMessageDialog(new JFrame(),"Gelieve alle velden in te vullen!");
+			// refresh();
+
+			if (e.getSource() == btnToevoegen) {
+
+
+				if (!txtVoornaam.getText().isEmpty() && !txtAchternaam.getText().isEmpty()
+						&& !txtPassword.getText().isEmpty() && !txtUsername.getText().isEmpty()
+						&& !txtHuisnr.getText().isEmpty() && !txtGemeente.getText().isEmpty()
+						&& !txtPostcode.getText().isEmpty() && !txtHuisnr.getText().isEmpty()) {
+				
+				String username = txtUsername.getText().trim();
+				if(loginDao.checkUsername(username) > 0){
+					JOptionPane.showMessageDialog(new JFrame(), "Deze gebruikernaam bestaat al.");
+					txtPassword.setText("");
+					return;
+				}
+				else {
+						login = new Login(txtUsername.getText().trim(), txtPassword.getText().trim(),
+								txtEmail.getText().trim());
+						login.toString();
+
+						if (!txtBus.getText().isEmpty()) {
+							adres = new Adres(txtStraat.getText().trim(), Integer.parseInt(txtHuisnr.getText()),
+									txtGemeente.getText().trim(), Integer.parseInt(txtPostcode.getText()),
+									Integer.parseInt(txtBus.getText()));
+						} else {
+							adres = new Adres(txtStraat.getText().trim(), Integer.parseInt(txtHuisnr.getText()),
+									txtGemeente.getText().trim(), Integer.parseInt(txtPostcode.getText()), 0);
+						}
+						adres.toString();
+
+						persoon = new Persoon(txtVoornaam.getText().trim(), txtAchternaam.getText().trim(),
+								txtEmail.getText().trim(), persoon.getAdres());
+						persoon.toString();
+
+						int rolid;
+
+						if (rbtnAdmin.isSelected()) {
+							rolid = 1;
+						} else {
+							rolid = 2;
+						}
+
+						rol = new Rol(rolid);
+						rol.setRolId(rolid);
+						MedewerkerDAO.addMedewerker(login, persoon, rol, adres);
+						close();
+						JOptionPane.showMessageDialog(new JFrame(), "Gebruiker is toegevoegd!");
+					}
+				}
+
+				else {
+					JOptionPane.showMessageDialog(new JFrame(), "Vul alle verplichte velden in!");
+
 				}
 			}
-		}		    	
-    }
+		}
+	}
 }
+}}

@@ -3,7 +3,8 @@ package source;
 import java.util.ArrayList;
 
 public class Station {
-	private static int stationID;
+	private int stationID;
+	private String naam;
 	private String zone;
 	private int aantalLoketten;
 	private int parkingplaatsen;
@@ -11,10 +12,11 @@ public class Station {
 	private boolean gehandicapte;
 	private ArrayList<VerlorenVoorwerp> verlorenVoorwerpen = new ArrayList<VerlorenVoorwerp>();
 	
-	public Station(int stationID, String zone, int aantalLoketten, int parkingplaatsen, boolean wifi,
+	public Station(int stationID, String naam, String zone, int aantalLoketten, int parkingplaatsen, boolean wifi,
 			boolean gehandicapte, ArrayList<VerlorenVoorwerp> verlorenVoorwerpen) {
 		super();
 		this.stationID = stationID;
+		this.naam = naam;
 		this.zone = zone;
 		this.aantalLoketten = aantalLoketten;
 		this.parkingplaatsen = parkingplaatsen;
@@ -42,7 +44,7 @@ public class Station {
 		this.verlorenVoorwerpen = verlorenVoorwerpen;
 	}
 
-	public static int getStationID() {
+	public int getStationID() {
 		return stationID;
 	}
 	
@@ -81,20 +83,31 @@ public class Station {
 		this.gehandicapte = gehandicapte;
 	}
 	
-	@Override
-	public String toString() {
-		return "Station [stationID=" + stationID + ", zone=" + zone + ", aantalLoketten=" + aantalLoketten
-				+ ", parkingplaatsen=" + parkingplaatsen + ", wifi=" + wifi + ", gehandicapte=" + gehandicapte + "]";
+	public String getNaam() {
+		return naam;
+	}
+
+	public void setNaam(String naam) {
+		this.naam = naam;
 	}
 	
+	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + aantalLoketten;
+		result = prime * result + (gehandicapte ? 1231 : 1237);
+		result = prime * result + ((naam == null) ? 0 : naam.hashCode());
 		result = prime * result + parkingplaatsen;
+		result = prime * result + stationID;
+		result = prime * result + ((verlorenVoorwerpen == null) ? 0 : verlorenVoorwerpen.hashCode());
+		result = prime * result + (wifi ? 1231 : 1237);
+		result = prime * result + ((zone == null) ? 0 : zone.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -108,10 +121,35 @@ public class Station {
 			return false;
 		if (gehandicapte != other.gehandicapte)
 			return false;
+		if (naam == null) {
+			if (other.naam != null)
+				return false;
+		} else if (!naam.equals(other.naam))
+			return false;
 		if (parkingplaatsen != other.parkingplaatsen)
+			return false;
+		if (stationID != other.stationID)
+			return false;
+		if (verlorenVoorwerpen == null) {
+			if (other.verlorenVoorwerpen != null)
+				return false;
+		} else if (!verlorenVoorwerpen.equals(other.verlorenVoorwerpen))
 			return false;
 		if (wifi != other.wifi)
 			return false;
+		if (zone == null) {
+			if (other.zone != null)
+				return false;
+		} else if (!zone.equals(other.zone))
+			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Station [stationID=" + stationID + ", naam=" + naam + ", zone=" + zone + ", aantalLoketten="
+				+ aantalLoketten + ", parkingplaatsen=" + parkingplaatsen + ", wifi=" + wifi + ", gehandicapte="
+				+ gehandicapte + ", verlorenVoorwerpen=" + verlorenVoorwerpen + "]";
+	}
+	
 }

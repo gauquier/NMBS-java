@@ -25,6 +25,7 @@ public class Adres {
 		this.postcode = postcode;
 		this.bus = bus;
 	}
+
 	public static int getAdresId() {
 		return adresId;
 	}

@@ -44,6 +44,8 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel{
 	private JLabel lblStationerror;
 	private Border border = BorderFactory.createEmptyBorder();
 	private Border bordererror = BorderFactory.createLineBorder(Color.RED, 3);
+	private StationDAO stationDAO = new StationDAO();
+	private VerlorenVoorwerpDAO verlorenVoorwerpDAO = new VerlorenVoorwerpDAO();
 	
 	public VerlorenVoorwerpenToevoegenGui() {
 		setBackground(new Color(0, 191, 255));
@@ -147,7 +149,9 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			/*
 			if (e.getSource() == btnToevoegen){
+<<<<<<< HEAD
 				
 				lblDatumerror.setText("");
 				lblStationerror.setText("");
@@ -175,11 +179,23 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel{
 						verlorenVoorwerp = new VerlorenVoorwerp(stationId, txtrBeschrijving.getText().trim(), sqlDate ,gevonden);
 						VerlorenVoorwerpDAO.insertVerlorenVoorwerp(verlorenVoorwerp);
 					}
+=======
+				if(!txtrBeschrijving.getText().isEmpty() && !txtDatum.getText().isEmpty()){
+					boolean gevonden = false;
+					String startDateString = txtDatum.getText();
+					java.util.Date myDate = new java.util.Date(startDateString);
+					java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
+					int stationId = stationDAO.getStationId(txtStation.getText().trim());
+					station = new Station(stationId);
+					verlorenVoorwerp = new VerlorenVoorwerp(stationId, txtrBeschrijving.getText().trim(), sqlDate ,gevonden);
+					verlorenVoorwerpDAO.insertVerlorenVoorwerp(verlorenVoorwerp);
+>>>>>>> 0e4f1f24382e822b8762da8dd2fa9d553297a137
 				}
 				else{
 					JOptionPane.showMessageDialog(new JFrame(),"Please fill in all required fields!");
 				}
 			}
+			*/
 		}		    	
     }
 }

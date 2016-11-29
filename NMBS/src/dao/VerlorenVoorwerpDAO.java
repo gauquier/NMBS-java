@@ -13,26 +13,28 @@ import source.VerlorenVoorwerp;
 
 public class VerlorenVoorwerpDAO {
 
-	private static DBA dba = new DBA();
-	private static StationDAO stationDAO;
+	private DBA dba = new DBA();
+	private StationDAO stationDAO;
 	
-	public static int insertVerlorenVoorwerp(VerlorenVoorwerp verlorenVoorwerp){
+	public int insertVerlorenVoorwerp(VerlorenVoorwerp verlorenVoorwerp, int stationId){
+		if(getId(verlorenVoorwerp) == 0)
+		{
 			dba.createInsert("VerlorenVoorwerp");
-			dba.addValue(Station.getStationID());
+			dba.addValue(stationId);
 			dba.addValue(verlorenVoorwerp.getBeschrijving());
 			dba.addValue(verlorenVoorwerp.getDate());
 			dba.addValue(verlorenVoorwerp.getGevonden());
 			dba.commit();
-		return getVerlorenVoorwerpId(verlorenVoorwerp);
+		}
+		return getId(verlorenVoorwerp);
 	}
 	
-	public static int getVerlorenVoorwerpId(VerlorenVoorwerp verlorenVoorwerp){
+	public int getId(VerlorenVoorwerp vv){
 		
 		dba.createSelect("VerlorenVoorwerp", "verlorenVoorwerpId");
-		dba.addWhere("stationId", Station.getStationID()); 
-		dba.addWhere("beschrijving", verlorenVoorwerp.getBeschrijving());
-		dba.addWhere("datum", verlorenVoorwerp.getDate()	);
-		dba.addWhere("gevonden", verlorenVoorwerp.getGevonden());
+		dba.addWhere("beschrijving", vv.getBeschrijving());
+		dba.addWhere("datum", vv.getDate()	);
+		dba.addWhere("gevonden", vv.getGevonden());
 		ResultSet rs = dba.commit();
 		try {
 			if(rs.next()){
@@ -48,12 +50,12 @@ public class VerlorenVoorwerpDAO {
 	
 	public VerlorenVoorwerp getVerlorenVoorwerp(int id){
 		VerlorenVoorwerp verlorenVoorwerp = null;
-		dba.createSelect("Verlorenvoorwerp");
+		dba.createSelect("VerlorenVoorwerp");
 		dba.addWhere("verlorenVoorwerpId", id);
 		ResultSet rs = dba.commit();	
 		try {
 			if(rs.next()){
-				verlorenVoorwerp = new VerlorenVoorwerp(rs.getInt(1), stationDAO.getStation(rs.getInt(2)), rs.getString(3), rs.getDate(4), rs.getBoolean(5));
+				verlorenVoorwerp = new VerlorenVoorwerp(rs.getInt(1), rs.getString(3), rs.getDate(4), rs.getBoolean(5));
 						}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -73,7 +75,7 @@ public class VerlorenVoorwerpDAO {
 				Date datum = new Date();
 				DateFormat df = new SimpleDateFormat("dd-MM-YYYY");
 				datum = df.parse(rs.getString(4));
-				arr.add(new VerlorenVoorwerp(rs.getInt(1), stationDAO.getStation(rs.getInt(2)), rs.getString(3), rs.getDate(4), rs.getBoolean(5)));
+				arr.add(new VerlorenVoorwerp(rs.getInt(1), rs.getString(3), rs.getDate(4), rs.getBoolean(5)));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -84,8 +86,24 @@ public class VerlorenVoorwerpDAO {
 		}
 		
 		
-		return null;
+		return arr;	
 	}
 	
-
+	public static void main(String[] args) {
+		/*@SuppressWarnings("deprecation")
+		VerlorenVoorwerp v = new VerlorenVoorwerp(-1, "gsm", new java.sql.Date(11,11,2016), false);
+		VerlorenVoorwerp s = new VerlorenVoorwerp(-1, "headPhone", new java.sql.Date(1, 2, 2013), true);
+		VerlorenVoorwerpDAO vvd = new VerlorenVoorwerpDAO();
+		vvd.insertVerlorenVoorwerp(s, 4);
+		
+		VerlorenVoorwerp za = vvd.getVerlorenVoorwerp(35);
+		System.out.println(za.toString());
+		ArrayList<VerlorenVoorwerp> ve = vvd.getVerlorenVoorwerpByStation(2);
+		
+		for (int i = 0; i < ve.size(); i++) {
+			System.out.println(ve.get(i).toString());
+		}*/
+	}
+	
+	
 }

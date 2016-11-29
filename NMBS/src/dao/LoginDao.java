@@ -62,19 +62,35 @@ public class LoginDao {
 		return user;
 	}
 	
-	public static int getRoll(int id){
-		dba.createSelect("Medewerker", "rolId");
-		dba.addWhere("loginId", id); 
+	public int checkUsername(String username){
+		dba.createSelect("Login", "loginId");
+		dba.addWhere("username", username);
 		ResultSet rs = dba.commit();
 		try {
 			if(rs.next()){
-				id = rs.getInt(1);
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return -1;
+		
+	}
+	
+	public static int getRoll(int loginId){
+		dba.createSelect("Medewerker", "rolId");
+		dba.addWhere("loginId", loginId); 
+		ResultSet rs = dba.commit();
+		try {
+			if(rs.next()){
+				loginId = rs.getInt(1);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
-		return id;
+		return loginId;
 	}
 	
 	public static int getLoginId(String username){
