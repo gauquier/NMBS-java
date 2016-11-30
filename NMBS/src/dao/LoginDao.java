@@ -77,6 +77,22 @@ public class LoginDao {
 		return user;
 	}
 	
+	public int checkUsername(String username){
+		dba.createSelect("Login", "loginId");
+		dba.addWhere("username", username);
+		ResultSet rs = dba.commit();
+		try {
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return -1;
+		
+	}
+	
 	public static int getRoll(int loginId){
 		dba.createSelect("Medewerker", "rolId");
 		dba.addWhere("loginId", Login.getLoginId()); 
@@ -134,13 +150,12 @@ public class LoginDao {
 		}		
 		return pass;
 	}
-	
+
 	public static void updateWachtwoord(String password){
 		dba.createUpdate("Login", "pass", password);
 		dba.addWhere("username", Login.getCurrentUser()); 
 		ResultSet rs = dba.commit();
 	}
-	
 	 
 	public static void loginWijzigen(Login login) throws Exception{ 
 	}

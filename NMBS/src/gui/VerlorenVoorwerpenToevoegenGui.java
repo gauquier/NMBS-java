@@ -37,6 +37,8 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel{
 	VerlorenVoorwerp verlorenVoorwerp;
 	Station station;
 	private JTextField txtStation;
+	private StationDAO stationDAO = new StationDAO();
+	private VerlorenVoorwerpDAO verlorenVoorwerpDAO = new VerlorenVoorwerpDAO();
 	
 	public VerlorenVoorwerpenToevoegenGui() {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
@@ -114,21 +116,23 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			/*
 			if (e.getSource() == btnToevoegen){
 				if(!txtrBeschrijving.getText().isEmpty() && !txtDatum.getText().isEmpty()){
 					boolean gevonden = false;
 					String startDateString = txtDatum.getText();
 					java.util.Date myDate = new java.util.Date(startDateString);
 					java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
-					int stationId = StationDAO.getStationId(txtStation.getText().trim());
+					int stationId = stationDAO.getStationId(txtStation.getText().trim());
 					station = new Station(stationId);
 					verlorenVoorwerp = new VerlorenVoorwerp(stationId, txtrBeschrijving.getText().trim(), sqlDate ,gevonden);
-					VerlorenVoorwerpDAO.insertVerlorenVoorwerp(verlorenVoorwerp);
+					verlorenVoorwerpDAO.insertVerlorenVoorwerp(verlorenVoorwerp);
 				}
 				else{
 					JOptionPane.showMessageDialog(new JFrame(),"Please fill in all required fields!");
 				}
 			}
+			*/
 		}		    	
     }
 }
