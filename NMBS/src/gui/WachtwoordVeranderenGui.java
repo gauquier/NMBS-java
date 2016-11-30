@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
+import Hashing.DualHash;
 import dao.LoginDao;
 import dao.MedewerkerDAO;
 import source.Adres;
@@ -119,7 +120,12 @@ public class WachtwoordVeranderenGui extends JPanel {
 				
 				if (nieuwWachtwoord != null && herhaalwachtwwoord != null){
 					if (nieuwWachtwoord.equals(herhaalwachtwwoord)){
-						LoginDao.updateWachtwoord(nieuwWachtwoord);
+						try {
+							LoginDao.updateWachtwoord(DualHash.hashString(nieuwWachtwoord));
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 						JOptionPane.showMessageDialog(new JFrame(), "Uw wachtwoord is aangepast!");
 						close();
 					}

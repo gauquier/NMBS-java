@@ -31,6 +31,9 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 import java.awt.Color;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
+
+import Hashing.DualHash;
+
 import java.awt.Font;
 import javax.swing.JRadioButton;
 
@@ -403,8 +406,13 @@ public class GebruikerToevoegenGui extends JPanel {
 					return;
 				}
 				else {
-						login = new Login(txtUsername.getText().trim(), txtPassword.getText().trim(),
-								txtEmail.getText().trim());
+						try {
+							login = new Login(txtUsername.getText().trim(), DualHash.hashString(txtPassword.getText().trim()),
+									txtEmail.getText().trim());
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 						login.toString();
 
 						if (!txtBus.getText().isEmpty()) {
