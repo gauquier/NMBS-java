@@ -12,6 +12,7 @@ public class RolDAO {
 		if(getRolId(rol) == 0){
 			dba.createInsert("Rol");
 			dba.addValue(rol.getRol());
+			dba.commit();
 		}
 		return getRolId(rol);
 	}
@@ -28,7 +29,6 @@ public class RolDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return 0;
 	}
 	public static Rol getRol(int id){
@@ -45,5 +45,11 @@ public class RolDAO {
 		}
 		return null;
 	}
-
+	/*
+public static void main(String[] args) {
+	Rol rol = new Rol(0, "testRol111");
+	Rol rol2 = getRol(addRol(rol));
+	System.out.println(rol2.getRolId() + " " + rol2.getRol());
+	}
+*/
 }

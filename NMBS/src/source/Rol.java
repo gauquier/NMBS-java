@@ -2,25 +2,15 @@ package source;
 
 public class Rol {
 
-	private int rollId;
-	private String Rol;
-	public int getRollId() {
-		return rollId;
-	}
-	public void setRollId(int rollId) {
-		this.rollId = rollId;
-	}
-	public Rol(int rollId) {
-		super();
-		this.rollId = rollId;
-	}
-	
 	private static int rolId;
 	private String rol;
 	/**
 	 * 
 	 */
 	public Rol() {
+	}
+	public Rol(int rolId){
+		this.rolId = rolId;
 	}
 	/**
 	 * @param rolId de rol id als deze rol
