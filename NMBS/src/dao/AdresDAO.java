@@ -32,7 +32,7 @@ public class AdresDAO {
 		return getId(adres);
 	}
 
-	public Adres getAdres(int id){
+	public static Adres getAdres(int id){
 		Adres adres = null;
 		dba.createSelect("Adres");
 		dba.addWhere("adresId", id);

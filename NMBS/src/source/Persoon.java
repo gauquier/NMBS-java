@@ -6,7 +6,7 @@ public class Persoon {
 	private String voornaam;
 	private String achternaam;
 	private String email;
-	private static Adres adres;
+	private Adres adres;
 	
 	public Persoon(int id, String voornaam, String achternaam, String email, Adres adres) {
 		super();
@@ -62,7 +62,7 @@ public class Persoon {
 		this.achternaam = achternaam;
 	}
 
-	public static Adres getAdres() {
+	public Adres getAdres() {
 		return adres;
 	}
 
