@@ -161,8 +161,4 @@ public class LoginDao {
 		return null;
 		
 	}
-	public static void main(String[] args) {
-		Login login = getLogin(20);
-		System.out.println(login.getLoginId() + " " + login.getUsername() + " " + login.getPassword());
-	}
 }
