@@ -7,7 +7,7 @@ import java.util.Date;
 
 import source.*;
 
-import com.mysql.jdbc.Connection;
+import java.sql.Connection;
 import com.mysql.jdbc.Statement;
 
 public class DBA {
@@ -273,7 +273,7 @@ public class DBA {
 			System.out.println(sql);
 			
 			 try{
-			      conn = (Connection) dao.Connection.getDBConnection();
+			      conn =  dao.Connection.getDBConnection();
 			      stmt = (Statement) conn.prepareStatement(sql);
 			      
 			     if(type == Type.SELECT)
