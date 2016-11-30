@@ -41,6 +41,11 @@ public class Login {
 		this.password = password;
 		this.email = email;
 	}
+	public Login(int loginId, String username, String password) {
+		this.loginId = loginId;
+		this.username = username;
+		this.password = password;
+	}
 
 	public Login(String username, String password, String email) {
 		this.username = username;

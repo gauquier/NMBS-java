@@ -47,6 +47,21 @@ public class LoginDao {
 		return 0;
 	}
 	
+	public static Login getLogin(int id){
+		dba.createSelect("Login");
+		dba.addWhere("loginId", id);
+		ResultSet rs = dba.commit();
+		try {
+			if(rs.next()){
+				return new Login(rs.getInt(1), rs.getString(2), rs.getString(3));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public static String getUserName(String user){
 		dba.createSelect("Login", "Username");
 		dba.addWhere("Username", Login.getUsername()); 
@@ -145,5 +160,9 @@ public class LoginDao {
 	public static Login loginToevoegen(Login login) throws Exception{
 		return null;
 		
+	}
+	public static void main(String[] args) {
+		Login login = getLogin(20);
+		System.out.println(login.getLoginId() + " " + login.getUsername() + " " + login.getPassword());
 	}
 }
