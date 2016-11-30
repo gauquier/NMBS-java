@@ -14,7 +14,7 @@ public class MedewerkerDAO {
 		int loginId =  0, persoonId = 0;
 		
 		loginId = LoginDao.addLogin(login);
-        persoonId = PersoonDao.addPersoon(persoon, adres);
+        persoonId = PersoonDao.addPersoon(persoon);
         
 		dba.createInsert("Medewerker");
 		dba.addValue(loginId);
