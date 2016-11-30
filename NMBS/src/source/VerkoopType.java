@@ -1,7 +1,7 @@
 package source;
 
 public enum VerkoopType {
-	STANDAARD, GROEP, STUDENT, PLUS60;
+	STANDAARD, GROEP, STUDENT, PLUS60, JUMP;
 
 	public static VerkoopType VerkoopTypeCasting(String cast){
 		
@@ -10,7 +10,7 @@ public enum VerkoopType {
 		case "GROEP" : return VerkoopType.GROEP;
 		case "STUDENT" : return VerkoopType.STUDENT;
 		case "PLUS60" : return VerkoopType.PLUS60;
-		
+		case "JUMP" : return VerkoopType.JUMP;
 		}
 		
 		return null;
