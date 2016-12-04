@@ -1,7 +1,12 @@
 package dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.mysql.jdbc.Connection;
 
 import source.Adres;
 import source.Persoon;
@@ -51,7 +56,5 @@ public class PersoonDao {
 	public static Persoon zoekPersoonOpPersoonId(Persoon medewerker) { 
 		return null;
 	}
-	public static Persoon persoonToevoegen(Persoon persoon) {
-		return null;
-	}
+	
 }
