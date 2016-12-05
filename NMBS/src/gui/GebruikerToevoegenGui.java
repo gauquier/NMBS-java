@@ -296,17 +296,13 @@ public class GebruikerToevoegenGui extends JPanel {
 						login.toString();
 
 						if (!txtBus.getText().isEmpty()) {
-							adres = new Adres(txtStraat.getText().trim(), Integer.parseInt(txtHuisnr.getText()),
-									txtGemeente.getText().trim(), Integer.parseInt(txtPostcode.getText()),
-									Integer.parseInt(txtBus.getText()));
+							adres = new Adres(txtStraat.getText().trim(), Integer.parseInt(txtHuisnr.getText()), txtGemeente.getText().trim(), Integer.parseInt(txtPostcode.getText()), txtBus.getText().trim());
 						} else {
-							adres = new Adres(txtStraat.getText().trim(), Integer.parseInt(txtHuisnr.getText()),
-									txtGemeente.getText().trim(), Integer.parseInt(txtPostcode.getText()), 0);
+							adres = new Adres(txtStraat.getText().trim(), Integer.parseInt(txtHuisnr.getText()), txtGemeente.getText().trim(), Integer.parseInt(txtPostcode.getText()), "0");
 						}
 						adres.toString();
 
-						persoon = new Persoon(txtVoornaam.getText().trim(), txtAchternaam.getText().trim(),
-								txtEmail.getText().trim(), persoon.getAdres());
+						persoon = new Persoon(txtVoornaam.getText().trim(), txtAchternaam.getText().trim(), txtEmail.getText().trim(), adres);
 						persoon.toString();
 
 						int rolid;

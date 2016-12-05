@@ -198,10 +198,7 @@ public class AdminGui extends JFrame {
 				navigation= "gebruikersVerwijderen";
 				setHuidigeKeuze(new GebruikerVerwijderenGui());
 			}
-			else if (e.getSource() == adminToevoegen) {	
-				navigation= "adminToevoegen";
-				setHuidigeKeuze(new AdminToevoegenGui());
-			}
+			
 			else if (e.getSource()==uitloggen)
 			{
 				setHuidigeKeuze(null);
