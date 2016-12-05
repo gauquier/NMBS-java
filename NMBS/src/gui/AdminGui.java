@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import handler.Controller;
+
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 import java.awt.Color;
@@ -32,14 +33,14 @@ import java.awt.Font;
 public class AdminGui extends JFrame {
 	private Container c = getContentPane();	
 	
-	JPanel vorigeKeuze, HuidigeKeuze;
+	private JPanel vorigeKeuze, HuidigeKeuze;
     public String navigation;
     
     JMenuBar menubar;
     JMenuItem home , routeInfo, stationInfo;
     JMenu verkoop, verlorenVoorwerpen, instellingen, gebruikers;
-    JMenuItem abonnementVerkoop, abonnementBeheer, uitloggen, gebruikersToevoegen, gebruikersBeheren, ticketVerkoop
-    , verlorenVoorwerpToevoegen, verlorenVoorwerpZoeken, wachtwoordVeranderen;
+    JMenuItem abonnementVerkoop, abonnementBeheer, uitloggen, gebruikersToevoegen, gebruikersVerwijderen, ticketVerkoop
+    , verlorenVoorwerpToevoegen, verlorenVoorwerpZoeken, adminToevoegen, wachtwoordVeranderen;
 
 	public JPanel getHuidigeKeuze() {
 		return HuidigeKeuze;
@@ -73,8 +74,8 @@ public class AdminGui extends JFrame {
 		this.c = c;
 	}
 	public AdminGui() {
-		setBackground(new Color(0, 191, 255));
-		getContentPane().setBackground(new Color(0, 191, 255));
+		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
+		getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		this.setResizable(true);
 		menuGUI();		
 	}
@@ -148,12 +149,13 @@ public class AdminGui extends JFrame {
 		
 		gebruikersToevoegen = new JMenuItem("Gebruiker toevoegen");
 		gebruikersToevoegen.addActionListener(new MenuItemHandler());
+		gebruikersVerwijderen = new JMenuItem("Gebruiker verwijderen");
+		gebruikersVerwijderen.addActionListener(new MenuItemHandler());
+		adminToevoegen = new JMenuItem("Admin toevoegen");
+		adminToevoegen.addActionListener(new MenuItemHandler());
 		gebruikers.add(gebruikersToevoegen);
-		gebruikersBeheren = new JMenuItem("Gebruikers beheren");
-		gebruikersBeheren.addActionListener(new MenuItemHandler());
-		gebruikers.add(gebruikersBeheren);
-		
-		
+		gebruikers.add(gebruikersVerwijderen);
+		gebruikers.add(adminToevoegen);
 		
 		ticketVerkoop = new JMenuItem("Ticketverkoop");
 		ticketVerkoop.setBackground(Color.WHITE);
@@ -191,9 +193,13 @@ public class AdminGui extends JFrame {
 				navigation= "gebruikerToevoegen";
 				setHuidigeKeuze(new GebruikerToevoegenGui());
 			}
-			else if (e.getSource() == gebruikersBeheren) {	
-				navigation= "gebruikersBeheren";
-				setHuidigeKeuze(new GebruikersBeheren());
+			else if (e.getSource() == gebruikersVerwijderen) {	
+				navigation= "gebruikersVerwijderen";
+				setHuidigeKeuze(new GebruikerVerwijderenGui());
+			}
+			else if (e.getSource() == adminToevoegen) {	
+				navigation= "adminToevoegen";
+				setHuidigeKeuze(new AdminToevoegenGui());
 			}
 			else if (e.getSource()==uitloggen)
 			{
@@ -201,10 +207,12 @@ public class AdminGui extends JFrame {
 				LoginGui.start();
 			}
 			else if (e.getSource() == home){
+
 				setHuidigeKeuze(new HomeGui());
 			}
 			else if (e.getSource() == ticketVerkoop){
-				setHuidigeKeuze(new TicketVerkoopGui());
+				if (HuidigeKeuze!=null){HuidigeKeuze.setVisible(false);}
+				
 			}
 			else if (e.getSource() == routeInfo){
 				setHuidigeKeuze(new RouteZoekenGui());

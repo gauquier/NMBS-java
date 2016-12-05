@@ -2,21 +2,15 @@ package source;
 
 public class Persoon {
 
-	private int persoonId;
+	private int id;
 	private String voornaam;
 	private String achternaam;
 	private String email;
-	private static Adres adres;
+	private Adres adres;
 	
-	
-	
-	public Persoon() {
+	public Persoon(int id, String voornaam, String achternaam, String email, Adres adres) {
 		super();
-	}
-
-	public Persoon(int persoonId, String voornaam, String achternaam, String email, Adres adres) {
-		super();
-		this.persoonId = persoonId;
+		this.id = id;
 		this.voornaam = voornaam;
 		this.achternaam = achternaam;
 		this.email = email;
@@ -33,7 +27,7 @@ public class Persoon {
 
 	public Persoon(int persoonId, String voornaam, String achternaam) {
 		super();
-		this.persoonId = persoonId;
+		this.id = persoonId;
 		this.voornaam = voornaam;
 		this.achternaam = achternaam;
 	}
@@ -68,7 +62,7 @@ public class Persoon {
 		this.achternaam = achternaam;
 	}
 
-	public static Adres getAdres() {
+	public Adres getAdres() {
 		return adres;
 	}
 
@@ -76,13 +70,13 @@ public class Persoon {
 		this.adres = adres;
 	}
 
-	public int getPersoonId() {
-		return persoonId;
+	public int getId() {
+		return id;
 	}
 
-	public void setPersoonId(int persoonId) {
-		if(persoonId > 0)
-		this.persoonId = persoonId;
+	public void setId(int id) {
+		if(id > 0)
+		this.id = id;
 	}
 
 	public String getEmail() {
@@ -95,7 +89,7 @@ public class Persoon {
 
 	@Override
 	public String toString() {
-		return "Persoon [persoonId=" + persoonId + ", voornaam=" + voornaam + ", achternaam=" + achternaam + ", email="
+		return "Persoon [id=" + id + ", voornaam=" + voornaam + ", achternaam=" + achternaam + ", email="
 				+ email + ", adres=" + adres + "]";
 	}
 
@@ -106,7 +100,7 @@ public class Persoon {
 		result = prime * result + ((achternaam == null) ? 0 : achternaam.hashCode());
 		result = prime * result + ((adres == null) ? 0 : adres.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + persoonId;
+		result = prime * result + id;
 		result = prime * result + ((voornaam == null) ? 0 : voornaam.hashCode());
 		return result;
 	}
@@ -135,7 +129,7 @@ public class Persoon {
 				return false;
 		} else if (!email.equals(other.email))
 			return false;
-		if (persoonId != other.persoonId)
+		if (id != other.id)
 			return false;
 		if (voornaam == null) {
 			if (other.voornaam != null)

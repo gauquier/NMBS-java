@@ -4,8 +4,8 @@ public class Klant extends Persoon {
 
 	private String info;
 	private boolean nieuws;
-	public Klant(int persoonId, String voornaam, String achternaam, Adres adres, String email, String info, boolean nieuws) {
-		super(persoonId, voornaam, achternaam, email, adres);
+	public Klant(int id, String voornaam, String achternaam, Adres adres, String email, String info, boolean nieuws) {
+		super(id, voornaam, achternaam, email, adres);
 		this.info = info;
 		this.nieuws = nieuws;
 	}
