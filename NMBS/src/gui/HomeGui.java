@@ -55,9 +55,18 @@ public class HomeGui extends JPanel {
 		JLabel lblStation = new JLabel("Station: ");
 		
 		JLabel lblTicketverkoop = new JLabel("Ticketverkoop");
+		JLabel lblStation = new JLabel("Station: ");
 		
 		String datumpje = TicketDao.getVerkoopdatumAsString();//tijdelijke code
+		JLabel lblTicketverkoop = new JLabel("Ticketverkoop");
 		
+		/* SQL-statement die nodig is:
+		 * SELECT verkoopDatum, COUNT(verkoopDatum)
+		 * FROM Ticket
+		 * GROUP BY verkoopDatum; 
+		 */
+		//String datumpje = TicketDao.getVerkoopdatumAsString();//tijdelijke code
+		String datumpje = "28/11/2016";
 		/* SQL-statement die nodig is:
 		 * SELECT verkoopDatum, COUNT(verkoopDatum)
 		 * FROM Ticket

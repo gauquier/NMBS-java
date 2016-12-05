@@ -17,7 +17,8 @@ public class Ticket extends Aankoop {
 	private Date terugDatum = null;
 	
 	
-	public Ticket(int aankoopId,   int medewerkerId, String depZone, String arrZone,int verkoopStation, double prijs, VerkoopType verkoop,double korting,int klasse, int aantal, Date verkoopDatum, Date heenDatum, Date terugDatum) {
+	public Ticket(int aankoopId,   int medewerkerId, String depZone, String arrZone,int verkoopStation, double prijs, VerkoopType verkoop
+			,double korting,int klasse, int aantal, Date verkoopDatum, Date heenDatum, Date terugDatum) {
 		super(aankoopId, korting, prijs, verkoop);
 		setMedewerkerId(medewerkerId);
 		setDepZone(depZone);

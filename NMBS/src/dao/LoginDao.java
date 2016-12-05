@@ -47,6 +47,21 @@ public class LoginDao {
 		return 0;
 	}
 	
+	public static Login getLogin(int id){
+		dba.createSelect("Login");
+		dba.addWhere("loginId", id);
+		ResultSet rs = dba.commit();
+		try {
+			if(rs.next()){
+				return new Login(rs.getInt(1), rs.getString(2), rs.getString(3));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public static String getUserName(String user){
 		dba.createSelect("Login", "Username");
 		dba.addWhere("Username", Login.getUsername()); 
@@ -60,6 +75,22 @@ public class LoginDao {
 			e.printStackTrace();
 		}		
 		return user;
+	}
+	
+	public int checkUsername(String username){
+		dba.createSelect("Login", "loginId");
+		dba.addWhere("username", username);
+		ResultSet rs = dba.commit();
+		try {
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return -1;
+		
 	}
 	
 	public static int getRoll(int loginId){
@@ -119,13 +150,12 @@ public class LoginDao {
 		}		
 		return pass;
 	}
-	
+
 	public static void updateWachtwoord(String password){
 		dba.createUpdate("Login", "pass", password);
 		dba.addWhere("username", Login.getCurrentUser()); 
 		ResultSet rs = dba.commit();
 	}
-	
 	 
 	public static void loginWijzigen(Login login) throws Exception{ 
 	}
