@@ -14,42 +14,53 @@ public class Medewerker extends Persoon {
 	 * Medewerker1.getLogin.getUsername== Medewerker2.getLogin.getUsername
 	 * 
 	 */
-	public Medewerker() {
-	} 
 	
 	
+
 	/**
+	 * @param persoonId
+	 * @param voornaam
+	 * @param achternaam
+	 * @param adres
 	 * @param medewerkerId
 	 * @param rol
 	 * @param login
 	 * @param actief
 	 */
-	public Medewerker(int medewerkerId, Rol rol, Login login, boolean actief) {
-		super();
+	public Medewerker(int persoonId, String voornaam, String achternaam, String email, Adres adres, int medewerkerId, Rol rol, Login login, boolean actief) {
+		super(persoonId, voornaam, achternaam, email, adres);
 		this.medewerkerId = medewerkerId;
 		this.rol = rol;
 		this.login = login;
 		this.actief = actief;
 	}
 
-
 	/**
 	 * @param persoonId
-	 * @param adres
 	 * @param voornaam
 	 * @param achternaam
-	 * @param email
-	 * @param medewerkerId
+	 * @param adresId
 	 * @param rol
 	 * @param login
 	 * @param actief
 	 */
-	public Medewerker(int persoonId, Adres adres, String voornaam, String achternaam, String email,int medewerkerId, Rol rol, Login login, boolean actief) {
-		super(persoonId, adres, voornaam, achternaam, email);
+	public Medewerker(int persoonId, String voornaam, String achternaam, String email, Adres adres, Rol rol, Login login, boolean actief) {
+		super(persoonId, voornaam, achternaam, email, adres);
 		this.rol = rol;
 		this.login = login;
-		this.actief = actief;
-	}  
+		this.actief=actief;
+	}
+
+	/**
+	 * @param persoonId
+	 * @param voornaam
+	 * @param achternaam
+	 * @param adres
+	 */
+	public Medewerker(int persoonId, String voornaam, String achternaam, String email, Adres adres) {
+		super(persoonId, voornaam, achternaam, email, adres);
+	}
+
 	/**
 	 * @param persoonId
 	 * @param voornaam
@@ -57,7 +68,25 @@ public class Medewerker extends Persoon {
 	 */
 	public Medewerker(int persoonId, String voornaam, String achternaam) {
 		super(persoonId, voornaam, achternaam);
-	} 
+	}
+
+	/**
+	 * @param voornaam
+	 * @param achternaam
+	 * @param adres
+	 */
+	public Medewerker(String voornaam, String achternaam, Adres adres) {
+		super(voornaam, achternaam, adres);
+	}
+
+	/**
+	 * @param voornaam
+	 * @param achternaam
+	 */
+	public Medewerker(String voornaam, String achternaam) {
+		super(voornaam, achternaam);
+	}
+
 	/**
 	 * @return rol van personeel
 	 */

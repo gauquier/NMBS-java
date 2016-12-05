@@ -1,60 +1,71 @@
 package dao;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-
-import javax.sql.DataSource;
 
 import source.Adres;
-import source.Login;
-import source.Medewerker;
 import source.Persoon;
+
 
 public class PersoonDao {
 	
-	private static java.sql.Connection connection;
-	private static Statement command;
-	private static ResultSet data;
-	private static PreparedStatement stmt = null;
+	private static DBA dba = new DBA();
 	
-	public static int addPersoon(Persoon persoon, Adres adres){
-		int adresId = 0;
-		adresId = AdressDAO.addAdress(adres);
-		DataSource ds = null; 
-		try {
-			adresId = AdressDAO.addAdress(adres);
-	        if (connection == null){connection = Connection.getDBConnection();}
-	        command = connection.createStatement();
-	        
-	        stmt = connection.prepareStatement("INSERT INTO Login (adresId, voornaam, achternaam) VALUES(?,?,?);");
-	        stmt.setInt(1, adresId);
-	        stmt.setString(2,persoon.getVoornaam());
-	        stmt.setString(3, persoon.getAchternaam());
-	        stmt.executeUpdate();
-	        data = command.executeQuery("SELECT MAX(adressId) FROM adress");
-	        if (data.next()) {
-	        	adresId=data.getInt(1);
-	        }
-	        data.close();
-	    }catch (SQLException e){
-	        e.printStackTrace();
-	    }catch(Exception e) {
-	        e.printStackTrace();
-	    }   
-	    return adresId;
+	public static int addPersoon(Persoon persoon){
+			dba.createInsert("Persoon");
+			dba.addValue(AdresDAO.insertAdres(persoon.getAdres()));
+			dba.addValue(persoon.getVoornaam());
+			dba.addValue(persoon.getAchternaam());
+			dba.addValue(persoon.getEmail());
+			dba.commit();
+		return getPersoonId(persoon);
 	}
-	public static boolean persoonWijzigen(Persoon persoon) throws Exception{ 
+	
+	public static int getPersoonId(Persoon persoon){
+		
+		dba.createSelect("Persoon", "persoonId");
+		dba.addWhere("adresId", AdresDAO.getId(persoon.getAdres())); 
+		dba.addWhere("voornaam", persoon.getVoornaam());
+		dba.addWhere("achternaam", persoon.getAchternaam());
+		dba.addWhere("email", persoon.getEmail());
+		ResultSet rs = dba.commit();
+		try {
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		return 0;
+	}
+	public static Persoon getPersoon(int id){
+		Persoon persoon = null;
+		dba.createSelect("Persoon");
+		dba.addWhere("persoonId",id);
+		ResultSet rs = dba.commit();
+		try {
+			if(rs.next()){
+				return persoon = new Persoon(rs.getInt(1), rs.getString(3), rs.getString(4), rs.getString(5), AdresDAO.getAdres(rs.getInt(2)));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static boolean persoonWijzigen(Persoon persoon) throws Exception{
+		
 		return false;
 	}
-	public static Persoon zoekPersoonOpPersoonId(int persoonId)throws Exception {
-		return null;
-	} 
-	public static Persoon persoonToevoegen(Persoon persoon) throws Exception{
+	public static Persoon zoekPersoonOpPersoonId(int persoonId) {
 		return null;
 	}
-	public static void persoonVerwijderen(Persoon persoon)throws Exception { 
-		
+	public static Persoon zoekPersoonOpPersoonId(Persoon medewerker) { 
+		return null;
+	}
+	public static Persoon persoonToevoegen(Persoon persoon) {
+		return null;
 	}
 }

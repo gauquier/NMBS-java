@@ -1,5 +1,6 @@
 package dao;
 
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,168 +9,106 @@ import java.sql.Statement;
 import javax.sql.DataSource;
 
 import source.Login;
+import source.Station;
+import source.VerlorenVoorwerp;
 
 public class LoginDao {
 	private static String username1, password1;
 	private static int rollid, loginId;
-
+	private static DBA dba = new DBA();
+	
 	private static java.sql.Connection connection;
 	private static Statement command;
 	private static ResultSet data;
 	private static PreparedStatement stmt = null;
-
-	public static int addLogin(Login login) {
-		int id = 0;
-		DataSource ds = null;
-
+	
+	public static int addLogin(Login login){
+		dba.createInsert("Login");
+		dba.addValue(login.getUsername());
+		dba.addValue(login.getPassword());
+		dba.commit();
+		return getLoginId(login);
+	}
+	
+	public static int getLoginId(Login login){
+		
+		dba.createSelect("Login", "loginId");
+		dba.addWhere("username", login.getUsername()); 
+		dba.addWhere("pass", login.getPassword());
+		ResultSet rs = dba.commit();
 		try {
-			if (connection == null) {
-				connection = Connection.getDBConnection();
+			if(rs.next()){
+				return rs.getInt(1);
 			}
-			command = connection.createStatement();
-
-			stmt = connection.prepareStatement("INSERT INTO Login (username, pass, email) VALUES(?,?,?);");
-			stmt.setString(1, login.getUsername());
-			stmt.setString(2, login.getPassword());
-			stmt.setString(3, login.getEmail());
-			stmt.executeUpdate();
-			data = command.executeQuery("SELECT MAX(adressId) FROM adress");
-			if (data.next()) {
-				id = data.getInt(1);
-			}
-			data.close();
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (Exception e) {
+		}		
+		return 0;
+	}
+	
+	public static Login getLogin(int id){
+		dba.createSelect("Login");
+		dba.addWhere("loginId", id);
+		ResultSet rs = dba.commit();
+		try {
+			if(rs.next()){
+				return new Login(rs.getInt(1), rs.getString(2), rs.getString(3));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return id;
+		return null;
 	}
-
-	public static String getUsername(int userId) {
-
+	
+	public static String getUserName(String user){
+		dba.createSelect("Login", "Username");
+		dba.addWhere("Username", Login.getUsername()); 
+		ResultSet rs = dba.commit();
 		try {
-			connection = Connection.getDBConnection();
-			stmt = connection.prepareStatement("SELECT Username FROM Login WHERE UserId = ?");
-			stmt.setInt(1, userId);
-			data = stmt.executeQuery();
-
-			while (data.next()) {
-				username1 = data.getString(1);
-				System.out.println("username: " + username1);
+			if(rs.next()){
+				return rs.getString(user);
 			}
-			data.close();
-			// connection.close();
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (Exception e) {// Handle errors for Class.forName
-			e.printStackTrace();
-		} finally {
-			try {
-				if (data != null)
-					data.close();
-				if (connection != null)
-					connection.close();
-			} catch (SQLException se2) {
-				se2.printStackTrace();
-			}
-		}
-		return username1;
+		}		
+		return user;
 	}
-
-	public static String getPassword(int userId) {
-
+	
+	public int checkUsername(String username){
+		dba.createSelect("Login", "loginId");
+		dba.addWhere("username", username);
+		ResultSet rs = dba.commit();
 		try {
-			connection = Connection.getDBConnection();
-			stmt = connection.prepareStatement("SELECT pass FROM Login WHERE UserId = ?");
-			stmt.setInt(1, userId);
-			data = stmt.executeQuery();
-
-			while (data.next()) {
-				password1 = data.getString(1);
-				System.out.println("password: " + password1);
+			if(rs.next()){
+				return rs.getInt(1);
 			}
-			data.close();
-			// connection.close();
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (Exception e) {// Handle errors for Class.forName
-			e.printStackTrace();
-		} finally {
-			try {
-				if (data != null)
-					data.close();
-				if (connection != null)
-					connection.close();
-			} catch (SQLException se2) {
-				se2.printStackTrace();
-			}
-		}
-		return password1;
+		}	
+		return -1;
+		
 	}
-
-	public static String getUserName(String user) {
-
+	
+	public static int getRoll(int loginId){
+		dba.createSelect("Medewerker", "rolId");
+		dba.addWhere("loginId", Login.getLoginId()); 
+		ResultSet rs = dba.commit();
 		try {
-			connection = Connection.getDBConnection();
-			stmt = connection.prepareStatement("SELECT Username FROM Login WHERE Username = ?");
-			stmt.setString(1, user);
-			data = stmt.executeQuery();
-
-			while (data.next()) {
-				username1 = data.getString(1);
-				System.out.println("username: " + username1);
+			if(rs.next()){
+				loginId = rs.getInt(1);
 			}
-			data.close();
-			connection.close();
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (Exception e) {// Handle errors for Class.forName
-			e.printStackTrace();
-		} finally {
-			try {
-				if (data != null)
-					data.close();
-				if (connection != null)
-					connection.close();
-			} catch (SQLException se2) {
-				se2.printStackTrace();
-			}
-		}
-		return username1;
+		}		
+		return loginId;
 	}
-
-	public static int getRoll(int loginId) {
-
-		try {
-			connection = Connection.getDBConnection();
-			stmt = connection.prepareStatement("SELECT rolId FROM Medewerker WHERE loginId = ?");
-			stmt.setInt(1, loginId);
-			data = stmt.executeQuery();
-
-			while (data.next()) {
-				rollid = data.getInt(1);
-			}
-			data.close();
-			connection.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (data != null)
-					data.close();
-				if (connection != null)
-					connection.close();
-			} catch (SQLException se2) {
-				se2.printStackTrace();
-			}
-		}
-		return rollid;
-	}
-
-	public static int getLoginId(String username) {
+	
+	public static int getLoginId(String username){
 
 		try {
 			connection = Connection.getDBConnection();
@@ -177,94 +116,64 @@ public class LoginDao {
 			stmt.setString(1, username);
 			data = stmt.executeQuery();
 
-			while (data.next()) {
-				loginId = data.getInt(1);
+			while(data.next()){
+				loginId=data.getInt(1);
 			}
 			data.close();
 			connection.close();
-		} catch (SQLException e) {
+		}catch (SQLException e){
 			e.printStackTrace();
-		} catch (Exception e) {
+		}catch(Exception e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (data != null)
-					data.close();
-				if (connection != null)
-					connection.close();
-			} catch (SQLException se2) {
+		}finally{
+			try{
+				if(data!=null) data.close();
+				if(connection!=null)connection.close();
+			}catch(SQLException se2){
 				se2.printStackTrace();
 			}
 		}
 		return loginId;
 	}
 
-	/*
-	 * public static int userId(String username, String password){ int userId=0;
-	 * try { connection = Connection.getDBConnection(); stmt = connection.
-	 * prepareStatement("SELECT UserId FROM User WHERE Username = ? AND Password = ?"
-	 * ); stmt.setString(1, username); stmt.setString(2, password); data =
-	 * stmt.executeQuery();
-	 * 
-	 * while(data.next()){ userId=data.getInt(1); System.out.println("userid: "
-	 * + userId); } data.close(); connection.close(); }catch (SQLException e){
-	 * e.printStackTrace(); }catch(Exception e) {//Handle errors for
-	 * Class.forName e.printStackTrace(); }finally{ try{ if(data!=null)
-	 * data.close(); if(connection!=null)connection.close(); }catch(SQLException
-	 * se2){ se2.printStackTrace(); } } return userId; }
-	 */
-
-	public static String getWachtwoord(String user) {
+	public static String getWachtwoord(String pass){
+		dba.createSelect("Login", "pass");
+		dba.addWhere("Username", Login.getUsername()); 
+		ResultSet rs = dba.commit();
 		try {
-			connection = Connection.getDBConnection();
-			stmt = connection.prepareStatement("Select pass from Login where Username=?");
-			stmt.setString(1, user);
-			data = stmt.executeQuery();
-
-			while (data.next()) {
-				password1 = data.getString(1);
-				System.out.println("password1: " + password1);
+			if(rs.next()){
+				return rs.getString(pass);
 			}
-			data.close();
-			connection.close();
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (Exception e) {// Handle errors for Class.forName
-			e.printStackTrace();
-		} finally {
-			try {
-				if (data != null)
-					data.close();
-				if (connection != null)
-					connection.close();
-			} catch (SQLException se2) {
-				se2.printStackTrace();
-			}
-		}
-		return password1;
+		}		
+		return pass;
 	}
 
-	public static void loginWijzigen(Login login) throws Exception {
-
+	public static void updateWachtwoord(String password){
+		dba.createUpdate("Login", "pass", password);
+		dba.addWhere("username", Login.getCurrentUser()); 
+		ResultSet rs = dba.commit();
+	}
+	 
+	public static void loginWijzigen(Login login) throws Exception{ 
+	}
+	public static Login loginZoekenOpLoginId(int loginId) throws Exception{
+		return null; 
+	}
+	public static Login loginZoekenOpLoginId(Login login) throws Exception{
+		return null;
+		
 	}
 
-	public static Login loginZoekenOpLoginId(int loginId) throws Exception {
+	public static Login loginZoekenOpUsername(Login login) throws Exception {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public static Login loginZoekenOpUsername(String username) throws Exception {
+	public static Login loginToevoegen(Login login) throws Exception{
 		return null;
-	}
-
-	public static Login loginToevoegen(Login login) throws Exception {
-		return null;
-	}
-
-	public static void loginVerwijderen(Login login) throws Exception {
-
-	}
-
-	public static void loginVerwijderenOpId(int loginId) throws Exception {
-
+		
 	}
 }

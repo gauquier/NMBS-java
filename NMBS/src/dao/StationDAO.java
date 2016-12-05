@@ -1,0 +1,115 @@
+package dao;
+
+import java.sql.ResultSet;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Date;
+
+import source.Station;
+import source.VerlorenVoorwerp; 
+
+
+public class StationDAO {
+
+	private DBA dba = new DBA();
+	private VerlorenVoorwerpDAO vvDAO = new VerlorenVoorwerpDAO();
+	
+	public int insertStation(Station station){
+		if(getStationId(station) == 0){
+			dba.createInsert("Station");
+			dba.addValue(station.getNaam());
+			dba.addValue(station.getZone());
+			dba.addValue(station.getAantalLoketten());	
+			dba.addValue(station.getParkingplaatsen());
+			dba.addValue(station.getWifi());
+			dba.addValue(station.getGehandicapte());
+			dba.commit();
+		}
+		for(int i = 0; i < station.getVerlorenVoorwerpen().size(); i++){
+			vvDAO.insertVerlorenVoorwerp(station.getVerlorenVoorwerpen().get(i), station.getStationID());
+		}
+		return getStationId(station);
+	}
+
+	public int getStationId(Station station){
+		
+		dba.createSelect("Station", "stationId");
+		dba.addWhere("naam", station.getNaam());
+		dba.addWhere("zone", station.getZone());
+		dba.addWhere("aantalLoketten", station.getAantalLoketten());
+		dba.addWhere("parkingPLaatsen", station.getParkingplaatsen());
+		dba.addWhere("wifi", station.getWifi());
+		dba.addWhere("gehandicapt", station.getGehandicapte());
+		
+		ResultSet rs = dba.commit();
+		try {
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		return 0;
+	}
+	
+	public int checkStation(String naam){
+		dba.createSelect("Station", "naam");
+		//dba.addWhere("naam", station.getNaam());
+		
+		
+		ResultSet rs = dba.commit();
+		try {
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		return 0;
+	}
+	public int checkStationZone(String stationZone){
+		
+		dba.createSelect("Station", "stationId");
+		dba.addWhere("zone", stationZone);
+		ResultSet rs = dba.commit();
+		try {
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		return 0;
+	}
+
+	public Station getStation(int id){
+		Station station = null;
+		dba.createSelect("Station");
+		dba.addWhere("stationId", id);
+		ResultSet rs = dba.commit();	
+		try {
+			if(rs.next()){
+				station = new Station(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getShort(4), rs.getInt(5), rs.getBoolean(6), rs.getBoolean(7), vvDAO.getVerlorenVoorwerpByStation(rs.getInt(1)));
+						}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch blocks
+			e.printStackTrace();
+		}
+		return station;
+	}
+
+	//public static void main(String[] args) {
+		/*ArrayList<VerlorenVoorwerp> vv = new ArrayList<VerlorenVoorwerp>(); 
+		vv.add(new VerlorenVoorwerp(-1, "gsm", new java.sql.Date(11,11,1900), false));
+		Station s = new Station(-1, "Luxembourg","brussel", 2, 2, false, true, vv);
+		StationDAO sd = new StationDAO();
+		System.out.println(sd.getStationId(s));
+		/*sd.insertStation(s);
+		System.out.println(sd.getStation(sd.getStationId(s)).getZone());
+		System.out.println(sd.getStationId(f));*/
+	//}
+}

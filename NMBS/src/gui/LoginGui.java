@@ -1,11 +1,13 @@
 package gui;
 
 import java.awt.Dimension;
+
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.*;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,26 +18,50 @@ import javax.swing.JTextField;
 import dao.LoginDao;
 import handler.Controller;
 import source.Login;
+import source.Medewerker;
+import source.Rol;
+import javax.swing.UIManager;
+import java.awt.Color;
 
 public class LoginGui {
 
-	JFrame frame;
+	JFrame frmNmbs;
 	private JTextField txtUsername;
 	private JButton btnLogin;
 	private JPasswordField txtPassword;
 	public static LoginGui window;
+	Login login;
 
 	public LoginGui() {
 		initialize();
 	}
 
 	public static void start() {
+		//v system look and feel (i.p.v. niet-zo-mooie java look and feel) Source: https://docs.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+		try {
+            // Set System L&F
+        UIManager.setLookAndFeel(
+            UIManager.getSystemLookAndFeelClassName());
+	    } 
+	    catch (UnsupportedLookAndFeelException e) {
+	       // handle exception
+	    }
+	    catch (ClassNotFoundException e) {
+	       // handle exception
+	    }
+	    catch (InstantiationException e) {
+	       // handle exception
+	    }
+	    catch (IllegalAccessException e) {
+	       // handle exception
+	    }
+		//^ code system look and feel
 		window = new LoginGui();
-		window.frame.setVisible(true);
+		window.frmNmbs.setVisible(true);
 	}
 
 	public void closeFrame() {
-		window.frame.dispose();
+		window.frmNmbs.dispose();
 	}
 
 	public static void centreWindow(Window frame) {
@@ -45,35 +71,40 @@ public class LoginGui {
 		frame.setLocation(x, y);
 	}
 
-	private void initialize() {
-		frame = new JFrame();
+	private void initialize() {		
+		frmNmbs = new JFrame();
+		frmNmbs.setIconImage(Toolkit.getDefaultToolkit().getImage("NMBS/lib/logo-nmbs.png"));
+		frmNmbs.setTitle("NMBS");
+		frmNmbs.getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 
-		frame.setBounds(0, 0, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setResizable(false);
-		centreWindow(frame);
+		frmNmbs.setBounds(0, 0, 450, 300);
+		frmNmbs.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmNmbs.getContentPane().setLayout(null);
+		frmNmbs.setResizable(false);
+		centreWindow(frmNmbs);
 
 		btnLogin = new JButton("Login");
 		btnLogin.setBounds(208, 200, 116, 25);
-		frame.getContentPane().add(btnLogin);
+		frmNmbs.getContentPane().add(btnLogin);
 
 		txtUsername = new JTextField();
 		txtUsername.setBounds(208, 100, 116, 22);
-		frame.getContentPane().add(txtUsername);
+		frmNmbs.getContentPane().add(txtUsername);
 		txtUsername.setColumns(10);
 
 		JLabel lblUser = new JLabel("User");
+		lblUser.setForeground(Color.WHITE);
 		lblUser.setBounds(116, 90, 84, 38);
-		frame.getContentPane().add(lblUser);
+		frmNmbs.getContentPane().add(lblUser);
 
 		JLabel lblPassword = new JLabel("Password");
+		lblPassword.setForeground(Color.WHITE);
 		lblPassword.setBounds(116, 140, 84, 38);
-		frame.getContentPane().add(lblPassword);
+		frmNmbs.getContentPane().add(lblPassword);
 
 		txtPassword = new JPasswordField();
 		txtPassword.setBounds(208, 150, 116, 22);
-		frame.getContentPane().add(txtPassword);
+		frmNmbs.getContentPane().add(txtPassword);
 		btnLogin.addActionListener(new ButtonHandler());
 		txtPassword.addActionListener(new ButtonHandler());
 
@@ -85,9 +116,10 @@ public class LoginGui {
 
 				String username = txtUsername.getText().trim();
 				String password = new String(txtPassword.getPassword());
-
+				
 				String databasePassword = LoginDao.getWachtwoord(username);
 				String databaseUsername = LoginDao.getUserName(username);
+				
 				if (databasePassword == null || databaseUsername == null) {
 					JOptionPane.showMessageDialog(new JFrame(), "User is not allowed.");
 					return;
@@ -97,13 +129,17 @@ public class LoginGui {
 
 						int loginId = LoginDao.getLoginId(username);
 						int rollId = LoginDao.getRoll(loginId);
-						
-						System.out.println(rollId);
-						System.out.println("User " + username + " is aangelogd.");
+						login = new Login(username);
 
 						closeFrame();
-						Controller.adminInterface = new AdminGui();
-						Controller.adminInterface.setHome();
+						 if(rollId == 1){
+							Controller.adminInterface = new AdminGui();
+							Controller.adminInterface.setHome();
+						 }
+						 else if(rollId == 2){
+							Controller.medewerkerInterface = new MedewerkerGui();
+							Controller.medewerkerInterface.setHome();
+						} 
 
 					} else {
 						JOptionPane.showMessageDialog(new JFrame(), "Username or password wrong.");

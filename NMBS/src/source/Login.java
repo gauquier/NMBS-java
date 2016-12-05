@@ -1,11 +1,28 @@
 package source;
 
 public class Login {
-	private int loginId;
-	private String username;
+	private static int loginId;
+	private static String username;
 	private String password;
 	private String email;
+	private static String currentUser;
 
+	/**
+	 * @return the currentUser
+	 */
+	public static String getCurrentUser() {
+		return currentUser;
+	}
+	/**
+	 * @param currentUser the currentUser to set
+	 */
+	public void setCurrentUser(String currentUser) {
+		this.currentUser = currentUser;
+	}
+	
+	public Login(String currentUser ) {
+		this.currentUser = currentUser;
+	}
 	/**
 	 * 
 	 */
@@ -24,13 +41,22 @@ public class Login {
 		this.password = password;
 		this.email = email;
 	}
+	public Login(int loginId, String username, String password) {
+		this.loginId = loginId;
+		this.username = username;
+		this.password = password;
+	}
 
-
+	public Login(String username, String password, String email) {
+		this.username = username;
+		this.password = password;
+		this.email = email;
+	}
 
 	/**
 	 * @return username (gebruikersnaam)
 	 */
-	public String getUsername() {
+	public static String getUsername() {
 		return username;
 	}
 
@@ -67,7 +93,7 @@ public class Login {
 	/**
 	 * @return loginId
 	 */
-	public int getLoginId() {
+	public static int getLoginId() {
 		return loginId;
 	}
 	/**

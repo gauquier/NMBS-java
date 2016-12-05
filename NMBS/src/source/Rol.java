@@ -1,12 +1,16 @@
 package source;
 
 public class Rol {
-	private int rolId;
+
+	private static int rolId;
 	private String rol;
 	/**
 	 * 
 	 */
 	public Rol() {
+	}
+	public Rol(int rolId){
+		this.rolId = rolId;
 	}
 	/**
 	 * @param rolId de rol id als deze rol
@@ -40,5 +44,4 @@ public class Rol {
 	public void setRol(String rol) {
 		this.rol = rol;
 	}
-	
 }
