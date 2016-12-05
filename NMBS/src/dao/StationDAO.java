@@ -12,7 +12,7 @@ import source.VerlorenVoorwerp;
 
 public class StationDAO {
 
-	private DBA dba = new DBA();
+	private static DBA dba = new DBA();
 	private VerlorenVoorwerpDAO vvDAO = new VerlorenVoorwerpDAO();
 	
 	public int insertStation(Station station){
@@ -70,7 +70,7 @@ public class StationDAO {
 		}		
 		return 0;
 	}
-	public int checkStationZone(String stationZone){
+	public static int checkStationZone(String stationZone){
 		
 		dba.createSelect("Station", "stationId");
 		dba.addWhere("zone", stationZone);

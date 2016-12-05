@@ -1,19 +1,14 @@
 package source;
 
-<<<<<<< HEAD
 public class Klant extends Persoon { 
-=======
-public class Klant extends Persoon {
 
->>>>>>> refs/remotes/origin/master
 	private String info;
-<<<<<<< HEAD
 	private boolean nieuws; 
 	/**
 	 * 
 	 */
-	public Klant() {
-	} 
+	//public Klant() {
+	//} 
 	/**
 	 * @param persoonId
 	 * @param adres
@@ -24,22 +19,19 @@ public class Klant extends Persoon {
 	 * @param nieuws
 	 */
 	public Klant(int persoonId, Adres adres, String voornaam, String achternaam, String email, String info,boolean neiuws) {
-		super(persoonId, adres, voornaam, achternaam, email); 
+		super(persoonId, voornaam, achternaam, email, adres); 
 		this.info=info;
 		this.nieuws=neiuws;
 	} 
 	/**
 	 * @return extra klant informatie
 	 */
-=======
-	private boolean nieuws;
 	public Klant(int id, String voornaam, String achternaam, Adres adres, String email, String info, boolean nieuws) {
 		super(id, voornaam, achternaam, email, adres);
 		this.info = info;
 		this.nieuws = nieuws;
 	}
 
->>>>>>> refs/remotes/origin/master
 	public String getInfo() {
 		return info;
 	}
