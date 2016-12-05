@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /Hashing/
 /api/
 /api_logic/
@@ -13,3 +14,11 @@
 /handler/
 =======
 >>>>>>> refs/remotes/origin/senne
+=======
+/dao/
+/gui/
+/handler/
+/source/
+/testing_dao/
+/testing_source/
+>>>>>>> branch 'Aime' of https://github.com/JonasDeGauquier/NMBS-java.git
