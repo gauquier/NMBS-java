@@ -151,7 +151,6 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 			/*
 			if (e.getSource() == btnToevoegen){
-<<<<<<< HEAD
 				
 				lblDatumerror.setText("");
 				lblStationerror.setText("");
@@ -179,7 +178,7 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel{
 						verlorenVoorwerp = new VerlorenVoorwerp(stationId, txtrBeschrijving.getText().trim(), sqlDate ,gevonden);
 						VerlorenVoorwerpDAO.insertVerlorenVoorwerp(verlorenVoorwerp);
 					}
-=======
+
 				if(!txtrBeschrijving.getText().isEmpty() && !txtDatum.getText().isEmpty()){
 					boolean gevonden = false;
 					String startDateString = txtDatum.getText();
@@ -189,7 +188,6 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel{
 					station = new Station(stationId);
 					verlorenVoorwerp = new VerlorenVoorwerp(stationId, txtrBeschrijving.getText().trim(), sqlDate ,gevonden);
 					verlorenVoorwerpDAO.insertVerlorenVoorwerp(verlorenVoorwerp);
->>>>>>> 0e4f1f24382e822b8762da8dd2fa9d553297a137
 				}
 				else{
 					JOptionPane.showMessageDialog(new JFrame(),"Please fill in all required fields!");

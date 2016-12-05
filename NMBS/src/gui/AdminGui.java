@@ -92,16 +92,16 @@ public class AdminGui extends JFrame {
 	private void createMenu() {
 		menubar = new JMenuBar();
 		menubar.setForeground(Color.BLACK);
-		menubar.setBackground(Color.WHITE);
+		menubar.setBackground(Color.ORANGE);
 		home = new JMenuItem("Home");
+		home.setBackground(Color.ORANGE);
 		home.setHorizontalAlignment(SwingConstants.CENTER);
 		home.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		home.setBackground(Color.ORANGE);
 		home.addActionListener(new MenuItemHandler());
+		
 		verkoop = new JMenu("Verkoop");
 		verkoop.setHorizontalAlignment(SwingConstants.CENTER);
 		verkoop.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		verkoop.setBackground(Color.ORANGE);
 		verkoop.setOpaque(true);
 		routeInfo = new JMenuItem("Route info");
 		routeInfo.setHorizontalAlignment(SwingConstants.CENTER);

@@ -14,6 +14,15 @@ public class Validation {
             return false;
         }
     }
+	
+	public static boolean checkUsername(String name) {
+        String regex = "[A-Za-z0-9]";
+        if (Pattern.matches(regex, name)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     public static boolean checkAlphaNumerical(String name) {
         String regex = "[A-Za-z0-9]{2,40}";
