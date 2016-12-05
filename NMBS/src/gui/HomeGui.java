@@ -54,10 +54,7 @@ public class HomeGui extends JPanel {
 		
 		JLabel lblStation = new JLabel("Station: ");
 		
-		JLabel lblTicketverkoop = new JLabel("Ticketverkoop");
-		JLabel lblStation = new JLabel("Station: ");
-		
-		String datumpje = TicketDao.getVerkoopdatumAsString();//tijdelijke code
+		//String datumpje = TicketDao.getVerkoopdatumAsString();//tijdelijke code
 		JLabel lblTicketverkoop = new JLabel("Ticketverkoop");
 		
 		/* SQL-statement die nodig is:
