@@ -23,6 +23,8 @@ import source.Rol;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -31,11 +33,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 
 public class GebruikerBewerkenGui extends JPanel {
-	private JTextField textField;
+	private JTextField txtZoekveld;
 	private JButton btnZoeken;
 	private JButton btnBewerken;
 	private JList<Medewerker> list;
-	private ArrayList<Medewerker> arrayLijst;
+	private ArrayList<Medewerker> arrayLijst, arrayLijst2;
 	private ArrayList<Object> objecten;
 	private JButton btnVerwijderen;
 	
@@ -58,9 +60,46 @@ public class GebruikerBewerkenGui extends JPanel {
 		}
 		list = new JList<Medewerker>(dlm);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		
+		txtZoekveld = new JTextField();
+		txtZoekveld.setColumns(10);
+		txtZoekveld.addKeyListener(new KeyListener()
+		  {
+			@Override
+			public void keyPressed(KeyEvent e) {}
+			@Override
+			public void keyReleased(KeyEvent e) {}
+			@Override
+			public void keyTyped(KeyEvent e) {
+					Thread userRefresh = new Thread(new Runnable(){
+						@Override
+						public void run() {
+							if(!txtZoekveld.getText().isEmpty()){
+								dlm.clear();
+								
+								arrayLijst2 = MedewerkerDAO.getAllMedewerkersFromSearch(txtZoekveld.getText());
+		    					System.out.println(arrayLijst2);
+		    					for(Medewerker m : arrayLijst2)
+		    					{
+		    						dlm.addElement(m);
+		    					}
+
+		    					System.out.println(dlm);
+		    					list = new JList<Medewerker>(dlm);
+							}
+							else
+							{
+								for(Medewerker m : arrayLijst)
+								{
+									dlm.addElement(m);
+								}
+								list = new JList<Medewerker>(dlm);
+							}
+						}
+					});
+					userRefresh.start();
+				}
+	  		  });	
+
 		btnZoeken = new JButton("Zoeken");
 		btnBewerken = new JButton("Bewerken");
 		btnBewerken.addActionListener(new MenuItemHandler());
@@ -83,7 +122,7 @@ public class GebruikerBewerkenGui extends JPanel {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnZoeken)
 							.addGap(18)
-							.addComponent(textField, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE))
+							.addComponent(txtZoekveld, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE))
 						.addComponent(lblGebruikerBewerken))
 					.addContainerGap(88, Short.MAX_VALUE))
 		);
@@ -95,7 +134,7 @@ public class GebruikerBewerkenGui extends JPanel {
 					.addGap(27)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnZoeken)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtZoekveld, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
@@ -114,22 +153,20 @@ public class GebruikerBewerkenGui extends JPanel {
 	}
 	
 	public Boolean unknownIndex(){
-	if(list.getSelectedValue()==null || list.getSelectedIndex()<0){
-		JOptionPane.showMessageDialog(new JFrame(), "Er is geen gebruiker aangeduid.");
-		return false;
-	}
-	else {
-		return true;
-	}
+		if(list.getSelectedValue()==null || list.getSelectedIndex()<0){
+			JOptionPane.showMessageDialog(new JFrame(), "Er is geen gebruiker aangeduid.");
+			return false;
+		}
+		else {
+			return true;
+		}
 	}
 	
 	private class MenuItemHandler implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-		
-		
-			
+
 			if (e.getSource() == btnBewerken) {
 				
 				if(!unknownIndex()){
@@ -139,8 +176,8 @@ public class GebruikerBewerkenGui extends JPanel {
 				System.out.println(list.getSelectedValue().getId());
 				//MedewerkerDAO.removeMedewerker(list.getSelectedIndex());
 				
-			}
 				}
+			}
 			
 			if (e.getSource() == btnVerwijderen) {
 				if(!unknownIndex()){
@@ -149,11 +186,9 @@ public class GebruikerBewerkenGui extends JPanel {
 				MedewerkerDAO.removeMedewerker(list.getSelectedValue().getId());
 				((DefaultListModel<Medewerker>)list.getModel()).remove(list.getSelectedIndex());
 				JOptionPane.showMessageDialog(new JFrame(), "Gebruiker is succesvol verwijdert.");
-			}
+				}
 			}
 			
 		}
 	}
-	
-	
 }

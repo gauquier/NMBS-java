@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import handler.Controller;
+import handler.VerkoopController;
 
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
@@ -206,7 +207,7 @@ public class AdminGui extends JFrame {
 			}
 			else if (e.getSource() == ticketVerkoop){
 				if (HuidigeKeuze!=null){HuidigeKeuze.setVisible(false);}
-				
+				new VerkoopController();
 			}
 			else if (e.getSource() == routeInfo){
 				setHuidigeKeuze(new RouteZoekenGui());

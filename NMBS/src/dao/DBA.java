@@ -188,6 +188,21 @@ public class DBA {
 				System.out.println("can only add WHERE clausule when type = UPDATE or type = SELECT");
 			}
 		}
+		public void addWhereLike(String columnName, String value) // ... WHERE columnName = value
+		{
+			if(type == Type.UPDATE || type == Type.SELECT)
+			{
+				if(!isWhere)
+				{
+					sql = sql + " WHERE";
+					isWhere = true;
+				}
+				sql = sql + " " + columnName + " LIKE '" + value + "' AND";
+			}
+			else{
+				System.out.println("can only add WHERE clausule when type = UPDATE or type = SELECT");
+			}
+		}
 		public void addWhere(String columnName, double value) // ... WHERE columnName = value
 		{
 			if(type == Type.UPDATE || type == Type.SELECT)

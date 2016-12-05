@@ -76,6 +76,7 @@ public class MedewerkerDAO {
 		}
 		return null;
 	}
+	
 	public static ArrayList<Medewerker> getAllMedewerkers(){
 		ArrayList<Medewerker> medewerkers = new ArrayList<Medewerker>();
 		Persoon persoon = null;
@@ -89,6 +90,27 @@ public class MedewerkerDAO {
 						rs.getInt(1), RolDAO.getRol(rs.getInt(4)), LoginDao.getLogin(rs.getInt(2)), true));
 			}
 			return medewerkers;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static ArrayList<Medewerker> getAllMedewerkersFromSearch(String search){
+		ArrayList<Medewerker> medewerkers = new ArrayList<Medewerker>();
+		Persoon persoon = null;
+		dba.createSelect("Persoon");
+		dba.addWhereLike("Voornaam", search);
+		ResultSet rs = dba.commit();
+		try {
+			while(rs.next()){
+				persoon = PersoonDao.getPersoon(rs.getInt(3));
+				medewerkers.add(new Medewerker(persoon.getId(), persoon.getVoornaam(), persoon.getAchternaam(), persoon.getEmail(), persoon.getAdres(),
+						rs.getInt(1), RolDAO.getRol(rs.getInt(4)), LoginDao.getLogin(rs.getInt(2)), true));
+			}
+			return medewerkers;
+			 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
