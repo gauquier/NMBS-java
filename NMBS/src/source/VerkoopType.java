@@ -10,7 +10,10 @@ public enum VerkoopType {
 		case "GROEP" : return VerkoopType.GROEP;
 		case "STUDENT" : return VerkoopType.STUDENT;
 		case "PLUS60" : return VerkoopType.PLUS60;
-		
+		case "standaard" : return VerkoopType.STANDAARD;
+		case "groep" : return VerkoopType.GROEP;
+		case "student" : return VerkoopType.STUDENT;
+		case "60+" : return VerkoopType.PLUS60;
 		}
 		
 		return null;

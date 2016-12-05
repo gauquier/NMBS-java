@@ -24,7 +24,7 @@ public class TicketDao {
 			dba.addValue(ticket.getArrZone());
 			dba.addValue(ticket.getVerkoopStation());
 			dba.addValue(ticket.getPrijs());
-			dba.addValue(ticket.getVerkoop());
+			dba.addValue(1); // aan te passen wijziging boris
 			dba.addValue(ticket.getKorting());
 			dba.addValue(ticket.getKlasse());
 			dba.addValue(ticket.getAantal());
@@ -38,13 +38,14 @@ public class TicketDao {
 	
 	public static int getId(Ticket ticket){
 		
-		dba.createSelect("Ticket", "tickedId");
+		
+		dba.createSelect("Ticket", "ticketId");
 		dba.addWhere("medewerkerId", ticket.getMedewerkerId()); 
 		dba.addWhere("depZone", ticket.getDepZone());
 		dba.addWhere("arrZone", ticket.getArrZone());
 		dba.addWhere("verkoopStation", ticket.getVerkoopStation());
 		dba.addWhere("prijs", ticket.getPrijs());
-		dba.addWhere("soort", ticket.getVerkoop().toString());
+		dba.addWhere("verkoopTypeId", 1); // aan te passen wijzigin boris
 		dba.addWhere("korting", ticket.getKorting());
 		dba.addWhere("klasse", ticket.getKlasse());
 		dba.addWhere("aantal", ticket.getAantal());
@@ -70,7 +71,7 @@ public class TicketDao {
 		ResultSet rs = dba.commit();	
 		try {
 			if(rs.next()){
-				DateFormat dt = new SimpleDateFormat("dd-MM-YYYY");
+				DateFormat dt = new SimpleDateFormat("dd-MM-YYYY");// aan te passen wijzing boris
 				ticket = new Ticket(rs.getInt(1),rs.getInt(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getDouble(6), VerkoopType.VerkoopTypeCasting(rs.getString(7)), rs.getDouble(8), rs.getInt(9), rs.getInt(10), dt.parse(rs.getString(11)),dt.parse(rs.getString(12)),dt.parse(rs.getString(13)));
 			}
 		} catch (SQLException e) {

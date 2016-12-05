@@ -30,12 +30,16 @@ public class LoginGui {
 	private JButton btnLogin;
 	private JPasswordField txtPassword;
 	public static LoginGui window;
-	Login login;
+	public static Login login;
 
 	public LoginGui() {
 		initialize();
 	}
-
+	
+	public static Login getLogin(){
+		return login;
+	}
+	
 	public static void start() {
 		//v system look and feel (i.p.v. niet-zo-mooie java look and feel) Source: https://docs.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
 		try {
@@ -129,7 +133,7 @@ public class LoginGui {
 
 						int loginId = LoginDao.getLoginId(username);
 						int rollId = LoginDao.getRoll(loginId);
-						login = new Login(username);
+						login = new Login(loginId, username, "");
 
 						closeFrame();
 						 if(rollId == 1){
