@@ -95,14 +95,16 @@ public class MedewerkerDAO {
 		}
 		return null;
 	}
-	/*
-	public static void main(String[] args) {
-		ArrayList<Medewerker> medewerkers = getAllMedewerkers();
-		for(int i = 0; i < medewerkers.size(); i++){
-			System.out.println(medewerkers.get(i).toString());
-		}
+	
+	public static Medewerker removeMedewerker(int id){
+		dba.createUpdate("Medewerker", "actief", 0);;
+		dba.addWhere("medewerkerId", id);
+		ResultSet rs = dba.commit();
+		
+		return null;
 	}
-	*/
+	
+	
 }
 
 

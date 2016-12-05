@@ -187,5 +187,10 @@ public class Medewerker extends Persoon {
 			return false;
 		return true;
 	}
+	
+	public String toString()
+	{
+		return getVoornaam();
+	}
 
 }
