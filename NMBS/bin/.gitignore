@@ -1,8 +1,15 @@
 /Hashing/
 /api/
 /api_logic/
+<<<<<<< HEAD
+=======
+/handler/
+>>>>>>> refs/remotes/origin/senne
 /iRailExamples/
 /dao/
 /gui/
+<<<<<<< HEAD
 /source/
 /handler/
+=======
+>>>>>>> refs/remotes/origin/senne

@@ -14,9 +14,9 @@ import source.VerkoopType;
 public class TicketDao {
 
 
-	private DBA dba = new DBA();
+	private static DBA dba = new DBA();
 	
-	public int insertTicket(Ticket ticket){
+	public static int insertTicket(Ticket ticket){
 		if(getId(ticket) == 0){
 			dba.createInsert("Ticket");
 			dba.addValue(ticket.getMedewerkerId());
@@ -36,7 +36,7 @@ public class TicketDao {
 		return getId(ticket);
 	}
 	
-	public int getId(Ticket ticket){
+	public static int getId(Ticket ticket){
 		
 		dba.createSelect("Ticket", "tickedId");
 		dba.addWhere("medewerkerId", ticket.getMedewerkerId()); 
@@ -63,7 +63,7 @@ public class TicketDao {
 		return 0;
 	}
 	
-	public Ticket getTicket(int id){
+	public static Ticket getTicket(int id){
 		Ticket ticket = null;
 		dba.createSelect("Ticket");
 		dba.addWhere("ticketId", id);
