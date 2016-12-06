@@ -77,13 +77,12 @@ public class GebruikerBewerkenGui extends JPanel {
 								dlm.clear();
 								
 								arrayLijst2 = MedewerkerDAO.getAllMedewerkersFromSearch(txtZoekveld.getText());
-		    					System.out.println(arrayLijst2);
+		    					
 		    					for(Medewerker m : arrayLijst2)
 		    					{
 		    						dlm.addElement(m);
 		    					}
 
-		    					System.out.println(dlm);
 		    					list = new JList<Medewerker>(dlm);
 							}
 							else
