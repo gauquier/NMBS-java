@@ -158,7 +158,7 @@ public class LoginDao {
 		ResultSet rs = dba.commit();
 		try {
 			if(rs.next()){
-				return rs.getInt(id);
+				id = rs.getInt(1);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
