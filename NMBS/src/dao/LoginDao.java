@@ -151,7 +151,22 @@ public class LoginDao {
 		}		
 		return pass;
 	}
-
+	
+	public static int getActief(int id){
+		dba.createSelect("Medewerker", "actief");
+		dba.addWhere("loginId", id); 
+		ResultSet rs = dba.commit();
+		try {
+			if(rs.next()){
+				return rs.getInt(id);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		return id;
+	}
+	
 	public static void updateWachtwoord(String password){
 		dba.createUpdate("Login", "pass", password);
 		dba.addWhere("username", Login.getCurrentUser()); 

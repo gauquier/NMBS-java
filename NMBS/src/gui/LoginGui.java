@@ -129,10 +129,15 @@ public class LoginGui {
 						if(databasePassword!= null){
 							if(databasePassword.equals(password)){
 								int loginId = LoginDao.getLoginId(username);
-								login = new Login(username);
+								if(LoginDao.getActief(loginId) == 1){
+									login = new Login(username);
 
-								closeFrame();
-								KiesStationGui.start();
+									closeFrame();
+									KiesStationGui.start();
+								}else{
+									JOptionPane.showMessageDialog(new JFrame(), "Medewerker is niet toegestaan.");
+								}
+								
 							}else {
 								JOptionPane.showMessageDialog(new JFrame(), "Username of wachtwoord is verkeerd.");
 							}
