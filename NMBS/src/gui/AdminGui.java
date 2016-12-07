@@ -34,7 +34,7 @@ import java.awt.Font;
 public class AdminGui extends JFrame {
 	private Container c = getContentPane();	
 	
-	private JPanel vorigeKeuze, HuidigeKeuze;
+	private static JPanel vorigeKeuze, HuidigeKeuze;
     public String navigation;
     
     JMenuBar menubar;
@@ -43,14 +43,14 @@ public class AdminGui extends JFrame {
     JMenuItem abonnementVerkoop, abonnementBeheer, uitloggen, gebruikersToevoegen, gebruikersBeheer, ticketVerkoop
     , verlorenVoorwerpToevoegen, verlorenVoorwerpZoeken, wachtwoordVeranderen;
 
-	public JPanel getHuidigeKeuze() {
+	public static JPanel getHuidigeKeuze() {
 		return HuidigeKeuze;
 	}
 	
-	public void setHuidigeKeuze(JPanel huidigeKeuze) {
+	public static void setHuidigeKeuze(JPanel huidigeKeuze) {
 		
 		if (HuidigeKeuze!=null){HuidigeKeuze.setVisible(false);}
-		this.vorigeKeuze= this.HuidigeKeuze;
+		vorigeKeuze= HuidigeKeuze;
 		HuidigeKeuze = huidigeKeuze;
 		if (HuidigeKeuze!=null)
 		{
@@ -97,6 +97,7 @@ public class AdminGui extends JFrame {
 		home.setHorizontalAlignment(SwingConstants.CENTER);
 		home.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		home.setBackground(Color.ORANGE);
+		home.setOpaque(true);
 		home.addActionListener(new MenuItemHandler());
 		verkoop = new JMenu("Verkoop");
 		verkoop.setHorizontalAlignment(SwingConstants.CENTER);
@@ -107,12 +108,14 @@ public class AdminGui extends JFrame {
 		routeInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		routeInfo.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		routeInfo.setBackground(Color.ORANGE);
+		routeInfo.setOpaque(true);
 		routeInfo.addActionListener(new MenuItemHandler());
 		
 		stationInfo = new JMenuItem("Station info");
 		stationInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		stationInfo.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		stationInfo.setBackground(Color.ORANGE);
+		stationInfo.setOpaque(true);
 		stationInfo.addActionListener(new MenuItemHandler());
 		gebruikers = new JMenu("Gebruikers");
 		gebruikers.setHorizontalAlignment(SwingConstants.CENTER);

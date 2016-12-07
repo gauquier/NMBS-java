@@ -63,12 +63,12 @@ public class LoginDao {
 	}
 	
 	public static String getUserName(String user){
-		dba.createSelect("Login", "Username");
-		dba.addWhere("Username", Login.getUsername()); 
+		dba.createSelect("Login", "username");
+		dba.addWhere("username", user); 
 		ResultSet rs = dba.commit();
 		try {
 			if(rs.next()){
-				return rs.getString(user);
+				return rs.getString(1);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -95,7 +95,7 @@ public class LoginDao {
 	
 	public static int getRoll(int loginId){
 		dba.createSelect("Medewerker", "rolId");
-		dba.addWhere("loginId", Login.getLoginId()); 
+		dba.addWhere("loginId", loginId); 
 		ResultSet rs = dba.commit();
 		try {
 			if(rs.next()){
@@ -136,19 +136,19 @@ public class LoginDao {
 		return loginId;
 	}
 
-	public static String getWachtwoord(String pass){
+	public static String getWachtwoord(String user){
 		dba.createSelect("Login", "pass");
-		dba.addWhere("Username", Login.getUsername()); 
+		dba.addWhere("username", user); 
 		ResultSet rs = dba.commit();
 		try {
 			if(rs.next()){
-				return rs.getString(pass);
+				return rs.getString(1);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
-		return pass;
+		return user;
 	}
 
 	public static void updateWachtwoord(String password){

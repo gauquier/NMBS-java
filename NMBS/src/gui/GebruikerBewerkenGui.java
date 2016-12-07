@@ -12,8 +12,10 @@ import javax.swing.JFrame;
 import javax.swing.UIManager;
 import java.awt.Color;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 import dao.MedewerkerDAO;
+import handler.Controller;
 import source.Adres;
 import source.Login;
 import source.Medewerker;
@@ -23,12 +25,12 @@ import source.Rol;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Vector;
+import java.util.*;
 
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
+
 
 public class GebruikerBewerkenGui extends JPanel {
 	private JTextField textField;
@@ -38,11 +40,13 @@ public class GebruikerBewerkenGui extends JPanel {
 	private ArrayList<Medewerker> arrayLijst;
 	private ArrayList<Object> objecten;
 	private JButton btnVerwijderen;
+	public String navigation;
+	
 	
 	public GebruikerBewerkenGui() {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
-		JLabel lblGebruikerBewerken = DefaultComponentFactory.getInstance().createTitle("Gebruiker bewerken");
+		JLabel lblGebruikerBewerken = DefaultComponentFactory.getInstance().createTitle("Gebruikers beheren");
 		lblGebruikerBewerken.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		
@@ -51,21 +55,32 @@ public class GebruikerBewerkenGui extends JPanel {
 		arrayLijst = MedewerkerDAO.getAllMedewerkers();
 		
 		
+		
 		DefaultListModel<Medewerker> dlm = new DefaultListModel<Medewerker>();
+		
+		
 		for(Medewerker m : arrayLijst)
 		{
 			dlm.addElement(m);
 		}
+		
 		list = new JList<Medewerker>(dlm);
 		
 		textField = new JTextField();
 		textField.setColumns(10);
 		
 		btnZoeken = new JButton("Zoeken");
+		btnZoeken.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnZoeken.setBackground(Color.ORANGE);
+		
 		btnBewerken = new JButton("Bewerken");
+		btnBewerken.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnBewerken.setBackground(Color.ORANGE);
 		btnBewerken.addActionListener(new MenuItemHandler());
 		
 		btnVerwijderen = new JButton("Verwijderen");
+		btnVerwijderen.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnVerwijderen.setBackground(Color.ORANGE);
 		btnVerwijderen.addActionListener(new MenuItemHandler());
 		
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -74,35 +89,38 @@ public class GebruikerBewerkenGui extends JPanel {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(37)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(list, GroupLayout.PREFERRED_SIZE, 197, GroupLayout.PREFERRED_SIZE)
-							.addGap(30)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(btnBewerken, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(btnVerwijderen, GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)))
+						.addComponent(lblGebruikerBewerken)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnZoeken)
-							.addGap(18)
-							.addComponent(textField, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE))
-						.addComponent(lblGebruikerBewerken))
-					.addContainerGap(88, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+							.addComponent(textField, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(list, GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)))
+					.addGap(10)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnVerwijderen, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnBewerken, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(12)
-					.addComponent(lblGebruikerBewerken)
-					.addGap(27)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnZoeken)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(12)
+							.addComponent(lblGebruikerBewerken)
+							.addGap(27)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnZoeken)
+								.addComponent(textField, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+							.addGap(12)
+							.addComponent(list, GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(97)
 							.addComponent(btnBewerken)
-							.addGap(18)
-							.addComponent(btnVerwijderen))
-						.addComponent(list, GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(btnVerwijderen)))
 					.addContainerGap())
 		);
 		setLayout(groupLayout);
@@ -136,9 +154,9 @@ public class GebruikerBewerkenGui extends JPanel {
 					return;
 				} else {
 				
-				System.out.println(list.getSelectedValue().getId());
-				//MedewerkerDAO.removeMedewerker(list.getSelectedIndex());
-				
+					navigation= "gebruikerToevoegen";
+					AdminGui.setHuidigeKeuze(new GebruikerToevoegenGui(list.getSelectedValue()));
+					
 			}
 				}
 			
