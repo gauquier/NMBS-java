@@ -46,7 +46,7 @@ public class DBA {
 			
 			type = Type.UPDATE;
 			this.tableName = tableName;
-			sql = "UPDATE " + tableName + " SET " + columnName + " = '" + value + "'";
+			sql = "UPDATE " + tableName + " SET " + columnName + " = \"" + value + "\"";
 		}
 		public void createUpdate(String tableName, String columnName, double value) // UPDATE tableName SET columnName = value
 		{
@@ -89,7 +89,7 @@ public class DBA {
 		{
 			if(type == Type.INSERT)
 			{
-			sql = sql + ", '" + value + "'";
+			sql = sql + ", \"" + value + "\"";
 
 			}
 			else{
@@ -165,7 +165,7 @@ public class DBA {
 			{
 			String datum;
 			datum = value;
-			sql = sql + ", '" + datum + "'";
+			sql = sql + ", \"" + datum + "\"";
 			
 			}
 			else{
@@ -175,6 +175,7 @@ public class DBA {
 		
 		public void addWhere(String columnName, String value) // ... WHERE columnName = value
 		{
+			
 			if(type == Type.UPDATE || type == Type.SELECT)
 			{
 				if(!isWhere)
@@ -182,7 +183,7 @@ public class DBA {
 					sql = sql + " WHERE";
 					isWhere = true;
 				}
-				sql = sql + " " + columnName + " = '" + value + "' AND";
+				sql = sql + " " + columnName + " = \"" + value + "\" AND";
 			}
 			else{
 				System.out.println("can only add WHERE clausule when type = UPDATE or type = SELECT");
@@ -278,8 +279,7 @@ public class DBA {
 			      
 			     if(type == Type.SELECT)
 			     {
-			      rs = stmt.executeQuery(sql);
-			      
+			      rs = stmt.executeQuery(sql); 
 			     }
 			     else if(type == Type.UPDATE || type == Type.INSERT)
 			     {

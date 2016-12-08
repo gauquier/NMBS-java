@@ -12,7 +12,13 @@ import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import javax.swing.UIManager;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import com.jgoodies.forms.factories.DefaultComponentFactory;
+
+import dao.StationDAO;
+import source.Station;
 
 public class StationInfoGui extends JPanel {
 	private JTextField txtDatum;
@@ -24,7 +30,7 @@ public class StationInfoGui extends JPanel {
 		lblStation.setForeground(Color.WHITE);
 		
 		JComboBox cmbbStation = new JComboBox();
-		
+		 
 		JLabel lblDatum = new JLabel("Datum");
 		lblDatum.setForeground(Color.WHITE);
 		
@@ -103,7 +109,12 @@ public class StationInfoGui extends JPanel {
 					.addComponent(btnZoeken)
 					.addContainerGap(52, Short.MAX_VALUE))
 		);
-		setLayout(groupLayout);
+		setLayout(groupLayout); 
+		StationDAO stationDAO=new StationDAO(); 
+		for(Station station:stationDAO.getStationsLazyLoading()){
+			cmbbStation.addItem(station.getNaam());
+		}
+		
 	}
 	public void close()
 	{

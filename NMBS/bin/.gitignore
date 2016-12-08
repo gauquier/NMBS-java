@@ -1,41 +1,8 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-/source/
-/handler/
-=======
-/api/
-/api_logic/
->>>>>>> refs/remotes/origin/Robin
-/dao/
-/gui/
-<<<<<<< HEAD
-=======
-/handler/
-/iRailExamples/
-/source/
->>>>>>> refs/remotes/origin/Robin
-=======
 /Hashing/
 /api/
 /api_logic/
-<<<<<<< HEAD
-=======
+/dao/
+/gui/
 /handler/
->>>>>>> refs/remotes/origin/senne
 /iRailExamples/
-/dao/
-/gui/
-<<<<<<< HEAD
 /source/
-/handler/
-=======
->>>>>>> refs/remotes/origin/senne
-=======
-/dao/
-/gui/
-/handler/
-/source/
-/testing_dao/
-/testing_source/
->>>>>>> branch 'Aime' of https://github.com/JonasDeGauquier/NMBS-java.git
->>>>>>> a55dc258610db05a04f6e4e74a5774d8a2c7daad
