@@ -91,23 +91,22 @@ public class Station {
 		this.naam = naam;
 	}
 	
-	
+ 
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + aantalLoketten;
-		result = prime * result + (gehandicapte ? 1231 : 1237);
 		result = prime * result + ((naam == null) ? 0 : naam.hashCode());
-		result = prime * result + parkingplaatsen;
-		result = prime * result + stationID;
-		result = prime * result + ((verlorenVoorwerpen == null) ? 0 : verlorenVoorwerpen.hashCode());
-		result = prime * result + (wifi ? 1231 : 1237);
-		result = prime * result + ((zone == null) ? 0 : zone.hashCode());
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -117,30 +116,10 @@ public class Station {
 		if (getClass() != obj.getClass())
 			return false;
 		Station other = (Station) obj;
-		if (aantalLoketten != other.aantalLoketten)
-			return false;
-		if (gehandicapte != other.gehandicapte)
-			return false;
 		if (naam == null) {
 			if (other.naam != null)
 				return false;
 		} else if (!naam.equals(other.naam))
-			return false;
-		if (parkingplaatsen != other.parkingplaatsen)
-			return false;
-		if (stationID != other.stationID)
-			return false;
-		if (verlorenVoorwerpen == null) {
-			if (other.verlorenVoorwerpen != null)
-				return false;
-		} else if (!verlorenVoorwerpen.equals(other.verlorenVoorwerpen))
-			return false;
-		if (wifi != other.wifi)
-			return false;
-		if (zone == null) {
-			if (other.zone != null)
-				return false;
-		} else if (!zone.equals(other.zone))
 			return false;
 		return true;
 	}
