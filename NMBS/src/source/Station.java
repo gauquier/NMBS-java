@@ -10,6 +10,7 @@ public class Station {
 	private int parkingplaatsen;
 	private boolean wifi;
 	private boolean gehandicapte;
+	private static String currentStation;
 	private ArrayList<VerlorenVoorwerp> verlorenVoorwerpen = new ArrayList<VerlorenVoorwerp>();
 	
 	public Station(int stationID, String naam, String zone, int aantalLoketten, int parkingplaatsen, boolean wifi,
@@ -27,7 +28,15 @@ public class Station {
 	public Station(int stationID){
 		this.stationID = stationID;
 	}
-	
+
+	/**
+	 * @param currentStation
+	 */
+	public Station(String currentStation) {
+		super();
+		this.currentStation = currentStation;
+	}
+
 	public void addVerlorenVoorwerp(VerlorenVoorwerp station){
 		verlorenVoorwerpen.add(station);
 	}
@@ -90,8 +99,19 @@ public class Station {
 	public void setNaam(String naam) {
 		this.naam = naam;
 	}
-	
- 
+	/**
+	 * @return the currentStation
+	 */
+	public static String getCurrentStation() {
+		return currentStation;
+	}
+
+	/**
+	 * @param currentStation the currentStation to set
+	 */
+	public void setCurrentStation(String currentStation) {
+		this.currentStation = currentStation;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()

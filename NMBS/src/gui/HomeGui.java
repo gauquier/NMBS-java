@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 import source.Login;
+import source.Station;
 
 import javax.swing.JLabel;
 import javax.swing.GroupLayout.Alignment;
@@ -52,20 +53,12 @@ public class HomeGui extends JPanel {
 		
 		JLabel lblHuidigeGebruiker = new JLabel("Huidige gebruiker: " + Login.getCurrentUser());
 		
-		jPanel2.setLayout(new BorderLayout());
-		setBackground(new Color(0, 191, 255));
-
-		jPanel2.add(jPanel);
-		add(jPanel);
-		JLabel lblStation = new JLabel("Station: ");
+		JLabel lblStation = new JLabel("Station: " + Station.getCurrentStation());
 		
 		JLabel lblTicketverkoop = new JLabel("Ticketverkoop");
 		
 		//String datumpje = TicketDao.getVerkoopdatumAsString();//tijdelijke code
-		
-		//String datumpje = TicketDao.getVerkoopdatumAsString();//tijdelijke code
 		String datumpje = "28/11/2016";
-
 		/* SQL-statement die nodig is:
 		 * SELECT verkoopDatum, COUNT(verkoopDatum)
 		 * FROM Ticket
@@ -86,6 +79,10 @@ public class HomeGui extends JPanel {
 				"Dag", "Verkochte tickets"
 			}
 		) {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 7778959677031066336L;
 			boolean[] columnEditables = new boolean[] {
 				false, false
 			};

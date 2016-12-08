@@ -16,8 +16,10 @@ import javax.swing.GroupLayout.Alignment;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import dao.LoginDao;
+import dao.StationDAO;
 import handler.Controller;
 import source.Login;
+import source.Station;
 
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Color;
@@ -27,6 +29,8 @@ public class KiesStationGui {
 	JFrame frmStation;
 	public static KiesStationGui window;
 	private JButton btnSelecteer;
+	private JComboBox cmbbStation;
+	private Station station;
 	Login login;
 	
 	public KiesStationGui() {
@@ -62,7 +66,12 @@ public class KiesStationGui {
 		frmStation.setResizable(false);
 		centreWindow(frmStation);
 		
-		JComboBox comboBox = new JComboBox();
+		cmbbStation = new JComboBox();
+		cmbbStation.addItem("Hoofdbureau");
+		StationDAO stationDAO=new StationDAO(); 
+		for(Station station:stationDAO.getStationsLazyLoading()){
+			cmbbStation.addItem(station.getNaam());
+		}
 		
 		JLabel lblKiesUwHuidig = DefaultComponentFactory.getInstance().createTitle("Kies uw huidig station");
 		
@@ -76,7 +85,7 @@ public class KiesStationGui {
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 					.addContainerGap(127, Short.MAX_VALUE)
-					.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)
+					.addComponent(cmbbStation, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)
 					.addGap(124))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(29)
@@ -99,7 +108,7 @@ public class KiesStationGui {
 					.addGap(55)
 					.addComponent(lblSelecteerUwHuidig)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(cmbbStation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addComponent(btnSelecteer)
 					.addContainerGap(84, Short.MAX_VALUE))
@@ -117,7 +126,8 @@ public class KiesStationGui {
 				String username = Login.getCurrentUser();
 				int loginId = LoginDao.getLoginId(username);
 				int rollId = LoginDao.getRoll(loginId);
-				System.out.println(rollId);
+				String currentStation = (String) cmbbStation.getSelectedItem();
+				station = new Station(currentStation);
 				if(rollId == 1){
 					closeFrame();
 					Controller.adminInterface = new AdminGui();
