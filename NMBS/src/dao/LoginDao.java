@@ -157,6 +157,12 @@ public class LoginDao {
 		ResultSet rs = dba.commit();
 	}
 	 
+	public static void updateWachtwoordWhere(int id, String password){
+		dba.createUpdate("Login", "pass", password);
+		dba.addWhere("loginId", id); 
+		ResultSet rs = dba.commit();
+	}
+	
 	public static void loginWijzigen(Login login) throws Exception{ 
 	}
 	public static Login loginZoekenOpLoginId(int loginId) throws Exception{

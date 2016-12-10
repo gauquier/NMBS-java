@@ -14,6 +14,7 @@ import java.awt.Color;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
+import dao.LoginDao;
 import dao.MedewerkerDAO;
 import handler.Controller;
 import source.Adres;
@@ -40,6 +41,7 @@ public class GebruikerBewerkenGui extends JPanel {
 	private ArrayList<Medewerker> arrayLijst;
 	private ArrayList<Object> objecten;
 	private JButton btnVerwijderen;
+	private JButton btnPasswordReset;
 	public String navigation;
 	
 	
@@ -83,6 +85,11 @@ public class GebruikerBewerkenGui extends JPanel {
 		btnVerwijderen.setBackground(Color.ORANGE);
 		btnVerwijderen.addActionListener(new MenuItemHandler());
 		
+		btnPasswordReset = new JButton("Password Reset");
+		btnPasswordReset.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnPasswordReset.setBackground(Color.ORANGE);
+		btnPasswordReset.addActionListener(new MenuItemHandler());
+		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -100,7 +107,8 @@ public class GebruikerBewerkenGui extends JPanel {
 					.addGap(10)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnVerwijderen, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnBewerken, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))
+						.addComponent(btnBewerken, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+						.addComponent(btnPasswordReset, GroupLayout.PREFERRED_SIZE, 113, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -115,12 +123,14 @@ public class GebruikerBewerkenGui extends JPanel {
 								.addComponent(btnZoeken)
 								.addComponent(textField, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
 							.addGap(12)
-							.addComponent(list, GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE))
+							.addComponent(list, GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(97)
 							.addComponent(btnBewerken)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnVerwijderen)))
+							.addComponent(btnVerwijderen)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(btnPasswordReset, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
 		setLayout(groupLayout);
@@ -130,6 +140,23 @@ public class GebruikerBewerkenGui extends JPanel {
 	{
 		this.setVisible(false);
 	}
+	
+	public int OkCancel(String message){
+		int n = JOptionPane.showConfirmDialog(
+                null, message,
+                "Bevestiging",
+                JOptionPane.YES_NO_OPTION);
+		
+		if (n == JOptionPane.YES_OPTION) {
+			return n;
+		} else if (n == JOptionPane.NO_OPTION) {
+			return n;
+		}  
+		return 1;
+		
+	}
+	
+	
 	
 	public Boolean unknownIndex(){
 	if(list.getSelectedValue()==null || list.getSelectedIndex()<0){
@@ -155,7 +182,7 @@ public class GebruikerBewerkenGui extends JPanel {
 				} else {
 				
 					navigation= "gebruikerToevoegen";
-					AdminGui.setHuidigeKeuze(new GebruikerToevoegenGui(list.getSelectedValue()));
+					AdminGui.setHuidigeKeuze(new GebruikerBijwerkenGUI(list.getSelectedValue()));
 					
 			}
 				}
@@ -164,14 +191,42 @@ public class GebruikerBewerkenGui extends JPanel {
 				if(!unknownIndex()){
 					return;
 				} else {
+				int n = OkCancel("Ben je zeker dat je" + list.getSelectedValue().getVoornaam() + " " + list.getSelectedValue().getAchternaam() + " wil verwijderen?");	
+					
+				if(n==0){
 				MedewerkerDAO.removeMedewerker(list.getSelectedValue().getId());
 				((DefaultListModel<Medewerker>)list.getModel()).remove(list.getSelectedIndex());
 				JOptionPane.showMessageDialog(new JFrame(), "Gebruiker is succesvol verwijdert.");
+				} else if (n==1){
+					return;
+				}
+				
 			}
+			}
+			
+			if(e.getSource() == btnPasswordReset){
+				if(!unknownIndex()){
+					return;
+				} else {
+					
+					String wachtwoord =  new String("reset1");
+					
+					int n = OkCancel("Ben je zeker dat je een password reset wil uitvoeren op " + list.getSelectedValue().getVoornaam() + " " + list.getSelectedValue().getAchternaam() + "?");
+					
+					if(n==0){
+					LoginDao.updateWachtwoordWhere(list.getSelectedValue().getLogin().getLoginId(), wachtwoord);
+					JOptionPane.showMessageDialog(new JFrame(), "Het wachtwoord van " + list.getSelectedValue().getVoornaam() + " " + list.getSelectedValue().getAchternaam() + " is gereset naar 'reset1'.");
+					} else if (n==1){
+						return;
+					}
+					
+					
+				
+				}
+				
+			
 			}
 			
 		}
 	}
-	
-	
 }

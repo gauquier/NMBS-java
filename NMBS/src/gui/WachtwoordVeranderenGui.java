@@ -24,11 +24,13 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class WachtwoordVeranderenGui extends JPanel {
 	private JPasswordField pwdHerhaaldWachtwoord;
 	private JPasswordField pwdNieuwwachtwoord;
 	private JButton btnWijzigen;
+	private JPasswordField pwdHuidigWachtwoord;
 	
 	public WachtwoordVeranderenGui() {
 		setBackground(UIManager.getColor("ComboBox.selectionBackground"));
@@ -56,6 +58,11 @@ public class WachtwoordVeranderenGui extends JPanel {
 		btnWijzigen = new JButton("Wijzigen");
 		btnWijzigen.addActionListener(new MenuItemHandler());
 		
+		JLabel lblHuidigWachtwoord = new JLabel("Huidig wachtwoord");
+		lblHuidigWachtwoord.setForeground(Color.WHITE);
+		
+		pwdHuidigWachtwoord = new JPasswordField();
+		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -67,18 +74,25 @@ public class WachtwoordVeranderenGui extends JPanel {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(69)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblHerhaalWachtwoord)
-								.addComponent(lblWachtwoord)
-								.addComponent(lblUsername))
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(lblGebruikersnaam, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(pwdNieuwwachtwoord)
-								.addComponent(pwdHerhaaldWachtwoord, GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(144)
-							.addComponent(btnWijzigen)))
-					.addContainerGap(103, Short.MAX_VALUE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblUsername)
+									.addGap(69)
+									.addComponent(lblGebruikersnaam))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(75)
+									.addComponent(btnWijzigen))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblHerhaalWachtwoord)
+										.addComponent(lblWachtwoord)
+										.addComponent(lblHuidigWachtwoord, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE))
+									.addGap(18)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(pwdHuidigWachtwoord, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+											.addComponent(pwdNieuwwachtwoord)
+											.addComponent(pwdHerhaaldWachtwoord, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)))))))
+					.addContainerGap(132, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -89,6 +103,10 @@ public class WachtwoordVeranderenGui extends JPanel {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblUsername)
 						.addComponent(lblGebruikersnaam))
+					.addGap(15)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblHuidigWachtwoord)
+						.addComponent(pwdHuidigWachtwoord, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblWachtwoord)
@@ -99,7 +117,7 @@ public class WachtwoordVeranderenGui extends JPanel {
 						.addComponent(pwdHerhaaldWachtwoord, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(30)
 					.addComponent(btnWijzigen)
-					.addContainerGap(63, Short.MAX_VALUE))
+					.addContainerGap(56, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 	}
@@ -114,10 +132,18 @@ public class WachtwoordVeranderenGui extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == btnWijzigen){
+				String huidigWachtwoord = new String(pwdHuidigWachtwoord.getPassword());
 				String nieuwWachtwoord = new String(pwdNieuwwachtwoord.getPassword());
 				String herhaalwachtwwoord = new String(pwdHerhaaldWachtwoord.getPassword());
 				
-				if (nieuwWachtwoord != null && herhaalwachtwwoord != null){
+				String databasePassword = LoginDao.getWachtwoord(Login.getCurrentUser());
+				
+				
+				
+				
+				if (!nieuwWachtwoord.isEmpty() && !herhaalwachtwwoord.isEmpty() && !huidigWachtwoord.isEmpty()){
+					if (databasePassword.equals(huidigWachtwoord)){
+					
 					if (nieuwWachtwoord.equals(herhaalwachtwwoord)){
 						LoginDao.updateWachtwoord(nieuwWachtwoord);
 						JOptionPane.showMessageDialog(new JFrame(), "Uw wachtwoord is aangepast!");
@@ -125,6 +151,10 @@ public class WachtwoordVeranderenGui extends JPanel {
 					}
 					else {
 						JOptionPane.showMessageDialog(new JFrame(), "De wachtwoorden komen niet overeen!");
+					}
+					} 
+					else {
+						JOptionPane.showMessageDialog(new JFrame(), "Het huidige wachtwoord is fout.");
 					}
 				}
 				else {
