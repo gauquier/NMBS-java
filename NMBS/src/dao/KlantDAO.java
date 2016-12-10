@@ -5,14 +5,9 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-
 
 import source.Adres;
 import source.Klant;
-import source.Login;
-import source.Medewerker;
 import source.Persoon;
 import source.Rol;
 
@@ -56,6 +51,50 @@ public class KlantDAO {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public static void removeKlant(int id){
+		dba.createUpdate("Klant", "actief", 0);;
+		dba.addWhere("klantId", id);
+		ResultSet rs = dba.commit();
+		
+	}
+	
+public static void bijwerkenKlant(int klantId, int persoonId, Persoon persoon, String info, int adresId, Adres adres){ 
+		
+	    try {
+	        connection = Connection.getDBConnection();    
+	       
+	        stmt = connection.prepareStatement("UPDATE Persoon SET voornaam=?, achternaam=?, email=? WHERE persoonId=?");
+	        stmt.setString(1,persoon.getVoornaam());
+	        stmt.setString(2, persoon.getAchternaam());
+	        stmt.setString(3, persoon.getEmail());
+	        stmt.setInt(4, persoonId);
+	        stmt.executeUpdate();
+	        
+	        
+	        stmt = connection.prepareStatement("UPDATE Adres SET straat=?, huisnr=?, woonplaats=?, postcode=?, bus=? WHERE adresId=?");
+	        stmt.setString(1,adres.getStraat());
+	        stmt.setInt(2, adres.getHuisnr());
+	        stmt.setString(3, adres.getWoonplaats());
+	        stmt.setInt(4, adres.getPostcode());
+	        stmt.setInt(5, adres.getBus());
+	        stmt.setInt(6, adresId);
+	        stmt.executeUpdate();
+	       
+	    
+	    }catch (SQLException e){
+	        e.printStackTrace();
+	    }catch(Exception e) {//Handle errors for Class.forName
+	        e.printStackTrace();
+	    }
+		
+	    
+	    dba.createUpdate("Klant", "info", info);;
+		dba.addWhere("klantId", klantId);
+		ResultSet rs = dba.commit();
+	    
+	    
 	}
 	
 }

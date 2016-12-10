@@ -6,6 +6,14 @@ public class Klant extends Persoon {
 	private String info;
 	private boolean actief;
 	
+	public int getKlantId() {
+		return klantId;
+	}
+
+	public void setKlantId(int klantId) {
+		this.klantId = klantId;
+	}
+
 	public Klant(int persoonId, String voornaam, String achternaam,  String email, Adres adres, String info, boolean actief) {
 		super(persoonId, voornaam, achternaam, email, adres);
 		this.info = info;

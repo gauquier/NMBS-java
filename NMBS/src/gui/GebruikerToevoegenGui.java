@@ -57,9 +57,6 @@ public class GebruikerToevoegenGui extends JPanel {
 	private JRadioButton rbtnAdmin;
 	private JRadioButton rbtnUser;
 	
-	private int medewerkerId=0;
-	private int persoonId = 0;
-	private int adresId = 0;
 	private JPasswordField txtPassword;
 
 	public GebruikerToevoegenGui() {

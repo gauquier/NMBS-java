@@ -169,14 +169,14 @@ public class KlantBewerkenGui extends JPanel {
 		
 		
 			
-			/*if (e.getSource() == btnBewerken) {
+			if (e.getSource() == btnBewerken) {
 				
 				if(!unknownIndex()){
 					return;
 				} else {
 				
-					navigation= "gebruikerToevoegen";
-					AdminGui.setHuidigeKeuze(new GebruikerBijwerkenGui(list.getSelectedValue()));
+					navigation= "gebruikerBijwerken";
+					AdminGui.setHuidigeKeuze(new KlantBijwerkenGui(list.getSelectedValue()));
 					
 			}
 				}
@@ -188,9 +188,9 @@ public class KlantBewerkenGui extends JPanel {
 				int n = OkCancel("Ben je zeker dat je" + list.getSelectedValue().getVoornaam() + " " + list.getSelectedValue().getAchternaam() + " wil verwijderen?");	
 					
 				if(n==0){
-				MedewerkerDAO.removeMedewerker(list.getSelectedValue().getId());
-				((DefaultListModel<Medewerker>)list.getModel()).remove(list.getSelectedIndex());
-				JOptionPane.showMessageDialog(new JFrame(), "Gebruiker is succesvol verwijdert.");
+				KlantDAO.removeKlant(list.getSelectedValue().getKlantId());
+				((DefaultListModel<Klant>)list.getModel()).remove(list.getSelectedIndex());
+				JOptionPane.showMessageDialog(new JFrame(), "Klant is succesvol verwijdert.");
 				} else if (n==1){
 					return;
 				}
@@ -198,29 +198,7 @@ public class KlantBewerkenGui extends JPanel {
 			}
 			}
 			
-			if(e.getSource() == btnPasswordReset){
-				if(!unknownIndex()){
-					return;
-				} else {
-					
-					String wachtwoord =  new String("reset1");
-					
-					int n = OkCancel("Ben je zeker dat je een password reset wil uitvoeren op " + list.getSelectedValue().getVoornaam() + " " + list.getSelectedValue().getAchternaam() + "?");
-					
-					if(n==0){
-					LoginDao.updateWachtwoordWhere(list.getSelectedValue().getLogin().getLoginId(), wachtwoord);
-					JOptionPane.showMessageDialog(new JFrame(), "Het wachtwoord van " + list.getSelectedValue().getVoornaam() + " " + list.getSelectedValue().getAchternaam() + " is gereset naar 'reset1'.");
-					} else if (n==1){
-						return;
-					}
-					
-					
-				
-				}
-				
 			
-			}
-			*/
 		}
 	}
 }
