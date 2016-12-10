@@ -2,7 +2,7 @@ package source;
 
 public class Rol {
 
-	private static int rolId;
+	private int rolId;
 	private String rol;
 	/**
 	 * 

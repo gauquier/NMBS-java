@@ -2,13 +2,13 @@ package source;
 
 public class Adres {
 
-	private static int adresId;
+	private int adresId;
 	private String straat;
 	private int huisnr;
 	private String woonplaats;
 	private int postcode;
 	private int bus;
-	public Adres(int adresId, String straat, int huisnr, String woonplaats, int postcode, int bus) {
+	public Adres(int adresId, String straat, int huisnr, String woonplaats, int postcode, char bus) {
 		super();
 		this.adresId = adresId;
 		this.straat = straat;
@@ -17,7 +17,7 @@ public class Adres {
 		this.postcode = postcode;
 		this.bus = bus;
 	}
-	public Adres(String straat, int huisnr, String woonplaats, int postcode, int bus) {
+	public Adres(String straat, int huisnr, String woonplaats, int postcode, char bus) {
 		super();
 		this.straat = straat;
 		this.huisnr = huisnr;
@@ -25,8 +25,15 @@ public class Adres {
 		this.postcode = postcode;
 		this.bus = bus;
 	}
-
-	public static int getAdresId() {
+	public Adres(String straat, int huisnr, String woonplaats, int postcode, int bus) {
+		this.straat = straat;
+		this.huisnr = huisnr;
+		this.woonplaats = woonplaats;
+		this.postcode = postcode;
+		this.bus = (char) bus;
+		// TODO Auto-generated constructor stub
+	}
+	public int getAdresId() {
 		return adresId;
 	}
 	public void setAdresId(int adresId) {
@@ -42,6 +49,7 @@ public class Adres {
 	public int getHuisnr() {
 		return huisnr;
 	}
+	
 	public void setHuisnr(int huisnr) {
 		if(huisnr > 0)
 			this.huisnr = huisnr;

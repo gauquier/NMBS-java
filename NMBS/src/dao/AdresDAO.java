@@ -2,9 +2,14 @@ package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import source.Adres;
 import source.Login;
+import source.Medewerker;
+import source.Persoon;
 
 public class AdresDAO {
 
@@ -40,7 +45,7 @@ public class AdresDAO {
 		try {
 			if(rs.next())
 			{
-				adres = new Adres(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getInt(5), rs.getInt(6));
+				adres = new Adres(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getInt(5),(char) rs.getInt(6));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -67,9 +72,4 @@ public class AdresDAO {
 		}
 		return 0;
 	}
-
-	public void setNonActief(){
-		//geen variabele actief in tabel Adres.
-	}
-
 }

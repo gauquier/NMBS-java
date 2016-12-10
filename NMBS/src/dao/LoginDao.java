@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 import javax.sql.DataSource;
 
@@ -64,12 +63,12 @@ public class LoginDao {
 	}
 	
 	public static String getUserName(String user){
-		dba.createSelect("Login", "Username");
-		dba.addWhere("Username", Login.getUsername()); 
+		dba.createSelect("Login", "username");
+		dba.addWhere("username", user); 
 		ResultSet rs = dba.commit();
 		try {
 			if(rs.next()){
-				return rs.getString(user);
+				return rs.getString(1);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -137,19 +136,31 @@ public class LoginDao {
 		return loginId;
 	}
 
-	public static String getWachtwoord(String pass){
+	public static String getWachtwoord(String user){
 		dba.createSelect("Login", "pass");
-		dba.addWhere("Username", Login.getUsername()); 
+		dba.addWhere("username", user); 
 		ResultSet rs = dba.commit();
 		try {
 			if(rs.next()){
-				return rs.getString(pass);
+				return rs.getString(1);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
-		return pass;
+		return user;
+	}
+
+	public static void updateWachtwoord(String password){
+		dba.createUpdate("Login", "pass", password);
+		dba.addWhere("username", Login.getCurrentUser()); 
+		ResultSet rs = dba.commit();
+	}
+	 
+	public static void updateWachtwoordWhere(int id, String password){
+		dba.createUpdate("Login", "pass", password);
+		dba.addWhere("loginId", id); 
+		ResultSet rs = dba.commit();
 	}
 	
 	public static int getActief(int id){
@@ -167,11 +178,23 @@ public class LoginDao {
 		return id;
 	}
 	
-	public static void updateWachtwoord(String password){
-		dba.createUpdate("Login", "pass", password);
-		dba.addWhere("username", Login.getCurrentUser()); 
-		ResultSet rs = dba.commit();
+	public static void loginWijzigen(Login login) throws Exception{ 
 	}
-	 
-	
+	public static Login loginZoekenOpLoginId(int loginId) throws Exception{
+		return null; 
+	}
+	public static Login loginZoekenOpLoginId(Login login) throws Exception{
+		return null;
+		
+	}
+
+	public static Login loginZoekenOpUsername(Login login) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public static Login loginToevoegen(Login login) throws Exception{
+		return null;
+		
+	}
 }
