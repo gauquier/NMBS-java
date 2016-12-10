@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
@@ -23,11 +24,18 @@ import javax.swing.JPanel;
 
 import handler.Controller;
 import handler.VerkoopController;
+import source.Klant;
+import source.Medewerker;
 
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.UIManager;
+
+import dao.AdresDAO;
+import dao.KlantDAO;
+import dao.MedewerkerDAO;
+
 import java.awt.Toolkit;
 import java.awt.Font;
 
@@ -39,9 +47,9 @@ public class AdminGui extends JFrame {
     
     JMenuBar menubar;
     JMenuItem home , routeInfo, stationInfo;
-    JMenu verkoop, verlorenVoorwerpen, instellingen, gebruikers;
+    JMenu verkoop, verlorenVoorwerpen, instellingen, gebruikers, klanten;
     JMenuItem abonnementVerkoop, abonnementBeheer, uitloggen, gebruikersToevoegen, gebruikersBeheer, ticketVerkoop
-    , verlorenVoorwerpToevoegen, verlorenVoorwerpZoeken, wachtwoordVeranderen;
+    , verlorenVoorwerpToevoegen, verlorenVoorwerpZoeken, wachtwoordVeranderen ,klantenToevoegen, klantenBeheer;
 
 	public static JPanel getHuidigeKeuze() {
 		return HuidigeKeuze;
@@ -123,6 +131,12 @@ public class AdminGui extends JFrame {
 		gebruikers.setBackground(Color.ORANGE);
 		gebruikers.setOpaque(true);
 		
+		klanten = new JMenu("Klanten");
+		klanten.setHorizontalAlignment(SwingConstants.CENTER);
+		klanten.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		klanten.setBackground(Color.ORANGE);
+		klanten.setOpaque(true);
+		
 		verlorenVoorwerpen = new JMenu("Verloren voorwerpen");
 		verlorenVoorwerpen.setHorizontalAlignment(SwingConstants.CENTER);
 		verlorenVoorwerpen.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -158,6 +172,13 @@ public class AdminGui extends JFrame {
 		gebruikers.add(gebruikersToevoegen);
 		gebruikers.add(gebruikersBeheer);
 		
+		klantenToevoegen = new JMenuItem("Klant toevoegen");
+		klantenToevoegen.addActionListener(new MenuItemHandler());
+		klantenBeheer = new JMenuItem("Klanten beheren");
+		klantenBeheer.addActionListener(new MenuItemHandler());
+		klanten.add(klantenToevoegen);
+		klanten.add(klantenBeheer);
+		
 		ticketVerkoop = new JMenuItem("Ticketverkoop");
 		ticketVerkoop.setBackground(Color.WHITE);
 		ticketVerkoop.addActionListener(new MenuItemHandler());
@@ -169,6 +190,7 @@ public class AdminGui extends JFrame {
 		
 		menubar.add(home);
 		menubar.add(verkoop);
+		menubar.add(klanten);
 		menubar.add(routeInfo);
 		menubar.add(stationInfo);
 		menubar.add(gebruikers);
@@ -199,6 +221,16 @@ public class AdminGui extends JFrame {
 				setHuidigeKeuze(new GebruikerBewerkenGui());
 			}
 		
+			else if (e.getSource() == klantenToevoegen) {	
+				navigation= "klantToevoegen";
+				setHuidigeKeuze(new KlantToevoegenGui());
+			}
+			
+			else if (e.getSource() == klantenBeheer) {	
+				navigation= "klantenBeheer";
+				setHuidigeKeuze(new KlantBewerkenGui());
+			}
+			
 			else if (e.getSource()==uitloggen)
 			{
 				setHuidigeKeuze(null);

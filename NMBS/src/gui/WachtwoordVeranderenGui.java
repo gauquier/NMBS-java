@@ -151,10 +151,13 @@ public class WachtwoordVeranderenGui extends JPanel {
 					}
 					else {
 						JOptionPane.showMessageDialog(new JFrame(), "De wachtwoorden komen niet overeen!");
+						pwdNieuwwachtwoord.setText("");
+						pwdHerhaaldWachtwoord.setText("");
 					}
 					} 
 					else {
 						JOptionPane.showMessageDialog(new JFrame(), "Het huidige wachtwoord is fout.");
+						pwdHuidigWachtwoord.setText("");
 					}
 				}
 				else {

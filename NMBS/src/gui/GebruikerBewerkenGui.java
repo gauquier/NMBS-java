@@ -182,7 +182,7 @@ public class GebruikerBewerkenGui extends JPanel {
 				} else {
 				
 					navigation= "gebruikerToevoegen";
-					AdminGui.setHuidigeKeuze(new GebruikerBijwerkenGUI(list.getSelectedValue()));
+					AdminGui.setHuidigeKeuze(new GebruikerBijwerkenGui(list.getSelectedValue()));
 					
 			}
 				}

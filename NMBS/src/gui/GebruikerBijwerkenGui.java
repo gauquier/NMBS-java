@@ -32,7 +32,7 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 import java.awt.Font;
 import javax.swing.JRadioButton;
 
-public class GebruikerBijwerkenGUI extends JPanel {
+public class GebruikerBijwerkenGui extends JPanel {
 	private JTextField txtVoornaam;
 	private JTextField txtAchternaam;
 	private JTextField txtStraat;
@@ -59,7 +59,7 @@ public class GebruikerBijwerkenGUI extends JPanel {
 
 
 
-	public GebruikerBijwerkenGUI(Medewerker m) {
+	public GebruikerBijwerkenGui(Medewerker m) {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		medewerkerId = m.getMedewerkerId();
 		persoonId= m.getId();

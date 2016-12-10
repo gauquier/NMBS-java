@@ -302,7 +302,7 @@ public class GebruikerToevoegenGui extends JPanel {
 				
 				String username = txtUsername.getText().trim();
 				if(loginDao.checkUsername(username) > 0){
-					JOptionPane.showMessageDialog(new JFrame(), "Deze gebruikernaam bestaat al.");
+					JOptionPane.showMessageDialog(new JFrame(), "Deze gebruiker bestaat al.");
 					txtPassword.setText("");
 					return;
 				}
