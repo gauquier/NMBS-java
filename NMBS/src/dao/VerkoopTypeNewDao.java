@@ -43,4 +43,11 @@ public class VerkoopTypeNewDao {
 		}
 		return null;
 	}
+	
+	public static void insertVerkoopType(VerkoopTypeNew verkoopType){
+		dba.createInsert("VerkoopType");
+		dba.addValue(verkoopType.getVerkoopType());
+		dba.addValue(verkoopType.getPrijs());
+		dba.commit();
+	}
 }
