@@ -1,0 +1,46 @@
+package dao;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import source.VerkoopTypeNew;
+
+public class VerkoopTypeNewDao {
+	private static DBA dba = new DBA();
+	
+	public static double getPrijsByVerkoopType(VerkoopTypeNew verkoopType) {
+		dba.createSelect("VerkoopType", "prijs");
+		dba.addWhere("verkoopType", verkoopType.getVerkoopType());
+		ResultSet rs = dba.commit();
+		try {
+			if(rs.next())
+			{
+				return rs.getDouble(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
+	};
+	
+	public static ArrayList<VerkoopTypeNew> getAllVerkoopTypes(){
+		ArrayList<VerkoopTypeNew> verkoopTypes = new ArrayList<VerkoopTypeNew>();
+		dba.createSelect("Klant");
+		dba.addWhere("actief", true);
+		ResultSet rs = dba.commit();
+		try {
+			while(rs.next()){
+				verkoopTypes.add(new VerkoopTypeNew(rs.getInt(1),rs.getString(2),rs.getDouble(3)));
+			}
+			
+			
+			return verkoopTypes;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+}

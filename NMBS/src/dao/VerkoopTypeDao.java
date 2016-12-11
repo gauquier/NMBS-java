@@ -9,7 +9,7 @@ public class VerkoopTypeDao {
 	private static DBA dba = new DBA();
 	
 	//work-in-progress / needs to be tested
-	public static double getPrijsByVerkoopType(VerkoopType verkoopType) {
+	/*public static double getPrijsByVerkoopType(VerkoopType verkoopType) {
 		dba.createSelect("VerkoopType", "prijs");
 		dba.addWhere("verkoopType", verkoopType.name());
 		ResultSet rs = dba.commit();
@@ -23,5 +23,5 @@ public class VerkoopTypeDao {
 			e.printStackTrace();
 		}
 		return 0;
-	};
+	};*/
 }
