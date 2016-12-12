@@ -45,7 +45,7 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel {
 
 	private JTextArea txtrBeschrijving;
 	private JButton btnToevoegen;
-	private JComboBox stationLijst;
+	private JComboBox<String> stationLijst;
 	private JDateChooser dateChooser;
 
 	private VerlorenVoorwerp verlorenVoorwerp;
@@ -79,7 +79,7 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel {
 		stationLijst = new JComboBox();
 		ArrayList<Station> lijst = stationDAO.getAll();
 		for (Station station : lijst) {
-			stationLijst.addItem(station);
+			stationLijst.addItem(station.getNaam());
 		}
 
 		dateChooser = new JDateChooser();

@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="NMBS/lib/apache-commons-net.jar"/>
 	<classpathentry kind="lib" path="NMBS/lib/commons-net-3.5.jar"/>
 	<classpathentry kind="lib" path="NMBS/lib/jgoodies-common-1.8.0.jar"/>
+	<classpathentry kind="lib" path="jcalendar-1.4.jar"/>
 	<classpathentry kind="output" path="NMBS/bin"/>
 </classpath>
