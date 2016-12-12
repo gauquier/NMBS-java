@@ -226,7 +226,7 @@ public class GebruikerBewerkenGui extends JPanel {
 				if(!unknownIndex()){
 					return;
 				} else {
-				int n = OkCancel("Ben je zeker dat je" + list.getSelectedValue().getVoornaam() + " " + list.getSelectedValue().getAchternaam() + " wil verwijderen?");	
+				int n = OkCancel("Ben je zeker dat je " + list.getSelectedValue().getVoornaam() + " " + list.getSelectedValue().getAchternaam() + " wil verwijderen?");	
 					
 				if(n==0){
 				MedewerkerDAO.removeMedewerker(list.getSelectedValue().getId());

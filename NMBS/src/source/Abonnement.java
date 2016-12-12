@@ -2,50 +2,35 @@ package source;
 import java.util.Calendar;
 
 public class Abonnement extends Aankoop {
-	
-	private int abonnementId;
-	private int periodeId;
-	private int klantId;//Foreign key met Klant
-	private String depZone;
-	private String arrZone;
+	private Klant klant;
+	private String depZone, arrZone;
 	private boolean actief;
 	
-	public Abonnement(int aankoopId, int abonnementId, int periodeId,int klantId,String depZone, String arrZone, double prijs, VerkoopType verkoop,double korting,boolean actief) {
-		super(aankoopId, korting, prijs, verkoop);
-		setAbonnementId(abonnementId);
-		setPeriodeId(periodeId);
-		setDepZone(depZone);
-		setArrZone(arrZone);
-		setKlantId(klantId);
-		setActief(actief);
-	}
-	
-	public int getAbonnementId() {
-		return abonnementId;
-	}
-	public void setAbonnementId(int abonnementId) {
-		this.abonnementId = abonnementId;
-	}
-	public int getKlantId() {
-		return klantId;
-	}
-	public void setKlantId(int klantId) {
-		this.klantId = klantId;
-	}
-	
-	public boolean isActief() {
-		return actief;
-	}
-	public void setActief(boolean actief) {
-		this.actief = actief;
-	}
-	
-	public int getPeriodeId() {
-		return periodeId;
+	public Abonnement(double korting, double prijs, VerkoopType verkoop, Klant klant, String depZone, String arrZone, boolean actief) {
+		super(korting, prijs, verkoop);
+		this.klant = klant;
+		this.depZone = depZone;
+		this.arrZone = arrZone;
+		this.actief=actief;
 	}
 
-	public void setPeriodeId(int periodeId) {
-		this.periodeId = periodeId;
+	
+	
+	public Abonnement(double korting, double prijs, VerkoopType verkoop, Klant klant, String depZone, String arrZone) {
+		super(korting, prijs, verkoop);
+		this.klant = klant;
+		this.depZone = depZone;
+		this.arrZone = arrZone;
+	}
+
+
+
+	public Klant getKlant() {
+		return klant;
+	}
+
+	public void setKlant(Klant klant) {
+		this.klant = klant;
 	}
 
 	public String getDepZone() {
@@ -63,4 +48,16 @@ public class Abonnement extends Aankoop {
 	public void setArrZone(String arrZone) {
 		this.arrZone = arrZone;
 	}
+
+	public boolean isActief() {
+		return actief;
+	}
+
+	public void setActief(boolean actief) {
+		this.actief = actief;
+	}
+	
+	
+	
+	
 }

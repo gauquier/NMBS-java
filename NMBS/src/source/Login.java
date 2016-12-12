@@ -1,7 +1,7 @@
 package source;
 
 public class Login {
-	private int loginId;
+	private static int loginId;
 	private String username;
 	private String password;
 	private static String currentUser;
@@ -81,7 +81,7 @@ public class Login {
 	/**
 	 * @return loginId
 	 */
-	public int getLoginId() {
+	public static int getLoginId() {
 		return loginId;
 	}
 	/**

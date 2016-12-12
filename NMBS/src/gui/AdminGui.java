@@ -48,7 +48,7 @@ public class AdminGui extends JFrame {
     JMenuBar menubar;
     JMenuItem home , routeInfo, stationInfo;
     JMenu verkoop, verlorenVoorwerpen, instellingen, gebruikers, klanten;
-    JMenuItem abonnementVerkoop, abonnementBeheer, uitloggen, gebruikersToevoegen, gebruikersBeheer, ticketVerkoop
+    JMenuItem abonnementBeheer, uitloggen, gebruikersToevoegen, gebruikersBeheer, ticketVerkoop
     , verlorenVoorwerpToevoegen, verlorenVoorwerpZoeken, wachtwoordVeranderen ,klantenToevoegen, klantenBeheer;
 
 	public static JPanel getHuidigeKeuze() {
@@ -103,9 +103,10 @@ public class AdminGui extends JFrame {
 		menubar.setForeground(Color.BLACK);
 		menubar.setBackground(Color.ORANGE);
 		home = new JMenuItem("Home");
-		home.setBackground(Color.ORANGE);
-		home.setHorizontalAlignment(SwingConstants.CENTER);
+
+		home.setHorizontalAlignment(SwingConstants.LEFT);
 		home.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		home.setHorizontalTextPosition(SwingConstants.CENTER);;
 		home.setBackground(Color.ORANGE);
 		home.setOpaque(true);
 		home.addActionListener(new MenuItemHandler());
@@ -160,11 +161,9 @@ public class AdminGui extends JFrame {
 		wachtwoordVeranderen.addActionListener(new MenuItemHandler());
 		instellingen.add(wachtwoordVeranderen);
 		
-		abonnementBeheer = new JMenuItem("Abbonement beheer");
+		abonnementBeheer = new JMenuItem("Abonnementen beheren");
 		abonnementBeheer.setBackground(Color.WHITE);
-		abonnementVerkoop = new JMenuItem("Abbonement verkoop");
-		abonnementVerkoop.setBackground(Color.WHITE);
-		verkoop.add(abonnementVerkoop);
+		abonnementBeheer.addActionListener(new MenuItemHandler());
 		verkoop.add(abonnementBeheer);
 		
 		gebruikersToevoegen = new JMenuItem("Gebruiker toevoegen");
@@ -243,7 +242,8 @@ public class AdminGui extends JFrame {
 				setHuidigeKeuze(new HomeGui());
 			}
 			else if (e.getSource() == ticketVerkoop){
-				setHuidigeKeuze(new TicketVerkoopGui());
+				if (HuidigeKeuze!=null){HuidigeKeuze.setVisible(false);}
+				new VerkoopController();
 			}
 			else if (e.getSource() == routeInfo){
 				setHuidigeKeuze(new RouteZoekenGui());
@@ -259,6 +259,9 @@ public class AdminGui extends JFrame {
 			}
 			else if (e.getSource() == wachtwoordVeranderen){
 				setHuidigeKeuze(new WachtwoordVeranderenGui());
+			}
+			else if (e.getSource() == abonnementBeheer){
+			//	setHuidigeKeuze(new AbonnementBeheerGui());
 			}
 		}
 	}

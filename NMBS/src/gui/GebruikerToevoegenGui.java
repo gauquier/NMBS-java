@@ -57,9 +57,6 @@ public class GebruikerToevoegenGui extends JPanel {
 	private JRadioButton rbtnAdmin;
 	private JRadioButton rbtnUser;
 	
-	private int medewerkerId=0;
-	private int persoonId = 0;
-	private int adresId = 0;
 	private JPasswordField txtPassword;
 
 	public GebruikerToevoegenGui() {
@@ -313,10 +310,10 @@ public class GebruikerToevoegenGui extends JPanel {
 						if (!txtBus.getText().isEmpty()) {
 							adres = new Adres(txtStraat.getText().trim(), Integer.parseInt(txtHuisnr.getText()),
 									txtGemeente.getText().trim(), Integer.parseInt(txtPostcode.getText()),
-									Integer.parseInt(txtBus.getText()));
+									txtBus.getText());
 						} else {
 							adres = new Adres(txtStraat.getText().trim(), Integer.parseInt(txtHuisnr.getText()),
-									txtGemeente.getText().trim(), Integer.parseInt(txtPostcode.getText()), 0);
+									txtGemeente.getText().trim(), Integer.parseInt(txtPostcode.getText()), "");
 						}
 						adres.toString();
 

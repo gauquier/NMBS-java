@@ -130,8 +130,8 @@ public class GebruikerBijwerkenGui extends JPanel {
 		txtEmail.setColumns(10);
 		txtEmail.setText(m.getEmail());
 
-		JLabel lblMedewerkerToevoegen = DefaultComponentFactory.getInstance().createTitle("Medewerker bijwerken");
-		lblMedewerkerToevoegen.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		JLabel lblMedewerkerBijwerken = DefaultComponentFactory.getInstance().createTitle("Medewerker bijwerken");
+		lblMedewerkerBijwerken.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
 		radiobuttons = new ButtonGroup();
 		rbtnAdmin = new JRadioButton("Administrator");
@@ -210,14 +210,14 @@ public class GebruikerBijwerkenGui extends JPanel {
 									.addComponent(txtPostcode, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
 									.addContainerGap(450, Short.MAX_VALUE))))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblMedewerkerToevoegen)
+							.addComponent(lblMedewerkerBijwerken)
 							.addContainerGap(477, Short.MAX_VALUE))))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(14)
-					.addComponent(lblMedewerkerToevoegen)
+					.addComponent(lblMedewerkerBijwerken)
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblVoornaam)
@@ -289,10 +289,10 @@ public class GebruikerBijwerkenGui extends JPanel {
 					if (!txtBus.getText().isEmpty()) {
 						adres = new Adres(txtStraat.getText().trim(), Integer.parseInt(txtHuisnr.getText()),
 								txtGemeente.getText().trim(), Integer.parseInt(txtPostcode.getText()),
-								Integer.parseInt(txtBus.getText()));
+								txtBus.getText());
 					} else {
 						adres = new Adres(txtStraat.getText().trim(), Integer.parseInt(txtHuisnr.getText()),
-								txtGemeente.getText().trim(), Integer.parseInt(txtPostcode.getText()), 0);
+								txtGemeente.getText().trim(), Integer.parseInt(txtPostcode.getText()), "");
 					}
 					adres.toString();
 					
@@ -313,9 +313,8 @@ public class GebruikerBijwerkenGui extends JPanel {
 					
 					
 					MedewerkerDAO.bijwerkenMedewerker(medewerkerId, persoonId,persoon , rol,adresId, adres);
-					close();
 					JOptionPane.showMessageDialog(new JFrame(), "Gebruiker is bijgewerkt!");
-					
+					AdminGui.setHuidigeKeuze(new GebruikerBewerkenGui());
 					
 					
 					

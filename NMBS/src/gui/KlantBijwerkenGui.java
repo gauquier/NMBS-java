@@ -32,7 +32,7 @@ import java.awt.Font;
 import javax.swing.JRadioButton;
 import javax.swing.JPasswordField;
 
-public class KlantToevoegenGui extends JPanel {
+public class KlantBijwerkenGui extends JPanel {
 	private JTextField txtVoornaam;
 	private JTextField txtAchternaam;
 	private JTextField txtStraat;
@@ -40,7 +40,7 @@ public class KlantToevoegenGui extends JPanel {
 	private JTextField txtBus;
 	private JTextField txtGemeente;
 	private JTextField txtPostcode;
-	private JButton btnToevoegen;
+	private JButton btnBijwerken;
 	private JLabel lblEmail;
 	private JTextField txtEmail;
 	private Adres adres;
@@ -48,13 +48,23 @@ public class KlantToevoegenGui extends JPanel {
 	private List<Persoon> mijnpersonen;
 	private PersoonDao persoonDao= new PersoonDao();
 	
-
 	private JLabel lblExtraInformatie;
 	private JTextField txtInfo;
 
-	public KlantToevoegenGui() {
+	private int klantId=0;
+	private int persoonId = 0;
+	private int adresId = 0;
+	private String huidigeEmail;
+	private String email;
+	
+	public KlantBijwerkenGui(Klant k) {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
-
+		klantId=k.getKlantId();
+		persoonId =k.getId();
+		adresId=k.getAdres().getAdresId();
+		huidigeEmail=k.getEmail();
+		
+		
 		JLabel lblVoornaam = new JLabel("Voornaam*:");
 		lblVoornaam.setForeground(Color.WHITE);
 
@@ -78,39 +88,46 @@ public class KlantToevoegenGui extends JPanel {
 
 		txtVoornaam = new JTextField();
 		txtVoornaam.setColumns(10);
+		txtVoornaam.setText(k.getVoornaam());
 		
 		txtAchternaam = new JTextField();
 		txtAchternaam.setColumns(10);
-		
+		txtAchternaam.setText(k.getAchternaam());
 		
 		txtStraat = new JTextField();
 		txtStraat.setColumns(10);
+		txtStraat.setText(k.getAdres().getStraat());
 
 		txtHuisnr = new JTextField();
 		txtHuisnr.setColumns(10);
-
+		txtHuisnr.setText(new Integer(k.getAdres().getHuisnr()).toString());
+		
 		txtBus = new JTextField();
 		txtBus.setColumns(10);
+		txtBus.setText(new Integer(k.getAdres().getBus()).toString());
 
 		txtGemeente = new JTextField();
 		txtGemeente.setColumns(10);
+		txtGemeente.setText(k.getAdres().getWoonplaats());
 
 		txtPostcode = new JTextField();
 		txtPostcode.setColumns(10);
+		txtPostcode.setText(new Integer(k.getAdres().getPostcode()).toString());
 
-		btnToevoegen = new JButton("Toevoegen");
-		btnToevoegen.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		btnToevoegen.setBackground(Color.ORANGE);
-		btnToevoegen.addActionListener(new MenuItemHandler());
+		btnBijwerken = new JButton("Bijwerken");
+		btnBijwerken.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnBijwerken.setBackground(Color.ORANGE);
+		btnBijwerken.addActionListener(new MenuItemHandler());
 
 		lblEmail = new JLabel("Email*:");
 		lblEmail.setForeground(Color.WHITE);
 
 		txtEmail = new JTextField();
 		txtEmail.setColumns(10);
+		txtEmail.setText(k.getEmail());
 
-		JLabel lblKlantToevoegen = DefaultComponentFactory.getInstance().createTitle("Klant toevoegen");
-		lblKlantToevoegen.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		JLabel lblKlantBijwerken = DefaultComponentFactory.getInstance().createTitle("Klant bijwerken");
+		lblKlantBijwerken.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
 
 		JLabel label_1 = new JLabel("* Verplichte velden");
@@ -122,6 +139,8 @@ public class KlantToevoegenGui extends JPanel {
 		
 		txtInfo = new JTextField();
 		txtInfo.setColumns(10);
+		txtInfo.setText(k.getInfo());
+		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -138,15 +157,15 @@ public class KlantToevoegenGui extends JPanel {
 								.addComponent(lblGemeente)
 								.addComponent(lblStraat))
 							.addGap(50)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
 									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
 										.addComponent(txtBus, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
 										.addComponent(txtHuisnr, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE))
 									.addGap(510))
 								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(txtPostcode, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-									.addContainerGap(509, Short.MAX_VALUE))
+									.addContainerGap(250, Short.MAX_VALUE))
 								.addGroup(groupLayout.createSequentialGroup()
 									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 										.addComponent(txtEmail, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
@@ -156,12 +175,17 @@ public class KlantToevoegenGui extends JPanel {
 										.addComponent(txtVoornaam, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
 										.addComponent(label_1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
 										.addComponent(txtInfo, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE))
-									.addGap(206)
-									.addComponent(btnToevoegen, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addGap(206)
+											.addComponent(btnBijwerken, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
+										.addGroup(groupLayout.createSequentialGroup()
+											.addGap(86)
+											.addComponent(btnBijwerken, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)))
 									.addContainerGap())))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblKlantToevoegen)
-							.addContainerGap(579, Short.MAX_VALUE))))
+							.addComponent(lblKlantBijwerken)
+							.addContainerGap(320, Short.MAX_VALUE))))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(32)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
@@ -175,10 +199,10 @@ public class KlantToevoegenGui extends JPanel {
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(btnToevoegen, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE))
+							.addComponent(btnBijwerken, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(19)
-							.addComponent(lblKlantToevoegen)
+							.addComponent(lblKlantBijwerken)
 							.addGap(18)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblVoornaam)
@@ -207,13 +231,15 @@ public class KlantToevoegenGui extends JPanel {
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblPostcode)
 								.addComponent(txtPostcode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(lblEmail)
 									.addGap(31))
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(btnBijwerken, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE))
 									.addGap(29)))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
@@ -241,21 +267,24 @@ public class KlantToevoegenGui extends JPanel {
 			// refresh();
 
 		
-			if (e.getSource() == btnToevoegen) {
+			if (e.getSource() == btnBijwerken) {
 
 
 				if (!txtVoornaam.getText().isEmpty() && !txtAchternaam.getText().isEmpty()
 						&& !txtStraat.getText().isEmpty() && !txtGemeente.getText().isEmpty()
 						&& !txtPostcode.getText().isEmpty() && !txtHuisnr.getText().isEmpty() && !txtEmail.getText().isEmpty()) {
 				
-				String email = txtEmail.getText().trim();
-				if(persoonDao.checkEmail(email) > 0){
+				email = txtEmail.getText().trim();
+				
+				
+				if(persoonDao.checkEmail(email) > 0 && !(email.equals(huidigeEmail))){
 					JOptionPane.showMessageDialog(new JFrame(), "Deze klant bestaat al.");
 					txtEmail.setText("");
 					return;
+					
 				}
 				else {
-						
+				
 
 						if (!txtBus.getText().isEmpty()) {
 							adres = new Adres(txtStraat.getText().trim(), Integer.parseInt(txtHuisnr.getText()),
@@ -274,9 +303,10 @@ public class KlantToevoegenGui extends JPanel {
 						String info = txtInfo.getText().trim();
 
 						
-						KlantDAO.addKlant(persoon, adres, info);
-						close();
-						JOptionPane.showMessageDialog(new JFrame(), "Klant is toegevoegd!");
+						KlantDAO.bijwerkenKlant(klantId, persoonId, persoon, info, adresId, adres);
+				
+						JOptionPane.showMessageDialog(new JFrame(), "Klant is bijgewerkt!");
+						AdminGui.setHuidigeKeuze(new KlantBewerkenGui());
 					}
 				}
 
