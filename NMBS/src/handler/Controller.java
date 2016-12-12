@@ -1,6 +1,7 @@
 package handler;
 
 import gui.*;
+import dao.CheckIfConnected;
 import dao.DBA;
 import java.sql.ResultSet;
 
@@ -12,7 +13,8 @@ public class Controller extends LoginGui{
 	public static MedewerkerGui medewerkerInterface;
 	
 	public static void main(String[] args) throws Exception {
-		
+		boolean nya = CheckIfConnected.checkIfConnected();
+		System.out.println("nya:" + nya);
 		runProgram();
 		/*DBA dba = new DBA();
 		
