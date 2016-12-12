@@ -79,7 +79,7 @@ public class LoginGui {
 		frmNmbs = new JFrame();
 		frmNmbs.setIconImage(Toolkit.getDefaultToolkit().getImage("NMBS/lib/logo-nmbs.png"));
 		frmNmbs.setTitle("NMBS");
-		frmNmbs.getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
+		frmNmbs.getContentPane().setBackground(new Color(0, 191, 255));
 
 		frmNmbs.setBounds(0, 0, 450, 300);
 		frmNmbs.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -121,35 +121,38 @@ public class LoginGui {
 				String username = txtUsername.getText().trim();
 				String password = new String(txtPassword.getPassword());
 				
-				String databasePassword = LoginDao.getWachtwoord(username);
 				String databaseUsername = LoginDao.getUserName(username);
 				
-				if (databasePassword == null || databaseUsername == null) {
-					JOptionPane.showMessageDialog(new JFrame(), "User is not allowed.");
+				if (databaseUsername == null) {
+					JOptionPane.showMessageDialog(new JFrame(), "User is niet toegestaan.");
 					return;
 				}
-				if (databasePassword != null && databaseUsername != null) {
-					if (databasePassword.equals(password) && databaseUsername.equals(username)) {
+				if (databaseUsername != null) {
+					if (databaseUsername.equals(username)) {
+						String databasePassword = LoginDao.getWachtwoord(username);
+						if(databasePassword!= null){
+							if(databasePassword.equals(password)){
+								int loginId = LoginDao.getLoginId(username);
+								if(LoginDao.getActief(loginId) == 1){
+									login = new Login(username);
 
-						int loginId = LoginDao.getLoginId(username);
-						int rollId = LoginDao.getRoll(loginId);
-						login = new Login(loginId, username, "");
-
-						closeFrame();
-						 if(rollId == 1){
-							Controller.adminInterface = new AdminGui();
-							Controller.adminInterface.setHome();
-						 }
-						 else if(rollId == 2){
-							Controller.medewerkerInterface = new MedewerkerGui();
-							Controller.medewerkerInterface.setHome();
-						} 
-
+									closeFrame();
+									KiesStationGui.start();
+								}else{
+									JOptionPane.showMessageDialog(new JFrame(), "Medewerker is niet toegestaan.");
+								}
+								
+							}else {
+								JOptionPane.showMessageDialog(new JFrame(), "Username of wachtwoord is verkeerd.");
+							}
+						}else {
+							JOptionPane.showMessageDialog(new JFrame(), "Username of wachtwoord is verkeerd.");
+						}
 					} else {
-						JOptionPane.showMessageDialog(new JFrame(), "Username or password wrong.");
+						JOptionPane.showMessageDialog(new JFrame(), "Username of wachtwoord is verkeerd.");
 					}
 				} else {
-					JOptionPane.showMessageDialog(new JFrame(), "Username or password wrong.");
+					JOptionPane.showMessageDialog(new JFrame(), "Username of wachtwoord is verkeerd.");
 				}
 			}
 		}

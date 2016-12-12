@@ -12,7 +12,7 @@ public class VerkoopController {
 	public VerkoopController(){}
 	
 	public static boolean ticketValidate(Ticket ticket, TicketVerkoopGui tvGui){
-
+		/*
 		boolean depZone = false, arrZone = false, klasse = false, aantal = false, heenDatum = false, terugDatum = false;
 
 		if(StationDAO.checkStationZone(ticket.getDepZone()) != 0){
@@ -64,11 +64,13 @@ public class VerkoopController {
 		}
 		else{
 			tvGui.setTickettenVerkocht(false);
+			*/
 			return false;
+			/*
 		}		
 	}
 	
-	/*
+	
 	private void ticketVerkoop(){
 		boolean depZone = false, arrZone = false, klasse = false, aantal = false, heenDatum = false, terugDatum = false;
 		while(!validate){
@@ -123,4 +125,5 @@ public class VerkoopController {
 		}
 	}
 	*/
+	}
 }

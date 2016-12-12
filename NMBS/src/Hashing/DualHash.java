@@ -5,7 +5,7 @@ import java.math.*;
 
 public class DualHash {	
 	
-	public String hashString(String meegegevenString) throws Exception{
+	public static String hashString(String meegegevenString) throws Exception{
        String s= meegegevenString;
        MD5 md5Hash = new MD5();
        SHA512 sha2Hash = new SHA512();

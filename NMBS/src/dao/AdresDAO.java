@@ -46,7 +46,6 @@ public class AdresDAO {
 			if(rs.next())
 			{
 				adres = new Adres(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getInt(5), rs.getString(6));
-
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -73,11 +72,4 @@ public class AdresDAO {
 		}
 		return 0;
 	}
-
-	
-	
-	
-	
-
-	
 }

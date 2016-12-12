@@ -26,19 +26,23 @@ import source.Rol;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.Vector;
+
 import java.util.*;
 
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 
-
 public class GebruikerBewerkenGui extends JPanel {
-	private JTextField textField;
+	private JTextField txtZoekveld;
 	private JButton btnZoeken;
 	private JButton btnBewerken;
 	private JList<Medewerker> list;
-	private ArrayList<Medewerker> arrayLijst;
+	private ArrayList<Medewerker> arrayLijst, arrayLijst2;
 	private ArrayList<Object> objecten;
 	private JButton btnVerwijderen;
 	private JButton btnPasswordReset;
@@ -68,9 +72,45 @@ public class GebruikerBewerkenGui extends JPanel {
 		
 		list = new JList<Medewerker>(dlm);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		
+		txtZoekveld = new JTextField();
+		txtZoekveld.setColumns(10);
+		txtZoekveld.addKeyListener(new KeyListener()
+		  {
+			@Override
+			public void keyPressed(KeyEvent e) {}
+			@Override
+			public void keyReleased(KeyEvent e) {}
+			@Override
+			public void keyTyped(KeyEvent e) {
+					Thread userRefresh = new Thread(new Runnable(){
+						@Override
+						public void run() {
+							if(!txtZoekveld.getText().isEmpty()){
+								dlm.clear();
+								
+								arrayLijst2 = MedewerkerDAO.getAllMedewerkersFromSearch(txtZoekveld.getText());
+		    					
+		    					for(Medewerker m : arrayLijst2)
+		    					{
+		    						dlm.addElement(m);
+		    					}
+
+		    					list = new JList<Medewerker>(dlm);
+							}
+							else
+							{
+								for(Medewerker m : arrayLijst)
+								{
+									dlm.addElement(m);
+								}
+								list = new JList<Medewerker>(dlm);
+							}
+						}
+					});
+					userRefresh.start();
+				}
+	  		  });	
+
 		btnZoeken = new JButton("Zoeken");
 		btnZoeken.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnZoeken.setBackground(Color.ORANGE);
@@ -100,7 +140,7 @@ public class GebruikerBewerkenGui extends JPanel {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnZoeken)
 							.addPreferredGap(ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
-							.addComponent(textField, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
+							.addComponent(txtZoekveld, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(list, GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)))
@@ -121,7 +161,7 @@ public class GebruikerBewerkenGui extends JPanel {
 							.addGap(27)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(btnZoeken)
-								.addComponent(textField, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+								.addComponent(txtZoekveld, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
 							.addGap(12)
 							.addComponent(list, GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
@@ -135,11 +175,7 @@ public class GebruikerBewerkenGui extends JPanel {
 		);
 		setLayout(groupLayout);
 	}
-
-	public void close()
-	{
-		this.setVisible(false);
-	}
+	
 	
 	public int OkCancel(String message){
 		int n = JOptionPane.showConfirmDialog(
@@ -156,36 +192,35 @@ public class GebruikerBewerkenGui extends JPanel {
 		
 	}
 	
-	
+	public void close() {
+		this.setVisible(false);
+	}
 	
 	public Boolean unknownIndex(){
-	if(list.getSelectedValue()==null || list.getSelectedIndex()<0){
-		JOptionPane.showMessageDialog(new JFrame(), "Er is geen gebruiker aangeduid.");
-		return false;
-	}
-	else {
-		return true;
-	}
+		if(list.getSelectedValue()==null || list.getSelectedIndex()<0){
+			JOptionPane.showMessageDialog(new JFrame(), "Er is geen gebruiker aangeduid.");
+			return false;
+		}
+		else {
+			return true;
+		}
 	}
 	
 	private class MenuItemHandler implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-		
-		
-			
+
 			if (e.getSource() == btnBewerken) {
 				
 				if(!unknownIndex()){
 					return;
 				} else {
-				
+					System.out.println(list.getSelectedValue().getId());
 					navigation= "gebruikerToevoegen";
 					AdminGui.setHuidigeKeuze(new GebruikerBijwerkenGui(list.getSelectedValue()));
-					
-			}
 				}
+			}
 			
 			if (e.getSource() == btnVerwijderen) {
 				if(!unknownIndex()){
@@ -200,8 +235,6 @@ public class GebruikerBewerkenGui extends JPanel {
 				} else if (n==1){
 					return;
 				}
-				
-			}
 			}
 			
 			if(e.getSource() == btnPasswordReset){
@@ -219,14 +252,12 @@ public class GebruikerBewerkenGui extends JPanel {
 					} else if (n==1){
 						return;
 					}
-					
-					
 				
 				}
 				
-			
 			}
 			
 		}
+	}
 	}
 }

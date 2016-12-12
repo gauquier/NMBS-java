@@ -101,7 +101,6 @@ public class StationDAO {
 		try {
 			while (rs.next()) {
 				stations.add( new Station(rs.getInt(1), rs.getString(2), vvDAO.getVerlorenVoorwerpByStation(rs.getInt(1))));
-
 			}
 			return stations;
 		} catch (SQLException e) {
@@ -116,6 +115,7 @@ public class StationDAO {
 		VerlorenVoorwerpDAO vvDAO = new VerlorenVoorwerpDAO();
 		try {
 			while (rs.next()) {
+
 				stations.add( new Station(rs.getInt(1), rs.getString(2), null)); 
 			}
 			return stations;

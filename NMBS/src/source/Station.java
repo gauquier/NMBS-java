@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Station {
 	private int stationID;
 	private String naam;
+	private static String currentStation;
 	private ArrayList<VerlorenVoorwerp> verlorenVoorwerpen = new ArrayList<VerlorenVoorwerp>();
 	
 	public Station(int stationID, String naam, ArrayList<VerlorenVoorwerp> verlorenVoorwerpen) {
@@ -16,6 +17,10 @@ public class Station {
 	public Station(int stationID){
 		this.stationID = stationID;
 	} 
+	public Station(String currentStation) {
+		super();
+		this.currentStation = currentStation;
+	}
 	public void addVerlorenVoorwerp(VerlorenVoorwerp station){
 		verlorenVoorwerpen.add(station);
 	} 
@@ -44,9 +49,19 @@ public class Station {
 	public void setNaam(String naam) {
 		this.naam = naam;
 	}
-	
- 
+	/**
+	 * @return the currentStation
+	 */
+	public static String getCurrentStation() {
+		return currentStation;
+	}
 
+	/**
+	 * @param currentStation the currentStation to set
+	 */
+	public void setCurrentStation(String currentStation) {
+		this.currentStation = currentStation;
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -82,5 +97,4 @@ public class Station {
 	public String toString() {
 		return "Station [stationID=" + stationID + ", naam=" + naam + ", verlorenVoorwerpen=" + verlorenVoorwerpen + "]";
 	}
-	
 }

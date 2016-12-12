@@ -163,6 +163,21 @@ public class LoginDao {
 		ResultSet rs = dba.commit();
 	}
 	
+	public static int getActief(int id){
+		dba.createSelect("Medewerker", "actief");
+		dba.addWhere("loginId", id); 
+		ResultSet rs = dba.commit();
+		try {
+			if(rs.next()){
+				id = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		return id;
+	}
+	
 	public static void loginWijzigen(Login login) throws Exception{ 
 	}
 	public static Login loginZoekenOpLoginId(int loginId) throws Exception{
