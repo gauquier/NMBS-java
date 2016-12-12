@@ -233,7 +233,7 @@ public class AdminGui extends JFrame {
 			else if (e.getSource()==uitloggen)
 			{
 				setHuidigeKeuze(null);
-				LoginGui.start();
+				//LoginGui.start();
 			}
 			else if (e.getSource() == home){
 
