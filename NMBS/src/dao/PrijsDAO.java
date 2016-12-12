@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import source.Prijs;
+import source.VerkoopType;
 
 public class PrijsDAO {
 	private static DBA dba = new DBA();
@@ -15,9 +16,9 @@ public class PrijsDAO {
 		dba.commit();
 	}
 	
-	public static double getPrijsByVerkoopType(String verkoopType) {
+	public static double getPrijsByVerkoopType(VerkoopType verkoopType) {
 		dba.createSelect("Prijs", "prijs");
-		dba.addWhere("verkoopType", verkoopType);
+		dba.addWhere("verkoopType", verkoopType.name());
 		ResultSet rs = dba.commit();
 		try {
 			if(rs.next())
