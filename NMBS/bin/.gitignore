@@ -6,6 +6,7 @@
 /dao/
 /gui/
 /handler/
+<<<<<<< HEAD
 >>>>>>> refs/remotes/origin/Aime
 /iRailExamples/
 /source/
@@ -15,3 +16,7 @@
 /handler/
 =======
 >>>>>>> refs/remotes/origin/Aime
+=======
+/iRailExamples/
+/source/
+>>>>>>> refs/remotes/origin/BorisNew

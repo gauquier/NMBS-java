@@ -85,6 +85,24 @@ public class TicketDao {
 		
 
 	}
+	
+	//tijdelijke functie:
+	public static String getVerkoopdatumAsString(){
+		String datum = null;
+		dba.createSelect("Ticket", "verkoopDatum");
+		ResultSet rs = dba.commit();	
+		try {
+			if(rs.next()){
+				//DateFormat dt = new SimpleDateFormat("dd-MM-YYYY");
+				datum = /*dt.parse(*/rs.getString(1)/*)*/;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return datum;
+		
 
+	}
 
 }
