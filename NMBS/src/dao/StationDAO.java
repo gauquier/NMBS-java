@@ -22,11 +22,6 @@ public class StationDAO {
 		if (getStationId(station) == 0) {
 			dba.createInsert("Station");
 			dba.addValue(station.getNaam());
-			dba.addValue(station.getZone());
-			dba.addValue(station.getAantalLoketten());
-			dba.addValue(station.getParkingplaatsen());
-			dba.addValue(station.getWifi());
-			dba.addValue(station.getGehandicapte());
 			dba.commit();
 		}
 		for (int i = 0; i < station.getVerlorenVoorwerpen().size(); i++) {
@@ -38,13 +33,7 @@ public class StationDAO {
 	public int getStationId(Station station) {
 
 		dba.createSelect("Station", "stationId");
-		dba.addWhere("naam", station.getNaam());
-		dba.addWhere("zone", station.getZone());
-		dba.addWhere("aantalLoketten", station.getAantalLoketten());
-		dba.addWhere("parkingPLaatsen", station.getParkingplaatsen());
-		dba.addWhere("wifi", station.getWifi());
-		dba.addWhere("gehandicapt", station.getGehandicapte());
-
+		dba.addWhere("naam", station.getNaam());  
 		ResultSet rs = dba.commit();
 		try {
 			if (rs.next()) {
@@ -96,8 +85,7 @@ public class StationDAO {
 		ResultSet rs = dba.commit();
 		try {
 			if (rs.next()) {
-				station = new Station(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getShort(4), rs.getInt(5),
-						rs.getBoolean(6), rs.getBoolean(7), vvDAO.getVerlorenVoorwerpByStation(rs.getInt(1)));
+				station = new Station(rs.getInt(1), rs.getString(2), vvDAO.getVerlorenVoorwerpByStation(rs.getInt(1)));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch blocks
@@ -112,8 +100,7 @@ public class StationDAO {
 		VerlorenVoorwerpDAO vvDAO = new VerlorenVoorwerpDAO();
 		try {
 			while (rs.next()) {
-				stations.add(new Station(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getShort(4), rs.getInt(5),
-						rs.getBoolean(6), rs.getBoolean(7), vvDAO.getVerlorenVoorwerpByStation(rs.getInt(1))));
+				stations.add( new Station(rs.getInt(1), rs.getString(2), vvDAO.getVerlorenVoorwerpByStation(rs.getInt(1))));
 
 			}
 			return stations;
@@ -129,9 +116,7 @@ public class StationDAO {
 		VerlorenVoorwerpDAO vvDAO = new VerlorenVoorwerpDAO();
 		try {
 			while (rs.next()) {
-				stations.add(new Station(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getShort(4), rs.getInt(5),
-						rs.getBoolean(6), rs.getBoolean(7), null));
-
+				stations.add( new Station(rs.getInt(1), rs.getString(2), null)); 
 			}
 			return stations;
 		} catch (SQLException e) {
