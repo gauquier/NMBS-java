@@ -6,12 +6,12 @@ import java.util.ArrayList;
 
 import source.VerkoopTypeNew;
 
-public class VerkoopTypeNewDao {
+public class VerkoopTypeDAO {
 	private static DBA dba = new DBA();
 	
-	public static double getPrijsByVerkoopType(VerkoopTypeNew verkoopType) {
+	public static double getPrijsByVerkoopType(String verkoopType) {
 		dba.createSelect("VerkoopType", "prijs");
-		dba.addWhere("verkoopType", verkoopType.getVerkoopType());
+		dba.addWhere("verkoopType", verkoopType);
 		ResultSet rs = dba.commit();
 		try {
 			if(rs.next())
@@ -27,7 +27,7 @@ public class VerkoopTypeNewDao {
 	
 	public static ArrayList<VerkoopTypeNew> getAllVerkoopTypes(){
 		ArrayList<VerkoopTypeNew> verkoopTypes = new ArrayList<VerkoopTypeNew>();
-		dba.createSelect("Klant");
+		dba.createSelect("VerkoopType");
 		dba.addWhere("actief", true);
 		ResultSet rs = dba.commit();
 		try {
@@ -44,10 +44,12 @@ public class VerkoopTypeNewDao {
 		return null;
 	}
 	
+	/*
 	public static void insertVerkoopType(VerkoopTypeNew verkoopType){
 		dba.createInsert("VerkoopType");
 		dba.addValue(verkoopType.getVerkoopType());
 		dba.addValue(verkoopType.getPrijs());
 		dba.commit();
 	}
+	*/
 }
