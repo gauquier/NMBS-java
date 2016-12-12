@@ -83,7 +83,6 @@ public class AdminGui extends JFrame {
 		this.c = c;
 	}
 	public AdminGui() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Robin\\git\\NMBS-java\\bin\\NMBS\\lib\\logo-nmbs.png"));
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		this.setResizable(true);
@@ -101,14 +100,16 @@ public class AdminGui extends JFrame {
 	private void createMenu() {
 		menubar = new JMenuBar();
 		menubar.setForeground(Color.BLACK);
-		menubar.setBackground(Color.WHITE);
+		menubar.setBackground(Color.ORANGE);
 		home = new JMenuItem("Home");
+
 		home.setHorizontalAlignment(SwingConstants.LEFT);
 		home.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		home.setHorizontalTextPosition(SwingConstants.CENTER);;
 		home.setBackground(Color.ORANGE);
 		home.setOpaque(true);
 		home.addActionListener(new MenuItemHandler());
+		
 		verkoop = new JMenu("Verkoop");
 		verkoop.setHorizontalAlignment(SwingConstants.CENTER);
 		verkoop.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -234,15 +235,13 @@ public class AdminGui extends JFrame {
 			else if (e.getSource()==uitloggen)
 			{
 				setHuidigeKeuze(null);
-				//LoginGui.start();
 			}
 			else if (e.getSource() == home){
 
 				setHuidigeKeuze(new HomeGui());
 			}
 			else if (e.getSource() == ticketVerkoop){
-				if (HuidigeKeuze!=null){HuidigeKeuze.setVisible(false);}
-				new VerkoopController();
+				setHuidigeKeuze(new TicketVerkoopGui());
 			}
 			else if (e.getSource() == routeInfo){
 				setHuidigeKeuze(new RouteZoekenGui());
@@ -260,7 +259,7 @@ public class AdminGui extends JFrame {
 				setHuidigeKeuze(new WachtwoordVeranderenGui());
 			}
 			else if (e.getSource() == abonnementBeheer){
-				setHuidigeKeuze(new AbonnementBeheerGui());
+			//	setHuidigeKeuze(new AbonnementBeheerGui());
 			}
 		
 		}

@@ -46,9 +46,9 @@ public class StationDAO {
 		return 0;
 	}
 
-	public int checkStation(String naam) {
-		dba.createSelect("Station", "naam");
-		// dba.addWhere("naam", station.getNaam());
+	public static int checkStation(String naam) {
+		dba.createSelect("Station", "stationId");
+		dba.addWhere("naam", naam);
 
 		ResultSet rs = dba.commit();
 		try {
@@ -93,6 +93,28 @@ public class StationDAO {
 		}
 		return station;
 	} 
+	
+	public ArrayList<Station> getAll(){
+		dba.createSelect("Station");
+		ArrayList<Station> lijst = new ArrayList<>();
+		ResultSet rs = dba.commit();
+		
+		try {
+			while(rs.next()){
+				 Station station = new Station(rs.getInt(1), rs.getString(2));
+				 
+				 lijst.add(station);
+			}
+			return lijst;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
+		return null ;
+	}
+	
+	
 	public List<Station> getStations() {
 		dba.createSelect("Station");
 		ResultSet rs = dba.commit();

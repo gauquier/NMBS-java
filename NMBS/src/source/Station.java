@@ -13,6 +13,10 @@ public class Station {
 		this.naam = naam;
 		this.verlorenVoorwerpen=verlorenVoorwerpen;
 	}
+	public Station(int stationID, String naam) {
+		this.stationID = stationID;
+		this.naam = naam;
+	}
 	
 	public Station(int stationID){
 		this.stationID = stationID;
@@ -95,6 +99,7 @@ public class Station {
 
 	@Override
 	public String toString() {
-		return "Station [stationID=" + stationID + ", naam=" + naam + ", verlorenVoorwerpen=" + verlorenVoorwerpen + "]";
+		return naam;
+
 	}
 }

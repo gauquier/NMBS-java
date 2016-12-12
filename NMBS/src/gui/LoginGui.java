@@ -138,7 +138,7 @@ public class LoginGui {
 								if(databasePassword.equals(DualHash.hashString(password))){
 									int loginId = LoginDao.getLoginId(username);
 									if(LoginDao.getActief(loginId) == 1){
-										login = new Login(username);
+										login = new Login(loginId, username, "");
 
 										closeFrame();
 										KiesStationGui.start();

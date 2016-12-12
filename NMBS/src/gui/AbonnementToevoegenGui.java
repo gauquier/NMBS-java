@@ -94,7 +94,7 @@ public class AbonnementToevoegenGui extends JPanel {
 		
 		txtPrijs = new JTextField();
 		txtPrijs.setColumns(10);
-		txtPrijs.setText(new Double(PrijsDAO.getPrijsByVerkoopType(VerkoopType.ABONNEMENT.toString())).toString());
+		txtPrijs.setText(new Double(PrijsDAO.getPrijsByVerkoopType(VerkoopType.ABONNEMENT)).toString());
 		
 		txtDuur = new JTextField();
 		txtDuur.setColumns(10);
