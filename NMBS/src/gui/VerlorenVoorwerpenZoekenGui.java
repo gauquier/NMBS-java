@@ -1,94 +1,129 @@
-package gui;
 
+package gui;
 import javax.swing.JPanel;
-import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.border.Border;
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.UIManager;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import com.jgoodies.forms.factories.DefaultComponentFactory;
-import source.Validation;
-import javax.swing.JTextArea;
+import java.awt.Font;
+import java.util.ArrayList;
+import dao.StationDAO;
+import dao.VerlorenVoorwerpDAO;
+import source.Station;
+import source.VerlorenVoorwerp;
+
+import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JList;
+import java.awt.SystemColor;
+
 
 public class VerlorenVoorwerpenZoekenGui extends JPanel {
-	private JTextField txtDatum;
+	private JComboBox stationLijst;
 	private JButton btnZoeken;
-	private JLabel lblDatumerror;
-	private JTextArea txtrBeschrijving;
-	private Border border = BorderFactory.createEmptyBorder();
-	private Border bordererror = BorderFactory.createLineBorder(Color.RED, 3);
+	private StationDAO stationDAO = new StationDAO();
+	private VerlorenVoorwerpDAO verlorenVoorwerpDAO = new VerlorenVoorwerpDAO();
+	private JList<VerlorenVoorwerp> list;
+	private ArrayList<VerlorenVoorwerp> arrayLijst;
+	private ArrayList<Object> objecten;
+	private DefaultListModel<VerlorenVoorwerp> dlm;
+	
 	
 	public VerlorenVoorwerpenZoekenGui() {
-		setBackground(new Color(0, 191, 255));
+		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
-		JLabel lblBeschrijving = new JLabel("Beschrijving");
-		lblBeschrijving.setForeground(Color.WHITE);
-		
-		JLabel lblDatum = new JLabel("Datum");
-		lblDatum.setForeground(Color.WHITE);
-		
-		txtDatum = new JTextField();
-		txtDatum.setColumns(10);
+		JLabel lblStation = new JLabel("Station");
+		lblStation.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblStation.setForeground(Color.WHITE);
 		
 		btnZoeken = new JButton("Zoeken");
+		btnZoeken.addActionListener(new MenuItemHandler());
 		
 		JLabel lblVerlorenVoorwerpenZoeken = DefaultComponentFactory.getInstance().createTitle("Verloren voorwerpen zoeken");
+		lblVerlorenVoorwerpenZoeken.setForeground(Color.ORANGE);
+		lblVerlorenVoorwerpenZoeken.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
-		lblDatumerror = new JLabel("");
-		lblDatumerror.setForeground(Color.RED);
+		stationLijst = new JComboBox();
+		ArrayList<Station> lijst = stationDAO.getAll();
+		for (Station station : lijst) {
+			stationLijst.addItem(station);
+		}
 		
-		txtrBeschrijving = new JTextArea();
+		
+		stationLijst.setSelectedIndex(0);;//veranderen naar current user station id
+		arrayLijst= new ArrayList<VerlorenVoorwerp>();
+		arrayLijst = verlorenVoorwerpDAO.getVerlorenVoorwerpByStation(1);//veranderen naar current user station id
+		DefaultListModel<VerlorenVoorwerp> dlm = new DefaultListModel<VerlorenVoorwerp>();
+		for(VerlorenVoorwerp v : arrayLijst){
+			dlm.addElement(v);
+		}
+		
+		list = new JList<VerlorenVoorwerp>(dlm);
+		list.setBackground(SystemColor.menu);
+		
+		stationLijst.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				
+				arrayLijst.clear();
+				
+				dlm.removeAllElements();
+				
+				arrayLijst= new ArrayList<VerlorenVoorwerp>();
+				arrayLijst = verlorenVoorwerpDAO.getVerlorenVoorwerpByStation(stationDAO.checkStation(stationLijst.getSelectedItem().toString()));//veranderen naar current user station id
+				
+				
+				for(VerlorenVoorwerp v : arrayLijst){
+					dlm.addElement(v);
+				}
+				
+				list = new JList<VerlorenVoorwerp>(dlm);
+				
+			}
+		});
+		
+		
+
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(251)
+					.addComponent(lblVerlorenVoorwerpenZoeken, GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+					.addGap(255))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(42)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(list, GroupLayout.PREFERRED_SIZE, 701, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(72)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblBeschrijving)
-								.addComponent(lblDatum))
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(347)
-									.addComponent(lblDatumerror))
-								.addComponent(txtDatum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(txtrBeschrijving, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(118)
-							.addComponent(btnZoeken))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(39)
-							.addComponent(lblVerlorenVoorwerpenZoeken)))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+							.addComponent(lblStation)
+							.addGap(30)
+							.addComponent(stationLijst, GroupLayout.PREFERRED_SIZE, 219, GroupLayout.PREFERRED_SIZE)
+							.addGap(54)
+							.addComponent(btnZoeken)))
+					.addContainerGap(35, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(23)
+					.addGap(30)
 					.addComponent(lblVerlorenVoorwerpenZoeken)
-					.addGap(18)
+					.addGap(21)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblBeschrijving)
-						.addComponent(txtrBeschrijving, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblDatum)
-						.addComponent(lblDatumerror)
-						.addComponent(txtDatum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addComponent(btnZoeken)
-					.addContainerGap(102, Short.MAX_VALUE))
+						.addComponent(stationLijst, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblStation)
+						.addComponent(btnZoeken, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+					.addGap(36)
+					.addComponent(list, GroupLayout.PREFERRED_SIZE, 237, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(337, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 	}
@@ -97,24 +132,20 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 		this.setVisible(false);
 	}
 	
-	private class MenuItemHandler implements ActionListener{
+	
+	
+	
+	private class MenuItemHandler implements ActionListener {
 
-		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == btnZoeken){
-				lblDatumerror.setText("");
-				txtDatum.setBorder(border);
-				
-				if (!txtrBeschrijving.getText().isEmpty() && !txtDatum.getText().isEmpty()){
-					if (!Validation.checkDate(txtDatum.getText(), "dd/MM/yyyy")){
-						lblDatumerror.setText("Gelieve een juiste datum in te vullen!");
-						txtDatum.setBorder(bordererror);
-					}
-				}
-				else{
-					JOptionPane.showMessageDialog(new JFrame(),"Please fill in all required fields!");
-				}
+
+			if (e.getSource() == btnZoeken) 
+			{
+			
+						
 			}
+			
 		}
+
 	}
 }

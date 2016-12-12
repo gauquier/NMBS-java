@@ -45,11 +45,20 @@ public class StationDAO {
 		}
 		return 0;
 	}
+<<<<<<< HEAD
 
 	public static int checkStation(String naam) {
 		dba.createSelect("Station", "stationId");
 		dba.addWhere("naam", naam);
 
+=======
+	
+	public int checkStation(String naam){
+		dba.createSelect("Station", "stationId");
+		dba.addWhere("naam", naam);
+		
+		
+>>>>>>> refs/remotes/origin/Marwane
 		ResultSet rs = dba.commit();
 		try {
 			if (rs.next()) {
@@ -61,9 +70,37 @@ public class StationDAO {
 		}
 		return 0;
 	}
+<<<<<<< HEAD
 
 	public static int checkStationZone(String stationZone) {
 
+=======
+	
+	public ArrayList<Station> getAll(){
+		dba.createSelect("Station");
+		ArrayList<Station> lijst = new ArrayList<>();
+		ResultSet rs = dba.commit();
+		
+		try {
+			while(rs.next()){
+				 String naam = rs.getString(2);
+				 
+				 Station station = new Station(naam);
+				 
+				 lijst.add(station);
+			}
+			return lijst;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
+		return null ;
+	}
+	 
+	public static int checkStationZone(String stationZone){
+		
+>>>>>>> refs/remotes/origin/Marwane
 		dba.createSelect("Station", "stationId");
 		dba.addWhere("zone", stationZone);
 		ResultSet rs = dba.commit();
@@ -141,6 +178,7 @@ public class StationDAO {
 
 	}
 
+<<<<<<< HEAD
 	// public static void main(String[] args) {
 	/*
 	 * ArrayList<VerlorenVoorwerp> vv = new ArrayList<VerlorenVoorwerp>();
@@ -152,4 +190,27 @@ public class StationDAO {
 	 * System.out.println(sd.getStationId(f));
 	 */
 	// }
+=======
+	public static void main(String[] args) {
+		/*ArrayList<VerlorenVoorwerp> vv = new ArrayList<VerlorenVoorwerp>(); 
+		vv.add(new VerlorenVoorwerp(-1, "gsm", new java.sql.Date(11,11,1900), false));
+		Station s = new Station(-1, "Luxembourg","brussel", 2, 2, false, true, vv);
+		StationDAO sd = new StationDAO();
+		System.out.println(sd.getStationId(s));
+		sd.insertStation(s);
+		System.out.println(sd.getStation(sd.getStationId(s)).getZone());
+		System.out.println(sd.getStationId(f));
+		StationDAO st = new StationDAO();
+		StationDAO sd = new StationDAO();
+		System.out.println(sd.getStationIdByNaam("ds"));*/
+		StationDAO aDao = new StationDAO();
+		ArrayList<Station> lijst = aDao.getAll();
+		
+		for (int i = 0; i < lijst.size(); i++) {
+			System.out.println(lijst.get(i));
+			
+		}
+	
+	}
+>>>>>>> refs/remotes/origin/Marwane
 }
