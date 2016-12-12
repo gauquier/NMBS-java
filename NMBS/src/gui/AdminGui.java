@@ -114,6 +114,7 @@ public class AdminGui extends JFrame {
 		verkoop = new JMenu("Verkoop");
 		verkoop.setHorizontalAlignment(SwingConstants.CENTER);
 		verkoop.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		verkoop.setBackground(Color.ORANGE);
 		verkoop.setOpaque(true);
 		routeInfo = new JMenuItem("Route info");
 		routeInfo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -235,7 +236,6 @@ public class AdminGui extends JFrame {
 			else if (e.getSource()==uitloggen)
 			{
 				setHuidigeKeuze(null);
-				LoginGui.start();
 			}
 			else if (e.getSource() == home){
 
