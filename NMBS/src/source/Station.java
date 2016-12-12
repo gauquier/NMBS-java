@@ -5,50 +5,31 @@ import java.util.ArrayList;
 public class Station {
 	private int stationID;
 	private String naam;
-	private String zone;
-	private int aantalLoketten;
-	private int parkingplaatsen;
-	private boolean wifi;
-	private boolean gehandicapte;
 	private static String currentStation;
 	private ArrayList<VerlorenVoorwerp> verlorenVoorwerpen = new ArrayList<VerlorenVoorwerp>();
 	
-	public Station(int stationID, String naam, String zone, int aantalLoketten, int parkingplaatsen, boolean wifi,
-			boolean gehandicapte, ArrayList<VerlorenVoorwerp> verlorenVoorwerpen) {
-		super();
+	public Station(int stationID, String naam, ArrayList<VerlorenVoorwerp> verlorenVoorwerpen) {
 		this.stationID = stationID;
 		this.naam = naam;
-		this.zone = zone;
-		this.aantalLoketten = aantalLoketten;
-		this.parkingplaatsen = parkingplaatsen;
-		this.wifi = wifi;
-		this.gehandicapte = gehandicapte;
+		this.verlorenVoorwerpen=verlorenVoorwerpen;
 	}
 	
 	public Station(int stationID){
 		this.stationID = stationID;
-	}
-
-	/**
-	 * @param currentStation
-	 */
+	} 
 	public Station(String currentStation) {
 		super();
 		this.currentStation = currentStation;
 	}
-
 	public void addVerlorenVoorwerp(VerlorenVoorwerp station){
 		verlorenVoorwerpen.add(station);
-	}
-	
+	} 
 	public void delVerlorenVoorwerp(VerlorenVoorwerp station){
 		verlorenVoorwerpen.remove(station);
-	}
-	
+	} 
 	public ArrayList<VerlorenVoorwerp> getVerlorenVoorwerpen() {
 		return verlorenVoorwerpen;
-	}
-
+	} 
 	public void setVerlorenVoorwerpen(ArrayList<VerlorenVoorwerp> verlorenVoorwerpen) {
 		this.verlorenVoorwerpen = verlorenVoorwerpen;
 	}
@@ -60,38 +41,7 @@ public class Station {
 	public void setStationID(int stationID) {
 		this.stationID = stationID;
 	}
-	public String getZone() {
-		return zone;
-	}
-	public void setZone(String zone) {
-		this.zone = zone;
-	}
-	public int getAantalLoketten() {
-		return aantalLoketten;
-	}
-	public void setAantalLoketten(int aantalLoketten) {
-		this.aantalLoketten = aantalLoketten;
-	}
-	public int getParkingplaatsen() {
-		return parkingplaatsen;
-	}
-	public void setParkingplaatsen(int parkingplaatsen) {
-		this.parkingplaatsen = parkingplaatsen;
-	}
-
-	public boolean getWifi() {
-		return wifi;
-	}
-	public void setWifi(boolean wifi) {
-		this.wifi = wifi;
-	}
-	public boolean getGehandicapte() {
-		return gehandicapte;
-	}
-	public void setGehandicapte(boolean gehandicapte) {
-		this.gehandicapte = gehandicapte;
-	}
-	
+	 
 	public String getNaam() {
 		return naam;
 	}
@@ -112,7 +62,6 @@ public class Station {
 	public void setCurrentStation(String currentStation) {
 		this.currentStation = currentStation;
 	}
-
 	/* (non-Javadoc)
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -146,9 +95,6 @@ public class Station {
 
 	@Override
 	public String toString() {
-		return "Station [stationID=" + stationID + ", naam=" + naam + ", zone=" + zone + ", aantalLoketten="
-				+ aantalLoketten + ", parkingplaatsen=" + parkingplaatsen + ", wifi=" + wifi + ", gehandicapte="
-				+ gehandicapte + ", verlorenVoorwerpen=" + verlorenVoorwerpen + "]";
+		return "Station [stationID=" + stationID + ", naam=" + naam + ", verlorenVoorwerpen=" + verlorenVoorwerpen + "]";
 	}
-	
 }

@@ -92,6 +92,20 @@ public class MedewerkerDAO {
 		try {
 			if(rs.next()){
 				Persoon persoon = PersoonDao.getPersoon(id);
+			}
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public static Medewerker getMedewerkerByLogin(int id){
+		dba.createSelect("Medewerker");
+		dba.addWhere("loginId", id);
+		ResultSet rs = dba.commit();
+		try {
+			if(rs.next()){
+				Persoon persoon = PersoonDao.getPersoon(rs.getInt(3));
 				return new Medewerker(persoon.getId(), persoon.getVoornaam(), persoon.getAchternaam(), persoon.getEmail(), persoon.getAdres(),
 						rs.getInt(1), RolDAO.getRol(rs.getInt(4)), LoginDao.getLogin(rs.getInt(2)), rs.getBoolean(5));
 			}

@@ -89,7 +89,7 @@ public class DBA {
 		{
 			if(type == Type.INSERT)
 			{
-				sql = sql + ", \"" + value + "\"";
+			sql = sql + ", \"" + value + "\"";
 			}
 			else{
 				System.out.println("can only add values when type = INSERT");
@@ -162,9 +162,16 @@ public class DBA {
 		{
 			if(type == Type.INSERT)
 			{
+<<<<<<< HEAD
 				String datum;
 				datum = value;
 				sql = sql + ", \"" + datum + "\"";
+=======
+			String datum;
+			datum = value;
+			sql = sql + ", \"" + datum + "\"";
+			
+>>>>>>> df38cd824381e0733d77fa46bb270e7066be76ec
 			}
 			else{
 				System.out.println("can only add values when type = INSERT");
@@ -173,6 +180,7 @@ public class DBA {
 		
 		public void addWhere(String columnName, String value) // ... WHERE columnName = value
 		{
+			
 			if(type == Type.UPDATE || type == Type.SELECT)
 			{
 				if(!isWhere)
@@ -186,6 +194,7 @@ public class DBA {
 				System.out.println("can only add WHERE clausule when type = UPDATE or type = SELECT");
 			}
 		}
+		
 		public void addWhereLike(String columnName, String value) // ... WHERE columnName = value
 		{
 			if(type == Type.UPDATE || type == Type.SELECT)
@@ -291,8 +300,7 @@ public class DBA {
 			      
 			     if(type == Type.SELECT)
 			     {
-			      rs = stmt.executeQuery(sql);
-			      
+			      rs = stmt.executeQuery(sql); 
 			     }
 			     else if(type == Type.UPDATE || type == Type.INSERT)
 			     {

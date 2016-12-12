@@ -30,8 +30,7 @@ public class Parser {
 		NamedNodeMap m = n.getAttributes(); 
 		return new Station(
 				0,
-				n.getFirstChild().getNodeValue(),
-				"N.V.T.",0,0,false,false,
+				n.getFirstChild().getNodeValue(), 
 				new ArrayList<>());
 	} 
 	

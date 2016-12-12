@@ -12,7 +12,6 @@ public enum VerkoopType {
 		case "PLUS60" : return VerkoopType.PLUS60;
 		case "JUMP" : return VerkoopType.JUMP;
 		}
-		
 		return null;
 	}
 }

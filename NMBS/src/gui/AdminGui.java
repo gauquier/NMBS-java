@@ -243,8 +243,7 @@ public class AdminGui extends JFrame {
 				setHuidigeKeuze(new HomeGui());
 			}
 			else if (e.getSource() == ticketVerkoop){
-				if (HuidigeKeuze!=null){HuidigeKeuze.setVisible(false);}
-				new VerkoopController();
+				setHuidigeKeuze(new TicketVerkoopGui());
 			}
 			else if (e.getSource() == routeInfo){
 				setHuidigeKeuze(new RouteZoekenGui());
