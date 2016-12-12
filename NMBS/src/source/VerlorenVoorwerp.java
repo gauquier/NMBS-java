@@ -11,7 +11,6 @@ public class VerlorenVoorwerp {
 	private boolean gevonden;
 
 	public VerlorenVoorwerp(int verlorenVoorwerpId, String beschrijving,Date date, boolean gevonden) {
-		super();
 		this.verlorenVoorwerpId = verlorenVoorwerpId;
 		this.beschrijving = beschrijving;
 		this.date = date;
