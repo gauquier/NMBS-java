@@ -40,7 +40,7 @@ public class AdresDAO {
 		try {
 			if(rs.next())
 			{
-				adres = new Adres(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getInt(5),(char) rs.getInt(6));
+				adres = new Adres(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getInt(5), rs.getString(6));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -150,10 +150,13 @@ public class AdminGui extends JFrame {
 		
 		gebruikersToevoegen = new JMenuItem("Gebruiker toevoegen");
 		gebruikersToevoegen.addActionListener(new MenuItemHandler());
-		gebruikersBeheer = new JMenuItem("Gebruikers beheren");
-		gebruikersBeheer.addActionListener(new MenuItemHandler());
+		gebruikersVerwijderen = new JMenuItem("Gebruiker verwijderen");
+		gebruikersVerwijderen.addActionListener(new MenuItemHandler());
+		adminToevoegen = new JMenuItem("Admin toevoegen");
+		adminToevoegen.addActionListener(new MenuItemHandler());
 		gebruikers.add(gebruikersToevoegen);
-		gebruikers.add(gebruikersBeheer);
+		gebruikers.add(gebruikersVerwijderen);
+		gebruikers.add(adminToevoegen);
 		
 		ticketVerkoop = new JMenuItem("Ticketverkoop");
 		ticketVerkoop.setBackground(Color.WHITE);
@@ -196,6 +199,9 @@ public class AdminGui extends JFrame {
 				setHuidigeKeuze(new GebruikerBewerkenGui());
 			}
 		
+			
+			
+			
 			else if (e.getSource()==uitloggen)
 			{
 				setHuidigeKeuze(null);

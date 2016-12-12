@@ -1,15 +1,4 @@
-<<<<<<< HEAD
-/source/
-/handler/
-=======
-/api/
-/api_logic/
->>>>>>> refs/remotes/origin/Robin
-/dao/
-/gui/
-<<<<<<< HEAD
-=======
-/handler/
 /iRailExamples/
 /source/
->>>>>>> refs/remotes/origin/Robin
+/dao/
+/gui/
