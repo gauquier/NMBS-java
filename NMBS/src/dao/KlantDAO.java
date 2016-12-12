@@ -78,7 +78,7 @@ public static void bijwerkenKlant(int klantId, int persoonId, Persoon persoon, S
 	        stmt.setInt(2, adres.getHuisnr());
 	        stmt.setString(3, adres.getWoonplaats());
 	        stmt.setInt(4, adres.getPostcode());
-	        stmt.setInt(5, adres.getBus());
+	        stmt.setString(5, adres.getBus());
 	        stmt.setInt(6, adresId);
 	        stmt.executeUpdate();
 	       
