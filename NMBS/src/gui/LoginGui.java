@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import dao.CheckIfConnected;
 import dao.LoginDao;
 import handler.Controller;
 import source.Login;
@@ -116,6 +117,11 @@ public class LoginGui {
 
 	private class ButtonHandler implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			if (!(CheckIfConnected.checkIfConnected()))//als er geen internetverbinding is
+			{
+				JOptionPane.showMessageDialog(new JFrame(), "Er is geen internetverbinding.");
+				return;
+			}
 			if (e.getSource() == btnLogin || e.getSource() == txtPassword) {
 
 				String username = txtUsername.getText().trim();

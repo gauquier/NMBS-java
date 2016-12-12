@@ -39,4 +39,13 @@ public class Connection {
 	public void setPool(PooledConnection pool) {
 		this.pool = pool;
 	}
+	
+	public static void close() {
+		try {
+			DriverManager.getConnection(connectionString, username, password).close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
