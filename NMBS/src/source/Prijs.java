@@ -1,23 +1,23 @@
 package source;
 
-public class VerkoopTypeNew {
-	private int verkooptypeId;
+public class Prijs {
+	private int prijsId;
 	private String verkoopType;
 	private double prijs;
 	
-	public VerkoopTypeNew(int verkooptypeId, String verkoopType, double prijs) {
+	public Prijs(int prijsId, String verkoopType, double prijs) {
 		super();
-		setVerkooptypeId(verkooptypeId);
+		setPrijsId(prijsId);
 		setVerkoopType(verkoopType);
 		setPrijs(prijs);
 	}
 
-	public int getVerkooptypeId() {
-		return verkooptypeId;
+	public int getPrijsId() {
+		return prijsId;
 	}
 
-	public void setVerkooptypeId(int verkooptypeId) {
-		this.verkooptypeId = verkooptypeId;
+	public void setPrijsId(int prijsId) {
+		this.prijsId = prijsId;
 	}
 
 	public String getVerkoopType() {

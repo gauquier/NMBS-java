@@ -4,13 +4,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import source.VerkoopTypeNew;
+import source.Prijs;
 
-public class VerkoopTypeDAO {
+public class PrijsDAO {
 	private static DBA dba = new DBA();
 	
+	public static void updatePrijsByVerkoopType(String verkoopType, double nieuwePrijs) {
+		dba.createUpdate("Prijs", "prijs", nieuwePrijs);
+		dba.addWhere("verkoopType", verkoopType);
+		dba.commit();
+	}
+	
 	public static double getPrijsByVerkoopType(String verkoopType) {
-		dba.createSelect("VerkoopType", "prijs");
+		dba.createSelect("Prijs", "prijs");
 		dba.addWhere("verkoopType", verkoopType);
 		ResultSet rs = dba.commit();
 		try {
@@ -25,18 +31,17 @@ public class VerkoopTypeDAO {
 		return 0;
 	};
 	
-	public static ArrayList<VerkoopTypeNew> getAllVerkoopTypes(){
-		ArrayList<VerkoopTypeNew> verkoopTypes = new ArrayList<VerkoopTypeNew>();
+	public static ArrayList<Prijs> getAllPrijzen(){
+		ArrayList<Prijs> prijzen = new ArrayList<Prijs>();
 		dba.createSelect("VerkoopType");
-		dba.addWhere("actief", true);
 		ResultSet rs = dba.commit();
 		try {
 			while(rs.next()){
-				verkoopTypes.add(new VerkoopTypeNew(rs.getInt(1),rs.getString(2),rs.getDouble(3)));
+				prijzen.add(new Prijs(rs.getInt(1),rs.getString(2),rs.getDouble(3)));
 			}
 			
 			
-			return verkoopTypes;
+			return prijzen;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -45,10 +50,10 @@ public class VerkoopTypeDAO {
 	}
 	
 	/*
-	public static void insertVerkoopType(VerkoopTypeNew verkoopType){
-		dba.createInsert("VerkoopType");
-		dba.addValue(verkoopType.getVerkoopType());
-		dba.addValue(verkoopType.getPrijs());
+	public static void insertVerkoopType(Prijs prijs){
+		dba.createInsert("Prijs");
+		dba.addValue(prijs.getVerkoopType());
+		dba.addValue(prijs.getPrijs());
 		dba.commit();
 	}
 	*/
