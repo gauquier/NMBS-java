@@ -1,6 +1,7 @@
 
 package gui;
 import javax.swing.JPanel;
+import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -13,10 +14,15 @@ import java.util.ArrayList;
 import dao.StationDAO;
 import dao.VerlorenVoorwerpDAO;
 import source.Station;
+import source.VerlorenVoorwerp;
+
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
+import java.awt.SystemColor;
 
 
 public class VerlorenVoorwerpenZoekenGui extends JPanel {
@@ -24,7 +30,10 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 	private JButton btnZoeken;
 	private StationDAO stationDAO = new StationDAO();
 	private VerlorenVoorwerpDAO verlorenVoorwerpDAO = new VerlorenVoorwerpDAO();
-	
+	private JList<VerlorenVoorwerp> list;
+	private ArrayList<VerlorenVoorwerp> arrayLijst;
+	private ArrayList<Object> objecten;
+	private DefaultListModel<VerlorenVoorwerp> dlm;
 	
 	
 	public VerlorenVoorwerpenZoekenGui() {
@@ -35,10 +44,7 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 		lblStation.setForeground(Color.WHITE);
 		
 		btnZoeken = new JButton("Zoeken");
-		btnZoeken.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+		btnZoeken.addActionListener(new MenuItemHandler());
 		
 		JLabel lblVerlorenVoorwerpenZoeken = DefaultComponentFactory.getInstance().createTitle("Verloren voorwerpen zoeken");
 		lblVerlorenVoorwerpenZoeken.setForeground(Color.ORANGE);
@@ -50,8 +56,39 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 			stationLijst.addItem(station);
 		}
 		
-		JList list = new JList();
 		
+		stationLijst.setSelectedIndex(0);;//veranderen naar current user station id
+		arrayLijst= new ArrayList<VerlorenVoorwerp>();
+		arrayLijst = verlorenVoorwerpDAO.getVerlorenVoorwerpByStation(1);//veranderen naar current user station id
+		DefaultListModel<VerlorenVoorwerp> dlm = new DefaultListModel<VerlorenVoorwerp>();
+		for(VerlorenVoorwerp v : arrayLijst){
+			dlm.addElement(v);
+		}
+		
+		list = new JList<VerlorenVoorwerp>(dlm);
+		list.setBackground(SystemColor.menu);
+		
+		stationLijst.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				
+				arrayLijst.clear();
+				
+				dlm.removeAllElements();
+				
+				arrayLijst= new ArrayList<VerlorenVoorwerp>();
+				arrayLijst = verlorenVoorwerpDAO.getVerlorenVoorwerpByStation(stationDAO.checkStation(stationLijst.getSelectedItem().toString()));//veranderen naar current user station id
+				
+				
+				for(VerlorenVoorwerp v : arrayLijst){
+					dlm.addElement(v);
+				}
+				
+				list = new JList<VerlorenVoorwerp>(dlm);
+				
+			}
+		});
 		
 		
 
@@ -84,9 +121,9 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 						.addComponent(stationLijst, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblStation)
 						.addComponent(btnZoeken, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-					.addGap(34)
-					.addComponent(list, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(290, Short.MAX_VALUE))
+					.addGap(36)
+					.addComponent(list, GroupLayout.PREFERRED_SIZE, 237, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(337, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 	}
@@ -94,6 +131,7 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 	{
 		this.setVisible(false);
 	}
+	
 	
 	
 	
@@ -106,7 +144,7 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 			
 						
 			}
-
+			
 		}
 
 	}

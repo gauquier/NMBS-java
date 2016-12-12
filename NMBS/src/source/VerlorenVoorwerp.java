@@ -50,11 +50,14 @@ public class VerlorenVoorwerp {
 	public void setGevonden(boolean gevonden) {
 		this.gevonden = gevonden;
 	}
-	
+	public static String padRight(String s, int n) {
+	     return String.format("%1$-" + n + "s", s);  
+	}
+
 	@Override
 	public String toString() {
-		return "VerlorenVoorwerp [verlorenVoorwerpId=" + verlorenVoorwerpId + ", beschrijving=" + beschrijving
-				+ ", date=" + date + ", gevonden=" + gevonden + "]";
+		
+		return date + "      " + beschrijving + padRight( "", 10) + gevonden; 
 	}
 
 }
