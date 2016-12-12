@@ -84,6 +84,38 @@ public class MedewerkerDAO {
 		}
 		return null;
 	}
+	
+	public static Medewerker getMedewerkerByPersoonId(int id){
+		dba.createSelect("Medewerker");
+		dba.addWhere("persoonId", id);
+		ResultSet rs = dba.commit();
+		try {
+			if(rs.next()){
+				Persoon persoon = PersoonDao.getPersoon(id);
+			}
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public static Medewerker getMedewerkerByLogin(int id){
+		dba.createSelect("Medewerker");
+		dba.addWhere("loginId", id);
+		ResultSet rs = dba.commit();
+		try {
+			if(rs.next()){
+				Persoon persoon = PersoonDao.getPersoon(rs.getInt(3));
+				return new Medewerker(persoon.getId(), persoon.getVoornaam(), persoon.getAchternaam(), persoon.getEmail(), persoon.getAdres(),
+						rs.getInt(1), RolDAO.getRol(rs.getInt(4)), LoginDao.getLogin(rs.getInt(2)), rs.getBoolean(5));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public static ArrayList<Medewerker> getAllMedewerkers(){
 		ArrayList<Medewerker> medewerkers = new ArrayList<Medewerker>();
 		Persoon persoon = null;
@@ -118,6 +150,30 @@ public class MedewerkerDAO {
 		return null;
 	}
 	
+	public static ArrayList<Medewerker> getAllMedewerkersFromSearch(String search){
+		ArrayList<Medewerker> medewerkers = new ArrayList<Medewerker>();
+		Persoon persoon = null;
+		String search2 = "%"+search+"%";
+		dba.createSelect("Persoon");
+		dba.addWhereLike("Voornaam", search2);
+		ResultSet rs2 = dba.commit();
+		try {
+			while(rs2.next()){
+				persoon = PersoonDao.getPersoon(rs2.getInt(1));
+				Medewerker medewerker = MedewerkerDAO.getMedewerkerByPersoonId(persoon.getId());
+				medewerkers.add(new Medewerker(persoon.getId(), persoon.getVoornaam(), persoon.getAchternaam(), persoon.getEmail(), persoon.getAdres(),
+						medewerker.getMedewerkerId() , medewerker.getRol(), medewerker.getLogin(), true));
+				System.out.println(persoon);
+			}
+			return medewerkers;
+			 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public static void removeMedewerker(int id){
 		dba.createUpdate("Medewerker", "actief", 0);;
 		dba.addWhere("medewerkerId", id);
@@ -143,7 +199,7 @@ public class MedewerkerDAO {
 	        stmt.setInt(2, adres.getHuisnr());
 	        stmt.setString(3, adres.getWoonplaats());
 	        stmt.setInt(4, adres.getPostcode());
-	        stmt.setInt(5, adres.getBus());
+	        stmt.setString(5, adres.getBus());
 	        stmt.setInt(6, adresId);
 	        stmt.executeUpdate();
 	       
@@ -164,14 +220,3 @@ public class MedewerkerDAO {
 	
 	
 }
-
-
-
-
-
-
-
-
-
-
-

@@ -190,7 +190,7 @@ public class Medewerker extends Persoon {
 	
 	public String toString()
 	{
-			return getVoornaam() + " " + getAchternaam() + " (" + getRol().getRol() +")";
+		return getVoornaam() + " " + getAchternaam() + " (" + getRol().getRol() +")";
 	}
 
 }

@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
+import Hashing.DualHash;
 import dao.LoginDao;
 import dao.MedewerkerDAO;
 import source.Adres;
@@ -33,7 +34,7 @@ public class WachtwoordVeranderenGui extends JPanel {
 	private JPasswordField pwdHuidigWachtwoord;
 	
 	public WachtwoordVeranderenGui() {
-		setBackground(UIManager.getColor("ComboBox.selectionBackground"));
+		setBackground(new Color(0, 191, 255));
 		
 		JLabel lblWachtwoordWijzigen = DefaultComponentFactory.getInstance().createTitle("Wachtwoord wijzigen");
 		
@@ -145,7 +146,12 @@ public class WachtwoordVeranderenGui extends JPanel {
 					if (databasePassword.equals(huidigWachtwoord)){
 					
 					if (nieuwWachtwoord.equals(herhaalwachtwwoord)){
-						LoginDao.updateWachtwoord(nieuwWachtwoord);
+						try {
+							LoginDao.updateWachtwoord(DualHash.hashString(nieuwWachtwoord));
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 						JOptionPane.showMessageDialog(new JFrame(), "Uw wachtwoord is aangepast!");
 						close();
 					}

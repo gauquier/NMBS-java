@@ -44,6 +44,9 @@ public class RolDAO {
 			e.printStackTrace();
 		}
 		return null;
+	} 
+	public static Rol zoekRolOpRolId(int rolId) throws Exception{ 
+		return null;
 	}
 	/*
 public static void main(String[] args) {

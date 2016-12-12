@@ -8,8 +8,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 import javax.sql.PooledConnection;
-import org.apache.commons.net.ftp.FTP;
-import org.apache.commons.net.ftp.FTPClient;
 
 public class Connection {
 	//FTP
@@ -21,13 +19,12 @@ public class Connection {
 	private static String username = "SP2NMBS";
 	private static String password = "JZde2p";
 	private static String connectionString = "jdbc:mysql://dt5.ehb.be/SP2NMBS";
-	private static FTPClient ftpClient;
+
 	private static PooledConnection pool;
 
 
 	public static java.sql.Connection getDBConnection(){
-		try { 
-			
+		try {        	
 			return DriverManager.getConnection(connectionString, username, password);
 		}catch (SQLException e){
 			e.printStackTrace();            
