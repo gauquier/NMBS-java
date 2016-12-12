@@ -221,13 +221,13 @@ public class GebruikerBewerkenGui extends JPanel {
 					AdminGui.setHuidigeKeuze(new GebruikerBijwerkenGui(list.getSelectedValue()));
 				}
 			}
-			
+		
 			if (e.getSource() == btnVerwijderen) {
 				if(!unknownIndex()){
 					return;
 				} else {
 				int n = OkCancel("Ben je zeker dat je " + list.getSelectedValue().getVoornaam() + " " + list.getSelectedValue().getAchternaam() + " wil verwijderen?");	
-					
+				
 				if(n==0){
 				MedewerkerDAO.removeMedewerker(list.getSelectedValue().getId());
 				((DefaultListModel<Medewerker>)list.getModel()).remove(list.getSelectedIndex());
@@ -236,11 +236,12 @@ public class GebruikerBewerkenGui extends JPanel {
 					return;
 				}
 			}
-			
+			}
 			if(e.getSource() == btnPasswordReset){
+				System.out.println("test");
 				if(!unknownIndex()){
 					return;
-				} else {
+			 } else {
 					
 					String wachtwoord =  new String("reset1");
 					
@@ -259,5 +260,5 @@ public class GebruikerBewerkenGui extends JPanel {
 			
 		}
 	}
-	}
 }
+
