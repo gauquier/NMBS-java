@@ -21,7 +21,7 @@ public class AbonnementDAO {
 		dba.addValue(abonnement.getDepZone());
 		dba.addValue(abonnement.getArrZone());
 		dba.addValue(abonnement.getPrijs());
-		dba.addValue(1);
+		dba.addValue(abonnement.getVerkoop().toString());
 		dba.addValue(abonnement.getKorting());
 		dba.addValue(1);
 		dba.commit();

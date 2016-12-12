@@ -6,16 +6,15 @@ public class Abonnement extends Aankoop {
 	private String depZone, arrZone;
 	private boolean actief;
 	
-	public Abonnement(double korting, double prijs, VerkoopType verkoop, Klant klant, String depZone, String arrZone, boolean actief) {
+	public Abonnement(double korting, double prijs, VerkoopType verkoop, Klant klant, String depZone, String arrZone,
+			boolean actief) {
 		super(korting, prijs, verkoop);
 		this.klant = klant;
 		this.depZone = depZone;
 		this.arrZone = arrZone;
-		this.actief=actief;
+		this.actief = actief;
 	}
 
-	
-	
 	public Abonnement(double korting, double prijs, VerkoopType verkoop, Klant klant, String depZone, String arrZone) {
 		super(korting, prijs, verkoop);
 		this.klant = klant;
@@ -56,7 +55,7 @@ public class Abonnement extends Aankoop {
 	public void setActief(boolean actief) {
 		this.actief = actief;
 	}
-	
+
 	
 	
 	
