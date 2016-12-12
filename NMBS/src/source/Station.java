@@ -14,11 +14,6 @@ public class Station {
 		this.verlorenVoorwerpen=verlorenVoorwerpen;
 	}
 	
-	public Station (String naam){
-		super();
-		this.naam = naam;
-	}
-	
 	public Station(int stationID){
 		this.stationID = stationID;
 	} 
@@ -100,10 +95,7 @@ public class Station {
 
 	@Override
 	public String toString() {
-<<<<<<< HEAD
-		return "Station [stationID=" + stationID + ", naam=" + naam + ", verlorenVoorwerpen=" + verlorenVoorwerpen + "]";
-=======
 		return naam;
->>>>>>> refs/remotes/origin/Marwane
+
 	}
 }
