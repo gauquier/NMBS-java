@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -26,6 +27,7 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 import dao.MedewerkerDAO;
 import dao.StationDAO;
 import handler.VerkoopController;
+import javafx.scene.control.ComboBox;
 import source.Login;
 import source.Station;
 import source.Ticket;
@@ -39,8 +41,6 @@ import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class TicketVerkoopGui extends JPanel {
-	private JTextField txtVan;
-	private JTextField txtNaar;
 	private JTable table;
 	private JSpinner heenDag = new JSpinner();
 	private JSpinner heenMaand = new JSpinner();
@@ -64,6 +64,8 @@ public class TicketVerkoopGui extends JPanel {
 	private JRadioButton rdbtnHeen = new JRadioButton("Heen");
 	private JRadioButton rdbtnHeenEnTerug = new JRadioButton("Heen en terug");
 	private JComboBox<String> comboVerkoopType = new JComboBox<String>();
+	private JComboBox<String> comboNaar = new JComboBox<String>();
+	private JComboBox<String> comboVan = new JComboBox<String>();
 	
 	private Ticket ticket = null;
 
@@ -73,16 +75,10 @@ public class TicketVerkoopGui extends JPanel {
 		
 		lblVan.setForeground(Color.WHITE);
 		
-		txtVan = new JTextField();
-		txtVan.setBackground(Color.WHITE);
-		txtVan.setColumns(10);
-		
 		lblNaar.setForeground(Color.WHITE);
 		
-		txtNaar = new JTextField();
-		txtNaar.setColumns(10);
-		
 		lblDatum.setForeground(Color.WHITE);
+		comboVerkoopType.setToolTipText("");
 	
 		comboVerkoopType.addItem("standaard");
 		comboVerkoopType.addItem("student");
@@ -129,6 +125,16 @@ public class TicketVerkoopGui extends JPanel {
 		paneTickettenVerkocht.setBackground((UIManager.getColor("CheckBoxMenuItem.selectionBackground")));
 		paneTickettenVerkocht.setVisible(false);
 		
+		ArrayList<Station> stations = StationDAO.getAll();
+		for(int i = 0; i < stations.size(); i++){
+			comboVan.addItem(stations.get(i).getNaam());
+			comboNaar.addItem(stations.get(i).getNaam());
+		}
+		comboVan.setEditable(true);
+		comboNaar.setEditable(true);
+		comboVan.addActionListener(new StationHandler());
+		comboNaar.addActionListener(new StationHandler());
+		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -163,33 +169,30 @@ public class TicketVerkoopGui extends JPanel {
 								.addComponent(btnVerkoop)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(comboVan, 0, 186, Short.MAX_VALUE)
 										.addComponent(klasse, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 										.addComponent(aantal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 										.addComponent(rdbtnHeenEnTerug)
-										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-											.addComponent(txtNaar, Alignment.LEADING)
-											.addComponent(comboVerkoopType, Alignment.LEADING, 0, 186, Short.MAX_VALUE)
-											.addGroup(groupLayout.createSequentialGroup()
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(txtVan, GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)))
+										.addComponent(comboVerkoopType, 0, 186, Short.MAX_VALUE)
 										.addGroup(groupLayout.createSequentialGroup()
 											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-												.addComponent(terugDag)
+												.addComponent(terugDag, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 												.addComponent(heenDag, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
 											.addPreferredGap(ComponentPlacement.RELATED)
-											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+											.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 												.addGroup(groupLayout.createSequentialGroup()
 													.addComponent(terugMaand, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 													.addPreferredGap(ComponentPlacement.RELATED)
 													.addComponent(terugJaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-												.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+												.addGroup(groupLayout.createSequentialGroup()
 													.addComponent(heenMaand, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 													.addPreferredGap(ComponentPlacement.RELATED)
 													.addComponent(heenJaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-													.addGap(11)))))
+													.addGap(11))))
+										.addComponent(comboNaar, 0, 144, Short.MAX_VALUE))
 									.addGap(175)
 									.addComponent(paneTickettenVerkocht, GroupLayout.PREFERRED_SIZE, 260, GroupLayout.PREFERRED_SIZE)))))
-					.addContainerGap(136, Short.MAX_VALUE))
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -199,13 +202,13 @@ public class TicketVerkoopGui extends JPanel {
 							.addContainerGap()
 							.addComponent(lblTicketVerkoop)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblVan)
-								.addComponent(txtVan, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addComponent(comboVan, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(txtNaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblNaar))
+								.addComponent(lblNaar)
+								.addComponent(comboNaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblDatum)
@@ -244,7 +247,7 @@ public class TicketVerkoopGui extends JPanel {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(28)
 							.addComponent(paneTickettenVerkocht, GroupLayout.PREFERRED_SIZE, 298, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(105, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 	}	
@@ -257,7 +260,7 @@ public class TicketVerkoopGui extends JPanel {
 	}
 	public void setTickettenVerkocht(boolean visible, Ticket ticket){
 		paneTickettenVerkocht.setVisible(visible);
-		paneTickettenVerkocht.setText(aantal.getValue() + " ticket(ten) verkocht\n\nVan: " + txtVan.getText() + "\nNaar: " + txtNaar.getText() +
+		paneTickettenVerkocht.setText(aantal.getValue() + " ticket(ten) verkocht\n\nVan: " + comboVan.getSelectedItem() + "\nNaar: " + comboNaar.getSelectedItem() +
 				"\nHeen datum: " +  heenDag.getValue() + "-" + heenMaand.getValue() + "-" + heenJaar.getValue() + 
 				"\nTerug datum: " + terugDag.getValue() + "-" + terugMaand.getValue() + "-" + terugJaar.getValue() + 
 				"\nKlasse " + klasse.getValue() + "\n" + getSelectedButton() + "\nType: " +  comboVerkoopType.getSelectedItem() + "\n" + ticket.getPrijs()*ticket.getAantal() + "€");
@@ -303,12 +306,54 @@ public class TicketVerkoopGui extends JPanel {
 		}
 	}
 	
+	
+	class StationHandler implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			System.out.println(comboVan.getEditor().getItem());
+			
+			ArrayList<Station> stations = StationDAO.getAll();
+			ArrayList<String> stationStrings = new ArrayList<String>();
+			if(comboVan.getEditor().getItem() != "")
+			{
+				for(int i = 0; i < stations.size(); i++){
+					if(stations.get(i).getNaam().contains((String) comboVan.getEditor().getItem())){
+						stationStrings.add(stations.get(i).getNaam());
+					}
+				}
+				comboVan = new JComboBox<String>();
+				for(int i = 0; i < stations.size(); i++){
+						comboVan.addItem(stations.get(i).getNaam());
+				}
+			}
+			else{
+				for(int i = 0; i < stations.size(); i++){
+						comboVan.addItem(stations.get(i).getNaam());
+				}
+			}
+			if(comboNaar.getEditor().getItem() != "")
+			{
+				for(int i = 0; i < stations.size(); i++){
+					if(stations.get(i).getNaam().contains((String) comboNaar.getEditor().getItem())){
+						comboNaar.addItem(stations.get(i).getNaam());
+					}
+				}
+			}
+			else{
+				for(int i = 0; i < stations.size(); i++){
+						comboNaar.addItem(stations.get(i).getNaam());
+				}
+			}		
+		}
+		
+	}
 	class ButtonHandler implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == btnVerkoop)
 			{
-			ticket = new Ticket(0, MedewerkerDAO.getMedewerkerByLogin(Login.getLoginId()).getId(), txtVan.getText(), txtNaar.getText(), StationDAO.checkStation(Station.getCurrentStation()), 1,VerkoopType.VerkoopTypeCasting((String) comboVerkoopType.getSelectedItem()), 0, (int)klasse.getValue(), (int)aantal.getValue()
+			ticket = new Ticket(0, MedewerkerDAO.getMedewerkerByLogin(Login.getLoginId()).getId(), (String) comboVan.getSelectedItem(), (String) comboNaar.getSelectedItem(), StationDAO.checkStation(Station.getCurrentStation()), 1,VerkoopType.VerkoopTypeCasting((String) comboVerkoopType.getSelectedItem()), 0, (int)klasse.getValue(), (int)aantal.getValue()
 					,Calendar.getInstance().getTime(), converter((int) heenDag.getValue(),(int) heenMaand.getValue(), (int)heenJaar.getValue()),converter((int) terugDag.getValue(), (int) terugMaand.getValue(), (int) terugJaar.getValue()) );
 				VerkoopController.ticketValidate(ticket, TicketVerkoopGui.this);
 			}
