@@ -46,9 +46,9 @@ public class StationDAO {
 		return 0;
 	}
 
-	public int checkStation(String naam) {
-		dba.createSelect("Station", "naam");
-		// dba.addWhere("naam", station.getNaam());
+	public static int checkStation(String naam) {
+		dba.createSelect("Station", "stationId");
+		dba.addWhere("naam", naam);
 
 		ResultSet rs = dba.commit();
 		try {

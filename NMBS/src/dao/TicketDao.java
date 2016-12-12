@@ -24,7 +24,7 @@ public class TicketDao {
 			dba.addValue(ticket.getArrZone());
 			dba.addValue(ticket.getVerkoopStation());
 			dba.addValue(ticket.getPrijs());
-			dba.addValue(1); // aan te passen wijziging boris
+			dba.addValue(ticket.getVerkoop().name()); 
 			dba.addValue(ticket.getKorting());
 			dba.addValue(ticket.getKlasse());
 			dba.addValue(ticket.getAantal());
@@ -45,7 +45,7 @@ public class TicketDao {
 		dba.addWhere("arrZone", ticket.getArrZone());
 		dba.addWhere("verkoopStation", ticket.getVerkoopStation());
 		dba.addWhere("prijs", ticket.getPrijs());
-		dba.addWhere("verkoopTypeId", 1); // aan te passen wijzigin boris
+		dba.addWhere("verkoopType", ticket.getVerkoop().name());
 		dba.addWhere("korting", ticket.getKorting());
 		dba.addWhere("klasse", ticket.getKlasse());
 		dba.addWhere("aantal", ticket.getAantal());
