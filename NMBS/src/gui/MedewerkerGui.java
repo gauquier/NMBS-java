@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import handler.Controller;
 import javax.swing.UIManager;
+import java.awt.Toolkit;
 
 public class MedewerkerGui  extends JFrame {
 	private Container c = getContentPane();	
@@ -58,6 +59,7 @@ public class MedewerkerGui  extends JFrame {
 	}
 	
 	MedewerkerGui(){
+		setIconImage(Toolkit.getDefaultToolkit().getImage("/Users/jonas/Desktop/NMBS-java/NMBS/lib/logo-nmbs.png"));
 		getContentPane().setBackground(new Color(0, 191, 255));
 		setBackground(new Color(0, 191, 255));
 		this.setResizable(true);
