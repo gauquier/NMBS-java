@@ -26,8 +26,7 @@ public class Connection {
 
 
 	public static java.sql.Connection getDBConnection(){
-		try { 
-			
+		try {        	
 			return DriverManager.getConnection(connectionString, username, password);
 		}catch (SQLException e){
 			e.printStackTrace();            

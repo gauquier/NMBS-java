@@ -1,9 +1,31 @@
 package source;
 
-public class Klant extends Persoon {
+public class Klant extends Persoon { 
 
 	private String info;
-	private boolean nieuws;
+	private boolean nieuws; 
+	/**
+	 * 
+	 */
+	//public Klant() {
+	//} 
+	/**
+	 * @param persoonId
+	 * @param adres
+	 * @param voornaam
+	 * @param achternaam
+	 * @param email
+	 * @param info
+	 * @param nieuws
+	 */
+	public Klant(int persoonId, Adres adres, String voornaam, String achternaam, String email, String info,boolean neiuws) {
+		super(persoonId, voornaam, achternaam, email, adres); 
+		this.info=info;
+		this.nieuws=neiuws;
+	} 
+	/**
+	 * @return extra klant informatie
+	 */
 	public Klant(int id, String voornaam, String achternaam, Adres adres, String email, String info, boolean nieuws) {
 		super(id, voornaam, achternaam, email, adres);
 		this.info = info;
