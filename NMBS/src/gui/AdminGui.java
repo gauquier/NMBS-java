@@ -263,6 +263,7 @@ public class AdminGui extends JFrame {
 			else if (e.getSource() == abonnementBeheer){
 			//	setHuidigeKeuze(new AbonnementBeheerGui());
 			}
+		
 		}
 	}
 	

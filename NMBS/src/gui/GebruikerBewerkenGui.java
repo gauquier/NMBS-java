@@ -14,6 +14,7 @@ import java.awt.Color;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
+import Hashing.DualHash;
 import dao.LoginDao;
 import dao.MedewerkerDAO;
 import handler.Controller;
@@ -221,13 +222,13 @@ public class GebruikerBewerkenGui extends JPanel {
 					AdminGui.setHuidigeKeuze(new GebruikerBijwerkenGui(list.getSelectedValue()));
 				}
 			}
-			
+		
 			if (e.getSource() == btnVerwijderen) {
 				if(!unknownIndex()){
 					return;
 				} else {
 				int n = OkCancel("Ben je zeker dat je " + list.getSelectedValue().getVoornaam() + " " + list.getSelectedValue().getAchternaam() + " wil verwijderen?");	
-					
+				
 				if(n==0){
 				MedewerkerDAO.removeMedewerker(list.getSelectedValue().getId());
 				((DefaultListModel<Medewerker>)list.getModel()).remove(list.getSelectedIndex());
@@ -236,18 +237,24 @@ public class GebruikerBewerkenGui extends JPanel {
 					return;
 				}
 			}
-			
+			}
 			if(e.getSource() == btnPasswordReset){
+				System.out.println("test");
 				if(!unknownIndex()){
 					return;
-				} else {
+			 } else {
 					
 					String wachtwoord =  new String("reset1");
 					
 					int n = OkCancel("Ben je zeker dat je een password reset wil uitvoeren op " + list.getSelectedValue().getVoornaam() + " " + list.getSelectedValue().getAchternaam() + "?");
 					
 					if(n==0){
-					LoginDao.updateWachtwoordWhere(list.getSelectedValue().getLogin().getLoginId(), wachtwoord);
+					try {
+						LoginDao.updateWachtwoordWhere(list.getSelectedValue().getLogin().getLoginId(), DualHash.hashString(wachtwoord));
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					JOptionPane.showMessageDialog(new JFrame(), "Het wachtwoord van " + list.getSelectedValue().getVoornaam() + " " + list.getSelectedValue().getAchternaam() + " is gereset naar 'reset1'.");
 					} else if (n==1){
 						return;
@@ -259,5 +266,5 @@ public class GebruikerBewerkenGui extends JPanel {
 			
 		}
 	}
-	}
 }
+
