@@ -21,7 +21,8 @@ public class Controller extends LoginGui{
 		dba.commit();
 		
 		dba.createSelect("Test");
-		dba.addWhere("naam", "jonas");
+		dba.addWhere("naam",
+		 "jonas");
 		ResultSet rs = dba.commit();
 		if(rs.next())
 			System.out.println(rs.getString(1) +" " + rs.getString(2) + " " + rs.getString(3));

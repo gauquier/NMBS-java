@@ -12,7 +12,7 @@ import source.VerlorenVoorwerp;
 
 public class StationDAO {
 
-	private DBA dba = new DBA();
+	private static DBA dba = new DBA();
 	private VerlorenVoorwerpDAO vvDAO = new VerlorenVoorwerpDAO();
 	
 	public int insertStation(Station station){
@@ -55,8 +55,8 @@ public class StationDAO {
 	}
 	
 	public int checkStation(String naam){
-		dba.createSelect("Station", "naam");
-		//dba.addWhere("naam", station.getNaam());
+		dba.createSelect("Station", "stationId");
+		dba.addWhere("naam", naam);
 		
 		
 		ResultSet rs = dba.commit();
@@ -70,7 +70,30 @@ public class StationDAO {
 		}		
 		return 0;
 	}
-	public int checkStationZone(String stationZone){
+	
+	public ArrayList<Station> getAll(){
+		dba.createSelect("Station");
+		ArrayList<Station> lijst = new ArrayList<>();
+		ResultSet rs = dba.commit();
+		
+		try {
+			while(rs.next()){
+				 String naam = rs.getString(2);
+				 
+				 Station station = new Station(naam);
+				 
+				 lijst.add(station);
+			}
+			return lijst;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
+		return null ;
+	}
+	 
+	public static int checkStationZone(String stationZone){
 		
 		dba.createSelect("Station", "stationId");
 		dba.addWhere("zone", stationZone);
@@ -102,14 +125,25 @@ public class StationDAO {
 		return station;
 	}
 
-	//public static void main(String[] args) {
+	public static void main(String[] args) {
 		/*ArrayList<VerlorenVoorwerp> vv = new ArrayList<VerlorenVoorwerp>(); 
 		vv.add(new VerlorenVoorwerp(-1, "gsm", new java.sql.Date(11,11,1900), false));
 		Station s = new Station(-1, "Luxembourg","brussel", 2, 2, false, true, vv);
 		StationDAO sd = new StationDAO();
 		System.out.println(sd.getStationId(s));
-		/*sd.insertStation(s);
+		sd.insertStation(s);
 		System.out.println(sd.getStation(sd.getStationId(s)).getZone());
-		System.out.println(sd.getStationId(f));*/
-	//}
+		System.out.println(sd.getStationId(f));
+		StationDAO st = new StationDAO();
+		StationDAO sd = new StationDAO();
+		System.out.println(sd.getStationIdByNaam("ds"));*/
+		StationDAO aDao = new StationDAO();
+		ArrayList<Station> lijst = aDao.getAll();
+		
+		for (int i = 0; i < lijst.size(); i++) {
+			System.out.println(lijst.get(i));
+			
+		}
+	
+	}
 }

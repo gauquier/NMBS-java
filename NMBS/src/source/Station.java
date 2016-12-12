@@ -24,6 +24,11 @@ public class Station {
 		this.gehandicapte = gehandicapte;
 	}
 	
+	public Station (String naam){
+		super();
+		this.naam = naam;
+	}
+	
 	public Station(int stationID){
 		this.stationID = stationID;
 	}
@@ -147,9 +152,7 @@ public class Station {
 
 	@Override
 	public String toString() {
-		return "Station [stationID=" + stationID + ", naam=" + naam + ", zone=" + zone + ", aantalLoketten="
-				+ aantalLoketten + ", parkingplaatsen=" + parkingplaatsen + ", wifi=" + wifi + ", gehandicapte="
-				+ gehandicapte + ", verlorenVoorwerpen=" + verlorenVoorwerpen + "]";
+		return naam;
 	}
 	
 }

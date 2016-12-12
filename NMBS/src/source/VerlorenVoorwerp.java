@@ -1,24 +1,23 @@
 package source;
 
-import java.sql.Date;
+import java.util.Date;;
+
 
 public class VerlorenVoorwerp {
 
 	private int verlorenVoorwerpId;
 	private String beschrijving;
 	private Date date;
-	
-
 	private boolean gevonden;
 
-	public VerlorenVoorwerp(int verlorenVoorwerpId, String beschrijving, Date date, boolean gevonden) {
+	public VerlorenVoorwerp(int verlorenVoorwerpId, String beschrijving,Date date, boolean gevonden) {
 		super();
 		this.verlorenVoorwerpId = verlorenVoorwerpId;
 		this.beschrijving = beschrijving;
 		this.date = date;
-		this.gevonden = gevonden;
+		this.gevonden = gevonden;	
 	}
-
+	
 
 	public int getVerlorenVoorwerpId() {
 		return verlorenVoorwerpId;
