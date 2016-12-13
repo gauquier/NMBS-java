@@ -3,6 +3,9 @@ package handler;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import dao.StationDAO;
 import dao.TicketDao;
 import gui.TicketVerkoopGui;
@@ -57,6 +60,9 @@ public class VerkoopController {
 
 		System.out.println(compareFormat.format(ticket.getHeenDatum()) + "         " + compareFormat.format(ticket.getTerugDatum()) + "         " + compareFormat.format(new Date()));
 		tvGui.setColor(depZone, arrZone, klasse, aantal, heenDatum, terugDatum);
+		if(!depZone || !arrZone) {
+			JOptionPane.showMessageDialog(new JFrame(), "Vul alle velden in!");
+		}
 		
 		if(depZone && arrZone && klasse && aantal && heenDatum && terugDatum){
 			//ticket.setPrijs(PrijsDAO.getPrijsByVerkoopType(ticket.getVerkoop()));

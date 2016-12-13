@@ -5,10 +5,12 @@ import javax.swing.ButtonModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.UIManager;
@@ -95,6 +97,7 @@ public class TicketVerkoopGui extends JPanel {
 		comboVerkoopType.addItem("60+");
 		comboVerkoopType.addItemListener(new VerkoopTypeListener());
 		
+		
 		JLabel lblSoortBiljet = new JLabel("Soort Biljet");
 		lblSoortBiljet.setForeground(Color.WHITE);
 		
@@ -141,6 +144,8 @@ public class TicketVerkoopGui extends JPanel {
 		
 		txtPrijs = new JTextField();
 		txtPrijs.setColumns(10);
+		
+		txtPrijs.setText(String.valueOf(PrijsDAO.getPrijsByVerkoopType(VerkoopType.VerkoopTypeCasting((String) comboVerkoopType.getSelectedItem()))));
 		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -324,11 +329,14 @@ public class TicketVerkoopGui extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == btnVerkoop)
 			{
-				
-			ticket = new Ticket(0, MedewerkerDAO.getMedewerkerByLogin(Login.getLoginId()).getId(), txtVan.getText(), txtNaar.getText(), StationDAO.checkStation(Station.getCurrentStation()), Double.parseDouble(txtPrijs.getText()),VerkoopType.VerkoopTypeCasting((String) comboVerkoopType.getSelectedItem()), 0, (int)klasse.getValue(), (int)aantal.getValue()
-					,Calendar.getInstance().getTime(), converter((int) heenDag.getValue(),(int) heenMaand.getValue(), (int)heenJaar.getValue()),converter((int) terugDag.getValue(), (int) terugMaand.getValue(), (int) terugJaar.getValue()) );
-				VerkoopController.ticketValidate(ticket, TicketVerkoopGui.this);
-				
+				if(txtPrijs.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(new JFrame(), "Vul alle velden in!");
+				}
+				else {
+					ticket = new Ticket(0, MedewerkerDAO.getMedewerkerByLogin(Login.getLoginId()).getId(), txtVan.getText(), txtNaar.getText(), StationDAO.checkStation(Station.getCurrentStation()), Double.parseDouble(txtPrijs.getText()),VerkoopType.VerkoopTypeCasting((String) comboVerkoopType.getSelectedItem()), 0, (int)klasse.getValue(), (int)aantal.getValue()
+						,Calendar.getInstance().getTime(), converter((int) heenDag.getValue(),(int) heenMaand.getValue(), (int)heenJaar.getValue()),converter((int) terugDag.getValue(), (int) terugMaand.getValue(), (int) terugJaar.getValue()) );
+					VerkoopController.ticketValidate(ticket, TicketVerkoopGui.this);
+				}
 			}
 		}
 		private Date converter(int dag, int maand, int jaar){
