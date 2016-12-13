@@ -55,6 +55,23 @@ public class PersoonDao {
 		return null;
 	}
 	
+	
+	public int checkEmail(String email){
+		dba.createSelect("Persoon", "persoonId");
+		dba.addWhere("email", email);
+		ResultSet rs = dba.commit();
+		try {
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		return -1;
+		
+	}
+	
 	public static boolean persoonWijzigen(Persoon persoon) throws Exception{
 		
 		return false;

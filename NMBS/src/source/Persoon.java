@@ -138,9 +138,4 @@ public class Persoon {
 			return false;
 		return true;
 	}
-
-	
-	
-	
-
 }

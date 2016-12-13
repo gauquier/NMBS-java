@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,7 @@ import javax.swing.JPanel;
 
 import handler.Controller;
 import javax.swing.UIManager;
+import java.awt.Toolkit;
 
 public class MedewerkerGui  extends JFrame {
 	private Container c = getContentPane();	
@@ -57,8 +59,9 @@ public class MedewerkerGui  extends JFrame {
 	}
 	
 	MedewerkerGui(){
-		getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
-		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("/Users/jonas/Desktop/NMBS-java/NMBS/lib/logo-nmbs.png"));
+		getContentPane().setBackground(new Color(0, 191, 255));
+		setBackground(new Color(0, 191, 255));
 		this.setResizable(true);
 		menuGUI();
 	}

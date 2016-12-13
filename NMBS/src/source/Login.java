@@ -2,9 +2,8 @@ package source;
 
 public class Login {
 	private static int loginId;
-	private static String username;
+	private String username;
 	private String password;
-	private String email;
 	private static String currentUser;
 
 	/**
@@ -35,28 +34,23 @@ public class Login {
 	 * @param password
 	 * @param email
 	 */
-	public Login(int loginId, String username, String password, String email) {
-		this.loginId = loginId;
-		this.username = username;
-		this.password = password;
-		this.email = email;
-	}
+	
 	public Login(int loginId, String username, String password) {
 		this.loginId = loginId;
 		this.username = username;
 		this.password = password;
 	}
 
-	public Login(String username, String password, String email) {
+	public Login(String username, String password) {
 		this.username = username;
 		this.password = password;
-		this.email = email;
 	}
+
 
 	/**
 	 * @return username (gebruikersnaam)
 	 */
-	public static String getUsername() {
+	public String getUsername() {
 		return username;
 	}
 
@@ -83,13 +77,7 @@ public class Login {
 		this.password = password;
 	}
 
-	public String getEmail() {
-		return email;
-	}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
 	/**
 	 * @return loginId
 	 */

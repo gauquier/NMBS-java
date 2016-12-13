@@ -24,7 +24,7 @@ public class TicketDao {
 			dba.addValue(ticket.getArrZone());
 			dba.addValue(ticket.getVerkoopStation());
 			dba.addValue(ticket.getPrijs());
-			dba.addValue(1); // aan te passen wijziging boris
+			dba.addValue(ticket.getVerkoop().toString()); 
 			dba.addValue(ticket.getKorting());
 			dba.addValue(ticket.getKlasse());
 			dba.addValue(ticket.getAantal());
@@ -45,7 +45,7 @@ public class TicketDao {
 		dba.addWhere("arrZone", ticket.getArrZone());
 		dba.addWhere("verkoopStation", ticket.getVerkoopStation());
 		dba.addWhere("prijs", ticket.getPrijs());
-		dba.addWhere("verkoopTypeId", 1); // aan te passen wijzigin boris
+		dba.addWhere("verkoopType", ticket.getVerkoop().toString());
 		dba.addWhere("korting", ticket.getKorting());
 		dba.addWhere("klasse", ticket.getKlasse());
 		dba.addWhere("aantal", ticket.getAantal());
@@ -85,6 +85,24 @@ public class TicketDao {
 		
 
 	}
+	
+	//tijdelijke functie:
+	public static String getVerkoopdatumAsString(){
+		String datum = null;
+		dba.createSelect("Ticket", "verkoopDatum");
+		ResultSet rs = dba.commit();	
+		try {
+			if(rs.next()){
+				//DateFormat dt = new SimpleDateFormat("dd-MM-YYYY");
+				datum = /*dt.parse(*/rs.getString(1)/*)*/;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return datum;
+		
 
+	}
 
 }

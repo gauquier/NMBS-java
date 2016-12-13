@@ -7,21 +7,22 @@ import dao.StationDAO;
 import dao.TicketDao;
 import gui.TicketVerkoopGui;
 import source.Ticket;
+import dao.PrijsDAO;
 
 public class VerkoopController {	
 	public VerkoopController(){}
 	
 	public static boolean ticketValidate(Ticket ticket, TicketVerkoopGui tvGui){
-
+		
 		boolean depZone = false, arrZone = false, klasse = false, aantal = false, heenDatum = false, terugDatum = false;
 
-		if(StationDAO.checkStationZone(ticket.getDepZone()) != 0){
+		if(StationDAO.checkStation(ticket.getDepZone()) != 0){
 			depZone = true;
 		}
 		else{
 			depZone = false;
 		}
-		if(StationDAO.checkStationZone(ticket.getArrZone()) != 0){
+		if(StationDAO.checkStation(ticket.getArrZone()) != 0){
 			arrZone = true;
 		}
 		else{
@@ -58,13 +59,16 @@ public class VerkoopController {
 		tvGui.setColor(depZone, arrZone, klasse, aantal, heenDatum, terugDatum);
 		
 		if(depZone && arrZone && klasse && aantal && heenDatum && terugDatum){
+			ticket.setPrijs(PrijsDAO.getPrijsByVerkoopType(ticket.getVerkoop()));
 			TicketDao.insertTicket(ticket);
-			tvGui.setTickettenVerkocht(true);
+			tvGui.setTickettenVerkocht(true, ticket);
 			return true;
 		}
 		else{
-			tvGui.setTickettenVerkocht(false);
+			tvGui.setTickettenVerkocht(false, ticket);
+			
 			return false;
+			
 		}		
 	}
 	
