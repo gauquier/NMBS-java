@@ -50,6 +50,7 @@ public class AdminGui extends JFrame {
     JMenu verkoop, verlorenVoorwerpen, instellingen, gebruikers, klanten;
     JMenuItem abonnementBeheer, uitloggen, gebruikersToevoegen, gebruikersBeheer, ticketVerkoop
     , verlorenVoorwerpToevoegen, verlorenVoorwerpZoeken, wachtwoordVeranderen ,klantenToevoegen, klantenBeheer;
+    private JMenuItem mntmPrijsbeheer;
 
 	public static JPanel getHuidigeKeuze() {
 		return HuidigeKeuze;
@@ -192,6 +193,10 @@ public class AdminGui extends JFrame {
 		
 		menubar.add(home);
 		menubar.add(verkoop);
+		
+		mntmPrijsbeheer = new JMenuItem("Prijsbeheer");
+		mntmPrijsbeheer.addActionListener(new MenuItemHandler());
+		verkoop.add(mntmPrijsbeheer);
 		menubar.add(klanten);
 		menubar.add(routeInfo);
 		menubar.add(stationInfo);
@@ -243,6 +248,9 @@ public class AdminGui extends JFrame {
 			}
 			else if (e.getSource() == ticketVerkoop){
 				setHuidigeKeuze(new TicketVerkoopGui());
+			}
+			else if (e.getSource() == mntmPrijsbeheer){
+				setHuidigeKeuze(new PrijsBeheerGui());
 			}
 			else if (e.getSource() == routeInfo){
 				setHuidigeKeuze(new RouteZoekenGui());

@@ -12,7 +12,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import handler.Controller;
-import javax.swing.UIManager;
 
 import dao.Connection;
 
