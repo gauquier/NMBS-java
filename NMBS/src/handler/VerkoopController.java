@@ -59,7 +59,7 @@ public class VerkoopController {
 		tvGui.setColor(depZone, arrZone, klasse, aantal, heenDatum, terugDatum);
 		
 		if(depZone && arrZone && klasse && aantal && heenDatum && terugDatum){
-			ticket.setPrijs(PrijsDAO.getPrijsByVerkoopType(ticket.getVerkoop()));
+			//ticket.setPrijs(PrijsDAO.getPrijsByVerkoopType(ticket.getVerkoop()));
 			TicketDao.insertTicket(ticket);
 			tvGui.setTickettenVerkocht(true, ticket);
 			return true;
