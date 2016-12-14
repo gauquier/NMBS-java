@@ -6,6 +6,7 @@ import java.awt.image.DataBufferByte;
 import java.awt.image.WritableRaster;
 import java.io.File;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.GroupLayout;
@@ -15,6 +16,7 @@ import javax.swing.UIManager;
 
 import source.Login;
 import source.Station;
+import source.Ticketstatistiek;
 
 import javax.swing.JLabel;
 import javax.swing.GroupLayout.Alignment;
@@ -34,9 +36,7 @@ import javax.swing.JToolBar;
 import javax.swing.JTextField;
 
 public class HomeGui extends JPanel {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 2564170957766548127L;
 
 	private JPanel jPanel, jPanel2;
@@ -55,39 +55,34 @@ public class HomeGui extends JPanel {
 		
 		JLabel lblStation = new JLabel("Station: " + Station.getCurrentStation());
 		
-		//String datumpje = TicketDao.getVerkoopdatumAsString();//tijdelijke code
 		JLabel lblTicketverkoop = new JLabel("Ticketverkoop");
 		
-		/* SQL-statement die nodig is:
-		 * SELECT verkoopDatum, COUNT(verkoopDatum)
-		 * FROM Ticket
-		 * GROUP BY verkoopDatum; 
-		 */
-		//String datumpje = TicketDao.getVerkoopdatumAsString();//tijdelijke code
-		String datumpje = "28/11/2016";
-		/* SQL-statement die nodig is:
-		 * SELECT verkoopDatum, COUNT(verkoopDatum)
-		 * FROM Ticket
-		 * GROUP BY verkoopDatum; 
-		 */
+		ArrayList<Ticketstatistiek> ticketstats = TicketDao.getTicketstatistieken();
 		
-		//tabel zal opgevuld worden wanneer bovenstaande in orde is
+		//Om mogelijke out-of-boundsexception tegen te gaan
+		if (ticketstats.size() < 5) {
+			String legeString = "";
+			int legeInt = 0;
+			Ticketstatistiek legeStat = new Ticketstatistiek(legeString, legeInt);
+			for (int i = ticketstats.size(); i < 5; i++) {
+				ticketstats.add(legeStat);
+			}
+		}
+		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{datumpje, null},
-				{null, null},
-				{null, null},
-				{null, null},
-				{null, null},
+				{ticketstats.get(0).getVerkoopdatum(), ticketstats.get(0).getVerkochteTickets()},
+				{ticketstats.get(1).getVerkoopdatum(), ticketstats.get(1).getVerkochteTickets()},
+				{ticketstats.get(2).getVerkoopdatum(), ticketstats.get(2).getVerkochteTickets()},
+				{ticketstats.get(3).getVerkoopdatum(), ticketstats.get(3).getVerkochteTickets()},
+				{ticketstats.get(4).getVerkoopdatum(), ticketstats.get(4).getVerkochteTickets()},
 			},
 			new String[] {
 				"Dag", "Verkochte tickets"
 			}
 		) {
-			/**
-			 * 
-			 */
+			
 			private static final long serialVersionUID = 7778959677031066336L;
 			boolean[] columnEditables = new boolean[] {
 				false, false
