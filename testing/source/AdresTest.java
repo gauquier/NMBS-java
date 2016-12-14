@@ -30,7 +30,7 @@ public class AdresTest {
 	}
 	@Test
 	public void testAdres1NietGelijkAanAdres2() { 
-		assertNotEquals(adres1, adres1_copy); 
+		assertNotEquals(adres1, adres2); 
 	}
 
 }
