@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -82,15 +83,94 @@ public class KlantDAOTest {
 
 	@Test
 	public void testRemoveKlant() {
-
+		Klant nieuwKlant= addKlant();
+		KlantDAO.removeKlant(nieuwKlant.getKlantId());
+		assertEquals("", getKlant(persoon, adres, info));
+	}
+	@Test
+	public void testBijwerkenKlant() {
+		fail("");
+	 	}
+	private Klant addKlant() {
+		Klant nieuweKant;
+		String AdresToevoegenQuery="INSERT INTO Adres "
+				+ "(straat, huisnr, woonplaats, postcode, bus) "
+				+ "VALUES(?,?,?,?,?)";
+		executeQuery(AdresToevoegenQuery, true,
+				adres.getStraat(),
+				adres.getHuisnr(),
+				adres.getWoonplaats(),
+				adres.getPostcode(),
+				adres.getBus()
+				); 
+		String AdresZoekenQuery = "SELECT adresId "
+				+ "FROM Adres "
+				+ "WHERE "
+				+ "straat = ? AND huisnr = ? AND woonplaats = ? AND postcode = ? AND bus = ?";
+		
+		Map<Integer, Object[]> map=executeQuery(AdresZoekenQuery, false,
+				adres.getStraat(),
+				adres.getHuisnr(),
+				adres.getWoonplaats(),
+				adres.getPostcode(),
+				adres.getBus()
+				);
+		Object []o=map.get(0);
+		System.out.println(o[0].getClass().getSimpleName());
+		int id=(int)o[0];
+		persoon.getAdres().setAdresId(id);
+		String persoonToevoegenQuery = "INSERT INTO Persoon "
+				+ "(adresId, voornaam, achternaam, email) "
+				+ "VALUES(?,?,?,?)";
+		executeQuery(persoonToevoegenQuery, true,
+				persoon.getAdres().getAdresId(),
+				persoon.getVoornaam(),
+				persoon.getAchternaam(),
+				persoon.getEmail() 
+				); 
+		String persoonZoekenQuery = "SELECT persoonId "
+				+ "FROM Persoon "
+				+ "WHERE "
+				+ "adresId = ? AND voornaam = ? AND achternaam = ? AND email = ?";
+		map=executeQuery(persoonZoekenQuery, false,
+				persoon.getAdres().getAdresId(),
+				persoon.getVoornaam(),
+				persoon.getAchternaam(),
+				persoon.getEmail() 
+				);
+		persoon.setId((int)map.get(0)[0]);
+		String klantToevoegenQuery = "INSERT INTO Klant "
+				+ "(persoonId, info, actief) "
+				+ "VALUES(?,?,?)";
+		executeQuery(klantToevoegenQuery, true,
+				persoon.getId(),
+				info,
+				0
+				); 
+		String klantZoekenQuery = "SELECT klantId "
+				+ "FROM Klant "
+				+ "WHERE "
+				+ "persoonId = ? AND info = ? AND actief = ?";
+		map=executeQuery(klantZoekenQuery, false,
+				persoon.getId(),
+				info,
+				0
+				); 
+		nieuweKant=new Klant(persoon.getId(), 
+				persoon.getVoornaam(), 
+				persoon.getAchternaam(), 
+				persoon.getEmail(), 
+				adres, 
+				info, 
+				false) ;
+		nieuweKant.setKlantId((int)map.get(0)[0]);
+		nieuweKant.setInfo(info);
+		nieuweKant.setActief(false);
+		return nieuweKant;
 	}
 
-	private void addKlant() {
-
-	}
-
-	private Map<Integer, Object> executeQuery(String query, boolean update, Object... kolomWaarden) {
-		Map<Integer, Object> map = new HashMap<Integer, Object>();
+	private Map<Integer, Object[]> executeQuery(String query, boolean update, Object... kolomWaarden) {
+		Map<Integer, Object[]> map = new HashMap<Integer, Object[]>();
 		java.sql.Connection connection = null;
 		PreparedStatement stmt = null;
 		ResultSet resultSet = null;
@@ -98,15 +178,32 @@ public class KlantDAOTest {
 			connection = Connection.getDBConnection();
 			connection.setAutoCommit(false);
 			stmt = connection.prepareStatement(query);
+			for (int i = 0; i < kolomWaarden.length; i++) {
+				stmt.setObject(i+1, kolomWaarden[i]); 
+			}
 			if (update) {
-
-			} else {
-
-				resultSet = stmt.executeQuery();
-
-				if (resultSet.next()) {
-					int count = resultSet.getFetchSize();
-
+				stmt.executeUpdate();
+				connection.commit();
+			} else { 
+				resultSet = stmt.executeQuery(); 
+				ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+				int columnCount=resultSetMetaData.getColumnCount();
+				resultSet.last();
+				int size = resultSet.getRow();
+				resultSet.beforeFirst();
+				int counter=0;
+				 
+				if (size!=0) {
+					while(resultSet.next()){
+						Object []kolommen= new Object[columnCount];
+						for (int i = 1; i <= columnCount; i++) {
+							kolommen[i-1]=resultSet.getObject(i);
+						} 
+						 map.put(counter, kolommen);
+						counter++;
+					}
+;
+					
 				}
 			}
 		} catch (SQLException e) {
@@ -174,7 +271,7 @@ public class KlantDAOTest {
 			stmt = connection.prepareStatement("SELECT info FROM Klant WHERE info LIKE '%KlantDAOTest%'");
 			resultSet = stmt.executeQuery();
 			if (resultSet.next()) {
-				infoDB = resultSet.getString(1);
+				infoDB = resultSet.getString(1); 
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
