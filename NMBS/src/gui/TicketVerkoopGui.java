@@ -74,6 +74,8 @@ public class TicketVerkoopGui extends JPanel {
 	private Ticket ticket = null;
 	private JTextField txtPrijs;
 
+	private boolean isOffline = false;
+	
 	public TicketVerkoopGui() {
 		this.setVisible(true);
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
@@ -95,7 +97,10 @@ public class TicketVerkoopGui extends JPanel {
 		comboVerkoopType.addItem("student");
 		comboVerkoopType.addItem("groep");
 		comboVerkoopType.addItem("60+");
+		
+		if (!isOffline) {
 		comboVerkoopType.addItemListener(new VerkoopTypeListener());
+		}
 		
 		
 		JLabel lblSoortBiljet = new JLabel("Soort Biljet");
@@ -145,7 +150,9 @@ public class TicketVerkoopGui extends JPanel {
 		txtPrijs = new JTextField();
 		txtPrijs.setColumns(10);
 		
-		txtPrijs.setText(String.valueOf(PrijsDAO.getPrijsByVerkoopType(VerkoopType.VerkoopTypeCasting((String) comboVerkoopType.getSelectedItem()))));
+		if (!isOffline) {
+			txtPrijs.setText(String.valueOf(PrijsDAO.getPrijsByVerkoopType(VerkoopType.VerkoopTypeCasting((String) comboVerkoopType.getSelectedItem()))));
+		}
 		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -335,7 +342,7 @@ public class TicketVerkoopGui extends JPanel {
 				else {
 					ticket = new Ticket(0, MedewerkerDAO.getMedewerkerByLogin(Login.getLoginId()).getId(), txtVan.getText(), txtNaar.getText(), StationDAO.checkStation(Station.getCurrentStation()), Double.parseDouble(txtPrijs.getText()),VerkoopType.VerkoopTypeCasting((String) comboVerkoopType.getSelectedItem()), 0, (int)klasse.getValue(), (int)aantal.getValue()
 						,Calendar.getInstance().getTime(), converter((int) heenDag.getValue(),(int) heenMaand.getValue(), (int)heenJaar.getValue()),converter((int) terugDag.getValue(), (int) terugMaand.getValue(), (int) terugJaar.getValue()) );
-					VerkoopController.ticketValidate(ticket, TicketVerkoopGui.this);
+					VerkoopController.ticketValidate(ticket, TicketVerkoopGui.this, isOffline);
 				}
 			}
 		}

@@ -10,27 +10,36 @@ import dao.StationDAO;
 import dao.TicketDao;
 import gui.TicketVerkoopGui;
 import source.Ticket;
+import source.TicketsOffline;
 import dao.PrijsDAO;
 
 public class VerkoopController {	
 	public VerkoopController(){}
 	
-	public static boolean ticketValidate(Ticket ticket, TicketVerkoopGui tvGui){
+	public static boolean ticketValidate(Ticket ticket, TicketVerkoopGui tvGui, boolean isOffline){
 		
 		boolean depZone = false, arrZone = false, klasse = false, aantal = false, heenDatum = false, terugDatum = false;
 
-		if(StationDAO.checkStation(ticket.getDepZone()) != 0){
+		if (!isOffline) {
+			if(StationDAO.checkStation(ticket.getDepZone()) != 0){
+				depZone = true;
+			}
+			else{
+				depZone = false;
+			}
+			
+			if(StationDAO.checkStation(ticket.getArrZone()) != 0){
+				arrZone = true;
+			}
+			else{
+				arrZone = false;
+			}
+		}
+		else {
 			depZone = true;
-		}
-		else{
-			depZone = false;
-		}
-		if(StationDAO.checkStation(ticket.getArrZone()) != 0){
 			arrZone = true;
 		}
-		else{
-			arrZone = false;
-		}
+		
 		if(ticket.getKlasse() == 1 || ticket.getKlasse() == 2){
 			klasse = true;
 		}
@@ -65,8 +74,13 @@ public class VerkoopController {
 		}
 		
 		if(depZone && arrZone && klasse && aantal && heenDatum && terugDatum){
-			//ticket.setPrijs(PrijsDAO.getPrijsByVerkoopType(ticket.getVerkoop()));
-			TicketDao.insertTicket(ticket);
+			if (!isOffline) {
+				//ticket.setPrijs(PrijsDAO.getPrijsByVerkoopType(ticket.getVerkoop()));
+				TicketDao.insertTicket(ticket);
+			}
+			else {
+				TicketsOffline.addTicket(ticket);
+			}
 			tvGui.setTickettenVerkocht(true, ticket);
 			return true;
 		}
