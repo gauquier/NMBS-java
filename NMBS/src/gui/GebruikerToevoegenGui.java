@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.sql.Array;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -22,11 +23,14 @@ import source.Login;
 import source.Medewerker;
 import source.Persoon;
 import source.Rol;
+import source.Validation;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
+import javax.swing.border.Border;
+
 import java.awt.Color;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 import java.awt.Font;
@@ -49,15 +53,26 @@ public class GebruikerToevoegenGui extends JPanel {
 	private JTextField txtEmail;
 	private Adres adres;
 	private Login login;
-	private LoginDao loginDao= new LoginDao();
+	private LoginDao loginDao = new LoginDao();
 	private Persoon persoon;
 	private Rol rol;
 	private List<Persoon> mijnpersonen;
 	private ButtonGroup radiobuttons;
 	private JRadioButton rbtnAdmin;
 	private JRadioButton rbtnUser;
-	
+
 	private JPasswordField txtPassword;
+	private JLabel lblAchternaamError;
+	private JLabel lblStraatError;
+	private JLabel lblHuisnrError;
+	private JLabel lblBusError;
+	private JLabel lblGemeenteError;
+	private JLabel lblPostcodeError;
+	private JLabel lblEmailError;
+	private JLabel lblVoornaamError;
+	private Border border = BorderFactory.createEmptyBorder();
+	private Border bordererror = BorderFactory.createLineBorder(Color.RED, 3);
+	private JLabel lblUsernameError;
 
 	public GebruikerToevoegenGui() {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
@@ -85,11 +100,10 @@ public class GebruikerToevoegenGui extends JPanel {
 
 		txtVoornaam = new JTextField();
 		txtVoornaam.setColumns(10);
-		
+
 		txtAchternaam = new JTextField();
 		txtAchternaam.setColumns(10);
-		
-		
+
 		txtStraat = new JTextField();
 		txtStraat.setColumns(10);
 
@@ -109,7 +123,7 @@ public class GebruikerToevoegenGui extends JPanel {
 		btnToevoegen.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnToevoegen.setBackground(Color.ORANGE);
 		btnToevoegen.addActionListener(new MenuItemHandler());
-		
+
 		lblUsername = new JLabel("Username*:");
 		lblUsername.setForeground(Color.WHITE);
 
@@ -147,137 +161,194 @@ public class GebruikerToevoegenGui extends JPanel {
 		JLabel label_1 = new JLabel("* Verplichte velden");
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		label_1.setForeground(Color.WHITE);
-		
+
 		txtPassword = new JPasswordField();
+
+		lblVoornaamError = new JLabel("");
+		lblVoornaamError.setForeground(Color.RED);
+
+		lblAchternaamError = new JLabel("");
+		lblAchternaamError.setForeground(Color.RED);
+
+		lblStraatError = new JLabel("");
+		lblStraatError.setForeground(Color.RED);
+
+		lblHuisnrError = new JLabel("");
+		lblHuisnrError.setForeground(Color.RED);
+
+		lblBusError = new JLabel("");
+		lblBusError.setForeground(Color.RED);
+
+		lblGemeenteError = new JLabel("");
+		lblGemeenteError.setForeground(Color.RED);
+
+		lblPostcodeError = new JLabel("");
+		lblPostcodeError.setForeground(Color.RED);
+
+		lblEmailError = new JLabel("");
+		lblEmailError.setForeground(Color.RED);
+
+		lblUsernameError = new JLabel("");
+		lblUsernameError.setForeground(Color.RED);
 		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(30)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblVoornaam)
-								.addComponent(lblAchternaam)
-								.addComponent(lblBus)
-								.addComponent(lblPostcode)
-								.addComponent(lblHuisnummer)
-								.addComponent(lblPassword)
-								.addComponent(lblGemeente)
-								.addComponent(lblUsername)
-								.addComponent(lblStraat)
-								.addComponent(lblEmail))
-							.addGap(50)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(label_1, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-											.addGap(201))
-										.addGroup(groupLayout.createSequentialGroup()
-											.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-												.addComponent(txtEmail, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-												.addComponent(txtGemeente, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-												.addComponent(txtUsername, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-												.addComponent(txtStraat, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-												.addComponent(txtAchternaam, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-												.addComponent(txtVoornaam, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE))
-											.addGap(75)
-											.addComponent(label, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE))
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(txtPassword, GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
-											.addGap(123)))
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-										.addComponent(btnToevoegen, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(rbtnAdmin)
-											.addGap(18)
-											.addComponent(rbtnUser)))
-									.addGap(28))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-										.addComponent(txtBus, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
-										.addComponent(txtHuisnr, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE))
-									.addGap(510))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(txtPostcode, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-									.addContainerGap(509, Short.MAX_VALUE))))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblMedewerkerToevoegen)
-							.addContainerGap(536, Short.MAX_VALUE))))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(19)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(lblMedewerkerToevoegen)
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblVoornaam)
-								.addComponent(txtVoornaam, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(
+				Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup().addGap(30).addGroup(groupLayout
+						.createParallelGroup(Alignment.LEADING).addGroup(groupLayout.createSequentialGroup()
+								.addComponent(label, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE).addGap(
+										49)
+								.addComponent(rbtnUser).addPreferredGap(ComponentPlacement.UNRELATED)
 								.addComponent(rbtnAdmin)
-								.addComponent(rbtnUser)
-								.addComponent(label))
-							.addGap(15)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblAchternaam)
-								.addComponent(txtAchternaam, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(15)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(txtStraat, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblStraat))
-							.addGap(15)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblHuisnummer)
-								.addComponent(txtHuisnr, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(15)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblBus)
-								.addComponent(txtBus, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(15)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(txtGemeente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblGemeente))
-							.addGap(15)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblPostcode)
-								.addComponent(txtPostcode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(15)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(lblUsername)
-								.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(15)
-							.addComponent(lblPassword)
-							.addGap(6)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(btnToevoegen, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED, 232, Short.MAX_VALUE)
+								.addComponent(btnToevoegen, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
+								.addGap(28))
+						.addGroup(groupLayout.createSequentialGroup()
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING).addComponent(lblVoornaam)
+										.addComponent(lblAchternaam).addComponent(lblBus).addComponent(lblPostcode)
+										.addComponent(lblHuisnummer).addComponent(lblPassword).addComponent(lblGemeente)
+										.addComponent(lblUsername).addComponent(lblStraat)
+										.addComponent(lblEmail))
+								.addGap(50)
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
+										.createSequentialGroup()
+										.addGroup(groupLayout
+												.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
+														.createSequentialGroup().addGroup(groupLayout
+																.createParallelGroup(Alignment.TRAILING)
+																.addComponent(txtEmail, Alignment.LEADING,
+																		GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+																.addComponent(txtGemeente, Alignment.LEADING,
+																		GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+																.addComponent(txtUsername, Alignment.LEADING,
+																		GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+																.addComponent(txtStraat, Alignment.LEADING,
+																		GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+																.addComponent(txtAchternaam, Alignment.LEADING,
+																		GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+																.addComponent(txtVoornaam, Alignment.LEADING,
+																		GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+																.addComponent(label_1, Alignment.LEADING,
+																		GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+														.addGap(18)
+														.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+																.addComponent(lblUsernameError).addGroup(groupLayout
+																		.createParallelGroup(Alignment.LEADING)
+																		.addComponent(lblGemeenteError)
+																		.addGroup(groupLayout
+																				.createParallelGroup(Alignment.LEADING)
+																				.addComponent(lblStraatError)
+																				.addGroup(groupLayout
+																						.createParallelGroup(
+																								Alignment.LEADING)
+																						.addGroup(groupLayout
+																								.createSequentialGroup()
+																								.addComponent(
+																										lblVoornaamError,
+																										GroupLayout.DEFAULT_SIZE,
+																										31,
+																										Short.MAX_VALUE)
+																								.addGap(44))
+																						.addComponent(
+																								lblAchternaamError))))))
+												.addGroup(Alignment.TRAILING,
+														groupLayout.createSequentialGroup()
+																.addComponent(txtPassword, GroupLayout.DEFAULT_SIZE,
+																		200, Short.MAX_VALUE)
+																.addGap(49).addComponent(lblEmailError).addGap(44)))
+										.addGap(272))
 										.addGroup(groupLayout.createSequentialGroup()
-											.addGap(18)
-											.addComponent(lblEmail)))
-									.addGap(20))
+												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+														.addGroup(groupLayout.createSequentialGroup()
+																.addComponent(txtBus, GroupLayout.PREFERRED_SIZE, 51,
+																		GroupLayout.PREFERRED_SIZE)
+																.addGap(18).addComponent(lblBusError))
+														.addGroup(groupLayout.createSequentialGroup()
+																.addComponent(txtHuisnr, GroupLayout.PREFERRED_SIZE, 51,
+																		GroupLayout.PREFERRED_SIZE)
+																.addGap(18).addComponent(lblHuisnrError)))
+												.addGap(435))
+										.addGroup(groupLayout.createSequentialGroup()
+												.addComponent(txtPostcode, GroupLayout.PREFERRED_SIZE, 52,
+														GroupLayout.PREFERRED_SIZE)
+												.addGap(18).addComponent(lblPostcodeError)
+												.addContainerGap(495, Short.MAX_VALUE))))
+						.addGroup(groupLayout.createSequentialGroup().addComponent(lblMedewerkerToevoegen)
+								.addContainerGap(563, Short.MAX_VALUE)))));
+		groupLayout
+				.setVerticalGroup(groupLayout.createParallelGroup(Alignment.TRAILING).addGroup(groupLayout
+						.createSequentialGroup().addGap(
+								19)
+						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING).addGroup(groupLayout
+								.createSequentialGroup().addComponent(lblMedewerkerToevoegen).addGap(18)
+								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblVoornaam)
+										.addComponent(txtVoornaam, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblVoornaamError))
+								.addGap(15)
+								.addGroup(
+										groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblAchternaam)
+												.addComponent(txtAchternaam, GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblAchternaamError))
+								.addGap(15)
+								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(txtStraat, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblStraat).addComponent(lblStraatError))
+								.addGap(15)
+								.addGroup(
+										groupLayout.createParallelGroup(Alignment.TRAILING).addComponent(lblHuisnummer)
+												.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+														.addComponent(txtHuisnr, GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+														.addComponent(lblHuisnrError)))
+								.addGap(15)
+								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING).addComponent(lblBus)
+										.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+												.addComponent(txtBus, GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblBusError)))
+								.addGap(15)
+								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(txtGemeente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblGemeente).addComponent(lblGemeenteError))
+								.addGap(15)
+								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblPostcode)
+										.addComponent(txtPostcode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblPostcodeError))
+								.addGap(15)
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(lblUsername)
+										.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+												.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblUsernameError)))
+								.addGap(15).addComponent(lblPassword).addGap(24)
+								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+										.addGroup(groupLayout.createSequentialGroup().addComponent(lblEmail).addGap(29))
+										.addGroup(groupLayout.createSequentialGroup()
+												.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addGap(17))))
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(label_1)
-									.addPreferredGap(ComponentPlacement.RELATED))))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(txtPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(60)))
-					.addGap(0, 0, Short.MAX_VALUE))
-		);
+										.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+												.addComponent(txtPassword, GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblEmailError))
+										.addGap(60)))
+						.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(label)
+								.addComponent(rbtnUser).addComponent(rbtnAdmin))
+						.addGap(11).addComponent(label_1).addGap(32))
+						.addGroup(groupLayout.createSequentialGroup().addContainerGap(457, Short.MAX_VALUE)
+								.addComponent(btnToevoegen, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
+								.addGap(44)));
 
 		setLayout(groupLayout);
 	}
 
-
-	
-	
-	
 	public void close() {
 		this.setVisible(false);
 	}
@@ -288,56 +359,104 @@ public class GebruikerToevoegenGui extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			// refresh();
 
-		
 			if (e.getSource() == btnToevoegen) {
-
+				lblVoornaamError.setText("");
+				txtVoornaam.setBorder(border);
+				lblAchternaamError.setText("");
+				txtAchternaam.setBorder(border);
+				lblStraatError.setText("");
+				txtStraat.setBorder(border);
+				lblHuisnrError.setText("");
+				txtHuisnr.setBorder(border);
+				lblGemeenteError.setText("");
+				txtGemeente.setBorder(border);
+				lblPostcodeError.setText("");
+				txtPostcode.setBorder(border);
+				lblEmailError.setText("");
+				txtEmail.setBorder(border);
+				lblBusError.setText("");
+				txtBus.setBorder(border);
 
 				if (!txtVoornaam.getText().isEmpty() && !txtAchternaam.getText().isEmpty()
 						&& !txtPassword.getText().isEmpty() && !txtUsername.getText().isEmpty()
 						&& !txtStraat.getText().isEmpty() && !txtGemeente.getText().isEmpty()
 						&& !txtPostcode.getText().isEmpty() && !txtHuisnr.getText().isEmpty()) {
-				
-				String username = txtUsername.getText().trim();
-				if(loginDao.checkUsername(username) > 0){
-					JOptionPane.showMessageDialog(new JFrame(), "Deze gebruiker bestaat al.");
-					txtPassword.setText("");
-					return;
-				}
-				else {
-						login = new Login(txtUsername.getText().trim(), txtPassword.getText().trim());
-						login.toString();
 
-						if (!txtBus.getText().isEmpty()) {
-							adres = new Adres(txtStraat.getText().trim(), Integer.parseInt(txtHuisnr.getText()),
-									txtGemeente.getText().trim(), Integer.parseInt(txtPostcode.getText()),
-									txtBus.getText());
-						} else {
-							adres = new Adres(txtStraat.getText().trim(), Integer.parseInt(txtHuisnr.getText()),
-									txtGemeente.getText().trim(), Integer.parseInt(txtPostcode.getText()), "");
+					String username = txtUsername.getText().trim();
+					if (loginDao.checkUsername(username) > 0) {
+						JOptionPane.showMessageDialog(new JFrame(), "Deze gebruiker bestaat al.");
+						txtPassword.setText("");
+						return;
+					} else {
+						if (!Validation.checkFirstName(txtVoornaam.getText())) {
+							lblVoornaamError.setText("Gelieve een juist voornaam in te vullen!");
+							txtVoornaam.setBorder(bordererror);
 						}
-						adres.toString();
-
-						persoon = new Persoon(txtVoornaam.getText().trim(), txtAchternaam.getText().trim(),
-								txtEmail.getText().trim(), adres);
-						persoon.toString();
-
-						int rolid;
-
-						if (rbtnAdmin.isSelected()) {
-							rolid = 1;
-						} else {
-							rolid = 2;
+						if (!Validation.checkLastName(txtAchternaam.getText())) {
+							lblAchternaamError.setText("Gelieve een juist achternaam in te vullen!");
+							txtAchternaam.setBorder(bordererror);
 						}
+						if (!Validation.checkAlphabetical(txtStraat.getText())) {
+							lblStraatError.setText("Gelieve een juist straat in te vullen!");
+							txtStraat.setBorder(bordererror);
+						}
+						if (!Validation.checkHouseNumber(txtHuisnr.getText())) {
+							lblHuisnrError.setText("Gelieve een juist huisnummer in te vullen!");
+							txtHuisnr.setBorder(bordererror);
+						}
+						if (!Validation.checkAlphabetical(txtGemeente.getText())) {
+							lblGemeenteError.setText("Gelieve een juiste gemeente in te vullen!");
+							txtGemeente.setBorder(bordererror);
+						}
+						if (!Validation.checkPostalCode(txtPostcode.getText())) {
+							lblPostcodeError.setText("Gelieve een juiste postocde in te vullen!");
+							txtPostcode.setBorder(bordererror);
+						}
+						if (!txtEmail.getText().isEmpty() && !Validation.checkEmail(txtEmail.getText())) {
+							lblEmailError.setText("Gelieve een juist emailadres in te vullen!");
+							txtEmail.setBorder(bordererror);
+						}
+						if (!txtBus.getText().isEmpty() && !Validation.checkBoxNumber(txtBus.getText())) {
+							lblBusError.setText("Gelieve een juiste bus in te vullen!");
+							txtBus.setBorder(bordererror);
+						}
+						if (!Validation.checkUsername(txtUsername.getText())) {
+							lblUsernameError.setText("Een username mag niet enkel nummers bevatten!");
+							txtUsername.setBorder(bordererror);
+						} else {
+							login = new Login(txtUsername.getText().trim(), txtPassword.getText().trim());
+							login.toString();
 
-						rol = new Rol(rolid);
-						rol.setRolId(rolid);
-						MedewerkerDAO.addMedewerker(login, persoon, rol, adres);
-						close();
-						JOptionPane.showMessageDialog(new JFrame(), "Gebruiker is toegevoegd!");
+							if (!txtBus.getText().isEmpty()) {
+								adres = new Adres(txtStraat.getText().trim(), Integer.parseInt(txtHuisnr.getText()),
+										txtGemeente.getText().trim(), Integer.parseInt(txtPostcode.getText()),
+										txtBus.getText());
+							} else {
+								adres = new Adres(txtStraat.getText().trim(), Integer.parseInt(txtHuisnr.getText()),
+										txtGemeente.getText().trim(), Integer.parseInt(txtPostcode.getText()), "");
+							}
+							adres.toString();
+
+							persoon = new Persoon(txtVoornaam.getText().trim(), txtAchternaam.getText().trim(),
+									txtEmail.getText().trim(), adres);
+							persoon.toString();
+
+							int rolid;
+
+							if (rbtnAdmin.isSelected()) {
+								rolid = 1;
+							} else {
+								rolid = 2;
+							}
+
+							rol = new Rol(rolid);
+							rol.setRolId(rolid);
+							MedewerkerDAO.addMedewerker(login, persoon, rol, adres);
+							close();
+							JOptionPane.showMessageDialog(new JFrame(), "Gebruiker is toegevoegd!");
+						}
 					}
-				}
-
-				else {
+				} else {
 					JOptionPane.showMessageDialog(new JFrame(), "Vul alle verplichte velden in!");
 
 				}
