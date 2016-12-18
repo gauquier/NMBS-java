@@ -32,7 +32,7 @@ public class RouteZoekenGui extends JPanel {
 	private Border border = BorderFactory.createEmptyBorder();
 	private Border bordererror = BorderFactory.createLineBorder(Color.RED, 3);
 	public RouteZoekenGui() {
-		setBackground(new Color(0, 191, 255));
+		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
 		JLabel lblVan = new JLabel("Van");
 		lblVan.setForeground(Color.WHITE);
