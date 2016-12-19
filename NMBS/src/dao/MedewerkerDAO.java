@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
+import java.util.Vector;
 
 import source.Adres;
 import source.Login;
@@ -88,10 +88,13 @@ public class MedewerkerDAO {
 	public static Medewerker getMedewerkerByPersoonId(int id){
 		dba.createSelect("Medewerker");
 		dba.addWhere("persoonId", id);
+		dba.addWhere("actief", 1);
 		ResultSet rs = dba.commit();
 		try {
 			if(rs.next()){
 				Persoon persoon = PersoonDao.getPersoon(id);
+				return new Medewerker(persoon.getId(), persoon.getVoornaam(), persoon.getAchternaam(), persoon.getEmail(), persoon.getAdres(),
+						rs.getInt(1), RolDAO.getRol(rs.getInt(4)), LoginDao.getLogin(rs.getInt(2)), rs.getBoolean(5));
 			}
 		}catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -153,25 +156,35 @@ public class MedewerkerDAO {
 	public static ArrayList<Medewerker> getAllMedewerkersFromSearch(String search){
 		ArrayList<Medewerker> medewerkers = new ArrayList<Medewerker>();
 		Persoon persoon = null;
-		String search2 = "%"+search+"%";
-		dba.createSelect("Persoon");
-		dba.addWhereLike("Voornaam", search2);
-		ResultSet rs2 = dba.commit();
-		try {
-			while(rs2.next()){
-				persoon = PersoonDao.getPersoon(rs2.getInt(1));
+		String search2 = "%"+search+"%";	
+	    try {
+	        connection = Connection.getDBConnection();                
+	        stmt = connection.prepareStatement("SELECT * FROM Persoon where Voornaam LIKE ?");
+	        stmt.setString(1, search2);
+	        data = stmt.executeQuery();
+	        
+	        while (data.next()) {
+	        	persoon = PersoonDao.getPersoon(data.getInt(1));
 				Medewerker medewerker = MedewerkerDAO.getMedewerkerByPersoonId(persoon.getId());
-				medewerkers.add(new Medewerker(persoon.getId(), persoon.getVoornaam(), persoon.getAchternaam(), persoon.getEmail(), persoon.getAdres(),
-						medewerker.getMedewerkerId() , medewerker.getRol(), medewerker.getLogin(), true));
-				System.out.println(persoon);
-			}
-			return medewerkers;
-			 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+				medewerkers.add(medewerker);
+				System.out.println(medewerkers);
+	        }
+	        data.close();
+	        connection.close();
+	        return medewerkers;
+	    }catch (SQLException e){
+	        e.printStackTrace();
+	    }catch(Exception e) {//Handle errors for Class.forName
+	        e.printStackTrace();
+	    }finally{
+	    	try{
+	            if(data!=null) data.close();
+	            if(connection!=null)connection.close();
+	        }catch(SQLException se2){
+	            se2.printStackTrace();
+	        }
+	    }     
+	    return medewerkers;	
 	}
 
 	public static void removeMedewerker(int id){

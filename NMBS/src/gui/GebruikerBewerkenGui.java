@@ -37,6 +37,7 @@ import java.util.*;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
+import javax.swing.JScrollPane;
 
 public class GebruikerBewerkenGui extends JPanel {
 	private JTextField txtZoekveld;
@@ -71,8 +72,6 @@ public class GebruikerBewerkenGui extends JPanel {
 			dlm.addElement(m);
 		}
 		
-		list = new JList<Medewerker>(dlm);
-		
 		txtZoekveld = new JTextField();
 		txtZoekveld.setColumns(10);
 		txtZoekveld.addKeyListener(new KeyListener()
@@ -86,25 +85,40 @@ public class GebruikerBewerkenGui extends JPanel {
 					Thread userRefresh = new Thread(new Runnable(){
 						@Override
 						public void run() {
-							if(!txtZoekveld.getText().isEmpty()){
+							if(txtZoekveld.getText().isEmpty()){
 								dlm.clear();
-								
-								arrayLijst2 = MedewerkerDAO.getAllMedewerkersFromSearch(txtZoekveld.getText());
-		    					
-		    					for(Medewerker m : arrayLijst2)
-		    					{
-		    						dlm.addElement(m);
-		    					}
-
-		    					list = new JList<Medewerker>(dlm);
-							}
-							else
-							{
 								for(Medewerker m : arrayLijst)
 								{
 									dlm.addElement(m);
 								}
 								list = new JList<Medewerker>(dlm);
+							}
+							else if(txtZoekveld.getText().isEmpty() && e.getKeyCode() == KeyEvent.VK_BACK_SPACE){
+								dlm.clear();
+								for(Medewerker m : arrayLijst)
+								{
+									dlm.addElement(m);
+								}
+								list = new JList<Medewerker>(dlm);
+							}
+							else if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE || e.getKeyCode() == KeyEvent.VK_ESCAPE){
+								dlm.clear();
+								for(Medewerker m : arrayLijst)
+								{
+									dlm.addElement(m);
+								}
+								list = new JList<Medewerker>(dlm);
+							}
+							else
+							{
+								
+								dlm.clear();
+								arrayLijst2 = MedewerkerDAO.getAllMedewerkersFromSearch(txtZoekveld.getText());
+		    					for(Medewerker m : arrayLijst2)
+		    					{
+		    						dlm.addElement(m);
+		    					}
+		    					list = new JList<Medewerker>(dlm);
 							}
 						}
 					});
@@ -131,25 +145,25 @@ public class GebruikerBewerkenGui extends JPanel {
 		btnPasswordReset.setBackground(Color.ORANGE);
 		btnPasswordReset.addActionListener(new MenuItemHandler());
 		
+		JScrollPane scrollPane = new JScrollPane(list);
+		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(37)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
 						.addComponent(lblGebruikerBewerken)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnZoeken)
-							.addPreferredGap(ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
-							.addComponent(txtZoekveld, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(list, GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)))
+							.addPreferredGap(ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+							.addComponent(txtZoekveld, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)))
 					.addGap(10)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnVerwijderen, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnBewerken, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
-						.addComponent(btnPasswordReset, GroupLayout.PREFERRED_SIZE, 113, Short.MAX_VALUE))
+						.addComponent(btnBewerken, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+						.addComponent(btnPasswordReset, GroupLayout.PREFERRED_SIZE, 130, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -164,7 +178,7 @@ public class GebruikerBewerkenGui extends JPanel {
 								.addComponent(btnZoeken)
 								.addComponent(txtZoekveld, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
 							.addGap(12)
-							.addComponent(list, GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))
+							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(97)
 							.addComponent(btnBewerken)
@@ -172,8 +186,11 @@ public class GebruikerBewerkenGui extends JPanel {
 							.addComponent(btnVerwijderen)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(btnPasswordReset, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap())
+					.addContainerGap(92, Short.MAX_VALUE))
 		);
+		
+		list = new JList<Medewerker>(dlm);
+		scrollPane.setViewportView(list);
 		setLayout(groupLayout);
 	}
 	
