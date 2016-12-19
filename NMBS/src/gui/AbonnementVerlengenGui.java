@@ -103,14 +103,25 @@ public class AbonnementVerlengenGui extends JPanel {
 		
 		JLabel lblDatum2 = new JLabel("Niet van toepassing");
 		lblDatum2.setForeground(Color.WHITE);
+		if(abonnement.getP()==null){
+			lblDatum2.setText("Niet van toepassing");
+
+		} else {
+			lblDatum2.setText(formatDatum.format(PeriodeDAO.getPeriode(abonnement).getEndDate()));
+			//startdatum.setTime(PeriodeDAO.getPeriode(doorgegevenAbonnement).getStartDate());
+			//nieuweEinddatum.setTime(PeriodeDAO.getPeriode(doorgegevenAbonnement).getEndDate());
+		}
 		
+	
 		JLabel lblMaanden = new JLabel("maand(en)");
 		lblMaanden.setForeground(Color.WHITE);
 		
 		JLabel lblNieuweEinddatum = new JLabel("Nieuwe einddatum:");
 		lblNieuweEinddatum.setForeground(Color.WHITE);
 		
-		lblDatum3 = new JLabel("");
+		
+		nieuweEinddatum.add(Calendar.MONTH, 1);
+		lblDatum3 = new JLabel(formatDatum.format(nieuweEinddatum.getTime()));
 		lblDatum3.setForeground(Color.WHITE);
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -236,11 +247,15 @@ public class AbonnementVerlengenGui extends JPanel {
 					
 				}
 				else {
+					
+				
+				//System.out.println(startdatum.getTime());
+				//System.out.println(nieuweEinddatum.getTime());
 				Periode periode = new Periode(0, startdatum.getTime(), nieuweEinddatum.getTime(), verkoopdatum.getTime() );
 				PeriodeDAO.addPeriode(periode, doorgegevenAbonnement, 1); // 1 moet vervangen worden door currentloginId
 				
 				JOptionPane.showMessageDialog(new JFrame(), "Periode is toegevoegd!");
-				AdminGui.setHuidigeKeuze(new HomeGui());
+				AdminGui.setHuidigeKeuze(new AbonnementBeheerGui());
 				
 				}
 				}

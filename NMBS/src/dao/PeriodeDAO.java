@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -22,12 +23,13 @@ private static DBA dba = new DBA();
 	
 	public static void addPeriode(Periode periode, Abonnement abonnement, int medewerkerId){
         
+		DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		dba.createInsert("Periode");
 		dba.addValue(abonnement.getAankoopId());
 		dba.addValue(medewerkerId);
-		dba.addValue(periode.getStartDate());
-		dba.addValue(periode.getEndDate());
-		dba.addValue(periode.getVerkoopdatum());
+		dba.addValue(formatter.format(periode.getStartDate()));
+		dba.addValue(formatter.format(periode.getEndDate()));
+		dba.addValue(formatter.format(periode.getVerkoopdatum()));
 		dba.commit();
 	}
 	

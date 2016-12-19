@@ -217,8 +217,7 @@ public class GebruikerBewerkenGui extends JPanel {
 				if(!unknownIndex()){
 					return;
 				} else {
-					System.out.println(list.getSelectedValue().getId());
-					navigation= "gebruikerToevoegen";
+					navigation= "gebruikerBijwerken";
 					AdminGui.setHuidigeKeuze(new GebruikerBijwerkenGui(list.getSelectedValue()));
 				}
 			}

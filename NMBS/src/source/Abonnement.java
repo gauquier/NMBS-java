@@ -40,7 +40,14 @@ public class Abonnement extends Aankoop {
 		this.abonnementId = abonnementId;
 		this.p=PeriodeDAO.getPeriode(this);
 	}
+	
+	public Periode getP() {
+		return p;
+	}
 
+	public void setP(Periode p) {
+		this.p = p;
+	}
 
 	public Klant getKlant() {
 		return klant;
@@ -82,7 +89,6 @@ public class Abonnement extends Aankoop {
 		this.abonnementId = abonnementId;
 	}
 
-
 	public String toString()
 	{
 		String resultaat=null;
@@ -95,11 +101,13 @@ public class Abonnement extends Aankoop {
 		
 		if(resterendeDagen > 0){
 		resultaat = getKlant().getVoornaam() + " " + getKlant().getAchternaam() + " / " + formatDatum.format(p.getStartDate()) + " -> " + formatDatum.format(p.getEndDate()) + " / " + resterendeDagen + " dag(en) resterend";
+		
 		}else {
 			if(p==null){
-				resultaat= getKlant().getVoornaam() + " " + getKlant().getAchternaam() + " / Geen periode gelinkt aan dit abonnement";
+				resultaat= getKlant().getVoornaam() + " " + getKlant().getAchternaam() + " / Geen actieve periode gelinkt aan dit abonnement";
 			} else{
 				resultaat = getKlant().getVoornaam() + " " + getKlant().getAchternaam() + " / " + formatDatum.format(p.getStartDate()) + " -> " + formatDatum.format(p.getEndDate()) + " / " + " Afgelopen";
+				this.setP(null);
 			}
 		
 		}
