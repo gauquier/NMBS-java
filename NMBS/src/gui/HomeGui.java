@@ -46,80 +46,85 @@ public class HomeGui extends JPanel {
 	DataBufferByte data;
 	File image;
 	private JTable table;
-	
-	public HomeGui(){
+
+	public HomeGui(boolean isOffline) {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		setForeground(Color.WHITE);
 		
-		JLabel lblHuidigeGebruiker = new JLabel("Huidige gebruiker: " + Login.getCurrentUser());
+		JLabel lblHuidigeGebruiker;
+		JLabel lblStation;
 		
-		JLabel lblStation = new JLabel("Station: " + Station.getCurrentStation());
-		
-		JLabel lblTicketverkoop = new JLabel("Ticketverkoop");
-		
-		ArrayList<Ticketstatistiek> ticketstats = TicketDao.getTicketstatistieken();
-		
-		//Om mogelijke out-of-boundsexception tegen te gaan
-		if (ticketstats.size() < 5) {
-			String legeString = "";
-			int legeInt = 0;
-			Ticketstatistiek legeStat = new Ticketstatistiek(legeString, legeInt);
-			for (int i = ticketstats.size(); i < 5; i++) {
-				ticketstats.add(legeStat);
-			}
+		if (!isOffline) {
+			lblHuidigeGebruiker = new JLabel("Huidige gebruiker: " + Login.getCurrentUser());
+	
+			lblStation = new JLabel("Station: " + Station.getCurrentStation());
+		}
+		else {
+			lblHuidigeGebruiker = new JLabel("Huidige gebruiker: OFFLINE");
+			
+			lblStation = new JLabel("Station: Onbekend");
 		}
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{ticketstats.get(0).getVerkoopdatum(), ticketstats.get(0).getVerkochteTickets()},
-				{ticketstats.get(1).getVerkoopdatum(), ticketstats.get(1).getVerkochteTickets()},
-				{ticketstats.get(2).getVerkoopdatum(), ticketstats.get(2).getVerkochteTickets()},
-				{ticketstats.get(3).getVerkoopdatum(), ticketstats.get(3).getVerkochteTickets()},
-				{ticketstats.get(4).getVerkoopdatum(), ticketstats.get(4).getVerkochteTickets()},
-			},
-			new String[] {
-				"Dag", "Verkochte tickets"
-			}
-		) {
+		JLabel lblTicketverkoop;
+
+		if (!isOffline) {
+			lblTicketverkoop = new JLabel("Ticketverkoop");
 			
-			private static final long serialVersionUID = 7778959677031066336L;
-			boolean[] columnEditables = new boolean[] {
-				false, false
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
+			ArrayList<Ticketstatistiek> ticketstats = TicketDao.getTicketstatistieken();
+
+			// Om mogelijke out-of-boundsexception tegen te gaan
+			if (ticketstats.size() < 5) {
+				String legeString = "";
+				int legeInt = 0;
+				Ticketstatistiek legeStat = new Ticketstatistiek(legeString, legeInt);
+				for (int i = ticketstats.size(); i < 5; i++) {
+					ticketstats.add(legeStat);
+				}
 			}
-		});
-		table.getColumnModel().getColumn(0).setResizable(false);
-		table.getColumnModel().getColumn(0).setPreferredWidth(100);
-		table.getColumnModel().getColumn(1).setResizable(false);
-		table.getColumnModel().getColumn(1).setPreferredWidth(100);
+
+			table = new JTable();
+			table.setModel(
+					new DefaultTableModel(
+							new Object[][] {
+									{ ticketstats.get(0).getVerkoopdatum(), ticketstats.get(0).getVerkochteTickets() },
+									{ ticketstats.get(1).getVerkoopdatum(), ticketstats.get(1).getVerkochteTickets() },
+									{ ticketstats.get(2).getVerkoopdatum(), ticketstats.get(2).getVerkochteTickets() },
+									{ ticketstats.get(3).getVerkoopdatum(), ticketstats.get(3).getVerkochteTickets() },
+									{ ticketstats.get(4).getVerkoopdatum(),
+											ticketstats.get(4).getVerkochteTickets() }, },
+							new String[] { "Dag", "Verkochte tickets" }) {
+
+						private static final long serialVersionUID = 7778959677031066336L;
+						boolean[] columnEditables = new boolean[] { false, false };
+
+						public boolean isCellEditable(int row, int column) {
+							return columnEditables[column];
+						}
+					});
+			table.getColumnModel().getColumn(0).setResizable(false);
+			table.getColumnModel().getColumn(0).setPreferredWidth(100);
+			table.getColumnModel().getColumn(1).setResizable(false);
+			table.getColumnModel().getColumn(1).setPreferredWidth(100);
+		}
+		else {
+			lblTicketverkoop = new JLabel("");
+			table = new JTable();
+		}
+
 		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
+				.createSequentialGroup().addContainerGap()
+				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(table, GroupLayout.PREFERRED_SIZE, 254, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblHuidigeGebruiker)
-						.addComponent(lblStation)
-						.addComponent(lblTicketverkoop))
-					.addContainerGap(186, Short.MAX_VALUE))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblHuidigeGebruiker)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblStation)
-					.addGap(30)
-					.addComponent(lblTicketverkoop)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(table, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(125, Short.MAX_VALUE))
-		);
+						.addComponent(lblHuidigeGebruiker).addComponent(lblStation).addComponent(lblTicketverkoop))
+				.addContainerGap(186, Short.MAX_VALUE)));
+		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup().addContainerGap().addComponent(lblHuidigeGebruiker)
+						.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblStation).addGap(30)
+						.addComponent(lblTicketverkoop)
+						.addPreferredGap(ComponentPlacement.RELATED).addComponent(table, GroupLayout.PREFERRED_SIZE,
+								GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(125, Short.MAX_VALUE)));
 		setLayout(groupLayout);
 	}
 }

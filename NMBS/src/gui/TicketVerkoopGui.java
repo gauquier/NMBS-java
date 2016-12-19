@@ -74,9 +74,9 @@ public class TicketVerkoopGui extends JPanel {
 	private Ticket ticket = null;
 	private JTextField txtPrijs;
 
-	private boolean isOffline = false;
+	//private boolean isOffline = false;
 	
-	public TicketVerkoopGui() {
+	public TicketVerkoopGui(boolean isOffline) {
 		this.setVisible(true);
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
@@ -107,7 +107,7 @@ public class TicketVerkoopGui extends JPanel {
 		lblSoortBiljet.setForeground(Color.WHITE);
 		
 		
-		btnVerkoop.addActionListener(new ButtonHandler());
+		btnVerkoop.addActionListener(new ButtonHandler(isOffline));
 		
 		rdbtnHeen.setForeground(Color.BLACK);
 		rdbtnHeenEnTerug.setForeground(Color.BLACK);
@@ -332,6 +332,12 @@ public class TicketVerkoopGui extends JPanel {
 	}
 	
 	class ButtonHandler implements ActionListener{
+		private boolean isOffline;
+		
+		public ButtonHandler(boolean isOffline) {
+			setOffline(isOffline);
+		}
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == btnVerkoop)
@@ -360,6 +366,14 @@ public class TicketVerkoopGui extends JPanel {
 				e.printStackTrace();
 			}
 			return null;
+		}
+		
+		public boolean isOffline() {
+			return isOffline;
+		}
+
+		public void setOffline(boolean isOffline) {
+			this.isOffline = isOffline;
 		}
 		
 	}

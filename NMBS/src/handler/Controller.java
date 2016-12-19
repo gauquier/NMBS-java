@@ -11,6 +11,7 @@ public class Controller extends LoginGui{
 	
 	public static AdminGui adminInterface;
 	public static MedewerkerGui medewerkerInterface;
+	public static OfflineGui offlineInterface;
 	
 	public static void main(String[] args) throws Exception {
 		runProgram();

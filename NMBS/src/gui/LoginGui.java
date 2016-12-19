@@ -6,6 +6,7 @@ import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 import javax.swing.JButton;
@@ -123,11 +124,27 @@ public class LoginGui {
 		public void actionPerformed(ActionEvent e) {
 			if (!(CheckIfConnected.checkIfConnected()))//als er geen internetverbinding is
 			{
+				closeFrame();
 				JOptionPane.showMessageDialog(new JFrame(), "Er is geen internetverbinding.");
+				
+				JOptionPane.showMessageDialog(new JFrame(), "Offline-modus wordt opgestart.");
+				
+				Controller.offlineInterface = new OfflineGui();
+				Controller.offlineInterface.setHome();
+				new TicketVerkoopOfflineGui(true);
+				
 				return;
 			}
+			
 			if (!Connection.checkDBConnection()) {
 				JOptionPane.showMessageDialog(new JFrame(), "Kan niet verbinden met de databank.");
+				
+				JOptionPane.showMessageDialog(new JFrame(), "Offline-modus wordt opgestart.");
+				
+				Controller.offlineInterface = new OfflineGui();
+				Controller.offlineInterface.setHome();
+				new TicketVerkoopOfflineGui(true);
+				
 				return;
 			}
 			if (e.getSource() == btnLogin || e.getSource() == txtPassword) {

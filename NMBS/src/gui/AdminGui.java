@@ -75,7 +75,7 @@ public class AdminGui extends JFrame {
 
 	public void setHome(){
 		navigation= "home";
-		setHuidigeKeuze(new HomeGui());
+		setHuidigeKeuze(new HomeGui(false));
 	}
 	public Container getC() {
 		return c;
@@ -244,10 +244,10 @@ public class AdminGui extends JFrame {
 			}
 			else if (e.getSource() == home){
 
-				setHuidigeKeuze(new HomeGui());
+				setHuidigeKeuze(new HomeGui(false));
 			}
 			else if (e.getSource() == ticketVerkoop){
-				setHuidigeKeuze(new TicketVerkoopGui());
+				setHuidigeKeuze(new TicketVerkoopGui(false));
 			}
 			else if (e.getSource() == mntmPrijsbeheer){
 				setHuidigeKeuze(new PrijsBeheerGui());
