@@ -259,7 +259,7 @@ public class AdminGui extends JFrame {
 				setHuidigeKeuze(new WachtwoordVeranderenGui());
 			}
 			else if (e.getSource() == abonnementBeheer){
-			//	setHuidigeKeuze(new AbonnementBeheerGui());
+			setHuidigeKeuze(new AbonnementBeheerGui());
 			}
 		
 		}

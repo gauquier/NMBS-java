@@ -239,7 +239,6 @@ public class GebruikerBewerkenGui extends JPanel {
 			}
 			}
 			if(e.getSource() == btnPasswordReset){
-				System.out.println("test");
 				if(!unknownIndex()){
 					return;
 			 } else {

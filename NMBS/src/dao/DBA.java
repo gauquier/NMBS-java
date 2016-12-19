@@ -22,7 +22,12 @@ public class DBA {
 	private Statement stmt = null;
 	private ResultSet rs = null;
 	
+	
 
+		public String getSql() {
+		return sql;
+	}
+	
 		public void createSelect(String tableName)// SELECT * FROM tableName
 		{
 			reset();

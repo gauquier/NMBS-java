@@ -33,6 +33,8 @@ public class AbonnementBeheerGui extends JPanel {
 	private JButton btnZoeken;
 	private JButton btnBewerken;
 	private JList<Abonnement> list;
+	private ArrayList<Abonnement> arrayLijst;
+	private ArrayList<Object> objecten;
 	private JButton btnVerwijderen;
 	public String navigation;
 	private JButton btnNieuwAbonnement;
@@ -47,7 +49,19 @@ public class AbonnementBeheerGui extends JPanel {
 		
 		
 		
-		list = new JList<Abonnement>();
+		arrayLijst= new ArrayList<Abonnement>();
+		
+		arrayLijst = AbonnementDAO.getAllAbonnementen();
+		
+		DefaultListModel<Abonnement> dlm = new DefaultListModel<Abonnement>();
+		
+		
+		for(Abonnement a : arrayLijst)
+		{
+			dlm.addElement(a);
+		}
+		
+		list = new JList<Abonnement>(dlm);
 		
 		textField = new JTextField();
 		textField.setColumns(10);

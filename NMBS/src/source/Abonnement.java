@@ -1,10 +1,17 @@
 package source;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
+
+import dao.KlantDAO;
+import dao.PeriodeDAO;
 
 public class Abonnement extends Aankoop {
 	private Klant klant;
 	private String depZone, arrZone;
 	private boolean actief;
+	private int abonnementId;
+	private Periode p;
 	
 	public Abonnement(double korting, double prijs, VerkoopType verkoop, Klant klant, String depZone, String arrZone,
 			boolean actief) {
@@ -21,7 +28,18 @@ public class Abonnement extends Aankoop {
 		this.depZone = depZone;
 		this.arrZone = arrZone;
 	}
+	
 
+	public Abonnement(int abonnementId, Klant klant, String depZone, String arrZone , double prijs ,  VerkoopType verkoop,double korting, 
+			boolean actief) {
+		super(korting, prijs, verkoop);
+		this.klant = klant;
+		this.depZone = depZone;
+		this.arrZone = arrZone;
+		this.actief = actief;
+		this.abonnementId = abonnementId;
+		this.p=PeriodeDAO.getPeriode(this);
+	}
 
 
 	public Klant getKlant() {
@@ -55,7 +73,39 @@ public class Abonnement extends Aankoop {
 	public void setActief(boolean actief) {
 		this.actief = actief;
 	}
+	
+	public int getAbonnementId() {
+		return abonnementId;
+	}
 
+	public void setAbonnementId(int abonnementId) {
+		this.abonnementId = abonnementId;
+	}
+
+
+	public String toString()
+	{
+		String resultaat=null;
+		SimpleDateFormat formatDatum = new SimpleDateFormat("dd-MM-yyyy");
+		long resterendeDagen=0;
+		if(p!=null){
+			resterendeDagen= TimeUnit.DAYS.convert((p.getEndDate().getTime()-p.getStartDate().getTime()), TimeUnit.MILLISECONDS);
+		}
+		
+		
+		if(resterendeDagen > 0){
+		resultaat = getKlant().getVoornaam() + " " + getKlant().getAchternaam() + " / " + formatDatum.format(p.getStartDate()) + " -> " + formatDatum.format(p.getEndDate()) + " / " + resterendeDagen + " dag(en) resterend";
+		}else {
+			if(p==null){
+				resultaat= getKlant().getVoornaam() + " " + getKlant().getAchternaam() + " / Geen periode gelinkt aan dit abonnement";
+			} else{
+				resultaat = getKlant().getVoornaam() + " " + getKlant().getAchternaam() + " / " + formatDatum.format(p.getStartDate()) + " -> " + formatDatum.format(p.getEndDate()) + " / " + " Afgelopen";
+			}
+		
+		}
+		
+		return resultaat;
+	}
 	
 	
 	
