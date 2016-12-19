@@ -32,6 +32,7 @@ import source.Login;
 import source.Station;
 import source.Ticket;
 import source.VerkoopType;
+import source.AutoComboBox;
 
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
@@ -53,19 +54,19 @@ public class TicketVerkoopGui extends JPanel {
 	private JSpinner aantal = new JSpinner();
 	private JButton btnVerkoop = new JButton("Verkoop");
 	
-	private JLabel lblVan = new JLabel("Van");
-	private JLabel lblNaar = new JLabel("Naar");
-	private JLabel lblDatum = new JLabel("Heen datum");
-	private JLabel lblTerugDatum = new JLabel("terug datum");
-	private JLabel lblKlasse = new JLabel("klasse");
-	private JLabel lblAantal = new JLabel("aantal");
+	private JLabel lblVan = new JLabel("Van:");
+	private JLabel lblNaar = new JLabel("Naar:");
+	private JLabel lblDatum = new JLabel("Heen datum:");
+	private JLabel lblTerugDatum = new JLabel("terug datum:");
+	private JLabel lblKlasse = new JLabel("klasse:");
+	private JLabel lblAantal = new JLabel("aantal:");
 	private JTextPane paneTickettenVerkocht = new JTextPane();
 	private ButtonGroup buttonGroup = new ButtonGroup();
 	private JRadioButton rdbtnHeen = new JRadioButton("Heen");
 	private JRadioButton rdbtnHeenEnTerug = new JRadioButton("Heen en terug");
 	private JComboBox<String> comboVerkoopType = new JComboBox<String>();
-	private JComboBox<String> comboNaar = new JComboBox<String>();
-	private JComboBox<String> comboVan = new JComboBox<String>();
+	private AutoComboBox comboNaar = new AutoComboBox();
+	private AutoComboBox comboVan = new AutoComboBox();
 	
 	private Ticket ticket = null;
 
@@ -85,7 +86,7 @@ public class TicketVerkoopGui extends JPanel {
 		comboVerkoopType.addItem("groep");
 		comboVerkoopType.addItem("60+");
 		
-		JLabel lblSoortBiljet = new JLabel("Soort Biljet");
+		JLabel lblSoortBiljet = new JLabel("Soort Biljet:");
 		lblSoortBiljet.setForeground(Color.WHITE);
 		
 		
@@ -126,71 +127,74 @@ public class TicketVerkoopGui extends JPanel {
 		paneTickettenVerkocht.setVisible(false);
 		
 		ArrayList<Station> stations = StationDAO.getAll();
+		ArrayList<String> stationNamen = new ArrayList<String>();
 		for(int i = 0; i < stations.size(); i++){
-			comboVan.addItem(stations.get(i).getNaam());
-			comboNaar.addItem(stations.get(i).getNaam());
+			stationNamen.add(stations.get(i).getNaam());
 		}
-		comboVan.setEditable(true);
-		comboNaar.setEditable(true);
-		comboVan.addActionListener(new StationHandler());
-		comboNaar.addActionListener(new StationHandler());
+		comboNaar.setKeyWord(stationNamen);
+		comboVan.setKeyWord(stationNamen);
 		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(77)
 							.addComponent(table, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(155)
-							.addComponent(lblTicketVerkoop))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(60)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-										.addComponent(lblDatum)
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-											.addComponent(lblKlasse, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
-											.addComponent(lblTerugDatum)
-											.addComponent(lblAantal, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
-											.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-												.addComponent(lblSoortBiljet)
-												.addComponent(rdbtnHeen))))
-									.addPreferredGap(ComponentPlacement.UNRELATED))
-								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(30)
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 										.addComponent(lblNaar)
-										.addComponent(lblVan))
-									.addGap(56)))
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblVan)
+										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+											.addComponent(lblDatum)
+											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addComponent(lblKlasse, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblTerugDatum)
+												.addComponent(lblAantal, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblSoortBiljet)))))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(48)
+									.addComponent(lblTicketVerkoop)))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 								.addComponent(btnVerkoop)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(comboVan, 0, 186, Short.MAX_VALUE)
-										.addComponent(klasse, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(aantal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(rdbtnHeenEnTerug)
-										.addComponent(comboVerkoopType, 0, 186, Short.MAX_VALUE)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+											.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+												.addComponent(rdbtnHeenEnTerug)
+												.addGap(18)
+												.addComponent(rdbtnHeen)
+												.addPreferredGap(ComponentPlacement.RELATED))
+											.addGroup(groupLayout.createSequentialGroup()
+												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+													.addComponent(aantal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+													.addComponent(comboVerkoopType, GroupLayout.PREFERRED_SIZE, 201, GroupLayout.PREFERRED_SIZE)
+													.addGroup(groupLayout.createSequentialGroup()
+														.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+															.addComponent(terugDag, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+															.addComponent(heenDag, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
+														.addPreferredGap(ComponentPlacement.UNRELATED)
+														.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+															.addGroup(groupLayout.createSequentialGroup()
+																.addComponent(heenMaand, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+																.addPreferredGap(ComponentPlacement.RELATED)
+																.addComponent(heenJaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+															.addGroup(groupLayout.createSequentialGroup()
+																.addComponent(terugMaand, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+																.addPreferredGap(ComponentPlacement.RELATED)
+																.addComponent(terugJaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+														.addGap(11))
+													.addComponent(comboNaar, GroupLayout.PREFERRED_SIZE, 201, GroupLayout.PREFERRED_SIZE)
+													.addComponent(comboVan, GroupLayout.PREFERRED_SIZE, 201, GroupLayout.PREFERRED_SIZE))
+												.addGap(175)))
 										.addGroup(groupLayout.createSequentialGroup()
-											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-												.addComponent(terugDag, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(heenDag, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-												.addGroup(groupLayout.createSequentialGroup()
-													.addComponent(terugMaand, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(terugJaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-												.addGroup(groupLayout.createSequentialGroup()
-													.addComponent(heenMaand, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(heenJaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-													.addGap(11))))
-										.addComponent(comboNaar, 0, 144, Short.MAX_VALUE))
-									.addGap(175)
+											.addComponent(klasse, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED)))
 									.addComponent(paneTickettenVerkocht, GroupLayout.PREFERRED_SIZE, 260, GroupLayout.PREFERRED_SIZE)))))
 					.addContainerGap())
 		);
@@ -202,29 +206,30 @@ public class TicketVerkoopGui extends JPanel {
 							.addContainerGap()
 							.addComponent(lblTicketVerkoop)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblVan)
 								.addComponent(comboVan, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblNaar)
-								.addComponent(comboNaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(comboNaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNaar))
 							.addGap(18)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblDatum)
-								.addComponent(heenDag, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
 								.addComponent(heenMaand, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(heenJaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(heenJaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblDatum)
+								.addComponent(heenDag, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblTerugDatum)
-								.addComponent(terugDag, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(terugJaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(terugMaand, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(terugJaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(terugDag, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblKlasse)
 								.addComponent(klasse, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addGap(24)
@@ -236,18 +241,18 @@ public class TicketVerkoopGui extends JPanel {
 										.addComponent(lblAantal))))
 							.addGap(18)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(rdbtnHeen)
-								.addComponent(rdbtnHeenEnTerug))
+								.addComponent(rdbtnHeenEnTerug)
+								.addComponent(rdbtnHeen))
 							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblSoortBiljet)
-								.addComponent(comboVerkoopType, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(comboVerkoopType, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblSoortBiljet))
 							.addGap(39)
 							.addComponent(btnVerkoop))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(28)
 							.addComponent(paneTickettenVerkocht, GroupLayout.PREFERRED_SIZE, 298, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addContainerGap(141, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 	}	
@@ -306,48 +311,6 @@ public class TicketVerkoopGui extends JPanel {
 		}
 	}
 	
-	
-	class StationHandler implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			System.out.println(comboVan.getEditor().getItem());
-			
-			ArrayList<Station> stations = StationDAO.getAll();
-			ArrayList<String> stationStrings = new ArrayList<String>();
-			if(comboVan.getEditor().getItem() != "")
-			{
-				for(int i = 0; i < stations.size(); i++){
-					if(stations.get(i).getNaam().contains((String) comboVan.getEditor().getItem())){
-						stationStrings.add(stations.get(i).getNaam());
-					}
-				}
-				comboVan = new JComboBox<String>();
-				for(int i = 0; i < stations.size(); i++){
-						comboVan.addItem(stations.get(i).getNaam());
-				}
-			}
-			else{
-				for(int i = 0; i < stations.size(); i++){
-						comboVan.addItem(stations.get(i).getNaam());
-				}
-			}
-			if(comboNaar.getEditor().getItem() != "")
-			{
-				for(int i = 0; i < stations.size(); i++){
-					if(stations.get(i).getNaam().contains((String) comboNaar.getEditor().getItem())){
-						comboNaar.addItem(stations.get(i).getNaam());
-					}
-				}
-			}
-			else{
-				for(int i = 0; i < stations.size(); i++){
-						comboNaar.addItem(stations.get(i).getNaam());
-				}
-			}		
-		}
-		
-	}
 	class ButtonHandler implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
