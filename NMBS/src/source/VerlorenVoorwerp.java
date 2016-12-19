@@ -1,24 +1,22 @@
 package source;
 
-import java.sql.Date;
+import java.util.Date;;
+
 
 public class VerlorenVoorwerp {
 
 	private int verlorenVoorwerpId;
 	private String beschrijving;
 	private Date date;
-	
-
 	private boolean gevonden;
 
-	public VerlorenVoorwerp(int verlorenVoorwerpId, String beschrijving, Date date, boolean gevonden) {
-		super();
+	public VerlorenVoorwerp(int verlorenVoorwerpId, String beschrijving,Date date, boolean gevonden) {
 		this.verlorenVoorwerpId = verlorenVoorwerpId;
 		this.beschrijving = beschrijving;
 		this.date = date;
-		this.gevonden = gevonden;
+		this.gevonden = gevonden;	
 	}
-
+	
 
 	public int getVerlorenVoorwerpId() {
 		return verlorenVoorwerpId;
@@ -51,11 +49,14 @@ public class VerlorenVoorwerp {
 	public void setGevonden(boolean gevonden) {
 		this.gevonden = gevonden;
 	}
-	
+	public static String padRight(String s, int n) {
+	     return String.format("%1$-" + n + "s", s);  
+	}
+
 	@Override
 	public String toString() {
-		return "VerlorenVoorwerp [verlorenVoorwerpId=" + verlorenVoorwerpId + ", beschrijving=" + beschrijving
-				+ ", date=" + date + ", gevonden=" + gevonden + "]";
+		
+		return date + "      " + beschrijving + padRight( "", 10) + gevonden; 
 	}
 
 }

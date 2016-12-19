@@ -99,6 +99,7 @@ public class Station {
 
 	@Override
 	public String toString() {
-		return "Station [stationID=" + stationID + ", naam=" + naam + ", verlorenVoorwerpen=" + verlorenVoorwerpen + "]";
+		return naam;
+
 	}
 }

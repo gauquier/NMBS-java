@@ -18,6 +18,7 @@ import source.Rol;
 
 import javax.swing.UIManager;
 import java.awt.Color;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -34,7 +35,7 @@ public class WachtwoordVeranderenGui extends JPanel {
 	private JPasswordField pwdHuidigWachtwoord;
 	
 	public WachtwoordVeranderenGui() {
-		setBackground(new Color(0, 191, 255));
+		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
 		JLabel lblWachtwoordWijzigen = DefaultComponentFactory.getInstance().createTitle("Wachtwoord wijzigen");
 		
@@ -143,27 +144,35 @@ public class WachtwoordVeranderenGui extends JPanel {
 				
 				
 				if (!nieuwWachtwoord.isEmpty() && !herhaalwachtwwoord.isEmpty() && !huidigWachtwoord.isEmpty()){
-					if (databasePassword.equals(huidigWachtwoord)){
-					
-					if (nieuwWachtwoord.equals(herhaalwachtwwoord)){
-						try {
-							LoginDao.updateWachtwoord(DualHash.hashString(nieuwWachtwoord));
-						} catch (Exception e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
+					try {
+						if (databasePassword.equals(DualHash.hashString(huidigWachtwoord))){
+						
+						if (nieuwWachtwoord.equals(herhaalwachtwwoord)){
+							try {
+								LoginDao.updateWachtwoord(DualHash.hashString(nieuwWachtwoord));
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+							JOptionPane.showMessageDialog(new JFrame(), "Uw wachtwoord is aangepast!");
+							close();
 						}
-						JOptionPane.showMessageDialog(new JFrame(), "Uw wachtwoord is aangepast!");
-						close();
-					}
-					else {
-						JOptionPane.showMessageDialog(new JFrame(), "De wachtwoorden komen niet overeen!");
-						pwdNieuwwachtwoord.setText("");
-						pwdHerhaaldWachtwoord.setText("");
-					}
-					} 
-					else {
-						JOptionPane.showMessageDialog(new JFrame(), "Het huidige wachtwoord is fout.");
-						pwdHuidigWachtwoord.setText("");
+						else {
+							JOptionPane.showMessageDialog(new JFrame(), "De wachtwoorden komen niet overeen!");
+							pwdNieuwwachtwoord.setText("");
+							pwdHerhaaldWachtwoord.setText("");
+						}
+						} 
+						else {
+							JOptionPane.showMessageDialog(new JFrame(), "Het huidige wachtwoord is fout.");
+							pwdHuidigWachtwoord.setText("");
+						}
+					} catch (HeadlessException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
 				}
 				else {

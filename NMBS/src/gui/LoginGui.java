@@ -1,7 +1,7 @@
 package gui;
 
 import java.awt.Dimension;
-
+import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
@@ -21,6 +21,9 @@ import source.Login;
 import source.Medewerker;
 import source.Rol;
 import javax.swing.UIManager;
+
+import Hashing.DualHash;
+
 import java.awt.Color;
 
 public class LoginGui {
@@ -79,7 +82,7 @@ public class LoginGui {
 		frmNmbs = new JFrame();
 		frmNmbs.setIconImage(Toolkit.getDefaultToolkit().getImage("NMBS/lib/logo-nmbs.png"));
 		frmNmbs.setTitle("NMBS");
-		frmNmbs.getContentPane().setBackground(new Color(0, 191, 255));
+		frmNmbs.getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 
 		frmNmbs.setBounds(0, 0, 450, 300);
 		frmNmbs.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -131,19 +134,27 @@ public class LoginGui {
 					if (databaseUsername.equals(username)) {
 						String databasePassword = LoginDao.getWachtwoord(username);
 						if(databasePassword!= null){
-							if(databasePassword.equals(password)){
-								int loginId = LoginDao.getLoginId(username);
-								if(LoginDao.getActief(loginId) == 1){
-									login = new Login(loginId, username, "");
+							try {
+								if(databasePassword.equals(DualHash.hashString(password))){
+									int loginId = LoginDao.getLoginId(username);
+									if(LoginDao.getActief(loginId) == 1){
+										login = new Login(loginId, username, "");
 
-									closeFrame();
-									KiesStationGui.start();
-								}else{
-									JOptionPane.showMessageDialog(new JFrame(), "Medewerker is niet toegestaan.");
+										closeFrame();
+										KiesStationGui.start();
+									}else{
+										JOptionPane.showMessageDialog(new JFrame(), "Medewerker is niet toegestaan.");
+									}
+									
+								}else {
+									JOptionPane.showMessageDialog(new JFrame(), "Username of wachtwoord is verkeerd.");
 								}
-								
-							}else {
-								JOptionPane.showMessageDialog(new JFrame(), "Username of wachtwoord is verkeerd.");
+							} catch (HeadlessException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
 							}
 						}else {
 							JOptionPane.showMessageDialog(new JFrame(), "Username of wachtwoord is verkeerd.");

@@ -93,22 +93,8 @@ public class StationDAO {
 		}
 		return station;
 	} 
-	public List<Station> getStations() {
-		dba.createSelect("Station");
-		ResultSet rs = dba.commit();
-		List<Station> stations = new ArrayList<>();
-		VerlorenVoorwerpDAO vvDAO = new VerlorenVoorwerpDAO();
-		try {
-			while (rs.next()) {
-				stations.add( new Station(rs.getInt(1), rs.getString(2), vvDAO.getVerlorenVoorwerpByStation(rs.getInt(1))));
-			}
-			return stations;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	} 
-	public static ArrayList<Station> getAll(){
+	
+	public ArrayList<Station> getAll(){
 		dba.createSelect("Station");
 		ArrayList<Station> lijst = new ArrayList<>();
 		ResultSet rs = dba.commit();
@@ -127,6 +113,23 @@ public class StationDAO {
 		
 		return null ;
 	}
+	
+	
+	public List<Station> getStations() {
+		dba.createSelect("Station");
+		ResultSet rs = dba.commit();
+		List<Station> stations = new ArrayList<>();
+		VerlorenVoorwerpDAO vvDAO = new VerlorenVoorwerpDAO();
+		try {
+			while (rs.next()) {
+				stations.add( new Station(rs.getInt(1), rs.getString(2), vvDAO.getVerlorenVoorwerpByStation(rs.getInt(1))));
+			}
+			return stations;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	} 
 	public List<Station> getStationsLazyLoading() {
 		dba.createSelect("Station");
 		ResultSet rs = dba.commit();
