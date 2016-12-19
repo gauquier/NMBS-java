@@ -139,6 +139,7 @@ public class LoginGui {
 									int loginId = LoginDao.getLoginId(username);
 									if(LoginDao.getActief(loginId) == 1){
 										login = new Login(loginId, username, "");
+										Login.setCurrentUser(username);
 
 										closeFrame();
 										KiesStationGui.start();

@@ -115,6 +115,33 @@ public class MedewerkerDAO {
 		}
 		return null;
 	}
+	public static int getMedewerkerIdByUsername(String username){
+		int loginId = 0;
+		dba.createSelect("Login", "loginId");
+		dba.addWhere("username", username);
+		ResultSet rs = dba.commit();
+		try {
+			if(rs.next())
+				loginId = rs.getInt(1);
+			
+			rs.close();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		dba.createSelect("Medewerker", "medewerkerId");
+		dba.addWhere("loginId", loginId);
+		rs = dba.commit();
+		try {
+			if(rs.next()){
+				return rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;
+	}
 	
 	public static ArrayList<Medewerker> getAllMedewerkers(){
 		ArrayList<Medewerker> medewerkers = new ArrayList<Medewerker>();
