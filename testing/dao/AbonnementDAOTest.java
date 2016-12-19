@@ -36,8 +36,8 @@ public class AbonnementDAOTest {
 	public void initialize() {
 		korting = 5.00;
 		prijs = 10.00;
-		bestaandeDepZone = "Brussels-South/Brussels-Midi";
-		bestaandeArrZone = "Brussels-North";
+		bestaandeDepZone = "testdepZoneAbonement";
+		bestaandeArrZone = "testarrZoneAbonement";
 		onbestaandeDepZone = "brussel";
 		onbestaandeArrZone = "brussel";
 		bestaandeKlantAdres = AdresOpslaanInDB(new Adres("teststraatnaam", 170, "testwoonplaats", 1070, "6"));
@@ -55,6 +55,9 @@ public class AbonnementDAOTest {
 	}
 	@Test
 	public void testAddAbonnement() {
+		//even wqchten o updqte
+		fail(); 
+		//error No enum constant source.VerkoopType.1
 		AbonnementDAO.addAbonnement(abonnement);
 		assertEquals(abonnement, abonnementOphalen(abonnement)); 
 	} 
@@ -164,7 +167,7 @@ public class AbonnementDAOTest {
 	private void verwijderAbonnement(Abonnement abonnement) {
 		
 		String abonementVerwijderen= "DELETE FROM Abonnement WHERE "
-					+ "klantId = ? AND depZone = ? AND arrZone = ? AND prijs = ? AND verkoopType = ? AND korting = ? AND actief = ?";
+					+ "depZone = ? ";
 		
 		java.sql.Connection connection = null;
 		PreparedStatement stmt = null; 
@@ -173,13 +176,7 @@ public class AbonnementDAOTest {
 			connection.setAutoCommit(false);
 			stmt = connection.prepareStatement(abonementVerwijderen);
 			
-			stmt.setInt(1, abonnement.getKlant().getKlantId());
-			stmt.setString(2, abonnement.getDepZone());
-			stmt.setString(3, abonnement.getArrZone());
-			stmt.setDouble(4, abonnement.getPrijs());
-			stmt.setString(5, abonnement.getVerkoop().toString());
-			stmt.setDouble(6, abonnement.getKorting());
-			stmt.setInt(7, abonnement.isActief() ? 1 : 0); 
+			stmt.setString(1, abonnement.getDepZone());
 
 			stmt.executeUpdate();
 			connection.commit(); 
@@ -202,7 +199,7 @@ public class AbonnementDAOTest {
 		Abonnement dbAbonnement = null;
 		String abonnementZoekenQuery = "SELECT  klantId , depZone , arrZone , prijs , verkoopType , korting , actief FROM  Abonnement "
 				+ "WHERE "
-				+ "klantId = ? AND depZone = ? AND arrZone = ? AND prijs = ? AND verkoopType = ? AND korting = ? AND actief = ?";
+				+ "depZone = ?";
 		java.sql.Connection connection = null;
 		PreparedStatement stmt = null;
 		ResultSet resultSet = null;
@@ -211,13 +208,7 @@ public class AbonnementDAOTest {
 			connection.setAutoCommit(false);
 			stmt = connection.prepareStatement(abonnementZoekenQuery);
 
-			stmt.setInt(1, abonnement.getKlant().getKlantId());
-			stmt.setString(2, abonnement.getDepZone());
-			stmt.setString(3, abonnement.getArrZone());
-			stmt.setDouble(4, abonnement.getPrijs());
-			stmt.setString(5, abonnement.getVerkoop().toString());
-			stmt.setDouble(6, abonnement.getKorting());
-			stmt.setInt(7, abonnement.isActief() ? 1 : 0);
+			stmt.setString(1, abonnement.getDepZone());
 			resultSet = stmt.executeQuery();
 			if(resultSet.next()){
 			dbAbonnement = abonnement;

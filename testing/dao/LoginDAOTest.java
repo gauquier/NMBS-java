@@ -6,8 +6,41 @@ import org.junit.Before;
 import org.junit.Test;
 
 import dao.LoginDao;
+import source.Persoon;
 
 public class LoginDAOTest {
+	
+	private Persoon persoon;
+	
+	private String username, password, fakeUsername, fakePassword;
+	 private int userId, fakeUserID, rollId, fakeRollId;
+	public void initialize(){
+		
+		
+	}
+	public void testBestaandeLogin(){}
+	public void testOnBestaandeLogin(){}
+	public void testPersoonDieGeenMedewerkerIs(){}
+	public void testOnbestaandeRol(){}
+	public void testGetLoginId(){}
+	public void testGetLoginIDMetOnbestaandeLogin(){}
+	public void testVerkeerdWW(){}
+	public void testGetLogin(){}
+	public void testGetLoginMetOnbestaandeId(){}
+	public void testGetLoginMetUserDieMetVerkeerdLoginInfoIsGekopeld(){}
+	public void testCheckUsername(){}
+	public void testCheckUsernameMetOnbestaandeUsername(){}
+	public void testGetRoll(){}
+	public void testGetRollMetOnbestaandeRoll(){}
+	public void testGetLoginIdMetUsername(){}
+	public void testGetLoginIdMetOnbestaandeUsername(){}
+	public void testGetWachtwoord(){}
+	public void testGetWachtwoordMetOnbestaandeUsername(){}
+	public void testUpdadeWachtwoord(){}
+	public void testUpdateWachtwoordWhere(){}
+	public void testGetActief(){}
+	public void testGetActiefMetOnbestaandeid(){}
+	//public void testGetUserName(){}
 	// login is totaal anders in klassendiagram
 	// en deze testen zijn niet meer van toepasing
 	// -Aime
