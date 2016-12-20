@@ -34,7 +34,7 @@ public class PrijsDAO {
 	
 	public static ArrayList<Prijs> getAllPrijzen(){
 		ArrayList<Prijs> prijzen = new ArrayList<Prijs>();
-		dba.createSelect("VerkoopType");
+		dba.createSelect("Prijs");
 		ResultSet rs = dba.commit();
 		try {
 			while(rs.next()){
@@ -49,6 +49,8 @@ public class PrijsDAO {
 		}
 		return null;
 	}
+	
+	
 	
 	/*
 	public static void insertVerkoopType(Prijs prijs){
