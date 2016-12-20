@@ -6,6 +6,7 @@ import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
@@ -37,6 +38,7 @@ public class LoginGui {
 	private JPasswordField txtPassword;
 	public static LoginGui window;
 	public static Login login;
+	private static ResourceBundle bundle;
 
 	public LoginGui() {
 		initialize();
@@ -81,7 +83,8 @@ public class LoginGui {
 		frame.setLocation(x, y);
 	}
 
-	private void initialize() {		
+	private void initialize() {
+		bundle = ResourceBundle.getBundle("localization.LoginGui");
 		frmNmbs = new JFrame();
 		frmNmbs.setIconImage(Toolkit.getDefaultToolkit().getImage("NMBS/lib/logo-nmbs.png"));
 		frmNmbs.setTitle("NMBS");
@@ -93,7 +96,7 @@ public class LoginGui {
 		frmNmbs.setResizable(false);
 		centreWindow(frmNmbs);
 
-		btnLogin = new JButton("Login");
+		btnLogin = new JButton(bundle.getString("login"));
 		btnLogin.setBounds(208, 200, 116, 25);
 		frmNmbs.getContentPane().add(btnLogin);
 
@@ -102,12 +105,12 @@ public class LoginGui {
 		frmNmbs.getContentPane().add(txtUsername);
 		txtUsername.setColumns(10);
 
-		JLabel lblUser = new JLabel("User");
+		JLabel lblUser = new JLabel(bundle.getString("user"));
 		lblUser.setForeground(Color.WHITE);
 		lblUser.setBounds(116, 90, 84, 38);
 		frmNmbs.getContentPane().add(lblUser);
 
-		JLabel lblPassword = new JLabel("Password");
+		JLabel lblPassword = new JLabel(bundle.getString("pass"));
 		lblPassword.setForeground(Color.WHITE);
 		lblPassword.setBounds(116, 140, 84, 38);
 		frmNmbs.getContentPane().add(lblPassword);
@@ -125,9 +128,9 @@ public class LoginGui {
 			if (!(CheckIfConnected.checkIfConnected()))//als er geen internetverbinding is
 			{
 				closeFrame();
-				JOptionPane.showMessageDialog(new JFrame(), "Er is geen internetverbinding.");
+				JOptionPane.showMessageDialog(new JFrame(), bundle.getString("noInternet"));
 				
-				JOptionPane.showMessageDialog(new JFrame(), "Offline-modus wordt opgestart.");
+				JOptionPane.showMessageDialog(new JFrame(), bundle.getString("offlineStart"));
 				
 				Controller.offlineInterface = new OfflineGui();
 				Controller.offlineInterface.setHome();
@@ -136,9 +139,9 @@ public class LoginGui {
 			}
 			
 			if (!Connection.checkDBConnection()) {
-				JOptionPane.showMessageDialog(new JFrame(), "Kan niet verbinden met de databank.");
+				JOptionPane.showMessageDialog(new JFrame(), bundle.getString("noDB"));
 				
-				JOptionPane.showMessageDialog(new JFrame(), "Offline-modus wordt opgestart.");
+				JOptionPane.showMessageDialog(new JFrame(), bundle.getString("offlineStart"));
 				
 				Controller.offlineInterface = new OfflineGui();
 				Controller.offlineInterface.setHome();
@@ -153,7 +156,7 @@ public class LoginGui {
 				String databaseUsername = LoginDao.getUserName(username);
 				
 				if (databaseUsername == null) {
-					JOptionPane.showMessageDialog(new JFrame(), "User is niet toegestaan.");
+					JOptionPane.showMessageDialog(new JFrame(), bundle.getString("userNoAllow"));
 					return;
 				}
 				if (databaseUsername != null) {
@@ -170,11 +173,11 @@ public class LoginGui {
 										closeFrame();
 										KiesStationGui.start();
 									}else{
-										JOptionPane.showMessageDialog(new JFrame(), "Medewerker is niet toegestaan.");
+										JOptionPane.showMessageDialog(new JFrame(), bundle.getString("employeeNoAllow"));
 									}
 									
 								}else {
-									JOptionPane.showMessageDialog(new JFrame(), "Username of wachtwoord is verkeerd.");
+									JOptionPane.showMessageDialog(new JFrame(), bundle.getString("wrongCredentials"));
 								}
 							} catch (HeadlessException e1) {
 								// TODO Auto-generated catch block
@@ -184,13 +187,13 @@ public class LoginGui {
 								e1.printStackTrace();
 							}
 						}else {
-							JOptionPane.showMessageDialog(new JFrame(), "Username of wachtwoord is verkeerd.");
+							JOptionPane.showMessageDialog(new JFrame(), bundle.getString("wrongCredentials"));
 						}
 					} else {
-						JOptionPane.showMessageDialog(new JFrame(), "Username of wachtwoord is verkeerd.");
+						JOptionPane.showMessageDialog(new JFrame(), bundle.getString("wrongCredentials"));
 					}
 				} else {
-					JOptionPane.showMessageDialog(new JFrame(), "Username of wachtwoord is verkeerd.");
+					JOptionPane.showMessageDialog(new JFrame(), bundle.getString("wrongCredentials"));
 				}
 			}
 		}

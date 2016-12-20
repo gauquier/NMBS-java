@@ -21,6 +21,7 @@ import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -29,23 +30,27 @@ import javax.swing.JFrame;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class WachtwoordVeranderenGui extends JPanel {
+	private static ResourceBundle bundle;
+	
 	private JPasswordField pwdHerhaaldWachtwoord;
 	private JPasswordField pwdNieuwwachtwoord;
 	private JButton btnWijzigen;
 	private JPasswordField pwdHuidigWachtwoord;
 	
 	public WachtwoordVeranderenGui() {
+		bundle = ResourceBundle.getBundle("localization.WachtwoordVeranderenGui");
+		
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
-		JLabel lblWachtwoordWijzigen = DefaultComponentFactory.getInstance().createTitle("Wachtwoord wijzigen");
+		JLabel lblWachtwoordWijzigen = DefaultComponentFactory.getInstance().createTitle(bundle.getString("lblWachtwoordWijzigen"));
 		
-		JLabel lblUsername = new JLabel("Username");
+		JLabel lblUsername = new JLabel(bundle.getString("lblUsername"));
 		lblUsername.setForeground(Color.WHITE);
 		
-		JLabel lblWachtwoord = new JLabel("Nieuw wachtwoord");
+		JLabel lblWachtwoord = new JLabel(bundle.getString("lblWachtwoord"));
 		lblWachtwoord.setForeground(Color.WHITE);
 		
-		JLabel lblHerhaalWachtwoord = new JLabel("Herhaal wachtwoord");
+		JLabel lblHerhaalWachtwoord = new JLabel(bundle.getString("lblHerhaalWachtwoord"));
 		lblHerhaalWachtwoord.setForeground(Color.WHITE);
 		
 		pwdHerhaaldWachtwoord = new JPasswordField();
@@ -57,10 +62,10 @@ public class WachtwoordVeranderenGui extends JPanel {
 		
 		lblGebruikersnaam.setForeground(Color.WHITE);
 		
-		btnWijzigen = new JButton("Wijzigen");
+		btnWijzigen = new JButton(bundle.getString("btnWijzigen"));
 		btnWijzigen.addActionListener(new MenuItemHandler());
 		
-		JLabel lblHuidigWachtwoord = new JLabel("Huidig wachtwoord");
+		JLabel lblHuidigWachtwoord = new JLabel(bundle.getString("lblHuidigWachtwoord"));
 		lblHuidigWachtwoord.setForeground(Color.WHITE);
 		
 		pwdHuidigWachtwoord = new JPasswordField();

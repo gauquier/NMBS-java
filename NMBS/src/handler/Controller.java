@@ -4,6 +4,7 @@ import gui.*;
 import dao.CheckIfConnected;
 import dao.DBA;
 import java.sql.ResultSet;
+import java.util.ResourceBundle;
 
 import javax.swing.UIManager;
 
