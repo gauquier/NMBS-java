@@ -33,6 +33,7 @@ import java.awt.Color;
 import javax.swing.UIManager;
 
 import dao.AdresDAO;
+import dao.Connection;
 import dao.KlantDAO;
 import dao.MedewerkerDAO;
 
@@ -240,6 +241,7 @@ public class AdminGui extends JFrame {
 			
 			else if (e.getSource()==uitloggen)
 			{
+				Connection.close();
 				setHuidigeKeuze(null);
 			}
 			else if (e.getSource() == home){

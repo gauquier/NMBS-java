@@ -131,7 +131,7 @@ public class LoginGui {
 				
 				Controller.offlineInterface = new OfflineGui();
 				Controller.offlineInterface.setHome();
-				new TicketVerkoopOfflineGui(true);
+				new TicketVerkoopGui(true);
 				
 				return;
 			}
@@ -143,7 +143,7 @@ public class LoginGui {
 				
 				Controller.offlineInterface = new OfflineGui();
 				Controller.offlineInterface.setHome();
-				new TicketVerkoopOfflineGui(true);
+				new TicketVerkoopGui(true);
 				
 				return;
 			}
