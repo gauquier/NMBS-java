@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -68,6 +69,9 @@ public class MedewerkerGui  extends JFrame {
 		getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		setBackground(new Color(0, 191, 255));
 		this.setResizable(true);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		setSize(screenSize);
+		setMinimumSize(new Dimension(850, 550));
 		menuGUI();
 	}
 	

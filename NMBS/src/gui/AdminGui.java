@@ -3,6 +3,7 @@ package gui;
 
 import java.awt.ComponentOrientation;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -94,7 +95,9 @@ public class AdminGui extends JFrame {
 	private void menuGUI() {
 		createMenu();
 		setTitle("NMBS");
-		setSize(800, 500);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		setSize(screenSize);
+		setMinimumSize(new Dimension(850, 550));
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
@@ -197,7 +200,7 @@ public class AdminGui extends JFrame {
 		
 		mntmPrijsbeheer = new JMenuItem("Prijsbeheer");
 		mntmPrijsbeheer.addActionListener(new MenuItemHandler());
-		verkoop.add(mntmPrijsbeheer);
+		instellingen.add(mntmPrijsbeheer);
 		menubar.add(klanten);
 		menubar.add(routeInfo);
 		menubar.add(stationInfo);
