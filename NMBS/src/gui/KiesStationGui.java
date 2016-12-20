@@ -3,6 +3,7 @@ package gui;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.UIManager;
 import javax.swing.JComboBox;
 
 import java.awt.Dimension;
@@ -59,7 +60,7 @@ public class KiesStationGui {
 	private void initialize() {		
 		frmStation = new JFrame();
 		frmStation.setTitle("NMBS");
-		frmStation.getContentPane().setBackground(new Color(0, 191, 255));
+		frmStation.getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		frmStation.setBounds(0, 0, 450, 300);
 		frmStation.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmStation.getContentPane().setLayout(null);
