@@ -27,18 +27,18 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
-
 public class AbonnementBeheerGui extends JPanel {
 	private JTextField textField;
 	private JButton btnZoeken;
 	private JButton btnVerlengen;
+	private JButton btnVerwijderen;
 	private JList<Abonnement> list;
 	private ArrayList<Abonnement> arrayLijst;
 	private ArrayList<Object> objecten;
-	private JButton btnStopZetten;
+	private JButton btnAnnuleren;
 	public String navigation;
 	private JButton btnNieuwAbonnement;
-	
+	public String newline = System.getProperty("line.separator");
 	
 	public AbonnementBeheerGui() {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
@@ -75,15 +75,20 @@ public class AbonnementBeheerGui extends JPanel {
 		btnVerlengen.setBackground(Color.ORANGE);
 		btnVerlengen.addActionListener(new MenuItemHandler());
 		
-		btnStopZetten = new JButton("Stop zetten");
-		btnStopZetten.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		btnStopZetten.setBackground(Color.ORANGE);
-		btnStopZetten.addActionListener(new MenuItemHandler());
+		btnAnnuleren = new JButton("Annuleren");
+		btnAnnuleren.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnAnnuleren.setBackground(Color.ORANGE);
+		btnAnnuleren.addActionListener(new MenuItemHandler());
 		
 		btnNieuwAbonnement = new JButton("Aanmaken");
 		btnNieuwAbonnement.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnNieuwAbonnement.setBackground(Color.ORANGE);
 		btnNieuwAbonnement.addActionListener(new MenuItemHandler());
+		
+		btnVerwijderen = new JButton("Verwijderen");
+		btnVerwijderen.addActionListener(new MenuItemHandler());
+		btnVerwijderen.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnVerwijderen.setBackground(Color.ORANGE);
 		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -100,16 +105,16 @@ public class AbonnementBeheerGui extends JPanel {
 									.addComponent(textField, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
 								.addComponent(list, GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE))
 							.addGap(10)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-									.addComponent(btnStopZetten, GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
-									.addComponent(btnVerlengen, GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE))
-								.addComponent(btnNieuwAbonnement, GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE))))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(btnVerwijderen, GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+								.addComponent(btnAnnuleren, GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+								.addComponent(btnVerlengen, GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+								.addComponent(btnNieuwAbonnement, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE))))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lblAbonnementenBeheren)
 					.addGap(28)
@@ -123,7 +128,9 @@ public class AbonnementBeheerGui extends JPanel {
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(btnVerlengen)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnStopZetten))
+							.addComponent(btnAnnuleren)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(btnVerwijderen, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
 						.addComponent(list, GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
 					.addContainerGap())
 		);
@@ -172,16 +179,71 @@ public class AbonnementBeheerGui extends JPanel {
 			}
 			
 			if (e.getSource() == btnVerlengen) {
+				if(!unknownIndex()){
+					return;}
+				else {
+					
 				AdminGui.setHuidigeKeuze(new AbonnementVerlengenGui(list.getSelectedValue()));
 				
 				}
-			
-			if (e.getSource() == btnStopZetten) {
 				
+				}
+			
+			if (e.getSource() == btnAnnuleren) {
+				if(!unknownIndex()){
+					return;
+					} else {
+						
+					if(list.getSelectedValue().getP()==null){
+						JOptionPane.showMessageDialog(new JFrame(), "Dit abonnement heeft geen actieve periode.");
+					} else {
+						if(list.getSelectedValue().getResterendeDagen()<=31){
+							JOptionPane.showMessageDialog(new JFrame(), "Abonnementen kunnen niet geannuleerd worden binnen 31 dagen voor vervalling.");
+							return;
+						}
+						
+						int n = OkCancel("Let op! U bent van plan om het abonnement van " + list.getSelectedValue().getKlant().getVoornaam() + " " + list.getSelectedValue().getKlant().getAchternaam()+ " te annuleren." + newline 
+								+ "Dit abonnement heeft nog een actieve periode van " + list.getSelectedValue().getResterendeDagen() + " dagen. Bent u zeker dat u wilt doorgaan?");	
+						
+						if(n==0){
+							double terugTeBetalen = (PrijsDAO.getPrijsByVerkoopType(VerkoopType.ABONNEMENT)/Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH))*list.getSelectedValue().getResterendeDagen(); 
+										
+							list.getSelectedValue().getP().setEndDate(Calendar.getInstance().getTime());
+							AbonnementDAO.updatePrijs(list.getSelectedValue(), 0);
+							PeriodeDAO.updatePeriode(list.getSelectedValue().getP(), 3);//3 vervangen door medewerker current
+							JOptionPane.showMessageDialog(new JFrame(), "Het abonnement van " + list.getSelectedValue().getKlant().getVoornaam() + " " + list.getSelectedValue().getKlant().getAchternaam() + " wordt binnen de 24 uur geannuleerd. Het terug te betalen bedrag bedraagt " + terugTeBetalen + " euro.");
+						}
+							
+					}	
+					}
 				
 			}
 			
-			
+			if (e.getSource() == btnVerwijderen) {
+				if(!unknownIndex()){
+					return;
+					} else {
+						if(list.getSelectedValue().getP()==null){
+							int n = OkCancel("Ben je zeker dat je het abonnement van " + list.getSelectedValue().getKlant().getVoornaam() + " " + list.getSelectedValue().getKlant().getAchternaam() + " wil verwijderen?");	
+						
+						if(n==0){
+						AbonnementDAO.removeAbonnement(list.getSelectedValue().getAbonnementId());
+						((DefaultListModel<Abonnement>)list.getModel()).remove(list.getSelectedIndex());
+						JOptionPane.showMessageDialog(new JFrame(), "Abonnement is succesvol verwijdert.");
+						} else if (n==1){
+							return;
+						}
+						} else {
+							JOptionPane.showMessageDialog(new JFrame(), "Abonnement kan niet verwijdert worden omdat dit gekoppeld is met een actieve periode.");
+							return;
+						}
+						
+						
+						
+					}
+				
+			}
+					
 			
 		}
 	}

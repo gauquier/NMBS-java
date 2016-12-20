@@ -89,27 +89,32 @@ public class Abonnement extends Aankoop {
 		this.abonnementId = abonnementId;
 	}
 
+	public long getResterendeDagen(){
+		long resterendeDagen=0;
+		
+		if(p!=null){
+			resterendeDagen= TimeUnit.DAYS.convert((p.getEndDate().getTime()-Calendar.getInstance().getTime().getTime()), TimeUnit.MILLISECONDS);
+			resterendeDagen+=1;
+		}
+		
+		return resterendeDagen;
+	}
+	
+	
 	public String toString()
 	{
 		String resultaat=null;
 		SimpleDateFormat formatDatum = new SimpleDateFormat("dd-MM-yyyy");
-		long resterendeDagen=0;
-		if(p!=null){
-			resterendeDagen= TimeUnit.DAYS.convert((p.getEndDate().getTime()-p.getStartDate().getTime()), TimeUnit.MILLISECONDS);
-		}
+		long resterendeDagen=getResterendeDagen();
+
 		
 		
 		if(resterendeDagen > 0){
 		resultaat = getKlant().getVoornaam() + " " + getKlant().getAchternaam() + " / " + formatDatum.format(p.getStartDate()) + " -> " + formatDatum.format(p.getEndDate()) + " / " + resterendeDagen + " dag(en) resterend";
 		
 		}else {
-			if(p==null){
-				resultaat= getKlant().getVoornaam() + " " + getKlant().getAchternaam() + " / Geen actieve periode gelinkt aan dit abonnement";
-			} else{
-				resultaat = getKlant().getVoornaam() + " " + getKlant().getAchternaam() + " / " + formatDatum.format(p.getStartDate()) + " -> " + formatDatum.format(p.getEndDate()) + " / " + " Afgelopen";
-				this.setP(null);
-			}
-		
+		resultaat= getKlant().getVoornaam() + " " + getKlant().getAchternaam() + " / Geen actieve periode gelinkt aan dit abonnement";
+			
 		}
 		
 		return resultaat;

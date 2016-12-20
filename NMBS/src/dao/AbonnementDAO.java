@@ -29,6 +29,13 @@ public class AbonnementDAO {
 		return getLastId(dba.getSql()+");");
 	}
 	
+	public static void removeAbonnement(int id){
+		dba.createUpdate("Abonnement", "actief", 0);;
+		dba.addWhere("abonnementId", id);
+		ResultSet rs = dba.commit();
+		
+	}
+	
 	public static int getLastId(String query){
 		int resultaat=0;
 	    connection = Connection.getDBConnection();
@@ -69,6 +76,13 @@ public class AbonnementDAO {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public static void updatePrijs(Abonnement abonnement, double Prijs){
+		dba.createUpdate("Abonnement", "prijs", Prijs);;
+		dba.addWhere("abonnementId", abonnement.getAbonnementId());
+		ResultSet rs = dba.commit();
+		
 	}
     
   

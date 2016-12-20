@@ -21,16 +21,39 @@ private static DBA dba = new DBA();
 	private static ResultSet data;
 	private static PreparedStatement stmt = null;
 	
+	
 	public static void addPeriode(Periode periode, Abonnement abonnement, int medewerkerId){
         
 		DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		dba.createInsert("Periode");
-		dba.addValue(abonnement.getAankoopId());
+		dba.addValue(abonnement.getAbonnementId());
 		dba.addValue(medewerkerId);
 		dba.addValue(formatter.format(periode.getStartDate()));
 		dba.addValue(formatter.format(periode.getEndDate()));
 		dba.addValue(formatter.format(periode.getVerkoopdatum()));
 		dba.commit();
+	}
+	
+	public static void updatePeriode(Periode periode, int medewerkerId){
+		DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy"); 
+		try {
+		        connection = Connection.getDBConnection();    
+		       
+		        stmt = connection.prepareStatement("UPDATE Periode SET medewerkerId=?, endDate=? WHERE periodeId=?");
+		        stmt.setInt(1, medewerkerId);
+		        stmt.setString(2, formatter.format(periode.getEndDate()));
+		        stmt.setInt(3, periode.getPeriodeId());
+		        stmt.executeUpdate();
+		        
+		       
+		    
+		    }catch (SQLException e){
+		        e.printStackTrace();
+		    }catch(Exception e) {//Handle errors for Class.forName
+		        e.printStackTrace();
+		    }
+			
+		
 	}
 	
 	public static Periode getPeriode(Abonnement abonnement){

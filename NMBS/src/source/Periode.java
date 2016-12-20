@@ -32,6 +32,12 @@ public class Periode {
 
 	
 	
+	public Periode(int periodeId, Date endDate) {
+		this.periodeId = periodeId;
+		this.endDate=endDate;
+	}
+
+
 	public int getPeriodeId() {
 		return periodeId;
 	}
