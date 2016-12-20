@@ -18,6 +18,8 @@ import dao.Connection;
 
 import java.awt.Toolkit;
 
+import javax.swing.UIManager;
+
 public class MedewerkerGui  extends JFrame {
 	private Container c = getContentPane();	
 	
