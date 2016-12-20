@@ -136,13 +136,15 @@ public class TicketVerkoopGui extends JPanel {
 		paneTickettenVerkocht.setBackground((UIManager.getColor("CheckBoxMenuItem.selectionBackground")));
 		paneTickettenVerkocht.setVisible(false);
 
-		ArrayList<Station> stations = StationDAO.getAll();
-		ArrayList<String> stationNamen = new ArrayList<String>();
-		for(int i = 0; i < stations.size(); i++){
-			stationNamen.add(stations.get(i).getNaam());
+		if (!isOffline) {
+			ArrayList<Station> stations = StationDAO.getAll();
+			ArrayList<String> stationNamen = new ArrayList<String>();
+			for(int i = 0; i < stations.size(); i++){
+				stationNamen.add(stations.get(i).getNaam());
+			}
+			comboNaar.setKeyWord(stationNamen);
+			comboVan.setKeyWord(stationNamen);
 		}
-		comboNaar.setKeyWord(stationNamen);
-		comboVan.setKeyWord(stationNamen);
 
 		txtPrijs = new JTextField();
 		txtPrijs.setColumns(10);
