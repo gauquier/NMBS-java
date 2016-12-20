@@ -41,6 +41,8 @@ import java.awt.Toolkit;
 import java.awt.Font;
 
 public class AdminGui extends JFrame {
+	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.AdminGui");
+	
 	private Container c = getContentPane();	
 	
 	private static JPanel vorigeKeuze, HuidigeKeuze;
@@ -104,7 +106,7 @@ public class AdminGui extends JFrame {
 		menubar = new JMenuBar();
 		menubar.setForeground(Color.BLACK);
 		menubar.setBackground(Color.ORANGE);
-		home = new JMenuItem("Home");
+		home = new JMenuItem(bundle.getString("home"));
 
 		home.setHorizontalAlignment(SwingConstants.LEFT);
 		home.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -113,89 +115,89 @@ public class AdminGui extends JFrame {
 		home.setOpaque(true);
 		home.addActionListener(new MenuItemHandler());
 		
-		verkoop = new JMenu("Verkoop");
+		verkoop = new JMenu(bundle.getString("verkoop"));
 		verkoop.setHorizontalAlignment(SwingConstants.CENTER);
 		verkoop.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		verkoop.setBackground(Color.ORANGE);
 		verkoop.setOpaque(true);
-		routeInfo = new JMenuItem("Route info");
+		routeInfo = new JMenuItem(bundle.getString("routeInfo"));
 		routeInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		routeInfo.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		routeInfo.setBackground(Color.ORANGE);
 		routeInfo.setOpaque(true);
 		routeInfo.addActionListener(new MenuItemHandler());
 		
-		stationInfo = new JMenuItem("Station info");
+		stationInfo = new JMenuItem(bundle.getString("stationInfo"));
 		stationInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		stationInfo.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		stationInfo.setBackground(Color.ORANGE);
 		stationInfo.setOpaque(true);
 		stationInfo.addActionListener(new MenuItemHandler());
-		gebruikers = new JMenu("Gebruikers");
+		gebruikers = new JMenu(bundle.getString("gebruikers"));
 		gebruikers.setHorizontalAlignment(SwingConstants.CENTER);
 		gebruikers.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		gebruikers.setBackground(Color.ORANGE);
 		gebruikers.setOpaque(true);
 		
-		klanten = new JMenu("Klanten");
+		klanten = new JMenu(bundle.getString("klanten"));
 		klanten.setHorizontalAlignment(SwingConstants.CENTER);
 		klanten.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		klanten.setBackground(Color.ORANGE);
 		klanten.setOpaque(true);
 		
-		verlorenVoorwerpen = new JMenu("Verloren voorwerpen");
+		verlorenVoorwerpen = new JMenu(bundle.getString("verlorenVoorwerpen"));
 		verlorenVoorwerpen.setHorizontalAlignment(SwingConstants.CENTER);
 		verlorenVoorwerpen.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		verlorenVoorwerpen.setBackground(Color.ORANGE);
 		verlorenVoorwerpen.setOpaque(true);
-		verlorenVoorwerpToevoegen = new JMenuItem("Voorwerpen toevoegen");
+		verlorenVoorwerpToevoegen = new JMenuItem(bundle.getString("verlorenVoorwerpToevoegen"));
 		verlorenVoorwerpToevoegen.addActionListener(new MenuItemHandler());
-		verlorenVoorwerpZoeken = new JMenuItem("Voorwerpen zoeken");
+		verlorenVoorwerpZoeken = new JMenuItem(bundle.getString("verlorenVoorwerpZoeken"));
 		verlorenVoorwerpZoeken.addActionListener(new MenuItemHandler());
 		verlorenVoorwerpen.add(verlorenVoorwerpToevoegen);
 		verlorenVoorwerpen.add(verlorenVoorwerpZoeken);
 		
-		instellingen = new JMenu("Instellingen");
+		instellingen = new JMenu(bundle.getString("instellingen"));
 		instellingen.setHorizontalAlignment(SwingConstants.CENTER);
 		instellingen.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		instellingen.setBackground(Color.ORANGE);
 		instellingen.setOpaque(true);
-		wachtwoordVeranderen = new JMenuItem("Wachtwoord veranderen");
+		wachtwoordVeranderen = new JMenuItem(bundle.getString("wachtwoordVeranderen"));
 		wachtwoordVeranderen.addActionListener(new MenuItemHandler());
 		instellingen.add(wachtwoordVeranderen);
 		
-		abonnementBeheer = new JMenuItem("Abonnementen beheren");
+		abonnementBeheer = new JMenuItem(bundle.getString("abonnementBeheer"));
 		abonnementBeheer.setBackground(Color.WHITE);
 		abonnementBeheer.addActionListener(new MenuItemHandler());
 		verkoop.add(abonnementBeheer);
 		
-		gebruikersToevoegen = new JMenuItem("Gebruiker toevoegen");
+		gebruikersToevoegen = new JMenuItem(bundle.getString("gebruikersToevoegen"));
 		gebruikersToevoegen.addActionListener(new MenuItemHandler());
-		gebruikersBeheer = new JMenuItem("Gebruikers beheren");
+		gebruikersBeheer = new JMenuItem(bundle.getString("gebruikersBeheer"));
 		gebruikersBeheer.addActionListener(new MenuItemHandler());
 		gebruikers.add(gebruikersToevoegen);
 		gebruikers.add(gebruikersBeheer);
 		
-		klantenToevoegen = new JMenuItem("Klant toevoegen");
+		klantenToevoegen = new JMenuItem(bundle.getString("klantenToevoegen"));
 		klantenToevoegen.addActionListener(new MenuItemHandler());
-		klantenBeheer = new JMenuItem("Klanten beheren");
+		klantenBeheer = new JMenuItem(bundle.getString("klantenBeheer"));
 		klantenBeheer.addActionListener(new MenuItemHandler());
 		klanten.add(klantenToevoegen);
 		klanten.add(klantenBeheer);
 		
-		ticketVerkoop = new JMenuItem("Ticketverkoop");
+		ticketVerkoop = new JMenuItem(bundle.getString("ticketVerkoop"));
 		ticketVerkoop.setBackground(Color.WHITE);
 		ticketVerkoop.addActionListener(new MenuItemHandler());
 		verkoop.add(ticketVerkoop);
 		
-		uitloggen = new JMenuItem("Uitloggen");
+		uitloggen = new JMenuItem(bundle.getString("uitloggen"));
 		uitloggen.addActionListener(new MenuItemHandler());
 		instellingen.add(uitloggen);
 		
 		menubar.add(home);
 		menubar.add(verkoop);
 		
-		mntmPrijsbeheer = new JMenuItem("Prijsbeheer");
+		mntmPrijsbeheer = new JMenuItem(bundle.getString("mntmPrijsbeheer"));
 		mntmPrijsbeheer.addActionListener(new MenuItemHandler());
 		verkoop.add(mntmPrijsbeheer);
 		menubar.add(klanten);
