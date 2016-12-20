@@ -40,7 +40,7 @@ import java.awt.Font;
 import javax.swing.JComboBox;
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JCalendar;
-
+import source.Pdf;
 public class VerlorenVoorwerpenToevoegenGui extends JPanel {
 
 	private JTextArea txtrBeschrijving;
@@ -147,7 +147,7 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel {
 			VerlorenVoorwerp vv;
 
 			if (e.getSource() == btnToevoegen) {
-				if (!txtrBeschrijving.getText().isEmpty()) {
+				if (!txtrBeschrijving.getText().isEmpty() && dateChooser.getDate() != null) {
 					{
 						station = stationLijst.getSelectedItem().toString();
 						beschrijving = txtrBeschrijving.getText();

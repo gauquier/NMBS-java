@@ -138,12 +138,7 @@ public class StationDAO {
 		StationDAO sd = new StationDAO();
 		System.out.println(sd.getStationIdByNaam("ds"));*/
 		StationDAO aDao = new StationDAO();
-		ArrayList<Station> lijst = aDao.getAll();
-		
-		for (int i = 0; i < lijst.size(); i++) {
-			System.out.println(lijst.get(i));
-			
-		}
+		System.out.println(aDao.getStation(651));
 	
 	}
 }
