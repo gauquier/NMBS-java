@@ -21,24 +21,15 @@ import source.Medewerker;
 import source.Persoon;
 import source.Rol;
 
-public class LoginDAOTest {
-
-	private Persoon persoon;
-
-	private String username, password, fakeUsername, fakePassword;
-	private int userId, fakeUserID, rollId, fakeRollId;
+public class LoginDAOTest { 
 	private Adres adres;
 	private Rol rol;
 	private Medewerker medewerker;
 	private Login login;
 
 	@Before
-	public void initialize() {
-
-		// this is not needed to test login
-		// but useful for medewerkerdao test
-		login = new Login("testusernameLoginDAOTest", "testpasswordLoginDAOTest");
-
+	public void initialize() { 
+		login = new Login("testusernameLoginDAOTest", "testpasswordLoginDAOTest"); 
 	}
 
 	@After
@@ -263,12 +254,12 @@ public class LoginDAOTest {
 		String rolToevoegenQuery = "INSERT INTO Rol "
 				+ "(rol) "
 				+ "VALUES(?)";
-		String medewerkerZoekenQuery = "SELECT rolId FROM Rol "
+		String rolZoekenQuery = "SELECT rolId FROM Rol "
 				+ "WHERE rol = ?"; 
 		executeQuery(rolToevoegenQuery, true,
 				rol.getRol() 
 				);
-		Map<Integer, Object[]>map=executeQuery(medewerkerZoekenQuery, false, 
+		Map<Integer, Object[]>map=executeQuery(rolZoekenQuery, false, 
 				rol.getRol()
 				);
 		rol.setRolId((int)map.get(0)[0]);  
