@@ -13,7 +13,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
+
+import com.apple.eawt.Application;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import dao.LoginDao;
@@ -60,6 +63,8 @@ public class KiesStationGui {
 	private void initialize() {		
 		frmStation = new JFrame();
 		frmStation.setTitle("NMBS");
+		frmStation.setIconImage(Toolkit.getDefaultToolkit().getImage("NMBS/lib/logo.png"));
+		Application.getApplication().setDockIconImage(new ImageIcon("NMBS/lib/logo.png").getImage());
 		frmStation.getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		frmStation.setBounds(0, 0, 450, 300);
 		frmStation.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

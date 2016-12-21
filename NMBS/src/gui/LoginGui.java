@@ -26,6 +26,7 @@ import source.Login;
 import source.Medewerker;
 import source.Rol;
 import javax.swing.UIManager;
+import com.apple.eawt.Application;
 
 import Hashing.DualHash;
 
@@ -88,7 +89,8 @@ public class LoginGui {
 		bundle = ResourceBundle.getBundle("localization.LoginGui");
 		
 		frmNmbs = new JFrame();
-		frmNmbs.setIconImage(Toolkit.getDefaultToolkit().getImage("NMBS/lib/logo-nmbs.png"));
+		frmNmbs.setIconImage(Toolkit.getDefaultToolkit().getImage("NMBS/lib/logo.png"));
+		Application.getApplication().setDockIconImage(new ImageIcon("NMBS/lib/logo.png").getImage());
 		frmNmbs.setTitle("NMBS");
 		frmNmbs.getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 
@@ -109,12 +111,12 @@ public class LoginGui {
 
 		JLabel lblUser = new JLabel(bundle.getString("user"));
 		lblUser.setForeground(Color.WHITE);
-		lblUser.setBounds(116, 90, 84, 38);
+		lblUser.setBounds(90, 90, 110, 38);
 		frmNmbs.getContentPane().add(lblUser);
 
 		JLabel lblPassword = new JLabel(bundle.getString("pass"));
 		lblPassword.setForeground(Color.WHITE);
-		lblPassword.setBounds(116, 140, 84, 38);
+		lblPassword.setBounds(90, 140, 110, 38);
 		frmNmbs.getContentPane().add(lblPassword);
 
 		txtPassword = new JPasswordField();
@@ -149,7 +151,7 @@ public class LoginGui {
 				Controller.offlineInterface.setHome();
 				
 				return;
-			}
+			} 
 			if (e.getSource() == btnLogin || e.getSource() == txtPassword) {
 
 				String username = txtUsername.getText().trim();

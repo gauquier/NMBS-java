@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -20,6 +21,8 @@ import dao.Connection;
 import java.awt.Toolkit;
 
 import javax.swing.UIManager;
+
+import com.apple.eawt.Application;
 
 public class MedewerkerGui  extends JFrame {
 	private Container c = getContentPane();	
@@ -65,7 +68,8 @@ public class MedewerkerGui  extends JFrame {
 	}
 	
 	MedewerkerGui(){
-		setIconImage(Toolkit.getDefaultToolkit().getImage("NMBS/lib/logo-nmbs.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("NMBS/lib/logo.png"));
+		Application.getApplication().setDockIconImage(new ImageIcon("NMBS/lib/logo.png").getImage());
 		getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		setBackground(new Color(0, 191, 255));
 		this.setResizable(true);
