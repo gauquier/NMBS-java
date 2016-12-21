@@ -31,6 +31,7 @@ import com.apple.eawt.Application;
 import Hashing.DualHash;
 
 import java.awt.Color;
+import java.awt.Font;
 
 public class LoginGui {
 
@@ -101,26 +102,31 @@ public class LoginGui {
 		centreWindow(frmNmbs);
 
 		btnLogin = new JButton(bundle.getString("login"));
-		btnLogin.setBounds(208, 200, 116, 25);
+		btnLogin.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		btnLogin.setBounds(234, 196, 149, 38);
 		frmNmbs.getContentPane().add(btnLogin);
 
 		txtUsername = new JTextField();
-		txtUsername.setBounds(208, 100, 116, 22);
+		txtUsername.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		txtUsername.setBounds(234, 96, 149, 26);
 		frmNmbs.getContentPane().add(txtUsername);
 		txtUsername.setColumns(10);
 
 		JLabel lblUser = new JLabel(bundle.getString("user"));
+		lblUser.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblUser.setForeground(Color.WHITE);
-		lblUser.setBounds(90, 90, 110, 38);
+		lblUser.setBounds(41, 90, 181, 38);
 		frmNmbs.getContentPane().add(lblUser);
 
 		JLabel lblPassword = new JLabel(bundle.getString("pass"));
+		lblPassword.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblPassword.setForeground(Color.WHITE);
-		lblPassword.setBounds(90, 140, 110, 38);
+		lblPassword.setBounds(41, 140, 181, 38);
 		frmNmbs.getContentPane().add(lblPassword);
 
 		txtPassword = new JPasswordField();
-		txtPassword.setBounds(208, 150, 116, 22);
+		txtPassword.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		txtPassword.setBounds(234, 146, 149, 26);
 		frmNmbs.getContentPane().add(txtPassword);
 		btnLogin.addActionListener(new ButtonHandler());
 		txtPassword.addActionListener(new ButtonHandler());
@@ -151,7 +157,7 @@ public class LoginGui {
 				Controller.offlineInterface.setHome();
 				
 				return;
-			} 
+			}  
 			if (e.getSource() == btnLogin || e.getSource() == txtPassword) {
 
 				String username = txtUsername.getText().trim();

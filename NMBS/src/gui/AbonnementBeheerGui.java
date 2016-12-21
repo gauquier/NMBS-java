@@ -42,32 +42,34 @@ public class AbonnementBeheerGui extends JPanel {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
 		JLabel lblAbonnementenBeheren = DefaultComponentFactory.getInstance().createTitle("Abonnementen beheren");
-		lblAbonnementenBeheren.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblAbonnementenBeheren.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		
 		
 		
 		list = new JList<Abonnement>();
+		list.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		
 		textField = new JTextField();
+		textField.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		textField.setColumns(10);
 		
 		btnZoeken = new JButton("Zoeken");
-		btnZoeken.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnZoeken.setFont(new Font("Dialog", Font.BOLD, 20));
 		btnZoeken.setBackground(Color.ORANGE);
 		
 		btnBewerken = new JButton("Bewerken");
-		btnBewerken.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnBewerken.setFont(new Font("Dialog", Font.BOLD, 20));
 		btnBewerken.setBackground(Color.ORANGE);
 		btnBewerken.addActionListener(new MenuItemHandler());
 		
 		btnVerwijderen = new JButton("Verwijderen");
-		btnVerwijderen.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnVerwijderen.setFont(new Font("Dialog", Font.BOLD, 20));
 		btnVerwijderen.setBackground(Color.ORANGE);
 		btnVerwijderen.addActionListener(new MenuItemHandler());
 		
 		btnNieuwAbonnement = new JButton("Aanmaken");
-		btnNieuwAbonnement.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnNieuwAbonnement.setFont(new Font("Dialog", Font.BOLD, 20));
 		btnNieuwAbonnement.setBackground(Color.ORANGE);
 		btnNieuwAbonnement.addActionListener(new MenuItemHandler());
 		
@@ -79,23 +81,22 @@ public class AbonnementBeheerGui extends JPanel {
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblAbonnementenBeheren)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(btnZoeken)
-									.addGap(121)
-									.addComponent(textField, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
-								.addComponent(list, GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE))
+									.addGap(18)
+									.addComponent(textField, GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE))
+								.addComponent(list, GroupLayout.DEFAULT_SIZE, 381, Short.MAX_VALUE))
 							.addGap(10)
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-									.addComponent(btnVerwijderen, GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
-									.addComponent(btnBewerken, GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE))
-								.addComponent(btnNieuwAbonnement, GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE))))
+								.addComponent(btnVerwijderen, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+								.addComponent(btnBewerken, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+								.addComponent(btnNieuwAbonnement, GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lblAbonnementenBeheren)
 					.addGap(28)
@@ -105,12 +106,12 @@ public class AbonnementBeheerGui extends JPanel {
 					.addGap(12)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnNieuwAbonnement, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(btnNieuwAbonnement)
+							.addGap(8)
 							.addComponent(btnBewerken)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(btnVerwijderen))
-						.addComponent(list, GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
+						.addComponent(list, GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		setLayout(groupLayout);

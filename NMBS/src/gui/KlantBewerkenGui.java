@@ -51,7 +51,7 @@ public class KlantBewerkenGui extends JPanel {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
 		JLabel lblKlantBewerken = DefaultComponentFactory.getInstance().createTitle("Klanten beheren");
-		lblKlantBewerken.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblKlantBewerken.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		
 		arrayLijst= new ArrayList<Klant>();
@@ -69,21 +69,23 @@ public class KlantBewerkenGui extends JPanel {
 		}
 		
 		list = new JList<Klant>(dlm);
+		list.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		
 		textField = new JTextField();
+		textField.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		textField.setColumns(10);
 		
 		btnZoeken = new JButton("Zoeken");
-		btnZoeken.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnZoeken.setFont(new Font("Dialog", Font.BOLD, 20));
 		btnZoeken.setBackground(Color.ORANGE);
 		
 		btnBewerken = new JButton("Bewerken");
-		btnBewerken.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnBewerken.setFont(new Font("Dialog", Font.BOLD, 20));
 		btnBewerken.setBackground(Color.ORANGE);
 		btnBewerken.addActionListener(new MenuItemHandler());
 		
 		btnVerwijderen = new JButton("Verwijderen");
-		btnVerwijderen.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnVerwijderen.setFont(new Font("Dialog", Font.BOLD, 20));
 		btnVerwijderen.setBackground(Color.ORANGE);
 		btnVerwijderen.addActionListener(new MenuItemHandler());
 		
@@ -92,38 +94,34 @@ public class KlantBewerkenGui extends JPanel {
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(37)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(lblKlantBewerken)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnZoeken)
-							.addPreferredGap(ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
-							.addComponent(textField, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(list, GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)))
-					.addGap(10)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnVerwijderen, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnBewerken, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(textField))
+						.addComponent(list, GroupLayout.PREFERRED_SIZE, 534, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(btnBewerken, GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnVerwijderen))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGap(12)
+					.addComponent(lblKlantBewerken)
+					.addGap(27)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnZoeken)
+						.addComponent(textField, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+					.addGap(12)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(list, GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(12)
-							.addComponent(lblKlantBewerken)
-							.addGap(27)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnZoeken)
-								.addComponent(textField, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
-							.addGap(12)
-							.addComponent(list, GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(97)
 							.addComponent(btnBewerken)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGap(12)
 							.addComponent(btnVerwijderen)))
 					.addContainerGap())
 		);

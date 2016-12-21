@@ -78,76 +78,97 @@ public class GebruikerToevoegenGui extends JPanel {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 
 		JLabel lblVoornaam = new JLabel("Voornaam*:");
+		lblVoornaam.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblVoornaam.setForeground(Color.WHITE);
 
 		JLabel lblAchternaam = new JLabel("Achternaam*:");
+		lblAchternaam.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblAchternaam.setForeground(Color.WHITE);
 
 		JLabel lblStraat = new JLabel("Straat*:");
+		lblStraat.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblStraat.setForeground(Color.WHITE);
 
 		JLabel lblHuisnummer = new JLabel("Huisnummer*:");
+		lblHuisnummer.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblHuisnummer.setForeground(Color.WHITE);
 
 		JLabel lblGemeente = new JLabel("Gemeente*:");
+		lblGemeente.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblGemeente.setForeground(Color.WHITE);
 
 		JLabel lblPostcode = new JLabel("Postcode*:");
+		lblPostcode.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblPostcode.setForeground(Color.WHITE);
 
 		JLabel lblBus = new JLabel("Bus:");
+		lblBus.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblBus.setForeground(Color.WHITE);
 
 		txtVoornaam = new JTextField();
+		txtVoornaam.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		txtVoornaam.setColumns(10);
 
 		txtAchternaam = new JTextField();
+		txtAchternaam.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		txtAchternaam.setColumns(10);
 
 		txtStraat = new JTextField();
+		txtStraat.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		txtStraat.setColumns(10);
 
 		txtHuisnr = new JTextField();
+		txtHuisnr.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		txtHuisnr.setColumns(10);
 
 		txtBus = new JTextField();
+		txtBus.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		txtBus.setColumns(10);
 
 		txtGemeente = new JTextField();
+		txtGemeente.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		txtGemeente.setColumns(10);
 
 		txtPostcode = new JTextField();
+		txtPostcode.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		txtPostcode.setColumns(10);
 
 		btnToevoegen = new JButton("Toevoegen");
-		btnToevoegen.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnToevoegen.setFont(new Font("Dialog", Font.BOLD, 20));
 		btnToevoegen.setBackground(Color.ORANGE);
 		btnToevoegen.addActionListener(new MenuItemHandler());
 
 		lblUsername = new JLabel("Username*:");
+		lblUsername.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblUsername.setForeground(Color.WHITE);
 
 		lblPassword = new JLabel("Password*:");
+		lblPassword.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblPassword.setForeground(Color.WHITE);
 
 		lblEmail = new JLabel("Email:");
+		lblEmail.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblEmail.setForeground(Color.WHITE);
 
 		txtUsername = new JTextField();
+		txtUsername.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		txtUsername.setColumns(10);
 
 		txtEmail = new JTextField();
+		txtEmail.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		txtEmail.setColumns(10);
 
-		JLabel lblMedewerkerToevoegen = DefaultComponentFactory.getInstance().createTitle("Medewerker toevoegen");
-		lblMedewerkerToevoegen.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		JLabel lblMedewerkerToevoegen = DefaultComponentFactory.getInstance().createTitle("Gebruiker toevoegen");
+		lblMedewerkerToevoegen.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		radiobuttons = new ButtonGroup();
 		rbtnAdmin = new JRadioButton("Administrator");
+		rbtnAdmin.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		rbtnAdmin.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		rbtnAdmin.setForeground(Color.WHITE);
 
 		rbtnUser = new JRadioButton("Medewerker");
+		rbtnUser.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		rbtnUser.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		rbtnUser.setForeground(Color.WHITE);
 
@@ -156,39 +177,50 @@ public class GebruikerToevoegenGui extends JPanel {
 		rbtnUser.setSelected(true);
 
 		JLabel label = new JLabel("Type*:");
+		label.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		label.setForeground(Color.WHITE);
 
 		JLabel label_1 = new JLabel("* Verplichte velden");
-		label_1.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		label_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		label_1.setForeground(Color.WHITE);
 
 		txtPassword = new JPasswordField();
+		txtPassword.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 
 		lblVoornaamError = new JLabel("");
+		lblVoornaamError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblVoornaamError.setForeground(Color.RED);
 
 		lblAchternaamError = new JLabel("");
+		lblAchternaamError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblAchternaamError.setForeground(Color.RED);
 
 		lblStraatError = new JLabel("");
+		lblStraatError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblStraatError.setForeground(Color.RED);
 
 		lblHuisnrError = new JLabel("");
+		lblHuisnrError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblHuisnrError.setForeground(Color.RED);
 
 		lblBusError = new JLabel("");
+		lblBusError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblBusError.setForeground(Color.RED);
 
 		lblGemeenteError = new JLabel("");
+		lblGemeenteError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblGemeenteError.setForeground(Color.RED);
 
 		lblPostcodeError = new JLabel("");
+		lblPostcodeError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblPostcodeError.setForeground(Color.RED);
 
 		lblEmailError = new JLabel("");
+		lblEmailError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblEmailError.setForeground(Color.RED);
 
 		lblUsernameError = new JLabel("");
+		lblUsernameError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblUsernameError.setForeground(Color.RED);
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -197,14 +229,8 @@ public class GebruikerToevoegenGui extends JPanel {
 					.addGap(30)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(label, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
-							.addGap(49)
-							.addComponent(rbtnUser)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(rbtnAdmin)
-							.addGap(232)
-							.addComponent(btnToevoegen, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(28, Short.MAX_VALUE))
+							.addComponent(lblMedewerkerToevoegen)
+							.addContainerGap(522, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblVoornaam)
@@ -220,55 +246,67 @@ public class GebruikerToevoegenGui extends JPanel {
 							.addGap(50)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-												.addComponent(txtEmail, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-												.addComponent(txtGemeente, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-												.addComponent(txtUsername, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-												.addComponent(txtStraat, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-												.addComponent(txtAchternaam, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-												.addComponent(txtVoornaam, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-												.addComponent(label_1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-												.addComponent(txtPassword, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
-											.addGap(18)
-											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(lblUsernameError)
+									.addComponent(txtBus, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
+									.addContainerGap())
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+									.addGroup(groupLayout.createSequentialGroup()
+										.addComponent(txtHuisnr, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+											.addComponent(lblBusError)
+											.addComponent(lblHuisnrError))
+										.addGap(435))
+									.addGroup(groupLayout.createSequentialGroup()
+										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+											.addComponent(txtVoornaam, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 246, GroupLayout.PREFERRED_SIZE)
+											.addComponent(txtAchternaam, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 246, GroupLayout.PREFERRED_SIZE)
+											.addGroup(groupLayout.createSequentialGroup()
+												.addComponent(lblEmailError)
+												.addGap(44))
+											.addComponent(txtStraat, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 246, GroupLayout.PREFERRED_SIZE)
+											.addComponent(txtGemeente, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 246, GroupLayout.PREFERRED_SIZE)
+											.addGroup(groupLayout.createSequentialGroup()
+												.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+													.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE)
+													.addComponent(txtPassword, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE))
+												.addGap(18)
 												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-													.addComponent(lblGemeenteError)
+													.addComponent(lblUsernameError)
 													.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-														.addComponent(lblStraatError)
+														.addComponent(lblGemeenteError)
 														.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-															.addGroup(groupLayout.createSequentialGroup()
-																.addComponent(lblVoornaamError, GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-																.addGap(44))
-															.addComponent(lblAchternaamError))))))
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(lblEmailError)
-											.addGap(44)))
-									.addGap(272))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(txtBus, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
-											.addGap(18)
-											.addComponent(lblBusError))
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(txtHuisnr, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
-											.addGap(18)
-											.addComponent(lblHuisnrError)))
-									.addGap(435))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(txtPostcode, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)
-									.addComponent(lblPostcodeError)
-									.addContainerGap(495, Short.MAX_VALUE))))
+															.addComponent(lblStraatError)
+															.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+																.addGroup(groupLayout.createSequentialGroup()
+																	.addComponent(lblVoornaamError, GroupLayout.DEFAULT_SIZE, 1, Short.MAX_VALUE)
+																	.addGap(44))
+																.addComponent(lblAchternaamError))))))
+											.addComponent(txtEmail, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 246, GroupLayout.PREFERRED_SIZE))
+										.addGap(272))
+									.addGroup(groupLayout.createSequentialGroup()
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+											.addComponent(txtPostcode, 0, 0, Short.MAX_VALUE)
+											.addGroup(groupLayout.createSequentialGroup()
+												.addGap(70)
+												.addComponent(lblPostcodeError)))
+										.addContainerGap(448, Short.MAX_VALUE)))))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblMedewerkerToevoegen)
-							.addContainerGap(563, Short.MAX_VALUE))))
+							.addComponent(label)
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(label_1, GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(rbtnUser)
+									.addGap(18)
+									.addComponent(rbtnAdmin)))
+							.addContainerGap())))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(553)
+					.addComponent(btnToevoegen, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(41, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(19)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -277,8 +315,8 @@ public class GebruikerToevoegenGui extends JPanel {
 							.addGap(18)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblVoornaam)
-								.addComponent(txtVoornaam, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblVoornaamError))
+								.addComponent(lblVoornaamError)
+								.addComponent(txtVoornaam, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(15)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblAchternaam)
@@ -291,16 +329,16 @@ public class GebruikerToevoegenGui extends JPanel {
 								.addComponent(lblStraatError))
 							.addGap(15)
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblHuisnummer)
 								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-									.addComponent(txtHuisnr, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addComponent(lblHuisnrError)))
+									.addComponent(lblHuisnummer)
+									.addComponent(txtHuisnr, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblHuisnrError))
 							.addGap(15)
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblBus)
 								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-									.addComponent(txtBus, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addComponent(lblBusError)))
+									.addComponent(lblBus)
+									.addComponent(txtBus, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblBusError))
 							.addGap(15)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(txtGemeente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -312,38 +350,37 @@ public class GebruikerToevoegenGui extends JPanel {
 								.addComponent(txtPostcode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblPostcodeError))
 							.addGap(15)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblUsername)
-								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-									.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addComponent(lblUsernameError)))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblUsernameError)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 							.addGap(13)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblPassword)
 								.addComponent(txtPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblEmail)
-									.addGap(29))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addGap(17))))
+							.addPreferredGap(ComponentPlacement.RELATED))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblEmailError)
-							.addGap(60)))
-					.addPreferredGap(ComponentPlacement.RELATED)
+							.addGap(8)))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(18)
+							.addComponent(lblEmail))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(20)
+							.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addGap(17)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(label)
 						.addComponent(rbtnUser)
 						.addComponent(rbtnAdmin))
-					.addGap(11)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(label_1)
-					.addContainerGap(32, Short.MAX_VALUE))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(463)
-					.addComponent(btnToevoegen, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(44, Short.MAX_VALUE))
+					.addGap(18)
+					.addComponent(btnToevoegen, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(8, Short.MAX_VALUE))
 		);
 
 		setLayout(groupLayout);

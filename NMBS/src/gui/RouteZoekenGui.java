@@ -21,6 +21,7 @@ import java.awt.event.ActionListener;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import source.Validation;
+import java.awt.Font;
 
 public class RouteZoekenGui extends JPanel {
 	private JTextField txtVan;
@@ -35,40 +36,52 @@ public class RouteZoekenGui extends JPanel {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
 		JLabel lblVan = new JLabel("Van");
+		lblVan.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblVan.setForeground(Color.WHITE);
 		
 		txtVan = new JTextField();
+		txtVan.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		txtVan.setColumns(10);
 		
 		JLabel lblNaar = new JLabel("Naar");
+		lblNaar.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblNaar.setForeground(Color.WHITE);
 		
 		txtNaar = new JTextField();
+		txtNaar.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		txtNaar.setColumns(10);
 		
 		JLabel lblDatum = new JLabel("Datum");
+		lblDatum.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblDatum.setForeground(Color.WHITE);
 		
 		txtDatum = new JTextField();
+		txtDatum.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		txtDatum.setColumns(10);
 		
 		JLabel lblUur = new JLabel("Uur");
+		lblUur.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblUur.setForeground(Color.WHITE);
 		
 		txtUur = new JTextField();
+		txtUur.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		txtUur.setColumns(10);
 		
 		ButtonGroup buttonGroup = new ButtonGroup();
 		JRadioButton rdbtnVertrek = new JRadioButton("Vertrek");
+		rdbtnVertrek.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		rdbtnVertrek.setForeground(Color.WHITE);
 		JRadioButton rdbtnAankomst = new JRadioButton("Aankomst");
+		rdbtnAankomst.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		rdbtnAankomst.setForeground(Color.WHITE);
 		buttonGroup.add(rdbtnVertrek);
 		buttonGroup.add(rdbtnAankomst);
 		
 		btnZoeken = new JButton("Zoeken");
+		btnZoeken.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		
 		JLabel lblRouteZoeken = DefaultComponentFactory.getInstance().createTitle("Route zoeken");
+		lblRouteZoeken.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 		
 		lblVanerror = new JLabel("");
 		lblVanerror.setForeground(Color.RED);
@@ -86,49 +99,48 @@ public class RouteZoekenGui extends JPanel {
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(59)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(rdbtnVertrek)
 									.addPreferredGap(ComponentPlacement.UNRELATED)
 									.addComponent(rdbtnAankomst))
 								.addGroup(groupLayout.createSequentialGroup()
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblDatum)
+										.addComponent(lblUur)
 										.addComponent(lblVan)
 										.addComponent(lblNaar))
-									.addGap(28)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(txtNaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-											.addGap(18)
-											.addComponent(lblNaarerror))
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(txtVan, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-											.addGap(18)
-											.addComponent(lblVanerror))))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblDatum)
-										.addComponent(lblUur))
 									.addGap(18)
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(txtUur, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-											.addGap(18)
-											.addComponent(lblUurerror))
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(txtDatum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-											.addGap(18)
-											.addComponent(lblDatumerror))))))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(112)
-							.addComponent(btnZoeken))
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+											.addGroup(groupLayout.createSequentialGroup()
+												.addGap(246)
+												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+													.addComponent(lblNaarerror)
+													.addComponent(lblVanerror)))
+											.addGroup(groupLayout.createSequentialGroup()
+												.addComponent(txtUur, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addGap(18)
+												.addComponent(lblUurerror)
+												.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE))
+											.addGroup(groupLayout.createSequentialGroup()
+												.addComponent(txtDatum, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addGap(18)
+												.addComponent(lblDatumerror)
+												.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE)))
+										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+											.addComponent(txtVan, Alignment.LEADING)
+											.addComponent(txtNaar, Alignment.LEADING))))))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(32)
-							.addComponent(lblRouteZoeken)))
-					.addContainerGap(122, Short.MAX_VALUE))
+							.addComponent(lblRouteZoeken))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(135)
+							.addComponent(btnZoeken)))
+					.addGap(83))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -138,13 +150,13 @@ public class RouteZoekenGui extends JPanel {
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblVan)
-						.addComponent(txtVan, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblVanerror))
+						.addComponent(lblVanerror)
+						.addComponent(txtVan, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNaar)
-						.addComponent(txtNaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNaarerror))
+						.addComponent(lblNaarerror)
+						.addComponent(txtNaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblDatum)
@@ -161,7 +173,7 @@ public class RouteZoekenGui extends JPanel {
 						.addComponent(rdbtnAankomst))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnZoeken)
-					.addContainerGap(39, Short.MAX_VALUE))
+					.addContainerGap(79, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 	}

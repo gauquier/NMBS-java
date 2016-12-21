@@ -27,6 +27,7 @@ import source.Station;
 
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Color;
+import java.awt.Font;
 
 public class KiesStationGui {
 	
@@ -73,6 +74,7 @@ public class KiesStationGui {
 		centreWindow(frmStation);
 		
 		cmbbStation = new JComboBox();
+		cmbbStation.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		cmbbStation.addItem("Hoofdbureau");
 		StationDAO stationDAO=new StationDAO(); 
 		for(Station station:stationDAO.getStationsLazyLoading()){
@@ -80,31 +82,33 @@ public class KiesStationGui {
 		}
 		
 		JLabel lblKiesUwHuidig = DefaultComponentFactory.getInstance().createTitle("Kies uw huidig station");
+		lblKiesUwHuidig.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 		
 		JLabel lblSelecteerUwHuidig = new JLabel("Selecteer uw huidig station");
+		lblSelecteerUwHuidig.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblSelecteerUwHuidig.setForeground(Color.WHITE);
 		
 		btnSelecteer = new JButton("Selecteer");
+		btnSelecteer.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		btnSelecteer.addActionListener(new MenuItemHandler());
 		GroupLayout groupLayout = new GroupLayout(frmStation.getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addContainerGap(127, Short.MAX_VALUE)
-					.addComponent(cmbbStation, GroupLayout.PREFERRED_SIZE, 199, GroupLayout.PREFERRED_SIZE)
-					.addGap(124))
+			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(29)
-					.addComponent(lblKiesUwHuidig)
-					.addContainerGap(299, Short.MAX_VALUE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(29)
+							.addComponent(lblKiesUwHuidig))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(161)
+							.addComponent(btnSelecteer)))
+					.addContainerGap(91, Short.MAX_VALUE))
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(140)
-					.addComponent(lblSelecteerUwHuidig)
-					.addContainerGap(140, Short.MAX_VALUE))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(175)
-					.addComponent(btnSelecteer)
-					.addContainerGap(175, Short.MAX_VALUE))
+					.addGap(93)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(cmbbStation, Alignment.LEADING, 0, 276, Short.MAX_VALUE)
+						.addComponent(lblSelecteerUwHuidig, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE))
+					.addGap(81))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -114,10 +118,10 @@ public class KiesStationGui {
 					.addGap(55)
 					.addComponent(lblSelecteerUwHuidig)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(cmbbStation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(cmbbStation, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addComponent(btnSelecteer)
-					.addContainerGap(84, Short.MAX_VALUE))
+					.addContainerGap(50, Short.MAX_VALUE))
 		);
 		frmStation.getContentPane().setLayout(groupLayout);
 		

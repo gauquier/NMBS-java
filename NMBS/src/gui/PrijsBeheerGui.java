@@ -42,7 +42,7 @@ public class PrijsBeheerGui extends JPanel {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 
 		JLabel lblPrijzenBeheren = DefaultComponentFactory.getInstance().createTitle(bundle.getString("lblPrijzenBeheren"));
-		lblPrijzenBeheren.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblPrijzenBeheren.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		arrayLijst = new ArrayList<Prijs>();
 
@@ -55,27 +55,37 @@ public class PrijsBeheerGui extends JPanel {
 		}
 
 		list = new JList<Prijs>(dlm);
+		list.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 
 		btnBewerken = new JButton(bundle.getString("btnBewerken"));
-		btnBewerken.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnBewerken.setFont(new Font("Dialog", Font.BOLD, 20));
 		btnBewerken.setBackground(Color.ORANGE);
 		btnBewerken.addActionListener(new MenuItemHandler());
 
 		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup().addContainerGap()
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(list, GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(btnBewerken, GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE))
-								.addComponent(lblPrijzenBeheren))
-						.addContainerGap()));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup().addGap(12).addComponent(lblPrijzenBeheren).addGap(11)
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING).addComponent(btnBewerken)
-								.addComponent(list, GroupLayout.PREFERRED_SIZE, 234, GroupLayout.PREFERRED_SIZE))
-						.addGap(49)));
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(list, GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnBewerken, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblPrijzenBeheren))
+					.addContainerGap())
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(12)
+					.addComponent(lblPrijzenBeheren)
+					.addGap(11)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnBewerken)
+						.addComponent(list, GroupLayout.PREFERRED_SIZE, 234, GroupLayout.PREFERRED_SIZE))
+					.addGap(49))
+		);
 		setLayout(groupLayout);
 	}
 

@@ -38,27 +38,31 @@ public class AbonnementToevoegenGui extends JPanel {
 	private ArrayList<Klant> arrayLijst;
 	private ArrayList<Object> objecten;
 	private JList<Klant> list;
+	private JList<Klant> list_1;
 	private JTextField txtKlant;
 
 	public AbonnementToevoegenGui() {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 
 		btnAanmaken = new JButton("Aanmaken");
-		btnAanmaken.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnAanmaken.setFont(new Font("Dialog", Font.BOLD, 20));
 		btnAanmaken.setBackground(Color.ORANGE);
 		btnAanmaken.addActionListener(new MenuItemHandler());
 
 		JLabel lblAbonnementAanmaken = DefaultComponentFactory.getInstance().createTitle("Abonnement aanmaken");
-		lblAbonnementAanmaken.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblAbonnementAanmaken.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		
 		JLabel lblKlant = new JLabel("Klant:");
+		lblKlant.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblKlant.setForeground(Color.WHITE);
 		
 		txtKlant = new JTextField();
+		txtKlant.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		txtKlant.setColumns(10);
 		
 		btnZoeken = new JButton("Zoeken");
+		btnZoeken.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		
 		list = new JList<Klant>();
 		
@@ -74,21 +78,27 @@ public class AbonnementToevoegenGui extends JPanel {
 			dlm.addElement(m);
 		}
 		
-		list = new JList<Klant>(dlm);
+		list_1 = new JList<Klant>(dlm);
+		list_1.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		
 		JLabel lblGevondenResultaten = new JLabel("Gevonden resultaten:");
+		lblGevondenResultaten.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblGevondenResultaten.setForeground(Color.WHITE);
 		
 		JLabel lblVertrek = new JLabel("Vertrek:");
+		lblVertrek.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblVertrek.setForeground(Color.WHITE);
 		
 		JLabel lblAankomst = new JLabel("Aankomst:");
+		lblAankomst.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblAankomst.setForeground(Color.WHITE);
 		
 		JLabel lblType = new JLabel("Type:");
+		lblType.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblType.setForeground(Color.WHITE);
 		
 		JLabel lblDuur = new JLabel("Duur:");
+		lblDuur.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblDuur.setForeground(Color.WHITE);
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -100,29 +110,28 @@ public class AbonnementToevoegenGui extends JPanel {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblDuur, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblType, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
-									.addGap(428)
-									.addComponent(btnAanmaken, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
-								.addComponent(lblAankomst, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblVertrek, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(lblType, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblDuur, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblVertrek, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblAankomst))
+							.addGap(529))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblKlant, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
-									.addGap(58))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblGevondenResultaten)
-									.addPreferredGap(ComponentPlacement.UNRELATED)))
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(txtKlant, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblGevondenResultaten)
+								.addComponent(lblKlant, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+									.addComponent(txtKlant, GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
 									.addGap(18)
 									.addComponent(btnZoeken))
-								.addComponent(list, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE))))
-					.addGap(270))
+								.addComponent(list_1, GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE))
+							.addGap(145)))
+					.addGap(144))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap(654, Short.MAX_VALUE)
+					.addComponent(btnAanmaken, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
+					.addGap(24))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -133,26 +142,24 @@ public class AbonnementToevoegenGui extends JPanel {
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 							.addComponent(txtKlant, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addComponent(btnZoeken))
+							.addComponent(btnZoeken)
+							.addComponent(lblKlant))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblKlant)
-							.addGap(29)
+							.addGap(54)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblGevondenResultaten)
-								.addComponent(list, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE))))
-					.addPreferredGap(ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+								.addComponent(list_1, GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE))))
+					.addGap(13)
 					.addComponent(lblVertrek)
 					.addGap(18)
 					.addComponent(lblAankomst)
-					.addGap(31)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblDuur)
-						.addComponent(btnAanmaken, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE))
-					.addGap(34))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(332, Short.MAX_VALUE)
+					.addGap(6)
 					.addComponent(lblType)
-					.addGap(76))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(lblDuur)
+					.addGap(4)
+					.addComponent(btnAanmaken, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
 		);
 
 		setLayout(groupLayout);
