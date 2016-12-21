@@ -19,6 +19,7 @@ import org.omg.CORBA.PUBLIC_MEMBER;
 
 import source.Station;
 import source.VerlorenVoorwerp;
+import sun.util.resources.LocaleData;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -26,6 +27,8 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -83,6 +86,7 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel {
 		}
 
 		dateChooser = new JDateChooser();
+		
 
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -142,12 +146,14 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel {
 
 			String station;
 			String beschrijving;
-			Date date;
+			Date date = dateChooser.getDate();
+			LocalDate datum = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			LocalDate today = LocalDate.now(ZoneId.of("Europe/Brussels"));
 			boolean gevonden = false;
 			VerlorenVoorwerp vv;
 
 			if (e.getSource() == btnToevoegen) {
-				if (!txtrBeschrijving.getText().isEmpty() && dateChooser.getDate() != null) {
+				if (!txtrBeschrijving.getText().isEmpty() && dateChooser.getDate() != null && !datum.isAfter(today) ) {
 					{
 						station = stationLijst.getSelectedItem().toString();
 						beschrijving = txtrBeschrijving.getText();
