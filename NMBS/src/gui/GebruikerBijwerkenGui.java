@@ -411,7 +411,7 @@ public class GebruikerBijwerkenGui extends JPanel {
 					}
 				}
 				else {
-					JOptionPane.showMessageDialog(new JFrame(), bundle.getString("notAllRequired"));
+					JOptionPane.showMessageDialog(new JFrame(), bundle.getString("requiredFieldsWarning"));
 				}
 			}
 		}

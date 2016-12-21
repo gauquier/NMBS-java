@@ -11,6 +11,7 @@ import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -26,6 +27,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Color;
 
 public class KiesStationGui {
+	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.KiesStationGui");
 	
 	JFrame frmStation;
 	public static KiesStationGui window;
@@ -74,12 +76,12 @@ public class KiesStationGui {
 			cmbbStation.addItem(station.getNaam());
 		}
 		
-		JLabel lblKiesUwHuidig = DefaultComponentFactory.getInstance().createTitle("Kies uw huidig station");
+		JLabel lblKiesUwHuidig = DefaultComponentFactory.getInstance().createTitle(bundle.getString("lblKiesUwHuidig"));
 		
-		JLabel lblSelecteerUwHuidig = new JLabel("Selecteer uw huidig station");
+		JLabel lblSelecteerUwHuidig = new JLabel(bundle.getString("lblSelecteerUwHuidig"));
 		lblSelecteerUwHuidig.setForeground(Color.WHITE);
 		
-		btnSelecteer = new JButton("Selecteer");
+		btnSelecteer = new JButton(bundle.getString("btnSelecteer"));
 		btnSelecteer.addActionListener(new MenuItemHandler());
 		GroupLayout groupLayout = new GroupLayout(frmStation.getContentPane());
 		groupLayout.setHorizontalGroup(

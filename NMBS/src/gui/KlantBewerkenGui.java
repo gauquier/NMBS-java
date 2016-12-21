@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
@@ -37,6 +38,8 @@ import javax.swing.JPasswordField;
 
 
 public class KlantBewerkenGui extends JPanel {
+	private static ResourceBundle bundle;
+	
 	private JTextField textField;
 	private JButton btnZoeken;
 	private JButton btnBewerken;
@@ -48,9 +51,11 @@ public class KlantBewerkenGui extends JPanel {
 	
 	
 	public KlantBewerkenGui() {
+		bundle = ResourceBundle.getBundle("localization.KlantBewerkenGui");
+		
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
-		JLabel lblKlantBewerken = DefaultComponentFactory.getInstance().createTitle("Klanten beheren");
+		JLabel lblKlantBewerken = DefaultComponentFactory.getInstance().createTitle(bundle.getString("lblKlantBewerken"));
 		lblKlantBewerken.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		
@@ -73,16 +78,16 @@ public class KlantBewerkenGui extends JPanel {
 		textField = new JTextField();
 		textField.setColumns(10);
 		
-		btnZoeken = new JButton("Zoeken");
+		btnZoeken = new JButton(bundle.getString("btnZoeken"));
 		btnZoeken.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnZoeken.setBackground(Color.ORANGE);
 		
-		btnBewerken = new JButton("Bewerken");
+		btnBewerken = new JButton(bundle.getString("btnBewerken"));
 		btnBewerken.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnBewerken.setBackground(Color.ORANGE);
 		btnBewerken.addActionListener(new MenuItemHandler());
 		
-		btnVerwijderen = new JButton("Verwijderen");
+		btnVerwijderen = new JButton(bundle.getString("btnVerwijderen"));
 		btnVerwijderen.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnVerwijderen.setBackground(Color.ORANGE);
 		btnVerwijderen.addActionListener(new MenuItemHandler());
@@ -154,7 +159,7 @@ public class KlantBewerkenGui extends JPanel {
 	
 	public Boolean unknownIndex(){
 	if(list.getSelectedValue()==null || list.getSelectedIndex()<0){
-		JOptionPane.showMessageDialog(new JFrame(), "Er is geen klant aangeduid.");
+		JOptionPane.showMessageDialog(new JFrame(), bundle.getString("noSelectedCustomer"));
 		return false;
 	}
 	else {
@@ -185,12 +190,12 @@ public class KlantBewerkenGui extends JPanel {
 				if(!unknownIndex()){
 					return;
 				} else {
-				int n = OkCancel("Ben je zeker dat je " + list.getSelectedValue().getVoornaam() + " " + list.getSelectedValue().getAchternaam() + " wil verwijderen?");	
+				int n = OkCancel(bundle.getString("betUZekerDatU") + " " + list.getSelectedValue().getVoornaam() + " " + list.getSelectedValue().getAchternaam() + " " + bundle.getString("wiltVerwijderen"));	
 					
 				if(n==0){
 				KlantDAO.removeKlant(list.getSelectedValue().getKlantId());
 				((DefaultListModel<Klant>)list.getModel()).remove(list.getSelectedIndex());
-				JOptionPane.showMessageDialog(new JFrame(), "Klant is succesvol verwijdert.");
+				JOptionPane.showMessageDialog(new JFrame(), bundle.getString("customerDeleted"));
 				} else if (n==1){
 					return;
 				}
