@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.ResourceBundle;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
@@ -48,6 +49,8 @@ import javax.swing.SpinnerNumberModel;
 
 @SuppressWarnings("serial")
 public class TicketVerkoopGui extends JPanel {
+	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.TicketVerkoopGui");
+	
 	private JTable table;
 	private JSpinner heenDag = new JSpinner();
 	private JSpinner heenMaand = new JSpinner();
@@ -58,18 +61,20 @@ public class TicketVerkoopGui extends JPanel {
 	
 	private JSpinner klasse = new JSpinner();
 	private JSpinner aantal = new JSpinner();
-	private JButton btnVerkoop = new JButton("Verkoop");
+	private JButton btnVerkoop = new JButton(bundle.getString("btnVerkoop"));
 	
-	private JLabel lblVan = new JLabel("Van:");
-	private JLabel lblNaar = new JLabel("Naar:");
-	private JLabel lblDatum = new JLabel("Heen datum:");
-	private JLabel lblTerugDatum = new JLabel("Terug datum:");
-	private JLabel lblKlasse = new JLabel("Klasse:");
-	private JLabel lblAantal = new JLabel("Aantal:");
+	private JLabel lblVan = new JLabel(bundle.getString("lblVan"));
+	private JLabel lblNaar = new JLabel(bundle.getString("lblNaar"));
+	private JLabel lblDatum = new JLabel(bundle.getString("lblDatum"));
+	private JLabel lblTerugDatum = new JLabel(bundle.getString("lblTerugDatum"));
+	private JLabel lblKlasse = new JLabel(bundle.getString("lblKlasse"));
+	private JLabel lblAantal = new JLabel(bundle.getString("lblAantal"));
 	private JTextPane paneTickettenVerkocht = new JTextPane();
 	private ButtonGroup buttonGroup = new ButtonGroup();
-	private JRadioButton rdbtnHeen = new JRadioButton("Heen");
-	private JRadioButton rdbtnHeenEnTerug = new JRadioButton("Heen en terug");
+	private JRadioButton rdbtnHeen = new JRadioButton(bundle.getString("rdbtnHeen"));
+	private JRadioButton rdbtnHeenEnTerug = new JRadioButton(bundle.getString("rdbtnHeenEnTerug"));
+	private JLabel lblPrijs = new JLabel(bundle.getString("lblPrijs"));
+	private JLabel lblSoortBiljet = new JLabel(bundle.getString("lblSoortBiljet"));
 	private JComboBox<String> comboVerkoopType = new JComboBox<String>();
 	private AutoComboBox comboNaar = new AutoComboBox();
 	private AutoComboBox comboVan = new AutoComboBox();
@@ -98,7 +103,6 @@ public class TicketVerkoopGui extends JPanel {
 			comboVerkoopType.addItemListener(new VerkoopTypeListener());
 		}
 
-		JLabel lblSoortBiljet = new JLabel("Soort Biljet:");
 		lblSoortBiljet.setForeground(Color.WHITE);
 
 		btnVerkoop.addActionListener(new ButtonHandler(isOffline));
@@ -109,7 +113,7 @@ public class TicketVerkoopGui extends JPanel {
 		buttonGroup.add(rdbtnHeenEnTerug);
 		buttonGroup.setSelected(rdbtnHeen.getModel(), true);
 
-		JLabel lblTicketVerkoop = DefaultComponentFactory.getInstance().createTitle("Ticket verkoop");
+		JLabel lblTicketVerkoop = DefaultComponentFactory.getInstance().createTitle(bundle.getString("lblTicketVerkoop"));
 		lblTicketVerkoop.setFont(new Font("Tahoma", Font.PLAIN, 16));
 
 		lblTerugDatum.setForeground(Color.WHITE);
@@ -136,13 +140,15 @@ public class TicketVerkoopGui extends JPanel {
 		paneTickettenVerkocht.setBackground((UIManager.getColor("CheckBoxMenuItem.selectionBackground")));
 		paneTickettenVerkocht.setVisible(false);
 
-		ArrayList<Station> stations = StationDAO.getAll();
-		ArrayList<String> stationNamen = new ArrayList<String>();
-		for(int i = 0; i < stations.size(); i++){
-			stationNamen.add(stations.get(i).getNaam());
+		if (!isOffline) {
+			ArrayList<Station> stations = StationDAO.getAll();
+			ArrayList<String> stationNamen = new ArrayList<String>();
+			for(int i = 0; i < stations.size(); i++){
+				stationNamen.add(stations.get(i).getNaam());
+			}
+			comboNaar.setKeyWord(stationNamen);
+			comboVan.setKeyWord(stationNamen);
 		}
-		comboNaar.setKeyWord(stationNamen);
-		comboVan.setKeyWord(stationNamen);
 
 		txtPrijs = new JTextField();
 		txtPrijs.setColumns(10);
@@ -152,7 +158,7 @@ public class TicketVerkoopGui extends JPanel {
 					VerkoopType.VerkoopTypeCasting((String) comboVerkoopType.getSelectedItem()))));
 		}
 		
-		JLabel lblPrijs = new JLabel("Prijs:");
+		
 		lblPrijs.setForeground(Color.WHITE);
 		
 		
@@ -186,11 +192,18 @@ public class TicketVerkoopGui extends JPanel {
 								.addComponent(btnVerkoop)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(aantal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(comboNaar, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+										.addComponent(comboVan, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
 										.addGroup(groupLayout.createSequentialGroup()
-											.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+											.addComponent(rdbtnHeenEnTerug)
+											.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+											.addComponent(rdbtnHeen))
+										.addComponent(comboVerkoopType, 0, 201, Short.MAX_VALUE)
+										.addComponent(txtPrijs)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
 												.addComponent(terugDag, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(heenDag, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
+												.addComponent(heenDag, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
 											.addPreferredGap(ComponentPlacement.UNRELATED)
 											.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 												.addGroup(groupLayout.createSequentialGroup()
@@ -201,15 +214,11 @@ public class TicketVerkoopGui extends JPanel {
 													.addComponent(terugMaand, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 													.addPreferredGap(ComponentPlacement.RELATED)
 													.addComponent(terugJaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-										.addComponent(comboNaar, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-										.addComponent(comboVan, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
 										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(rdbtnHeenEnTerug)
-											.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-											.addComponent(rdbtnHeen))
-										.addComponent(comboVerkoopType, 0, 201, Short.MAX_VALUE)
-										.addComponent(klasse, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(txtPrijs))
+											.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+												.addComponent(klasse, Alignment.LEADING)
+												.addComponent(aantal, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE))
+											.addPreferredGap(ComponentPlacement.RELATED)))
 									.addGap(175)
 									.addComponent(paneTickettenVerkocht, GroupLayout.PREFERRED_SIZE, 260, GroupLayout.PREFERRED_SIZE)))))
 					.addContainerGap())
@@ -286,12 +295,17 @@ public class TicketVerkoopGui extends JPanel {
 	public void setTickettenVerkocht(boolean visible, Ticket ticket){
 		paneTickettenVerkocht.setVisible(visible);
 
-		paneTickettenVerkocht.setText(aantal.getValue() + " ticket(ten) verkocht\n\nVan: " + comboVan.getSelectedItem() + "\nNaar: " + comboNaar.getSelectedItem() +
-				"\nHeen datum: " +  heenDag.getValue() + "-" + heenMaand.getValue() + "-" + heenJaar.getValue() + 
-				"\nTerug datum: " + terugDag.getValue() + "-" + terugMaand.getValue() + "-" + terugJaar.getValue() + 
-				"\nKlasse " + klasse.getValue() + "\n" + getSelectedButton() + "\nType: " +  comboVerkoopType.getSelectedItem() + "\n" + ticket.getPrijs()*ticket.getAantal() + "");
+		paneTickettenVerkocht.setText(aantal.getValue() + " " + bundle.getString("ticketsSold") +
+				"\n\n" + bundle.getString("lblVan") + " " + comboVan.getSelectedItem() +
+				"\n" + bundle.getString("lblNaar") + " " + comboNaar.getSelectedItem() +
+				"\n" + bundle.getString("lblDatum") + " " +  heenDag.getValue() + "-" + heenMaand.getValue() + "-" + heenJaar.getValue() + 
+				"\n" + bundle.getString("lblTerugDatum") + " " + terugDag.getValue() + "-" + terugMaand.getValue() + "-" + terugJaar.getValue() + 
+				"\n" + bundle.getString("lblKlasse") + " " + klasse.getValue() +
+				"\n" + getSelectedButton() +
+				"\n" + bundle.getString("lblSoortBiljet") + " " +  comboVerkoopType.getSelectedItem() +
+				"\n" + bundle.getString("lblPrijs") + " " + ticket.getPrijs()*ticket.getAantal() + "");
 	}
-	private String getSelectedButton(){if(buttonGroup.isSelected(rdbtnHeen.getModel())) return "heen"; else return "heen en terug";}
+	private String getSelectedButton(){if(buttonGroup.isSelected(rdbtnHeen.getModel())) return bundle.getString("rdbtnHeen"); else return bundle.getString("rdbtnHeenEnTerug");}
 	
 	public void setColor(boolean depZone, boolean arrZone, boolean klasse, boolean aantal, boolean heenDatum, boolean terugDatum){
 		if(depZone){

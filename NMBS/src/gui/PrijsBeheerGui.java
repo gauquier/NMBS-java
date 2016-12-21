@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
+import java.util.ResourceBundle;
 
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
@@ -29,16 +29,20 @@ import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class PrijsBeheerGui extends JPanel {
+	private static ResourceBundle bundle;
+	
 	private JButton btnBewerken;
 	private JList<Prijs> list;
 	private ArrayList<Prijs> arrayLijst;
 	public String navigation;
 
 	public PrijsBeheerGui() {
+		bundle = ResourceBundle.getBundle("localization.PrijsBeheerGui");
+		
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 
-		JLabel lblPrijsBewerken = DefaultComponentFactory.getInstance().createTitle("Prijzen beheren");
-		lblPrijsBewerken.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		JLabel lblPrijzenBeheren = DefaultComponentFactory.getInstance().createTitle(bundle.getString("lblPrijzenBeheren"));
+		lblPrijzenBeheren.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
 		arrayLijst = new ArrayList<Prijs>();
 
@@ -52,7 +56,7 @@ public class PrijsBeheerGui extends JPanel {
 
 		list = new JList<Prijs>(dlm);
 
-		btnBewerken = new JButton("Bewerken");
+		btnBewerken = new JButton(bundle.getString("btnBewerken"));
 		btnBewerken.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnBewerken.setBackground(Color.ORANGE);
 		btnBewerken.addActionListener(new MenuItemHandler());
@@ -65,10 +69,10 @@ public class PrijsBeheerGui extends JPanel {
 										.addComponent(list, GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
 										.addPreferredGap(ComponentPlacement.RELATED)
 										.addComponent(btnBewerken, GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE))
-								.addComponent(lblPrijsBewerken))
+								.addComponent(lblPrijzenBeheren))
 						.addContainerGap()));
 		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup().addGap(12).addComponent(lblPrijsBewerken).addGap(11)
+				.addGroup(groupLayout.createSequentialGroup().addGap(12).addComponent(lblPrijzenBeheren).addGap(11)
 						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING).addComponent(btnBewerken)
 								.addComponent(list, GroupLayout.PREFERRED_SIZE, 234, GroupLayout.PREFERRED_SIZE))
 						.addGap(49)));

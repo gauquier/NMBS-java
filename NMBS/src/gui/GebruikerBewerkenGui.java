@@ -29,9 +29,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
-import java.util.Vector;
-
 import java.util.*;
 
 import javax.swing.JList;
@@ -40,6 +37,8 @@ import javax.swing.JTextPane;
 import javax.swing.JScrollPane;
 
 public class GebruikerBewerkenGui extends JPanel {
+	private static ResourceBundle bundle;
+	
 	private JTextField txtZoekveld;
 	private JButton btnZoeken;
 	private JButton btnBewerken;
@@ -52,9 +51,11 @@ public class GebruikerBewerkenGui extends JPanel {
 	
 	
 	public GebruikerBewerkenGui() {
+		bundle = ResourceBundle.getBundle("localization.GebruikerBewerkenGui");
+		
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
-		JLabel lblGebruikerBewerken = DefaultComponentFactory.getInstance().createTitle("Gebruikers beheren");
+		JLabel lblGebruikerBewerken = DefaultComponentFactory.getInstance().createTitle(bundle.getString("lblGebruikerBewerken"));
 		lblGebruikerBewerken.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		
@@ -126,21 +127,21 @@ public class GebruikerBewerkenGui extends JPanel {
 				}
 	  		  });	
 
-		btnZoeken = new JButton("Zoeken");
+		btnZoeken = new JButton(bundle.getString("btnZoeken"));
 		btnZoeken.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnZoeken.setBackground(Color.ORANGE);
 		
-		btnBewerken = new JButton("Bewerken");
+		btnBewerken = new JButton(bundle.getString("btnBewerken"));
 		btnBewerken.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnBewerken.setBackground(Color.ORANGE);
 		btnBewerken.addActionListener(new MenuItemHandler());
 		
-		btnVerwijderen = new JButton("Verwijderen");
+		btnVerwijderen = new JButton(bundle.getString("btnVerwijderen"));
 		btnVerwijderen.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnVerwijderen.setBackground(Color.ORANGE);
 		btnVerwijderen.addActionListener(new MenuItemHandler());
 		
-		btnPasswordReset = new JButton("Password Reset");
+		btnPasswordReset = new JButton(bundle.getString("btnPasswordReset"));
 		btnPasswordReset.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnPasswordReset.setBackground(Color.ORANGE);
 		btnPasswordReset.addActionListener(new MenuItemHandler());

@@ -8,6 +8,7 @@ import java.io.File;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.ResourceBundle;
 
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
@@ -40,6 +41,8 @@ public class HomeGui extends JPanel {
 	private static final long serialVersionUID = 2564170957766548127L;
 
 	private JPanel jPanel, jPanel2;
+	
+	private static ResourceBundle bundle;
 
 	ImageIcon photo;
 	WritableRaster raster;
@@ -48,6 +51,7 @@ public class HomeGui extends JPanel {
 	private JTable table;
 
 	public HomeGui(boolean isOffline) {
+		bundle = ResourceBundle.getBundle("localization.HomeGui");
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		setForeground(Color.WHITE);
 		
@@ -55,20 +59,20 @@ public class HomeGui extends JPanel {
 		JLabel lblStation;
 		
 		if (!isOffline) {
-			lblHuidigeGebruiker = new JLabel("Huidige gebruiker: " + Login.getCurrentUser());
+			lblHuidigeGebruiker = new JLabel(bundle.getString("curUser") + Login.getCurrentUser());
 	
-			lblStation = new JLabel("Station: " + Station.getCurrentStation());
+			lblStation = new JLabel(bundle.getString("station") + Station.getCurrentStation());
 		}
 		else {
-			lblHuidigeGebruiker = new JLabel("Huidige gebruiker: OFFLINE");
+			lblHuidigeGebruiker = new JLabel(bundle.getString("curUser") + bundle.getString("offline"));
 			
-			lblStation = new JLabel("Station: Onbekend");
+			lblStation = new JLabel(bundle.getString("station") + bundle.getString("unknown"));
 		}
 		
 		JLabel lblTicketverkoop;
 
 		if (!isOffline) {
-			lblTicketverkoop = new JLabel("Ticketverkoop");
+			lblTicketverkoop = new JLabel(bundle.getString("ticketSales"));
 			
 			ArrayList<Ticketstatistiek> ticketstats = TicketDao.getTicketstatistieken();
 
