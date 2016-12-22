@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry including="Hashing/|api/|api_logic/|dao/|gui/|handler/|iRailExamples/|source/|localization/" kind="src" path="NMBS/src"></classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"></classpathentry>
+	<classpathentry including="Hashing/|api/|api_logic/|dao/|gui/|handler/|iRailExamples/|source/|localization/" kind="src" path="NMBS/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="NMBS/lib/mysql-connector-java-5.1.40-bin.jar"/>
 	<classpathentry kind="lib" path="NMBS/lib/jgoodies-forms-1.8.0.jar"/>
@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="NMBS/lib/commons-net-3.5.jar"/>
 	<classpathentry kind="lib" path="NMBS/lib/jgoodies-common-1.8.0.jar"/>
 	<classpathentry kind="lib" path="jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="NMBS/lib/itextpdf-5.5.5.jar"/>
 	<classpathentry kind="output" path="NMBS/bin"/>
 </classpath>
