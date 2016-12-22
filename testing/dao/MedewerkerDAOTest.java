@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.After;
@@ -60,43 +62,169 @@ public class MedewerkerDAOTest {
 		assertEquals(medewerker.getId(), medewerkerOphalen(medewerker).getId());
 	}
 
+	@Test(expected = Exception.class)
 	public void testBestaandeMedewerkerToevoegen() {
+		((Medewerker) medewerker).setLogin(login);
+		((Medewerker) medewerker).setRol(rol);
+		MedewerkerDAO.addMedewerker((Medewerker) medewerker);
+		MedewerkerDAO.addMedewerker((Medewerker) medewerker);
 	}
 
+	@Test
 	public void testGetMedewerkerId() {
+		login = loginToevoegen(login);
+		adres = adresToevoegen(adres);
+		rol = rolToevoegen(rol);
+		medewerker.setAdres(adres);
+		medewerker = persoonToevoegen(medewerker);
+		((Medewerker) medewerker).setLogin(login);
+		((Medewerker) medewerker).setRol(rol);
+		((Medewerker) medewerker).setActief(true);
+		medewerker = medewerkerOpslaanInDB((Medewerker) medewerker);
+		assertEquals(((Medewerker) medewerker).getMedewerkerId(),
+				MedewerkerDAO.getMedewerkerId((Medewerker) medewerker));
 	}
 
+	@Test
 	public void testGetMedewerkerIdMetOnbestaandeMedewerker() {
+		((Medewerker) medewerker).setLogin(login);
+		((Medewerker) medewerker).setRol(rol);
+		((Medewerker) medewerker).setActief(true);
+		assertEquals(0, MedewerkerDAO.getMedewerkerId((Medewerker) medewerker));
 	}
 
+	@Test
 	public void testgetMedewerker() {
+		login = loginToevoegen(login);
+		adres = adresToevoegen(adres);
+		rol = rolToevoegen(rol);
+		medewerker.setAdres(adres);
+		medewerker = persoonToevoegen(medewerker);
+		((Medewerker) medewerker).setLogin(login);
+		((Medewerker) medewerker).setRol(rol);
+		((Medewerker) medewerker).setActief(true);
+		medewerker = medewerkerOpslaanInDB((Medewerker) medewerker);
+		assertEquals(((Medewerker) medewerker),
+				MedewerkerDAO.getMedewerker(((Medewerker) medewerker).getMedewerkerId()));
+
 	}
 
+	@Test
 	public void testgetMedewerkerMetOnbestaandeMedewerker() {
+		medewerker.setAdres(adres);
+		((Medewerker) medewerker).setLogin(login);
+		((Medewerker) medewerker).setRol(rol);
+		((Medewerker) medewerker).setActief(true);
+		assertNull(MedewerkerDAO.getMedewerker(((Medewerker) medewerker).getMedewerkerId()));
 	}
 
+	@Test
 	public void testgetMedewerkerByPersoonId() {
+		login = loginToevoegen(login);
+		adres = adresToevoegen(adres);
+		rol = rolToevoegen(rol);
+		medewerker.setAdres(adres);
+		medewerker = persoonToevoegen(medewerker);
+		((Medewerker) medewerker).setLogin(login);
+		((Medewerker) medewerker).setRol(rol);
+		((Medewerker) medewerker).setActief(true);
+		medewerker = medewerkerOpslaanInDB((Medewerker) medewerker);
+		assertEquals(((Medewerker) medewerker), MedewerkerDAO.getMedewerkerByPersoonId(medewerker.getId()));
 	}
 
+	@Test
 	public void testgetMedewerkerByPersoonIdMetOnbestaandePersoonId() {
+		int onbestaandeId = 91119;
+		assertNull(MedewerkerDAO.getMedewerker(onbestaandeId));
 	}
 
+	@Test
 	public void testgetMedewerkerByLogin() {
+		login = loginToevoegen(login);
+		adres = adresToevoegen(adres);
+		rol = rolToevoegen(rol);
+		medewerker.setAdres(adres);
+		medewerker = persoonToevoegen(medewerker);
+		((Medewerker) medewerker).setLogin(login);
+		((Medewerker) medewerker).setRol(rol);
+		((Medewerker) medewerker).setActief(true);
+		medewerker = medewerkerOpslaanInDB((Medewerker) medewerker);
+		assertEquals(((Medewerker) medewerker), MedewerkerDAO.getMedewerkerByLogin(login.getLoginId()));
 	}
 
+	@Test
 	public void testgetMedewerkerByLoginMetOnbestaandeLoginId() {
+		int onbestaandeLoginId = 91119;
+		assertNull(MedewerkerDAO.getMedewerkerByLogin(onbestaandeLoginId));
 	}
 
+	@Test
 	public void testgetAllMedewerkers() {
+		assertEquals(countMedewerkers(), MedewerkerDAO.getAllMedewerkers().size());
 	}
 
+	@Test
 	public void testgetAllMedewerkersFromSearch() {
+		login = loginToevoegen(login);
+		adres = adresToevoegen(adres);
+		rol = rolToevoegen(rol);
+		medewerker.setAdres(adres);
+		medewerker = persoonToevoegen(medewerker);
+		((Medewerker) medewerker).setLogin(login);
+		((Medewerker) medewerker).setRol(rol);
+		((Medewerker) medewerker).setActief(true);
+		medewerker = medewerkerOpslaanInDB((Medewerker) medewerker);
+		try{
+			assertEquals(1, MedewerkerDAO.getAllMedewerkersFromSearch("MedewerkerDAOTest").size());
+		}catch(NullPointerException e){
+			fail("MedewerkerDAO.getAllMedewerkersFromSearch return NULL => NullPointerException");
+		} 
 	}
 
+	@Test
 	public void testremoveMedewerker() {
+		login = loginToevoegen(login);
+		adres = adresToevoegen(adres);
+		rol = rolToevoegen(rol);
+		medewerker.setAdres(adres);
+		medewerker = persoonToevoegen(medewerker);
+		((Medewerker) medewerker).setLogin(login);
+		((Medewerker) medewerker).setRol(rol);
+		((Medewerker) medewerker).setActief(true);
+		medewerker = medewerkerOpslaanInDB((Medewerker) medewerker);
+		MedewerkerDAO.removeMedewerker(((Medewerker) medewerker).getMedewerkerId());
+		assertEquals(0, isMedewerkerActief((Medewerker) medewerker));
 	}
 
+	@Test
 	public void testbijwerkenMedewerker() {
+		login = loginToevoegen(login);
+		adres = adresToevoegen(adres);
+		rol = rolToevoegen(rol);
+		medewerker.setAdres(adres);
+		medewerker = persoonToevoegen(medewerker);
+		((Medewerker) medewerker).setLogin(login);
+		((Medewerker) medewerker).setRol(rol);
+		((Medewerker) medewerker).setActief(true);
+		medewerker = medewerkerOpslaanInDB((Medewerker) medewerker);
+
+	}
+
+	private int isMedewerkerActief(Medewerker medewerker) {
+		String isMedewerkerActiefQuery = "SELECT Actief FROM Medewerker WHERE medewerkerId = ?";
+		Map<Integer, Object[]> map = executeQuery(isMedewerkerActiefQuery, false, medewerker.getMedewerkerId());
+		if (map.size() > 0)
+			return (boolean) map.get(0)[0]?1:0;
+
+		return 1;
+	}
+
+	private int countMedewerkers() {
+		String countMedewerkersQuery = "SELECT * FROM Medewerker WHERE Actief = 1";
+		Map<Integer, Object[]> map = executeQuery(countMedewerkersQuery, false);
+		if (map.size() > 0)
+			return map.size();
+		return 0;
 	}
 
 	private Persoon medewerkerOphalen(Persoon medewerker) {
@@ -120,33 +248,17 @@ public class MedewerkerDAOTest {
 	private Persoon persoonOphalen(Persoon medewerker) {
 		String persoonZoekenQuery = "SELECT persoonId " + "FROM Persoon " + "WHERE voornaam = ?";
 		Map<Integer, Object[]> map = executeQuery(persoonZoekenQuery, false, medewerker.getVoornaam());
-		medewerker.setId((int) map.get(0)[0]);
+		if (map.size() > 0)
+			medewerker.setId((int) map.get(0)[0]);
 		return medewerker;
 	}
 
 	private Persoon persoonToevoegen(Persoon persoon) {
 		String persoonToevoegenQuery = "INSERT INTO Persoon " + "(adresId, voornaam, achternaam, email) "
 				+ "VALUES(?,?,?,?)";
-		String persoonZoekenQuery = "SELECT persoonId " + "FROM Persoon " + "WHERE voornaam = ?";
 		executeQuery(persoonToevoegenQuery, true, persoon.getAdres().getAdresId(), persoon.getVoornaam(),
 				persoon.getAchternaam(), persoon.getEmail());
-		// Map<Integer, Object[]>map=executeQuery(persoonZoekenQuery, false,
-		// medewerker.getVoornaam()
-		// );
-		// medewerker.setId((int)map.get(0)[0]);
-		// executeQuery(medewerkerToevoegenQuery, true,
-		// medewerker.getLogin().getLoginId(),
-		// medewerker.getId(),
-		// medewerker.getRol().getRolId(),
-		// medewerker.isActief()?1:0
-		// );
-		// map=executeQuery(medewerkerZoekenQuery, false,
-		// medewerker.getId()
-		// );
-		// medewerker.setMedewerkerId((int)map.get(0)[0]);
-		// return medewerker;
-		//
-		return null;
+		return persoonOphalen(persoon);
 	}
 
 	private void medewerkerVerwijderen(Medewerker medewerker) {
@@ -154,7 +266,7 @@ public class MedewerkerDAOTest {
 		String verwijderRol = "DELETE FROM Rol WHERE rol LIKE '%MedewerkerDAOTest%'";
 		String verwijderPersoon = "DELETE FROM Persoon WHERE voornaam LIKE '%MedewerkerDAOTest%'";
 		String verwijderAdres = "DELETE FROM Adres WHERE straat LIKE '%MedewerkerDAOTest%'";
-		String verwijderLogin="DELETE FROM Login WHERE username LIKE '%MedewerkerDAOTest%'";
+		String verwijderLogin = "DELETE FROM Login WHERE username LIKE '%MedewerkerDAOTest%'";
 		executeQuery(verwijderMedewerker, true, medewerker.getId());
 		executeQuery(verwijderRol, true);
 		executeQuery(verwijderPersoon, true);
@@ -197,13 +309,14 @@ public class MedewerkerDAOTest {
 	}
 
 	private Medewerker medewerkerOpslaanInDB(Medewerker medewerker) {
+
 		String persoonToevoegenQuery = "INSERT INTO Persoon " + "(adresId, voornaam, achternaam, email) "
 				+ "VALUES(?,?,?,?)";
 		String persoonZoekenQuery = "SELECT persoonId " + "FROM Persoon " + "WHERE voornaam = ?";
 
-		String medewerkerToevoegenQuery = "INSERT INTO medewerker " + "(loginId, persoonId, rolId,Actief) "
+		String medewerkerToevoegenQuery = "INSERT INTO Medewerker " + "(loginId, persoonId, rolId,Actief) "
 				+ "VALUES(?,?,?,?)";
-		String medewerkerZoekenQuery = "SELECT medewerkerId FROM medewerker " + "WHERE persoonId = ?";
+		String medewerkerZoekenQuery = "SELECT medewerkerId FROM Medewerker " + "WHERE persoonId = ?";
 		executeQuery(persoonToevoegenQuery, true, medewerker.getAdres().getAdresId(), medewerker.getVoornaam(),
 				medewerker.getAchternaam(), medewerker.getEmail());
 		Map<Integer, Object[]> map = executeQuery(persoonZoekenQuery, false, medewerker.getVoornaam());
