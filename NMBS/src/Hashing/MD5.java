@@ -13,8 +13,4 @@ public class MD5 {
        
     }
 	
-	public static void main(String[] args) throws Exception {
-		MD5 test = new MD5();
-		System.out.println(test.hashString("banaan"));
-	}
 }

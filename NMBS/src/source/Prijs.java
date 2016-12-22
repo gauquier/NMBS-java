@@ -35,4 +35,11 @@ public class Prijs {
 	public void setPrijs(double prijs) {
 		this.prijs = prijs;
 	}
+
+	@Override
+	public String toString() {
+		return verkoopType + ": " + prijs + " EUR";
+	}
+	
+	
 }

@@ -30,6 +30,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JPasswordField;
 import javax.swing.JList;
 import javax.swing.ListModel;
+import javax.swing.JSlider;
 
 public class AbonnementToevoegenGui extends JPanel {
 	private JButton btnAanmaken;
@@ -39,6 +40,9 @@ public class AbonnementToevoegenGui extends JPanel {
 	private ArrayList<Object> objecten;
 	private JList<Klant> list;
 	private JTextField txtKlant;
+	public String navigation;
+	private AutoComboBox comboNaar = new AutoComboBox();
+	private AutoComboBox comboVan = new AutoComboBox();
 
 	public AbonnementToevoegenGui() {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
@@ -59,8 +63,6 @@ public class AbonnementToevoegenGui extends JPanel {
 		txtKlant.setColumns(10);
 		
 		btnZoeken = new JButton("Zoeken");
-		
-		list = new JList<Klant>();
 		
 		arrayLijst= new ArrayList<Klant>();
 		
@@ -85,29 +87,31 @@ public class AbonnementToevoegenGui extends JPanel {
 		JLabel lblAankomst = new JLabel("Aankomst:");
 		lblAankomst.setForeground(Color.WHITE);
 		
-		JLabel lblType = new JLabel("Type:");
-		lblType.setForeground(Color.WHITE);
+		JLabel lblPrijs = new JLabel("Prijs:");
+		lblPrijs.setForeground(Color.WHITE);
 		
-		JLabel lblDuur = new JLabel("Duur:");
-		lblDuur.setForeground(Color.WHITE);
+		JLabel lblPrijsValue = new JLabel("");
+		lblPrijsValue.setForeground(Color.WHITE);
+		lblPrijsValue.setText(Double.toString(PrijsDAO.getPrijsByVerkoopType(VerkoopType.ABONNEMENT)) + " euro/maand");
+		
+		comboVan = new AutoComboBox();
+		comboNaar = new AutoComboBox();
+		
+		ArrayList<Station> stations = StationDAO.getAll();
+		ArrayList<String> stationNamen = new ArrayList<String>();
+		for(int i = 0; i < stations.size(); i++){
+			stationNamen.add(stations.get(i).getNaam());
+		}
+		comboNaar.setKeyWord(stationNamen);
+		comboVan.setKeyWord(stationNamen);
+		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
+			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(30)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(lblAbonnementAanmaken)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblDuur, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblType, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
-									.addGap(428)
-									.addComponent(btnAanmaken, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
-								.addComponent(lblAankomst, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblVertrek, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 								.addGroup(groupLayout.createSequentialGroup()
@@ -118,11 +122,31 @@ public class AbonnementToevoegenGui extends JPanel {
 									.addPreferredGap(ComponentPlacement.UNRELATED)))
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(txtKlant, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)
+									.addGap(159)
 									.addComponent(btnZoeken))
-								.addComponent(list, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE))))
-					.addGap(270))
+								.addComponent(list, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblPrijs, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+									.addGap(34)
+									.addComponent(lblPrijsValue, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
+									.addGap(202)
+									.addComponent(btnAanmaken, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+									.addGroup(groupLayout.createSequentialGroup()
+										.addComponent(lblAankomst, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(comboNaar, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE))
+									.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+										.addComponent(lblVertrek, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(comboVan, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE))
+									.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+										.addGap(110)
+										.addComponent(txtKlant, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE))))))
+					.addContainerGap(34, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -131,28 +155,30 @@ public class AbonnementToevoegenGui extends JPanel {
 					.addComponent(lblAbonnementAanmaken)
 					.addGap(24)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(txtKlant, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addComponent(btnZoeken))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblKlant)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblKlant)
+								.addComponent(txtKlant, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(29)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblGevondenResultaten)
-								.addComponent(list, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE))))
-					.addPreferredGap(ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-					.addComponent(lblVertrek)
-					.addGap(18)
-					.addComponent(lblAankomst)
-					.addGap(31)
+								.addComponent(list, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE)))
+						.addComponent(btnZoeken))
+					.addGap(35)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblDuur)
-						.addComponent(btnAanmaken, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE))
-					.addGap(34))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(332, Short.MAX_VALUE)
-					.addComponent(lblType)
-					.addGap(76))
+						.addComponent(comboVan, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblVertrek))
+					.addGap(11)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(comboNaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblAankomst))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(btnAanmaken, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblPrijsValue, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblPrijs)))
+					.addContainerGap())
 		);
 
 		setLayout(groupLayout);
@@ -160,12 +186,47 @@ public class AbonnementToevoegenGui extends JPanel {
 
 
 	
-	
+	public Boolean unknownIndex(){
+		if(list.getSelectedValue()==null || list.getSelectedIndex()<0){
+			JOptionPane.showMessageDialog(new JFrame(), "Er is geen klant aangeduid.");
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
 	
 	public void close() {
 		this.setVisible(false);
 	}
+	
+	private boolean klantHeeftAlAbonnement(Klant klant){
+		ArrayList<Abonnement> arrayLijst= new ArrayList<Abonnement>();
+		arrayLijst = AbonnementDAO.getAllAbonnementen();
+		
+		for(int i=0;i<arrayLijst.size();i++){
+			if (arrayLijst.get(i).getKlant().getKlantId()== klant.getKlantId()){
+				return true;
+			}
+		}
+		return false;
+	}
 
+	public int OkCancel(String message){
+		int n = JOptionPane.showConfirmDialog(
+                null, message,
+                "Bevestiging",
+                JOptionPane.YES_NO_OPTION);
+		
+		if (n == JOptionPane.YES_OPTION) {
+			return n;
+		} else if (n == JOptionPane.NO_OPTION) {
+			return n;
+		}  
+		return 1;
+		
+	}
+	
 	private class MenuItemHandler implements ActionListener {
 
 		@Override
@@ -175,21 +236,49 @@ public class AbonnementToevoegenGui extends JPanel {
 		
 			if (e.getSource() == btnAanmaken) {
 				
-				
-				VerkoopType v=null;
-				
-				Abonnement abonnement= new Abonnement(5.00,10.00,v,list.getSelectedValue(),"brussel", "brussel");
-				
-		
-						
-						AbonnementDAO.addAbonnement(abonnement);
-						JOptionPane.showMessageDialog(new JFrame(), "Abonnement is aangemaakt!");
-						//AdminGui.setHuidigeKeuze(new AbonnementBeheerGui());
+				if(!unknownIndex()){
+					return;
 				}
-
+				else {
+				if(comboVan.getSelectedItem()==null){
+					JOptionPane.showMessageDialog(new JFrame(), "Er is vertrekpunt gekozen.");
+					return;
+				}
+				else if(comboNaar.getSelectedItem()==null){
+					JOptionPane.showMessageDialog(new JFrame(), "Er is aankomstpunt gekozen.");
+					return;
+				}
 				
+				else {
+				if(comboVan.getSelectedItem()==comboNaar.getSelectedItem()){
+					JOptionPane.showMessageDialog(new JFrame(), "Het vertrekpunt kan niet hetzelfde zijn als het aankomstpunt.");
+					return;
+				}
+					
+					
+				if(klantHeeftAlAbonnement(list.getSelectedValue())){
+					int n = OkCancel("Deze klant heeft reeds een abonnement. Bent u zeker dat u dit abonnement wil aanmaken?");
+					if(n>0){
+						return;
+					}
+				}
+					
 
-	
+				VerkoopType v=VerkoopType.ABONNEMENT;
+				
+				Abonnement abonnement= new Abonnement(0.00,0,v,list.getSelectedValue(), (String) comboVan.getSelectedItem(), (String) comboNaar.getSelectedItem());
+				
+				
+						abonnement.setAbonnementId(AbonnementDAO.addAbonnement(abonnement));
+						JOptionPane.showMessageDialog(new JFrame(), "Abonnement is aangemaakt!");
+						navigation= "AbonnementVerlengen";
+						AdminGui.setHuidigeKeuze(new AbonnementVerlengenGui(abonnement));
+				}
+				}
+				
+		} 
+
+		
 			}
 		}
 }

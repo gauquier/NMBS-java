@@ -1,7 +1,7 @@
 package source;
 
 public class Login {
-	private static int loginId;
+	private int loginId;
 	private String username;
 	private String password;
 	private static String currentUser;
@@ -15,8 +15,8 @@ public class Login {
 	/**
 	 * @param currentUser the currentUser to set
 	 */
-	public void setCurrentUser(String currentUser) {
-		this.currentUser = currentUser;
+	public static void setCurrentUser(String currentUser) {
+		Login.currentUser = currentUser;
 	}
 	
 	public Login(String currentUser ) {
@@ -81,7 +81,7 @@ public class Login {
 	/**
 	 * @return loginId
 	 */
-	public static int getLoginId() {
+	public int getLoginId() {
 		return loginId;
 	}
 	/**

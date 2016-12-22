@@ -94,7 +94,7 @@ public class StationDAO {
 		return station;
 	} 
 	
-	public ArrayList<Station> getAll(){
+	public static ArrayList<Station> getAll(){
 		dba.createSelect("Station");
 		ArrayList<Station> lijst = new ArrayList<>();
 		ResultSet rs = dba.commit();

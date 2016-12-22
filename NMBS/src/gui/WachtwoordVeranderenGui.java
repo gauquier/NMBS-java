@@ -35,7 +35,7 @@ public class WachtwoordVeranderenGui extends JPanel {
 	private JPasswordField pwdHuidigWachtwoord;
 	
 	public WachtwoordVeranderenGui() {
-		setBackground(new Color(0, 191, 255));
+		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
 		JLabel lblWachtwoordWijzigen = DefaultComponentFactory.getInstance().createTitle("Wachtwoord wijzigen");
 		

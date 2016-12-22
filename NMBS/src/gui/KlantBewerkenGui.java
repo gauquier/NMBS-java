@@ -1,7 +1,9 @@
 package gui;
 
 import dao.PersoonDao;
+import source.Abonnement;
 import source.Adres;
+import dao.AbonnementDAO;
 import dao.KlantDAO;
 import source.Klant;
 import source.Persoon;
@@ -45,7 +47,7 @@ public class KlantBewerkenGui extends JPanel {
 	private ArrayList<Object> objecten;
 	private JButton btnVerwijderen;
 	public String navigation;
-	
+	public String newline = System.getProperty("line.separator");
 	
 	public KlantBewerkenGui() {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
@@ -162,6 +164,29 @@ public class KlantBewerkenGui extends JPanel {
 	}
 	}
 	
+	private void verwijderBijhorendeAbonnementen(Klant klant){
+		ArrayList<Abonnement> arrayLijst= new ArrayList<Abonnement>();
+		arrayLijst = AbonnementDAO.getAllAbonnementen();
+		
+		for(int i=0;i<arrayLijst.size();i++){
+			if (arrayLijst.get(i).getKlant().getKlantId()== klant.getKlantId()){
+				AbonnementDAO.removeAbonnement(arrayLijst.get(i).getAbonnementId());
+			}
+		}
+	}
+	
+	private boolean klantHeeftAlAbonnement(Klant klant){
+		ArrayList<Abonnement> arrayLijst= new ArrayList<Abonnement>();
+		arrayLijst = AbonnementDAO.getAllAbonnementen();
+		
+		for(int i=0;i<arrayLijst.size();i++){
+			if (arrayLijst.get(i).getKlant().getKlantId()== klant.getKlantId()){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	private class MenuItemHandler implements ActionListener {
 
 		@Override
@@ -185,9 +210,21 @@ public class KlantBewerkenGui extends JPanel {
 				if(!unknownIndex()){
 					return;
 				} else {
-				int n = OkCancel("Ben je zeker dat je " + list.getSelectedValue().getVoornaam() + " " + list.getSelectedValue().getAchternaam() + " wil verwijderen?");	
+				int n;	
 					
+				if(klantHeeftAlAbonnement(list.getSelectedValue())){
+					 n = OkCancel("Let op! U bent van plan om een klant te verwijderen waaraan een abonnement gekoppeld is." + newline + " Ben je zeker dat je " + list.getSelectedValue().getVoornaam() + " " + list.getSelectedValue().getAchternaam() + " wil verwijderen?" );	
+					 if(n==0){
+						 verwijderBijhorendeAbonnementen(list.getSelectedValue());
+					 }
+				}
+				else {	
+			   n = OkCancel("Ben je zeker dat je " + list.getSelectedValue().getVoornaam() + " " + list.getSelectedValue().getAchternaam() + " wil verwijderen?");	
+				}
+				
+				
 				if(n==0){
+						
 				KlantDAO.removeKlant(list.getSelectedValue().getKlantId());
 				((DefaultListModel<Klant>)list.getModel()).remove(list.getSelectedIndex());
 				JOptionPane.showMessageDialog(new JFrame(), "Klant is succesvol verwijdert.");

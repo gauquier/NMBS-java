@@ -74,7 +74,7 @@ public class LoginDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
-		return user;
+		return null;
 	}
 	
 	public int checkUsername(String username){

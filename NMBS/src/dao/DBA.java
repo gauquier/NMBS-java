@@ -22,7 +22,12 @@ public class DBA {
 	private Statement stmt = null;
 	private ResultSet rs = null;
 	
+	
 
+		public String getSql() {
+		return sql;
+	}
+	
 		public void createSelect(String tableName)// SELECT * FROM tableName
 		{
 			reset();
@@ -38,6 +43,14 @@ public class DBA {
 			type = Type.SELECT;
 			this.tableName = tableName;
 			sql = "SELECT " + columnName + " FROM " + tableName;
+		}
+		
+		public void createTicketstatistiekenSelect()
+		{
+			reset();
+			
+			type = Type.SELECT;
+			sql = "SELECT verkoopDatum, COUNT(verkoopDatum) FROM Ticket GROUP BY verkoopDatum LIMIT 5";
 		}
 		
 		public void createUpdate(String tableName, String columnName, String value) // UPDATE tableName SET columnName = value

@@ -5,9 +5,14 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
+import source.Klant;
+import source.Persoon;
 import source.Ticket;
+import source.Ticketstatistiek;
 import source.VerkoopType;
 
 
@@ -86,23 +91,33 @@ public class TicketDao {
 
 	}
 	
-	//tijdelijke functie:
-	public static String getVerkoopdatumAsString(){
-		String datum = null;
-		dba.createSelect("Ticket", "verkoopDatum");
-		ResultSet rs = dba.commit();	
+	public static ArrayList<Ticketstatistiek> getTicketstatistieken(){
+		/*
+		 	SELECT verkoopDatum, COUNT(verkoopDatum)
+			FROM Ticket
+			GROUP BY verkoopDatum
+			LIMIT 5;
+		*/
+		ArrayList<Ticketstatistiek> ticketstatistieken = new ArrayList<Ticketstatistiek>();
+		dba.createTicketstatistiekenSelect();
+		ResultSet rs = dba.commit();
+		
+		//gebaseerd op http://stackoverflow.com/questions/5301226/convert-string-to-calendar-object-in-java
+		//Calendar tijd = Calendar.getInstance();
+		//SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-YYYY");
+		
 		try {
-			if(rs.next()){
-				//DateFormat dt = new SimpleDateFormat("dd-MM-YYYY");
-				datum = /*dt.parse(*/rs.getString(1)/*)*/;
+			while(rs.next()){
+				//tijd.setTime(sdf.parse(rs.getString(1)));
+				//ticketstatistieken.add(new Ticketstatistiek(tijd,rs.getInt(2)));
+				ticketstatistieken.add(new Ticketstatistiek(rs.getString(1),rs.getInt(2)));
 			}
+			return ticketstatistieken;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return datum;
-		
-
+		return null;
 	}
-
+	
 }
