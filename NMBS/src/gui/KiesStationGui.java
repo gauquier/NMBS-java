@@ -11,6 +11,7 @@ import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
@@ -30,6 +31,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 public class KiesStationGui {
+	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.KiesStationGui");
 	
 	JFrame frmStation;
 	public static KiesStationGui window;
@@ -81,15 +83,16 @@ public class KiesStationGui {
 			cmbbStation.addItem(station.getNaam());
 		}
 		
-		JLabel lblKiesUwHuidig = DefaultComponentFactory.getInstance().createTitle("Kies uw huidig station");
+		JLabel lblKiesUwHuidig = DefaultComponentFactory.getInstance().createTitle(bundle.getString("lblKiesUwHuidig"));
 		lblKiesUwHuidig.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 		
-		JLabel lblSelecteerUwHuidig = new JLabel("Selecteer uw huidig station");
+		JLabel lblSelecteerUwHuidig = new JLabel(bundle.getString("lblSelecteerUwHuidig"));
 		lblSelecteerUwHuidig.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblSelecteerUwHuidig.setForeground(Color.WHITE);
 		
-		btnSelecteer = new JButton("Selecteer");
+		btnSelecteer = new JButton(bundle.getString("btnSelecteer"));
 		btnSelecteer.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+
 		btnSelecteer.addActionListener(new MenuItemHandler());
 		GroupLayout groupLayout = new GroupLayout(frmStation.getContentPane());
 		groupLayout.setHorizontalGroup(

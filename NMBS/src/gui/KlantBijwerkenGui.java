@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Array;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
@@ -33,6 +34,8 @@ import javax.swing.JRadioButton;
 import javax.swing.JPasswordField;
 
 public class KlantBijwerkenGui extends JPanel {
+	private static ResourceBundle bundle;
+	
 	private JTextField txtVoornaam;
 	private JTextField txtAchternaam;
 	private JTextField txtStraat;
@@ -58,6 +61,8 @@ public class KlantBijwerkenGui extends JPanel {
 	private String email;
 	
 	public KlantBijwerkenGui(Klant k) {
+		bundle = ResourceBundle.getBundle("localization.KlantBijwerkenGui");
+		
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		klantId=k.getKlantId();
 		persoonId =k.getId();
@@ -65,25 +70,25 @@ public class KlantBijwerkenGui extends JPanel {
 		huidigeEmail=k.getEmail();
 		
 		
-		JLabel lblVoornaam = new JLabel("Voornaam*:");
+		JLabel lblVoornaam = new JLabel(bundle.getString("lblVoornaam"));
 		lblVoornaam.setForeground(Color.WHITE);
 
-		JLabel lblAchternaam = new JLabel("Achternaam*:");
+		JLabel lblAchternaam = new JLabel(bundle.getString("lblAchternaam"));
 		lblAchternaam.setForeground(Color.WHITE);
 
-		JLabel lblStraat = new JLabel("Straat*:");
+		JLabel lblStraat = new JLabel(bundle.getString("lblStraat"));
 		lblStraat.setForeground(Color.WHITE);
 
-		JLabel lblHuisnummer = new JLabel("Huisnummer*:");
+		JLabel lblHuisnummer = new JLabel(bundle.getString("lblHuisnummer"));
 		lblHuisnummer.setForeground(Color.WHITE);
 
-		JLabel lblGemeente = new JLabel("Gemeente*:");
+		JLabel lblGemeente = new JLabel(bundle.getString("lblGemeente"));
 		lblGemeente.setForeground(Color.WHITE);
 
-		JLabel lblPostcode = new JLabel("Postcode*:");
+		JLabel lblPostcode = new JLabel(bundle.getString("lblPostcode"));
 		lblPostcode.setForeground(Color.WHITE);
 
-		JLabel lblBus = new JLabel("Bus:");
+		JLabel lblBus = new JLabel(bundle.getString("lblBus"));
 		lblBus.setForeground(Color.WHITE);
 
 		txtVoornaam = new JTextField();
@@ -114,27 +119,27 @@ public class KlantBijwerkenGui extends JPanel {
 		txtPostcode.setColumns(10);
 		txtPostcode.setText(new Integer(k.getAdres().getPostcode()).toString());
 
-		btnBijwerken = new JButton("Bijwerken");
+		btnBijwerken = new JButton(bundle.getString("btnBijwerken"));
 		btnBijwerken.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnBijwerken.setBackground(Color.ORANGE);
 		btnBijwerken.addActionListener(new MenuItemHandler());
 
-		lblEmail = new JLabel("Email*:");
+		lblEmail = new JLabel(bundle.getString("lblEmail"));
 		lblEmail.setForeground(Color.WHITE);
 
 		txtEmail = new JTextField();
 		txtEmail.setColumns(10);
 		txtEmail.setText(k.getEmail());
 
-		JLabel lblKlantBijwerken = DefaultComponentFactory.getInstance().createTitle("Klant bijwerken");
+		JLabel lblKlantBijwerken = DefaultComponentFactory.getInstance().createTitle(bundle.getString("lblKlantBijwerken"));
 		lblKlantBijwerken.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
 
-		JLabel label_1 = new JLabel("* Verplichte velden");
+		JLabel label_1 = new JLabel(bundle.getString("label_1"));
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		label_1.setForeground(Color.WHITE);
 		
-		lblExtraInformatie = new JLabel("Extra informatie:");
+		lblExtraInformatie = new JLabel(bundle.getString("lblExtraInformatie"));
 		lblExtraInformatie.setForeground(Color.WHITE);
 		
 		txtInfo = new JTextField();
@@ -278,7 +283,7 @@ public class KlantBijwerkenGui extends JPanel {
 				
 				
 				if(persoonDao.checkEmail(email) > 0 && !(email.equals(huidigeEmail))){
-					JOptionPane.showMessageDialog(new JFrame(), "Deze klant bestaat al.");
+					JOptionPane.showMessageDialog(new JFrame(), bundle.getString("customerAlreadyExists"));
 					txtEmail.setText("");
 					return;
 					
@@ -305,13 +310,13 @@ public class KlantBijwerkenGui extends JPanel {
 						
 						KlantDAO.bijwerkenKlant(klantId, persoonId, persoon, info, adresId, adres);
 				
-						JOptionPane.showMessageDialog(new JFrame(), "Klant is bijgewerkt!");
+						JOptionPane.showMessageDialog(new JFrame(), bundle.getString("customerEdited"));
 						AdminGui.setHuidigeKeuze(new KlantBewerkenGui());
 					}
 				}
 
 				else {
-					JOptionPane.showMessageDialog(new JFrame(), "Vul alle verplichte velden in!");
+					JOptionPane.showMessageDialog(new JFrame(), bundle.getString("requiredFieldsWarning"));
 
 				}
 			}

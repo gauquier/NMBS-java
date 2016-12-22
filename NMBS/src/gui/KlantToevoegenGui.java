@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Array;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
@@ -33,6 +34,8 @@ import javax.swing.JRadioButton;
 import javax.swing.JPasswordField;
 
 public class KlantToevoegenGui extends JPanel {
+	private static ResourceBundle bundle;
+	
 	private JTextField txtVoornaam;
 	private JTextField txtAchternaam;
 	private JTextField txtStraat;
@@ -53,34 +56,37 @@ public class KlantToevoegenGui extends JPanel {
 	private JTextField txtInfo;
 
 	public KlantToevoegenGui() {
+		bundle = ResourceBundle.getBundle("localization.KlantToevoegenGuis");
+		
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 
-		JLabel lblVoornaam = new JLabel("Voornaam*:");
+		JLabel lblVoornaam = new JLabel(bundle.getString("lblVoornaam"));
 		lblVoornaam.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblVoornaam.setForeground(Color.WHITE);
 
-		JLabel lblAchternaam = new JLabel("Achternaam*:");
+		JLabel lblAchternaam = new JLabel(bundle.getString("lblAchternaam"));
 		lblAchternaam.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblAchternaam.setForeground(Color.WHITE);
 
-		JLabel lblStraat = new JLabel("Straat*:");
+		JLabel lblStraat = new JLabel(bundle.getString("lblStraat"));
 		lblStraat.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblStraat.setForeground(Color.WHITE);
 
-		JLabel lblHuisnummer = new JLabel("Huisnummer*:");
+		JLabel lblHuisnummer = new JLabel(bundle.getString("lblHuisnummer"));
 		lblHuisnummer.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblHuisnummer.setForeground(Color.WHITE);
 
-		JLabel lblGemeente = new JLabel("Gemeente*:");
+		JLabel lblGemeente = new JLabel(bundle.getString("lblGemeente"));
 		lblGemeente.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblGemeente.setForeground(Color.WHITE);
 
-		JLabel lblPostcode = new JLabel("Postcode*:");
+		JLabel lblPostcode = new JLabel(bundle.getString("lblPostcode"));
 		lblPostcode.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblPostcode.setForeground(Color.WHITE);
 
-		JLabel lblBus = new JLabel("Bus:");
+		JLabel lblBus = new JLabel(bundle.getString("lblBus"));
 		lblBus.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+
 		lblBus.setForeground(Color.WHITE);
 
 		txtVoornaam = new JTextField();
@@ -112,28 +118,27 @@ public class KlantToevoegenGui extends JPanel {
 		txtPostcode.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		txtPostcode.setColumns(10);
 
-		btnToevoegen = new JButton("Toevoegen");
-		btnToevoegen.setFont(new Font("Dialog", Font.BOLD, 20));
+		lblEmail = new JLabel(bundle.getString("lblEmail"));
+		lblEmail.setForeground(Color.WHITE);
+		lblEmail.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+
+		btnToevoegen = new JButton(bundle.getString("btnToevoegen"));
+		btnToevoegen.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		btnToevoegen.setBackground(Color.ORANGE);
 		btnToevoegen.addActionListener(new MenuItemHandler());
-
-		lblEmail = new JLabel("Email*:");
-		lblEmail.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		lblEmail.setForeground(Color.WHITE);
-
+		
 		txtEmail = new JTextField();
 		txtEmail.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		txtEmail.setColumns(10);
 
-		JLabel lblKlantToevoegen = DefaultComponentFactory.getInstance().createTitle("Klant toevoegen");
-		lblKlantToevoegen.setFont(new Font("Tahoma", Font.PLAIN, 22));
+		JLabel lblKlantToevoegen = DefaultComponentFactory.getInstance().createTitle(bundle.getString("lblKlantToevoegen"));
+		lblKlantToevoegen.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
-
-		JLabel label_1 = new JLabel("* Verplichte velden");
+		JLabel label_1 = new JLabel(bundle.getString("label_1"));
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		label_1.setForeground(Color.WHITE);
 		
-		lblExtraInformatie = new JLabel("Extra informatie:");
+		lblExtraInformatie = new JLabel(bundle.getString("lblExtraInformatie"));
 		lblExtraInformatie.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblExtraInformatie.setForeground(Color.WHITE);
 		
@@ -291,12 +296,12 @@ public class KlantToevoegenGui extends JPanel {
 						
 						KlantDAO.addKlant(persoon, adres, info);
 						close();
-						JOptionPane.showMessageDialog(new JFrame(), "Klant is toegevoegd!");
+						JOptionPane.showMessageDialog(new JFrame(), bundle.getString("customerAdded"));
 					}
 				}
 
 				else {
-					JOptionPane.showMessageDialog(new JFrame(), "Vul alle verplichte velden in!");
+					JOptionPane.showMessageDialog(new JFrame(), bundle.getString("requiredFieldsWarning"));
 
 				}
 			}
