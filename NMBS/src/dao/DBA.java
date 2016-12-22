@@ -40,6 +40,14 @@ public class DBA {
 			sql = "SELECT " + columnName + " FROM " + tableName;
 		}
 		
+		public void createTicketstatistiekenSelect()
+		{
+			reset();
+			
+			type = Type.SELECT;
+			sql = "SELECT verkoopDatum, COUNT(verkoopDatum) FROM Ticket GROUP BY verkoopDatum LIMIT 5";
+		}
+		
 		public void createUpdate(String tableName, String columnName, String value) // UPDATE tableName SET columnName = value
 		{
 			reset();

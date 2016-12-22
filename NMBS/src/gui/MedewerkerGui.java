@@ -13,8 +13,12 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import handler.Controller;
-import javax.swing.UIManager;
+
+import dao.Connection;
+
 import java.awt.Toolkit;
+
+import javax.swing.UIManager;
 
 public class MedewerkerGui  extends JFrame {
 	private Container c = getContentPane();	
@@ -50,7 +54,7 @@ public class MedewerkerGui  extends JFrame {
 	
 	public void setHome(){
 		navigation= "home";
-		setHuidigeKeuze(new HomeGui());
+		setHuidigeKeuze(new HomeGui(false));
 	}
 	public Container getC() {
 		return c;
@@ -185,14 +189,15 @@ public class MedewerkerGui  extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource()==uitloggen)
 			{
+				Connection.close();
 				setHuidigeKeuze(null);
 				LoginGui.start();
 			}
 			else if (e.getSource() == home){
-				setHuidigeKeuze(new HomeGui());
+				setHuidigeKeuze(new HomeGui(false));
 			}
 			else if (e.getSource() == ticketVerkoop){
-				setHuidigeKeuze(new TicketVerkoopGui());
+				setHuidigeKeuze(new TicketVerkoopGui(false));
 			}
 			else if (e.getSource() == routeInfo){
 				setHuidigeKeuze(new RouteZoekenGui());

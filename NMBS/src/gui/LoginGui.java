@@ -6,6 +6,7 @@ import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 import javax.swing.JButton;
@@ -15,6 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import dao.CheckIfConnected;
+import dao.Connection;
 import dao.LoginDao;
 import handler.Controller;
 import source.Login;
@@ -119,6 +122,31 @@ public class LoginGui {
 
 	private class ButtonHandler implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			if (!(CheckIfConnected.checkIfConnected()))//als er geen internetverbinding is
+			{
+				closeFrame();
+				JOptionPane.showMessageDialog(new JFrame(), "Er is geen internetverbinding.");
+				
+				JOptionPane.showMessageDialog(new JFrame(), "Offline-modus wordt opgestart.");
+				
+				Controller.offlineInterface = new OfflineGui();
+				Controller.offlineInterface.setHome();
+				new TicketVerkoopGui(true);
+				
+				return;
+			}
+			
+			if (!Connection.checkDBConnection()) {
+				JOptionPane.showMessageDialog(new JFrame(), "Kan niet verbinden met de databank.");
+				
+				JOptionPane.showMessageDialog(new JFrame(), "Offline-modus wordt opgestart.");
+				
+				Controller.offlineInterface = new OfflineGui();
+				Controller.offlineInterface.setHome();
+				new TicketVerkoopGui(true);
+				
+				return;
+			}
 			if (e.getSource() == btnLogin || e.getSource() == txtPassword) {
 
 				String username = txtUsername.getText().trim();
@@ -139,6 +167,7 @@ public class LoginGui {
 									int loginId = LoginDao.getLoginId(username);
 									if(LoginDao.getActief(loginId) == 1){
 										login = new Login(loginId, username, "");
+										Login.setCurrentUser(username);
 
 										closeFrame();
 										KiesStationGui.start();

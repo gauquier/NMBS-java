@@ -33,6 +33,7 @@ import java.awt.Color;
 import javax.swing.UIManager;
 
 import dao.AdresDAO;
+import dao.Connection;
 import dao.KlantDAO;
 import dao.MedewerkerDAO;
 
@@ -50,6 +51,7 @@ public class AdminGui extends JFrame {
     JMenu verkoop, verlorenVoorwerpen, instellingen, gebruikers, klanten;
     JMenuItem abonnementBeheer, uitloggen, gebruikersToevoegen, gebruikersBeheer, ticketVerkoop
     , verlorenVoorwerpToevoegen, verlorenVoorwerpZoeken, wachtwoordVeranderen ,klantenToevoegen, klantenBeheer;
+    private JMenuItem mntmPrijsbeheer;
 
 	public static JPanel getHuidigeKeuze() {
 		return HuidigeKeuze;
@@ -74,7 +76,7 @@ public class AdminGui extends JFrame {
 
 	public void setHome(){
 		navigation= "home";
-		setHuidigeKeuze(new HomeGui());
+		setHuidigeKeuze(new HomeGui(false));
 	}
 	public Container getC() {
 		return c;
@@ -192,6 +194,10 @@ public class AdminGui extends JFrame {
 		
 		menubar.add(home);
 		menubar.add(verkoop);
+		
+		mntmPrijsbeheer = new JMenuItem("Prijsbeheer");
+		mntmPrijsbeheer.addActionListener(new MenuItemHandler());
+		verkoop.add(mntmPrijsbeheer);
 		menubar.add(klanten);
 		menubar.add(routeInfo);
 		menubar.add(stationInfo);
@@ -235,14 +241,18 @@ public class AdminGui extends JFrame {
 			
 			else if (e.getSource()==uitloggen)
 			{
+				Connection.close();
 				setHuidigeKeuze(null);
 			}
 			else if (e.getSource() == home){
 
-				setHuidigeKeuze(new HomeGui());
+				setHuidigeKeuze(new HomeGui(false));
 			}
 			else if (e.getSource() == ticketVerkoop){
-				setHuidigeKeuze(new TicketVerkoopGui());
+				setHuidigeKeuze(new TicketVerkoopGui(false));
+			}
+			else if (e.getSource() == mntmPrijsbeheer){
+				setHuidigeKeuze(new PrijsBeheerGui());
 			}
 			else if (e.getSource() == routeInfo){
 				setHuidigeKeuze(new RouteZoekenGui());
