@@ -58,6 +58,7 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel {
 	private VerlorenVoorwerpDAO verlorenVoorwerpDAO = new VerlorenVoorwerpDAO();
 
 	public VerlorenVoorwerpenToevoegenGui() {
+		
 		setDoubleBuffered(false);
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 
@@ -147,21 +148,21 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel {
 			String station;
 			String beschrijving;
 			Date date = dateChooser.getDate();
-			LocalDate datum = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-			LocalDate today = LocalDate.now(ZoneId.of("Europe/Brussels"));
+			/*LocalDate datum = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			LocalDate today = LocalDate.now(ZoneId.of("Europe/Brussels"));*/
 			boolean gevonden = false;
 			VerlorenVoorwerp vv;
 
 			if (e.getSource() == btnToevoegen) {
-				if (!txtrBeschrijving.getText().isEmpty() && dateChooser.getDate() != null && !datum.isAfter(today) ) {
+				if (!txtrBeschrijving.getText().isEmpty() && dateChooser.getDate() != null /*&& !datum.isAfter(today)*/ ) 
 					{
 						station = stationLijst.getSelectedItem().toString();
 						beschrijving = txtrBeschrijving.getText();
 						date = dateChooser.getDate();
+						
 						vv = new VerlorenVoorwerp(-1, beschrijving, date, gevonden);
 						verlorenVoorwerpDAO.insertVerlorenVoorwerp(vv, stationDAO.checkStation(station));
 					}
-				}
 
 				else {
 					JOptionPane.showMessageDialog(new JFrame(), "Please fill in all required fields!");

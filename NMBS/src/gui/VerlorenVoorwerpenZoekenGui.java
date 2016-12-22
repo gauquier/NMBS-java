@@ -23,16 +23,20 @@ import java.awt.event.ItemListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
 import java.awt.SystemColor;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 
 public class VerlorenVoorwerpenZoekenGui extends JPanel {
 	private JComboBox stationLijst;
 	private StationDAO stationDAO = new StationDAO();
-	private VerlorenVoorwerpDAO verlorenVoorwerpDAO = new VerlorenVoorwerpDAO();
+	private JButton btnBewerken;
 	private JList<VerlorenVoorwerp> list;
+	
+	private VerlorenVoorwerpDAO verlorenVoorwerpDAO = new VerlorenVoorwerpDAO();
 	private ArrayList<VerlorenVoorwerp> arrayLijst;
 	private ArrayList<Object> objecten;
 	private DefaultListModel<VerlorenVoorwerp> dlm;
+	
 	
 	
 	public VerlorenVoorwerpenZoekenGui() {
@@ -86,6 +90,8 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 			}
 		});
 		
+		btnBewerken = new JButton("Bewerken");
+		
 		
 
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -97,12 +103,14 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 					.addGap(255))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(42)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(list, GroupLayout.PREFERRED_SIZE, 701, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblStation)
 							.addGap(30)
-							.addComponent(stationLijst, GroupLayout.PREFERRED_SIZE, 356, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(stationLijst, GroupLayout.PREFERRED_SIZE, 302, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnBewerken, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(35, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
@@ -113,10 +121,11 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 					.addGap(21)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(stationLijst, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblStation))
+						.addComponent(lblStation)
+						.addComponent(btnBewerken))
 					.addGap(36)
 					.addComponent(list, GroupLayout.PREFERRED_SIZE, 237, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(337, Short.MAX_VALUE))
+					.addContainerGap(340, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 	}
