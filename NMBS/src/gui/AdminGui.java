@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
@@ -23,34 +24,43 @@ import javax.swing.JPanel;
 
 import handler.Controller;
 import handler.VerkoopController;
+import source.Klant;
+import source.Medewerker;
 
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.UIManager;
+
+import dao.AdresDAO;
+import dao.Connection;
+import dao.KlantDAO;
+import dao.MedewerkerDAO;
+
 import java.awt.Toolkit;
 import java.awt.Font;
 
 public class AdminGui extends JFrame {
 	private Container c = getContentPane();	
 	
-	private JPanel vorigeKeuze, HuidigeKeuze;
+	private static JPanel vorigeKeuze, HuidigeKeuze;
     public String navigation;
     
     JMenuBar menubar;
     JMenuItem home , routeInfo, stationInfo;
-    JMenu verkoop, verlorenVoorwerpen, instellingen, gebruikers;
-    JMenuItem abonnementVerkoop, abonnementBeheer, uitloggen, gebruikersToevoegen, gebruikersVerwijderen, ticketVerkoop
-    , verlorenVoorwerpToevoegen, verlorenVoorwerpZoeken, adminToevoegen, wachtwoordVeranderen;
+    JMenu verkoop, verlorenVoorwerpen, instellingen, gebruikers, klanten;
+    JMenuItem abonnementBeheer, uitloggen, gebruikersToevoegen, gebruikersBeheer, ticketVerkoop
+    , verlorenVoorwerpToevoegen, verlorenVoorwerpZoeken, wachtwoordVeranderen ,klantenToevoegen, klantenBeheer;
+    private JMenuItem mntmPrijsbeheer;
 
-	public JPanel getHuidigeKeuze() {
+	public static JPanel getHuidigeKeuze() {
 		return HuidigeKeuze;
 	}
 	
-	public void setHuidigeKeuze(JPanel huidigeKeuze) {
+	public static void setHuidigeKeuze(JPanel huidigeKeuze) {
 		
 		if (HuidigeKeuze!=null){HuidigeKeuze.setVisible(false);}
-		this.vorigeKeuze= this.HuidigeKeuze;
+		vorigeKeuze= HuidigeKeuze;
 		HuidigeKeuze = huidigeKeuze;
 		if (HuidigeKeuze!=null)
 		{
@@ -66,7 +76,7 @@ public class AdminGui extends JFrame {
 
 	public void setHome(){
 		navigation= "home";
-		setHuidigeKeuze(new HomeGui());
+		setHuidigeKeuze(new HomeGui(false));
 	}
 	public Container getC() {
 		return c;
@@ -75,6 +85,7 @@ public class AdminGui extends JFrame {
 		this.c = c;
 	}
 	public AdminGui() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("NMBS/lib/logo-nmbs.png"));
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		this.setResizable(true);
@@ -92,12 +103,16 @@ public class AdminGui extends JFrame {
 	private void createMenu() {
 		menubar = new JMenuBar();
 		menubar.setForeground(Color.BLACK);
-		menubar.setBackground(Color.WHITE);
+		menubar.setBackground(Color.ORANGE);
 		home = new JMenuItem("Home");
-		home.setHorizontalAlignment(SwingConstants.CENTER);
+
+		home.setHorizontalAlignment(SwingConstants.LEFT);
 		home.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		home.setHorizontalTextPosition(SwingConstants.CENTER);;
 		home.setBackground(Color.ORANGE);
+		home.setOpaque(true);
 		home.addActionListener(new MenuItemHandler());
+		
 		verkoop = new JMenu("Verkoop");
 		verkoop.setHorizontalAlignment(SwingConstants.CENTER);
 		verkoop.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -107,18 +122,26 @@ public class AdminGui extends JFrame {
 		routeInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		routeInfo.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		routeInfo.setBackground(Color.ORANGE);
+		routeInfo.setOpaque(true);
 		routeInfo.addActionListener(new MenuItemHandler());
 		
 		stationInfo = new JMenuItem("Station info");
 		stationInfo.setHorizontalAlignment(SwingConstants.CENTER);
 		stationInfo.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		stationInfo.setBackground(Color.ORANGE);
+		stationInfo.setOpaque(true);
 		stationInfo.addActionListener(new MenuItemHandler());
 		gebruikers = new JMenu("Gebruikers");
 		gebruikers.setHorizontalAlignment(SwingConstants.CENTER);
 		gebruikers.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		gebruikers.setBackground(Color.ORANGE);
 		gebruikers.setOpaque(true);
+		
+		klanten = new JMenu("Klanten");
+		klanten.setHorizontalAlignment(SwingConstants.CENTER);
+		klanten.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		klanten.setBackground(Color.ORANGE);
+		klanten.setOpaque(true);
 		
 		verlorenVoorwerpen = new JMenu("Verloren voorwerpen");
 		verlorenVoorwerpen.setHorizontalAlignment(SwingConstants.CENTER);
@@ -141,22 +164,24 @@ public class AdminGui extends JFrame {
 		wachtwoordVeranderen.addActionListener(new MenuItemHandler());
 		instellingen.add(wachtwoordVeranderen);
 		
-		abonnementBeheer = new JMenuItem("Abbonement beheer");
+		abonnementBeheer = new JMenuItem("Abonnementen beheren");
 		abonnementBeheer.setBackground(Color.WHITE);
-		abonnementVerkoop = new JMenuItem("Abbonement verkoop");
-		abonnementVerkoop.setBackground(Color.WHITE);
-		verkoop.add(abonnementVerkoop);
+		abonnementBeheer.addActionListener(new MenuItemHandler());
 		verkoop.add(abonnementBeheer);
 		
 		gebruikersToevoegen = new JMenuItem("Gebruiker toevoegen");
 		gebruikersToevoegen.addActionListener(new MenuItemHandler());
-		gebruikersVerwijderen = new JMenuItem("Gebruiker verwijderen");
-		gebruikersVerwijderen.addActionListener(new MenuItemHandler());
-		adminToevoegen = new JMenuItem("Admin toevoegen");
-		adminToevoegen.addActionListener(new MenuItemHandler());
+		gebruikersBeheer = new JMenuItem("Gebruikers beheren");
+		gebruikersBeheer.addActionListener(new MenuItemHandler());
 		gebruikers.add(gebruikersToevoegen);
-		gebruikers.add(gebruikersVerwijderen);
-		gebruikers.add(adminToevoegen);
+		gebruikers.add(gebruikersBeheer);
+		
+		klantenToevoegen = new JMenuItem("Klant toevoegen");
+		klantenToevoegen.addActionListener(new MenuItemHandler());
+		klantenBeheer = new JMenuItem("Klanten beheren");
+		klantenBeheer.addActionListener(new MenuItemHandler());
+		klanten.add(klantenToevoegen);
+		klanten.add(klantenBeheer);
 		
 		ticketVerkoop = new JMenuItem("Ticketverkoop");
 		ticketVerkoop.setBackground(Color.WHITE);
@@ -169,6 +194,11 @@ public class AdminGui extends JFrame {
 		
 		menubar.add(home);
 		menubar.add(verkoop);
+		
+		mntmPrijsbeheer = new JMenuItem("Prijsbeheer");
+		mntmPrijsbeheer.addActionListener(new MenuItemHandler());
+		verkoop.add(mntmPrijsbeheer);
+		menubar.add(klanten);
 		menubar.add(routeInfo);
 		menubar.add(stationInfo);
 		menubar.add(gebruikers);
@@ -194,26 +224,35 @@ public class AdminGui extends JFrame {
 				navigation= "gebruikerToevoegen";
 				setHuidigeKeuze(new GebruikerToevoegenGui());
 			}
-			else if (e.getSource() == gebruikersVerwijderen) {	
-				navigation= "gebruikersVerwijderen";
-				setHuidigeKeuze(new GebruikerVerwijderenGui());
+			else if (e.getSource() == gebruikersBeheer) {	
+				navigation= "gebruikersBeheer";
+				setHuidigeKeuze(new GebruikerBewerkenGui());
 			}
-			else if (e.getSource() == adminToevoegen) {	
-				navigation= "adminToevoegen";
-				setHuidigeKeuze(new AdminToevoegenGui());
+		
+			else if (e.getSource() == klantenToevoegen) {	
+				navigation= "klantToevoegen";
+				setHuidigeKeuze(new KlantToevoegenGui());
 			}
+			
+			else if (e.getSource() == klantenBeheer) {	
+				navigation= "klantenBeheer";
+				setHuidigeKeuze(new KlantBewerkenGui());
+			}
+			
 			else if (e.getSource()==uitloggen)
 			{
+				Connection.close();
 				setHuidigeKeuze(null);
-				LoginGui.start();
 			}
 			else if (e.getSource() == home){
 
-				setHuidigeKeuze(new HomeGui());
+				setHuidigeKeuze(new HomeGui(false));
 			}
 			else if (e.getSource() == ticketVerkoop){
-				if (HuidigeKeuze!=null){HuidigeKeuze.setVisible(false);}
-				new VerkoopController();
+				setHuidigeKeuze(new TicketVerkoopGui(false));
+			}
+			else if (e.getSource() == mntmPrijsbeheer){
+				setHuidigeKeuze(new PrijsBeheerGui());
 			}
 			else if (e.getSource() == routeInfo){
 				setHuidigeKeuze(new RouteZoekenGui());
@@ -230,6 +269,10 @@ public class AdminGui extends JFrame {
 			else if (e.getSource() == wachtwoordVeranderen){
 				setHuidigeKeuze(new WachtwoordVeranderenGui());
 			}
+			else if (e.getSource() == abonnementBeheer){
+			//	setHuidigeKeuze(new AbonnementBeheerGui());
+			}
+		
 		}
 	}
 	

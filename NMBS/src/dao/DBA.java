@@ -40,13 +40,21 @@ public class DBA {
 			sql = "SELECT " + columnName + " FROM " + tableName;
 		}
 		
+		public void createTicketstatistiekenSelect()
+		{
+			reset();
+			
+			type = Type.SELECT;
+			sql = "SELECT verkoopDatum, COUNT(verkoopDatum) FROM Ticket GROUP BY verkoopDatum LIMIT 5";
+		}
+		
 		public void createUpdate(String tableName, String columnName, String value) // UPDATE tableName SET columnName = value
 		{
 			reset();
 			
 			type = Type.UPDATE;
 			this.tableName = tableName;
-			sql = "UPDATE " + tableName + " SET " + columnName + " = '" + value + "'";
+			sql = "UPDATE " + tableName + " SET " + columnName + " = \"" + value + "\"";
 		}
 		public void createUpdate(String tableName, String columnName, double value) // UPDATE tableName SET columnName = value
 		{
@@ -89,8 +97,7 @@ public class DBA {
 		{
 			if(type == Type.INSERT)
 			{
-			sql = sql + ", '" + value + "'";
-
+			sql = sql + ", \"" + value + "\"";
 			}
 			else{
 				System.out.println("can only add values when type = INSERT");
@@ -163,10 +170,16 @@ public class DBA {
 		{
 			if(type == Type.INSERT)
 			{
+<<<<<<< HEAD
+				String datum;
+				datum = value;
+				sql = sql + ", \"" + datum + "\"";
+=======
 			String datum;
 			datum = value;
-			sql = sql + ", '" + datum + "'";
+			sql = sql + ", \"" + datum + "\"";
 			
+>>>>>>> df38cd824381e0733d77fa46bb270e7066be76ec
 			}
 			else{
 				System.out.println("can only add values when type = INSERT");
@@ -175,6 +188,7 @@ public class DBA {
 		
 		public void addWhere(String columnName, String value) // ... WHERE columnName = value
 		{
+			
 			if(type == Type.UPDATE || type == Type.SELECT)
 			{
 				if(!isWhere)
@@ -182,7 +196,23 @@ public class DBA {
 					sql = sql + " WHERE";
 					isWhere = true;
 				}
-				sql = sql + " " + columnName + " = '" + value + "' AND";
+				sql = sql + " " + columnName + " = \"" + value + "\" AND";
+			}
+			else{
+				System.out.println("can only add WHERE clausule when type = UPDATE or type = SELECT");
+			}
+		}
+		
+		public void addWhereLike(String columnName, String value) // ... WHERE columnName = value
+		{
+			if(type == Type.UPDATE || type == Type.SELECT)
+			{
+				if(!isWhere)
+				{
+					sql = sql + " WHERE";
+					isWhere = true;
+				}
+				sql = sql + " " + columnName + " LIKE '" + value + "' AND";
 			}
 			else{
 				System.out.println("can only add WHERE clausule when type = UPDATE or type = SELECT");
@@ -278,8 +308,7 @@ public class DBA {
 			      
 			     if(type == Type.SELECT)
 			     {
-			      rs = stmt.executeQuery(sql);
-			      
+			      rs = stmt.executeQuery(sql); 
 			     }
 			     else if(type == Type.UPDATE || type == Type.INSERT)
 			     {

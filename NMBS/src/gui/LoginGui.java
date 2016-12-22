@@ -1,11 +1,12 @@
 package gui;
 
 import java.awt.Dimension;
-
+import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 import javax.swing.JButton;
@@ -15,12 +16,17 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import dao.CheckIfConnected;
+import dao.Connection;
 import dao.LoginDao;
 import handler.Controller;
 import source.Login;
 import source.Medewerker;
 import source.Rol;
 import javax.swing.UIManager;
+
+import Hashing.DualHash;
+
 import java.awt.Color;
 
 public class LoginGui {
@@ -30,12 +36,16 @@ public class LoginGui {
 	private JButton btnLogin;
 	private JPasswordField txtPassword;
 	public static LoginGui window;
-	Login login;
+	public static Login login;
 
 	public LoginGui() {
 		initialize();
 	}
-
+	
+	public static Login getLogin(){
+		return login;
+	}
+	
 	public static void start() {
 		//v system look and feel (i.p.v. niet-zo-mooie java look and feel) Source: https://docs.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
 		try {
@@ -112,40 +122,77 @@ public class LoginGui {
 
 	private class ButtonHandler implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			if (!(CheckIfConnected.checkIfConnected()))//als er geen internetverbinding is
+			{
+				closeFrame();
+				JOptionPane.showMessageDialog(new JFrame(), "Er is geen internetverbinding.");
+				
+				JOptionPane.showMessageDialog(new JFrame(), "Offline-modus wordt opgestart.");
+				
+				Controller.offlineInterface = new OfflineGui();
+				Controller.offlineInterface.setHome();
+				new TicketVerkoopGui(true);
+				
+				return;
+			}
+			
+			if (!Connection.checkDBConnection()) {
+				JOptionPane.showMessageDialog(new JFrame(), "Kan niet verbinden met de databank.");
+				
+				JOptionPane.showMessageDialog(new JFrame(), "Offline-modus wordt opgestart.");
+				
+				Controller.offlineInterface = new OfflineGui();
+				Controller.offlineInterface.setHome();
+				new TicketVerkoopGui(true);
+				
+				return;
+			}
 			if (e.getSource() == btnLogin || e.getSource() == txtPassword) {
 
 				String username = txtUsername.getText().trim();
 				String password = new String(txtPassword.getPassword());
 				
-				String databasePassword = LoginDao.getWachtwoord(username);
 				String databaseUsername = LoginDao.getUserName(username);
 				
-				if (databasePassword == null || databaseUsername == null) {
-					JOptionPane.showMessageDialog(new JFrame(), "User is not allowed.");
+				if (databaseUsername == null) {
+					JOptionPane.showMessageDialog(new JFrame(), "User is niet toegestaan.");
 					return;
 				}
-				if (databasePassword != null && databaseUsername != null) {
-					if (databasePassword.equals(password) && databaseUsername.equals(username)) {
+				if (databaseUsername != null) {
+					if (databaseUsername.equals(username)) {
+						String databasePassword = LoginDao.getWachtwoord(username);
+						if(databasePassword!= null){
+							try {
+								if(databasePassword.equals(DualHash.hashString(password))){
+									int loginId = LoginDao.getLoginId(username);
+									if(LoginDao.getActief(loginId) == 1){
+										login = new Login(loginId, username, "");
+										Login.setCurrentUser(username);
 
-						int loginId = LoginDao.getLoginId(username);
-						int rollId = LoginDao.getRoll(loginId);
-						login = new Login(username);
-
-						closeFrame();
-						 if(rollId == 1){
-							Controller.adminInterface = new AdminGui();
-							Controller.adminInterface.setHome();
-						 }
-						 else if(rollId == 2){
-							Controller.medewerkerInterface = new MedewerkerGui();
-							Controller.medewerkerInterface.setHome();
-						} 
-
+										closeFrame();
+										KiesStationGui.start();
+									}else{
+										JOptionPane.showMessageDialog(new JFrame(), "Medewerker is niet toegestaan.");
+									}
+									
+								}else {
+									JOptionPane.showMessageDialog(new JFrame(), "Username of wachtwoord is verkeerd.");
+								}
+							} catch (HeadlessException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							} catch (Exception e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}else {
+							JOptionPane.showMessageDialog(new JFrame(), "Username of wachtwoord is verkeerd.");
+						}
 					} else {
-						JOptionPane.showMessageDialog(new JFrame(), "Username or password wrong.");
+						JOptionPane.showMessageDialog(new JFrame(), "Username of wachtwoord is verkeerd.");
 					}
 				} else {
-					JOptionPane.showMessageDialog(new JFrame(), "Username or password wrong.");
+					JOptionPane.showMessageDialog(new JFrame(), "Username of wachtwoord is verkeerd.");
 				}
 			}
 		}

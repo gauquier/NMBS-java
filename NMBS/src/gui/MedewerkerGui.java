@@ -1,6 +1,8 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,6 +13,11 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import handler.Controller;
+
+import dao.Connection;
+
+import java.awt.Toolkit;
+
 import javax.swing.UIManager;
 
 public class MedewerkerGui  extends JFrame {
@@ -47,7 +54,7 @@ public class MedewerkerGui  extends JFrame {
 	
 	public void setHome(){
 		navigation= "home";
-		setHuidigeKeuze(new HomeGui());
+		setHuidigeKeuze(new HomeGui(false));
 	}
 	public Container getC() {
 		return c;
@@ -57,8 +64,9 @@ public class MedewerkerGui  extends JFrame {
 	}
 	
 	MedewerkerGui(){
+		setIconImage(Toolkit.getDefaultToolkit().getImage("NMBS/lib/logo-nmbs.png"));
 		getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
-		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
+		setBackground(new Color(0, 191, 255));
 		this.setResizable(true);
 		menuGUI();
 	}
@@ -74,38 +82,86 @@ public class MedewerkerGui  extends JFrame {
 	
 	private void createMenu() {
 		menubar = new JMenuBar();
+		menubar.setForeground(Color.BLACK);
+		menubar.setBackground(Color.ORANGE);
+		
 		home = new JMenuItem("Home");
+		home.setBackground(Color.ORANGE);
+		home.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		home.setOpaque(true);
 		home.addActionListener(new MenuItemHandler());
+		
 		verkoop = new JMenu("Verkoop");
+		verkoop.setBackground(Color.ORANGE);
+		verkoop.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		verkoop.setOpaque(true);
+		
 		routeInfo = new JMenuItem("Route info");
+		routeInfo.setBackground(Color.ORANGE);
+		routeInfo.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		routeInfo.setOpaque(true);
 		routeInfo.addActionListener(new MenuItemHandler());
 		
 		stationInfo = new JMenuItem("Station info");
+		stationInfo.setBackground(Color.ORANGE);
+		stationInfo.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		stationInfo.setOpaque(true);
 		stationInfo.addActionListener(new MenuItemHandler());
 		
 		verlorenVoorwerpen = new JMenu("Verloren voorwerpen");
+		verlorenVoorwerpen.setBackground(Color.ORANGE);
+		verlorenVoorwerpen.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		verlorenVoorwerpen.setOpaque(true);
+		
 		verlorenVoorwerpToevoegen = new JMenuItem("Voorwerpen toevoegen");
+		verlorenVoorwerpToevoegen.setBackground(Color.ORANGE);
+		verlorenVoorwerpToevoegen.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		verlorenVoorwerpToevoegen.setOpaque(true);
 		verlorenVoorwerpToevoegen.addActionListener(new MenuItemHandler());
+		
 		verlorenVoorwerpZoeken = new JMenuItem("Voorwerpen zoeken");
+		verlorenVoorwerpZoeken.setBackground(Color.ORANGE);
+		verlorenVoorwerpZoeken.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		verlorenVoorwerpZoeken.setOpaque(true);
 		verlorenVoorwerpZoeken.addActionListener(new MenuItemHandler());
+		
 		verlorenVoorwerpen.add(verlorenVoorwerpToevoegen);
 		verlorenVoorwerpen.add(verlorenVoorwerpZoeken);
 		
 		instellingen = new JMenu("Instellingen");
+		instellingen.setBackground(Color.ORANGE);
+		instellingen.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		instellingen.setOpaque(true);
+		
 		wachtwoordVeranderen = new JMenuItem("Wachtwoord veranderen");
+		wachtwoordVeranderen.setBackground(Color.ORANGE);
+		wachtwoordVeranderen.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		wachtwoordVeranderen.setOpaque(true);
 		wachtwoordVeranderen.addActionListener(new MenuItemHandler());
 		instellingen.add(wachtwoordVeranderen);
 		
 		abonnementBeheer = new JMenuItem("Abbonement beheer");
+		abonnementBeheer.setBackground(Color.ORANGE);
+		abonnementBeheer.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		abonnementBeheer.setOpaque(true);
 		abonnementVerkoop = new JMenuItem("Abbonement verkoop");
+		abonnementVerkoop.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		abonnementVerkoop.setBackground(Color.ORANGE);
+		abonnementVerkoop.setOpaque(true);
 		verkoop.add(abonnementVerkoop);
 		verkoop.add(abonnementBeheer);
 		
 		ticketVerkoop = new JMenuItem("Ticketverkoop");
+		ticketVerkoop.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		ticketVerkoop.setBackground(Color.ORANGE);
+		ticketVerkoop.setOpaque(true);
 		ticketVerkoop.addActionListener(new MenuItemHandler());
 		verkoop.add(ticketVerkoop);
 		
 		uitloggen = new JMenuItem("Uitloggen");
+		uitloggen.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		uitloggen.setBackground(Color.ORANGE);
+		uitloggen.setOpaque(true);
 		uitloggen.addActionListener(new MenuItemHandler());
 		instellingen.add(uitloggen);
 		
@@ -133,14 +189,15 @@ public class MedewerkerGui  extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource()==uitloggen)
 			{
+				Connection.close();
 				setHuidigeKeuze(null);
 				LoginGui.start();
 			}
 			else if (e.getSource() == home){
-				setHuidigeKeuze(new HomeGui());
+				setHuidigeKeuze(new HomeGui(false));
 			}
 			else if (e.getSource() == ticketVerkoop){
-				setHuidigeKeuze(new TicketVerkoopGui());
+				setHuidigeKeuze(new TicketVerkoopGui(false));
 			}
 			else if (e.getSource() == routeInfo){
 				setHuidigeKeuze(new RouteZoekenGui());
