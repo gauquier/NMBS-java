@@ -26,8 +26,8 @@ public class Pdf {
 
 	public void TicketGenerator(int id) {
 		
-		TicketDao tDao = new TicketDao();
-		Ticket ticket = tDao.getTicket(id);
+		//TicketDao tDao = new TicketDao();
+		Ticket ticket = TicketDao.getTicket(id);
 		
 		Document document = new Document();
 		Rectangle rectangle = new Rectangle(PageSize.A4);
@@ -107,7 +107,7 @@ public class Pdf {
 	public void AboGenerator(Abonnement abo) {
 		//code abo
 	}
-	
+	/*
 	public static void main(String[] args) {
 		Abonnement abo = new Abonnement(15264, 12354, 1562, 2, "Bruxelles-Nord", "Bruxelles-Zuid", 50.0, null, 0.0, true);
 		Document document = new Document();
@@ -160,7 +160,7 @@ public class Pdf {
 			Image image2 = Image.getInstance(new URL(imageUrl2));
 			 image2.scaleAbsolute(200f, 80f);
 		    document.add(image2);
-*/
+
 			document.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -175,8 +175,9 @@ public class Pdf {
 		    }
 		}
 		
+		
 	}
-
+	*/
 	
 	
 	
