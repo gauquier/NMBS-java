@@ -55,8 +55,11 @@ public class AbonnementVerlengenGui extends JPanel {
 		doorgegevenAbonnement=abonnement;
 		if(doorgegevenAbonnement.getP()!=null){
 		verschilInJaren = doorgegevenAbonnement.getP().getEndDate().getYear()-doorgegevenAbonnement.getP().getStartDate().getYear();
-		verschilInMaanden = verschilInJaren*12+ doorgegevenAbonnement.getP().getEndDate().getMonth() - doorgegevenAbonnement.getP().getStartDate().getMonth();
+		verschilInMaanden = verschilInJaren*12+ doorgegevenAbonnement.getP().getEndDate().getMonth() - Calendar.getInstance().getTime().getMonth();
 		}
+		
+		updateDatum();
+		updatePrijs();
 		
 		JLabel lblAbonnementAanmaken = DefaultComponentFactory.getInstance().createTitle("Abonnement verlengen");
 		lblAbonnementAanmaken.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -322,7 +325,7 @@ public class AbonnementVerlengenGui extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// refresh();
-
+			int huidigeMedewerkerId = MedewerkerDAO.getMedewerkerByLogin(LoginDao.getLoginId(Login.getCurrentUser())).getMedewerkerId();
 		
 			if (e.getSource() == btnOpslaan) {
 			if(!txtDuur.getText().isEmpty()){
@@ -337,10 +340,12 @@ public class AbonnementVerlengenGui extends JPanel {
 				
 				if(doorgegevenAbonnement.getP()==null){
 				periode = new Periode(0, startdatum.getTime(), nieuweEinddatum.getTime(), verkoopdatum.getTime() );
-		
+				
 				AbonnementDAO.updatePrijs(doorgegevenAbonnement, nieuwePrijs);
-				PeriodeDAO.addPeriode(periode, doorgegevenAbonnement, 1); // 1 moet vervangen worden door currentloginId
+				PeriodeDAO.addPeriode(periode, doorgegevenAbonnement, huidigeMedewerkerId); 
 				JOptionPane.showMessageDialog(new JFrame(), "Het abonnement wordt actief binnen 24 uur.");
+				
+				
 				}
 				else {
 				
@@ -354,7 +359,9 @@ public class AbonnementVerlengenGui extends JPanel {
 				} 
 				
 				periode = new Periode(doorgegevenAbonnement.getP().getPeriodeId(), nieuweEinddatum.getTime());
-				PeriodeDAO.updatePeriode(periode, 3);// 3 moet vervangen worden door currentloginId
+				
+				AbonnementDAO.updatePrijs(doorgegevenAbonnement, nieuwePrijs);
+				PeriodeDAO.updatePeriode(periode, huidigeMedewerkerId);
 				JOptionPane.showMessageDialog(new JFrame(), "Het abonnement is verlengd.");
 				
 				

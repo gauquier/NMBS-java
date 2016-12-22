@@ -173,7 +173,8 @@ public class AbonnementBeheerGui extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-		
+		int huidigeMedewerkerId=MedewerkerDAO.getMedewerkerByLogin(LoginDao.getLoginId(Login.getCurrentUser())).getMedewerkerId();
+			
 			if(e.getSource() == btnNieuwAbonnement){
 				AdminGui.setHuidigeKeuze(new AbonnementToevoegenGui());
 			}
@@ -210,8 +211,9 @@ public class AbonnementBeheerGui extends JPanel {
 										
 							list.getSelectedValue().getP().setEndDate(Calendar.getInstance().getTime());
 							AbonnementDAO.updatePrijs(list.getSelectedValue(), 0);
-							PeriodeDAO.updatePeriode(list.getSelectedValue().getP(), 3);//3 vervangen door medewerker current
+							PeriodeDAO.updatePeriode(list.getSelectedValue().getP(), huidigeMedewerkerId);
 							JOptionPane.showMessageDialog(new JFrame(), "Het abonnement van " + list.getSelectedValue().getKlant().getVoornaam() + " " + list.getSelectedValue().getKlant().getAchternaam() + " wordt binnen de 24 uur geannuleerd. Het terug te betalen bedrag bedraagt " + terugTeBetalen + " euro.");
+							AdminGui.setHuidigeKeuze(new AbonnementBeheerGui());
 						}
 							
 					}	
@@ -225,7 +227,6 @@ public class AbonnementBeheerGui extends JPanel {
 					} else {
 						if(list.getSelectedValue().getP()==null){
 							int n = OkCancel("Ben je zeker dat je het abonnement van " + list.getSelectedValue().getKlant().getVoornaam() + " " + list.getSelectedValue().getKlant().getAchternaam() + " wil verwijderen?");	
-						
 						if(n==0){
 						AbonnementDAO.removeAbonnement(list.getSelectedValue().getAbonnementId());
 						((DefaultListModel<Abonnement>)list.getModel()).remove(list.getSelectedIndex());

@@ -17,8 +17,5 @@ public class DualHash {
      
     }
 	
-	public static void main(String[] args) throws Exception {
-		DualHash test = new DualHash();
-		System.out.println(test.hashString("banaan"));
-	}
+
 }

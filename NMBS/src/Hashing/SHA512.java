@@ -13,8 +13,4 @@ public class SHA512 {
        
     }
 	
-	public static void main(String[] args) throws Exception {
-		SHA512 test = new SHA512();
-		System.out.println(test.hashString("traktor"));
-	}
 }

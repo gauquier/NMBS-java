@@ -113,6 +113,7 @@ public class Abonnement extends Aankoop {
 		resultaat = getKlant().getVoornaam() + " " + getKlant().getAchternaam() + " / " + formatDatum.format(p.getStartDate()) + " -> " + formatDatum.format(p.getEndDate()) + " / " + resterendeDagen + " dag(en) resterend";
 		
 		}else {
+		this.setP(null);
 		resultaat= getKlant().getVoornaam() + " " + getKlant().getAchternaam() + " / Geen actieve periode gelinkt aan dit abonnement";
 			
 		}
