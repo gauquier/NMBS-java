@@ -58,15 +58,10 @@ public class GebruikersBeheerGui extends JPanel {
 		JLabel lblGebruikerBewerken = DefaultComponentFactory.getInstance().createTitle(bundle.getString("lblGebruikerBewerken"));
 		lblGebruikerBewerken.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
-		
-		arrayLijst= new ArrayList<Medewerker>();
-		
+		arrayLijst= new ArrayList<Medewerker>();	
 		arrayLijst = MedewerkerDAO.getAllMedewerkers();
 		
-		
-		
-		DefaultListModel<Medewerker> dlm = new DefaultListModel<Medewerker>();
-		
+		final DefaultListModel<Medewerker> dlm = new DefaultListModel<Medewerker>();
 		
 		for(Medewerker m : arrayLijst)
 		{
@@ -83,43 +78,55 @@ public class GebruikersBeheerGui extends JPanel {
 			@Override
 			public void keyReleased(KeyEvent e) {}
 			@Override
-			public void keyTyped(KeyEvent e) {
+			public void keyTyped(final KeyEvent e) {
 					Thread userRefresh = new Thread(new Runnable(){
 						@Override
 						public void run() {
 							if(txtZoekveld.getText().isEmpty()){
-								dlm.clear();
+								dlm.removeAllElements();
 								for(Medewerker m : arrayLijst)
 								{
 									dlm.addElement(m);
 								}
+								list.removeAll();
+								list.revalidate();
+								list.repaint();
 								list = new JList<Medewerker>(dlm);
 							}
 							else if(txtZoekveld.getText().isEmpty() && e.getKeyCode() == KeyEvent.VK_BACK_SPACE){
-								dlm.clear();
+								dlm.removeAllElements();
 								for(Medewerker m : arrayLijst)
 								{
 									dlm.addElement(m);
 								}
+								list.removeAll();
+								list.revalidate();
+								list.repaint();
 								list = new JList<Medewerker>(dlm);
 							}
 							else if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE || e.getKeyCode() == KeyEvent.VK_ESCAPE){
-								dlm.clear();
+								dlm.removeAllElements();
 								for(Medewerker m : arrayLijst)
 								{
 									dlm.addElement(m);
 								}
+								list.removeAll();
+								list.revalidate();
+								list.repaint();
 								list = new JList<Medewerker>(dlm);
 							}
 							else
 							{
 								
-								dlm.clear();
+								dlm.removeAllElements();
 								arrayLijst2 = MedewerkerDAO.getAllMedewerkersFromSearch(txtZoekveld.getText());
 		    					for(Medewerker m : arrayLijst2)
 		    					{
 		    						dlm.addElement(m);
 		    					}
+		    					list.removeAll();
+								list.revalidate();
+								list.repaint();
 		    					list = new JList<Medewerker>(dlm);
 							}
 						}

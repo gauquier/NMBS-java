@@ -57,7 +57,7 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 		stationLijst.setSelectedIndex(0);//veranderen naar current user station id
 		arrayLijst= new ArrayList<VerlorenVoorwerp>();
 		arrayLijst = verlorenVoorwerpDAO.getVerlorenVoorwerpByStation(1);//veranderen naar current user station id
-		DefaultListModel<VerlorenVoorwerp> dlm = new DefaultListModel<VerlorenVoorwerp>();
+		final DefaultListModel<VerlorenVoorwerp> dlm = new DefaultListModel<VerlorenVoorwerp>();
 		for(VerlorenVoorwerp v : arrayLijst){
 			dlm.addElement(v);
 		}
