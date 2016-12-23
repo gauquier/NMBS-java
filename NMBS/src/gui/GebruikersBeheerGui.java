@@ -171,9 +171,9 @@ public class GebruikersBeheerGui extends JPanel {
 						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 510, GroupLayout.PREFERRED_SIZE))
 					.addGap(26)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(btnPasswordReset, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnVerwijderen, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnBewerken, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE))
+						.addComponent(btnBewerken, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+						.addComponent(btnVerwijderen, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnPasswordReset, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addGap(31))
 		);
 		groupLayout.setVerticalGroup(
@@ -196,7 +196,7 @@ public class GebruikersBeheerGui extends JPanel {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(12)
 							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 469, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(36, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		
 		list = new JList<Medewerker>(dlm);
