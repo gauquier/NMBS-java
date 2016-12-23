@@ -12,9 +12,4 @@ public class MD5 {
        return new BigInteger(1,m.digest()).toString(16);
        
     }
-	
-	public static void main(String[] args) throws Exception {
-		MD5 test = new MD5();
-		System.out.println(test.hashString("banaan"));
-	}
 }

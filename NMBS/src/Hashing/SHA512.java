@@ -12,9 +12,4 @@ public class SHA512 {
        return new BigInteger(1,m.digest()).toString(16);
        
     }
-	
-	public static void main(String[] args) throws Exception {
-		SHA512 test = new SHA512();
-		System.out.println(test.hashString("traktor"));
-	}
 }
