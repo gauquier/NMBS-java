@@ -87,7 +87,6 @@ public class OfflineGui extends JFrame {
 	}
 	public OfflineGui() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("/Users/jonas/Desktop/NMBS-java/NMBS/lib/logo.png"));
-		Application.getApplication().setDockIconImage(new ImageIcon("NMBS/lib/logo.png").getImage());
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		this.setResizable(true);

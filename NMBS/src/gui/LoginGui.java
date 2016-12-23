@@ -91,7 +91,6 @@ public class LoginGui {
 		
 		frmNmbs = new JFrame();
 		frmNmbs.setIconImage(Toolkit.getDefaultToolkit().getImage("NMBS/lib/logo.png"));
-		Application.getApplication().setDockIconImage(new ImageIcon("NMBS/lib/logo.png").getImage());
 		frmNmbs.setTitle("NMBS");
 		frmNmbs.getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 

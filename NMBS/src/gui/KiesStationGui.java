@@ -67,7 +67,6 @@ public class KiesStationGui {
 		frmStation = new JFrame();
 		frmStation.setTitle("NMBS");
 		frmStation.setIconImage(Toolkit.getDefaultToolkit().getImage("NMBS/lib/logo.png"));
-		Application.getApplication().setDockIconImage(new ImageIcon("NMBS/lib/logo.png").getImage());
 		frmStation.getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		frmStation.setBounds(0, 0, 450, 300);
 		frmStation.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

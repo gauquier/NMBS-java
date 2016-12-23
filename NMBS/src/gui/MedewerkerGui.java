@@ -72,7 +72,6 @@ public class MedewerkerGui  extends JFrame {
 	
 	MedewerkerGui(){
 		setIconImage(Toolkit.getDefaultToolkit().getImage("NMBS/lib/logo.png"));
-		Application.getApplication().setDockIconImage(new ImageIcon("NMBS/lib/logo.png").getImage());
 		getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		setBackground(new Color(0, 191, 255));
 		this.setResizable(true);
