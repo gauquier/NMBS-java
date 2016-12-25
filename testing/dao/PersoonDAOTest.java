@@ -2,29 +2,13 @@ package dao;
 
 import static org.junit.Assert.*;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import source.Abonnement;
 import source.Adres;
-import source.Klant;
-import source.Login;
-import source.Medewerker;
-import source.Periode;
 import source.Persoon;
-import source.Rol;
-import source.VerkoopType;
 
 public class PersoonDAOTest {
 	private String testClassName = "PersoonDAOTest";

@@ -3,7 +3,6 @@ package dao;
 import static org.junit.Assert.*;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.junit.After;
@@ -28,7 +27,6 @@ public class AdresDAOTest {
 	public void terminate() {
 		java.sql.Connection connection = null; 
 		PreparedStatement stmt = null; 
-		ResultSet resultSet = null;
 		try {
 			connection = Connection.getDBConnection();
 			connection.setAutoCommit(false);

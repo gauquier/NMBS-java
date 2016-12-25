@@ -9,6 +9,7 @@ import java.util.Map;
 
 import source.Adres;
 import source.Persoon;
+import source.Prijs;
 
 public class Help {
 	public static Persoon persoonToevoegen(Persoon persoon) {
@@ -27,6 +28,7 @@ public class Help {
 			persoon.setId((int) map.get(0)[0]);
 		return persoon;
 	}
+
 	public static Adres adresOphalen(Adres adres) {
 		String adresZoekenQuery = "SELECT adresId FROM Adres WHERE straat = ?";
 		Map<Integer, Object[]> map = executeQuery(adresZoekenQuery, false, adres.getStraat());
@@ -34,13 +36,38 @@ public class Help {
 		return adres;
 	}
 
-	public  static Adres adresToevoegen(Adres adres) {
+	public static Adres adresToevoegen(Adres adres) {
 		String adresToevoegenQuery = "INSERT INTO Adres (straat, huisnr, woonplaats, postcode, bus) VALUES(?,?,?,?,?)";
 		executeQuery(adresToevoegenQuery, true, adres.getStraat(), adres.getHuisnr(), adres.getWoonplaats(),
 				adres.getPostcode(), adres.getBus());
 		return adresOphalen(adres);
 	}
-public static Map<Integer, Object[]> executeQuery(String query, boolean update, Object... kolomWaarden) {
+
+	public static Prijs prijsToevoegen(Prijs prijs) {
+		String prijsToevoegen = "INSERT INTO Prijs " + "(verkoopType, prijs ) " + "VALUES(?,?)";
+		executeQuery(prijsToevoegen, true, prijs.getVerkoopType(), prijs.getPrijs());
+
+		return prijsOphalen(prijs);
+	}
+
+	public static Prijs prijsOphalen(Prijs prijs) {
+		String prijsZoekenQuery = "SELECT prijsId, verkoopType, prijs FROM Prijs WHERE verkoopType = ?";
+		Map<Integer, Object[]> map = executeQuery(prijsZoekenQuery, false, prijs.getVerkoopType());
+		if (map.size() > 0){
+			prijs.setPrijsId((int) map.get(0)[0]);
+		prijs.setVerkoopType((String) map.get(0)[1]);
+		prijs.setPrijs((double) map.get(0)[2]);
+		return prijs;
+		}
+		return null;
+	}
+	public static int countPrijzen(){
+		String countPrijzen = "SELECT prijsId FROM Prijs";
+		Map<Integer, Object[]> map = executeQuery(countPrijzen, false);
+		return map.size();
+	}
+
+	public static Map<Integer, Object[]> executeQuery(String query, boolean update, Object... kolomWaarden) {
 		Map<Integer, Object[]> map = new HashMap<Integer, Object[]>();
 		java.sql.Connection connection = null;
 		PreparedStatement stmt = null;
@@ -95,4 +122,5 @@ public static Map<Integer, Object[]> executeQuery(String query, boolean update, 
 		}
 		return map;
 	}
+
 }

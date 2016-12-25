@@ -2,7 +2,6 @@ package dao;
 
 import static org.junit.Assert.*;
 
-import java.awt.event.KeyListener;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -10,15 +9,12 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.sun.org.apache.xml.internal.resolver.helpers.Debug;
 
 import source.Abonnement;
 import source.Adres;

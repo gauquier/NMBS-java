@@ -16,14 +16,11 @@ import org.junit.Test;
 import source.Adres;
 import source.Klant;
 import source.Persoon;
-import source.VerkoopType;
 
 public class KlantDAOTest {
 	private Adres adres;
 	private Persoon persoon;
 	private String info;
-	private Klant klant;
-
 	@Before
 	public void initialize() {
 		adres = new Adres("teststraatnaamKlantDAOTest", 170, "testwoonplaatsKlantDAOTest", 1070, "6");
@@ -35,7 +32,6 @@ public class KlantDAOTest {
 	public void terminate() {
 		java.sql.Connection connection = null;
 		PreparedStatement stmt = null;
-		ResultSet resultSet = null;
 		try {
 			connection = Connection.getDBConnection();
 			connection.setAutoCommit(false);

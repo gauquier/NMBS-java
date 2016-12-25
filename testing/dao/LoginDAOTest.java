@@ -15,7 +15,6 @@ import org.junit.Test;
 
 import dao.LoginDao;
 import source.Adres;
-import source.Klant;
 import source.Login;
 import source.Medewerker;
 import source.Persoon;
@@ -127,6 +126,7 @@ public class LoginDAOTest {
 		assertEquals(login.getUsername(), LoginDao.getWachtwoord(login.getUsername()));
 	}
 
+	@SuppressWarnings("static-access")
 	@Test
 	public void testUpdadeWachtwoord() {
 		loginToevoegen(login);
