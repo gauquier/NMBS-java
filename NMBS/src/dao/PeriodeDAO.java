@@ -22,8 +22,7 @@ private static DBA dba = new DBA();
 	private static PreparedStatement stmt = null;
 	
 	
-	public static void addPeriode(Periode periode, Abonnement abonnement, int medewerkerId){
-        
+	public static void addPeriode(Periode periode, Abonnement abonnement, int medewerkerId){ 
 		DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		dba.createInsert("Periode");
 		dba.addValue(abonnement.getAbonnementId());

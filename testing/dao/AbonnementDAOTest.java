@@ -1,7 +1,6 @@
 package dao;
 
-import static org.junit.Assert.*;
-import static org.easymock.EasyMock.*;
+import static org.junit.Assert.*; 
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,21 +24,14 @@ public class AbonnementDAOTest {
 	private Klant bestaandeKlant;
 	private Adres bestaandeKlantAdres;
 	private String bestaandeDepZone;
-	private String bestaandeArrZone;
-
-	private Klant onbestaandeKlant;
-	private Adres onbestaandeKlantAdres;
-	private String onbestaandeDepZone;
-	private String onbestaandeArrZone;
+	private String bestaandeArrZone; 
 
 	@Before
 	public void initialize() {
 		korting = 5.00;
 		prijs = 10.00;
 		bestaandeDepZone = "testdepZoneAbonement";
-		bestaandeArrZone = "testarrZoneAbonement";
-		onbestaandeDepZone = "brussel";
-		onbestaandeArrZone = "brussel";
+		bestaandeArrZone = "testarrZoneAbonement"; 
 		bestaandeKlantAdres = AdresOpslaanInDB(new Adres("teststraatnaam", 170, "testwoonplaats", 1070, "6"));
 		bestaandeKlant = KlantOpslaanInDB(new Klant(0, "testvoornaamAbonnement", "testachternaamAbonnement",
 				"testemailAbonnement", bestaandeKlantAdres, "testinfoAbonnement", false));

@@ -69,6 +69,26 @@ public class Periode {
 	public void setVerkoopdatum(Date verkoopdatum) {
 		this.verkoopdatum = verkoopdatum;
 	}
+
+
+	public int getMedewerkerId() {
+		return medewerkerId;
+	}
+
+
+	public void setMedewerkerId(int medewerkerId) {
+		this.medewerkerId = medewerkerId;
+	}
+
+
+	public Abonnement getAbonnement() {
+		return abonnement;
+	}
+
+
+	public void setAbonnement(Abonnement abonnement) {
+		this.abonnement = abonnement;
+	}
 	
 	
 }
