@@ -69,11 +69,12 @@ public class PeriodeDAOTest {
 
 		login=new Login("username" + testClassName, "password" + testClassName);
 		rol=new Rol(0, "rol" + testClassName);
+		
 		medewerker = new Medewerker(0, "voornaam" + testClassName, "achternaam" + testClassName,
 				"email" + testClassName, adres);
-		((Medewerker) medewerker).setLogin(login);
-
+		((Medewerker) medewerker).setLogin(login); 
 		((Medewerker) medewerker).setRol(rol);
+		((Medewerker) medewerker).setActief(true);
 
 		periodeStartDate = "24-12-2999";
 		periodeEndDate = "24-12-2999";
@@ -81,6 +82,8 @@ public class PeriodeDAOTest {
 		DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		periode = new Periode(0, formatter.parse(periodeStartDate), formatter.parse(periodeEndDate),
 				formatter.parse(periodeVerkoopdatum));
+		periode.setAbonnement(abonnement);
+		
 
 	}
 
@@ -93,17 +96,8 @@ public class PeriodeDAOTest {
 	public void testaddPeriode() throws ParseException {
 		abonnement = abonnementToevoegen(
 				new Abonnement(korting, prijs, VerkoopType.STANDAARD, (Klant) klant, depZone, arrZone));
-		login = loginToevoegen(login);
-		adres = adresToevoegen(adres);
-		rol = rolToevoegen(rol);
-		medewerker.setAdres(adres);
-		medewerker = persoonToevoegen(medewerker);
-		Medewerker medewerkerTmp = (Medewerker) medewerker;
-		medewerkerTmp.setAdres(adres);
-		medewerkerTmp.setLogin(login);
-		medewerkerTmp.setRol(rol);
-		medewerkerTmp.setActief(true);
-		medewerkerTmp = medewerkerOpslaanInDB((Medewerker) medewerker);
+	 
+		Medewerker medewerkerTmp = medewerkerToevoegen((Medewerker) medewerker);
 		medewerker=medewerkerTmp;
 		PeriodeDAO.addPeriode(periode, abonnement, medewerkerTmp.getMedewerkerId());
 		Periode periodeTmp = periodeOphalen(periode);
@@ -111,22 +105,56 @@ public class PeriodeDAOTest {
 
 	} 
 	@Test
-	public void updatePeriode() {
-		fail("Not yet implemented");
+	public void testUpdatePeriode() throws ParseException {
+		Medewerker medewerkerTmp = medewerkerToevoegen((Medewerker) medewerker);
+		medewerker=medewerkerTmp;
+		periode.setMedewerkerId(medewerkerTmp.getMedewerkerId());
+		periode=periodeToevoegen(periode);
+		String nieuweEindDatum="30-12-2999";
+		DateFormat date = new SimpleDateFormat("dd-MM-yyyy"); 
+		periode.setEndDate(date.parse(nieuweEindDatum));
+		PeriodeDAO.updatePeriode(periode, periode.getMedewerkerId());
+		Periode periodeTmp = periodeOphalen(periode);
+		assertEquals(periode.getEndDate(), periodeTmp.getEndDate());
 	}
-
+	@Test(expected=Exception.class)
+	public void testUpdatePeriodeMetOnbestaandePeriode(){
+		PeriodeDAO.updatePeriode(periode, periode.getMedewerkerId());
+	} 
 	@Test
-	public void getPeriode() {
-		fail("Not yet implemented");
+	public void testGetPeriode() throws ParseException {
+		Medewerker medewerkerTmp = medewerkerToevoegen((Medewerker) medewerker);
+		medewerker=medewerkerTmp;
+		periode.setMedewerkerId(medewerkerTmp.getMedewerkerId()); 
+		periode=periodeToevoegen(periode);
+		Periode periodeTmp = PeriodeDAO.getPeriode(periode.getAbonnement());
+		assertEquals(periode.getStartDate(), periodeTmp.getStartDate()); 
+	}
+	@Test
+	public void testGetPeriodeMetOnbestaandePeriodeAbonnement() throws ParseException {
+		assertNull(PeriodeDAO.getPeriode(periode.getAbonnement()));
+	}
+	private Periode periodeToevoegen(Periode periode) throws ParseException{
+		periode.setAbonnement(abonnementToevoegen(periode.getAbonnement()));
+		DateFormat date = new SimpleDateFormat("dd-MM-yyyy"); 
+		String periodeToevoegen = "INSERT INTO Periode (abonnementId, medewerkerId, startDate, endDate, verkoopdatum) " 
+	+ "VALUES(?,?,?,?,?)";
+		executeQuery(periodeToevoegen, true,
+				periode.getAbonnement().getAbonnementId(),
+				periode.getMedewerkerId(),
+				date.format(periode.getStartDate()),
+				date.format(periode.getEndDate()),
+				date.format(periode.getVerkoopdatum())
+				); 
+		return periodeOphalen(periode);
 	}
 	private Periode periodeOphalen(Periode periode) throws ParseException {
-		String periodeOphalen = "SELECT periodeId,startDate " + "FROM Periode " + "WHERE startDate = ?";
+		String periodeOphalen = "SELECT periodeId,startDate,endDate FROM Periode WHERE startDate = ?";
 		DateFormat date = new SimpleDateFormat("dd-MM-yyyy"); 
 		Map<Integer, Object[]> map = executeQuery(periodeOphalen, false,date.format(periode.getStartDate()));
-		periode.setPeriodeId((int) map.get(0)[0]);
-		
+		periode.setPeriodeId((int) map.get(0)[0]); 
 		periode.setStartDate(date.parse((String)map.get(0)[1]));
-		
+		periode.setEndDate(date.parse((String)map.get(0)[2])); 
 		return periode;
 	}
 	private Login loginToevoegen(Login login) {
@@ -158,22 +186,20 @@ public class PeriodeDAOTest {
 		return rol;
 	}
 
-	private Medewerker medewerkerOpslaanInDB(Medewerker medewerker) {
-
-		String persoonToevoegenQuery = "INSERT INTO Persoon " + "(adresId, voornaam, achternaam, email) "
-				+ "VALUES(?,?,?,?)";
-		String persoonZoekenQuery = "SELECT persoonId " + "FROM Persoon " + "WHERE voornaam = ?";
-
+	private Medewerker medewerkerToevoegen(Medewerker medewerker) {
+		
+		medewerker=(Medewerker) persoonToevoegen(medewerker);
+		medewerker.setLogin(loginToevoegen(medewerker.getLogin())); 
+		medewerker.setRol(rolToevoegen(medewerker.getRol())); 
 		String medewerkerToevoegenQuery = "INSERT INTO Medewerker " + "(loginId, persoonId, rolId,Actief) "
-				+ "VALUES(?,?,?,?)";
-		String medewerkerZoekenQuery = "SELECT medewerkerId FROM Medewerker " + "WHERE persoonId = ?";
-		executeQuery(persoonToevoegenQuery, true, medewerker.getAdres().getAdresId(), medewerker.getVoornaam(),
-				medewerker.getAchternaam(), medewerker.getEmail());
-		Map<Integer, Object[]> map = executeQuery(persoonZoekenQuery, false, medewerker.getVoornaam());
-		medewerker.setId((int) map.get(0)[0]);
+				+ "VALUES(?,?,?,?)"; 
 		executeQuery(medewerkerToevoegenQuery, true, medewerker.getLogin().getLoginId(), medewerker.getId(),
 				medewerker.getRol().getRolId(), medewerker.isActief() ? 1 : 0);
-		map = executeQuery(medewerkerZoekenQuery, false, medewerker.getId());
+		return medewerkerOphalen(medewerker);
+	}
+	private Medewerker medewerkerOphalen(Medewerker medewerker){
+		String medewerkerZoekenQuery = "SELECT medewerkerId FROM Medewerker " + "WHERE persoonId = ?";
+		Map<Integer, Object[]>map = executeQuery(medewerkerZoekenQuery, false, medewerker.getId());
 		medewerker.setMedewerkerId((int) map.get(0)[0]);
 		return medewerker;
 	}
@@ -211,6 +237,7 @@ public class PeriodeDAOTest {
 	}
 
 	private Persoon persoonToevoegen(Persoon persoon) {
+		persoon.setAdres(adresToevoegen(adres));
 		String persoonToevoegenQuery = "INSERT INTO Persoon " + "(adresId, voornaam, achternaam, email) "
 				+ "VALUES(?,?,?,?)";
 		executeQuery(persoonToevoegenQuery, true, persoon.getAdres().getAdresId(), persoon.getVoornaam(),
