@@ -170,9 +170,8 @@ public class PeriodeDAOTest {
 		return login;
 	}
 
-	public Rol rolToevoegen(Rol rol) {
-		String rolToevoegenQuery = "INSERT INTO Rol " + "(rol) " + "VALUES(?)";
-
+	private Rol rolToevoegen(Rol rol) {
+		String rolToevoegenQuery = "INSERT INTO Rol " + "(rol) " + "VALUES(?)"; 
 		executeQuery(rolToevoegenQuery, true, rol.getRol());
 		return rolOphalen(rol);
 	}
@@ -253,14 +252,14 @@ public class PeriodeDAOTest {
 		return klant;
 	}
 
-	public Adres adresOphalen(Adres adres) {
+	private Adres adresOphalen(Adres adres) {
 		String adresZoekenQuery = "SELECT adresId FROM Adres WHERE straat = ?";
 		Map<Integer, Object[]> map = executeQuery(adresZoekenQuery, false, adres.getStraat());
 		adres.setAdresId((int) map.get(0)[0]);
 		return adres;
 	}
 
-	public Adres adresToevoegen(Adres adres) {
+	private Adres adresToevoegen(Adres adres) {
 		String adresToevoegenQuery = "INSERT INTO Adres (straat, huisnr, woonplaats, postcode, bus) VALUES(?,?,?,?,?)";
 		executeQuery(adresToevoegenQuery, true, adres.getStraat(), adres.getHuisnr(), adres.getWoonplaats(),
 				adres.getPostcode(), adres.getBus());
