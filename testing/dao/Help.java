@@ -10,6 +10,7 @@ import java.util.Map;
 import source.Adres;
 import source.Persoon;
 import source.Prijs;
+import source.Rol;
 
 public class Help {
 	public static Persoon persoonToevoegen(Persoon persoon) {
@@ -66,6 +67,19 @@ public class Help {
 		Map<Integer, Object[]> map = executeQuery(countPrijzen, false);
 		return map.size();
 	}
+	public static Rol rolOphalen(Rol rol) {
+		String rolZoekenQuery = "SELECT rolId FROM Rol " + "WHERE rol = ?";
+		Map<Integer, Object[]> map = executeQuery(rolZoekenQuery, false, rol.getRol());
+		if (map.size() > 0)
+			rol.setRolId((int) map.get(0)[0]); 
+		return rol;
+	}
+	public static Rol rolToevoegen(Rol rol) {
+		String rolToevoegenQuery = "INSERT INTO Rol " + "(rol) " + "VALUES(?)"; 
+		executeQuery(rolToevoegenQuery, true, rol.getRol());
+		return rolOphalen(rol);
+	}
+
 
 	public static Map<Integer, Object[]> executeQuery(String query, boolean update, Object... kolomWaarden) {
 		Map<Integer, Object[]> map = new HashMap<Integer, Object[]>();
