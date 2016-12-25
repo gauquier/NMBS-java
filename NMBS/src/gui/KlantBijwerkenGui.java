@@ -104,7 +104,7 @@ public class KlantBijwerkenGui extends JPanel {
 		
 		txtBus = new JTextField();
 		txtBus.setColumns(10);
-		txtBus.setText(new Integer(k.getAdres().getBus()).toString());
+		txtBus.setText(k.getAdres().getBus());
 
 		txtGemeente = new JTextField();
 		txtGemeente.setColumns(10);

@@ -147,10 +147,10 @@ public class AbonnementVerlengenGui extends JPanel {
 			lblNieuweEinddatumValue.setText(formatDatum.format(nieuweEinddatum.getInstance().getTime()));
 			lblNieuwePrijsValue.setText(Double.toString(PrijsDAO.getPrijsByVerkoopType(VerkoopType.ABONNEMENT)));
 		} else {
-			lblDatum1.setText(formatDatum.format(PeriodeDAO.getPeriode(abonnement).getStartDate()));
-			lblDatum2.setText(formatDatum.format(PeriodeDAO.getPeriode(abonnement).getEndDate()));
+			lblDatum1.setText(formatDatum.format(doorgegevenAbonnement.getP().getStartDate()));
+			lblDatum2.setText(formatDatum.format(doorgegevenAbonnement.getP().getEndDate()));
 			startdatum.setTime(PeriodeDAO.getPeriode(doorgegevenAbonnement).getStartDate());
-			nieuweEinddatum.setTime(PeriodeDAO.getPeriode(doorgegevenAbonnement).getEndDate());
+			nieuweEinddatum.setTime(doorgegevenAbonnement.getP().getEndDate());
 			lblPrijsValue.setText(Double.toString(doorgegevenAbonnement.getPrijs()) + " euro");
 		}
 		

@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +73,15 @@ public class KlantBewerkenGui extends JPanel {
 		}
 		
 		list = new JList<Klant>(dlm);
+		
+		list.addMouseListener(new MouseAdapter() {
+		    public void mouseClicked(MouseEvent evt) {
+		        if (evt.getClickCount() == 2) {
+		        	
+		            AdminGui.setHuidigeKeuze(new KlantWeergevenGui(list.getSelectedValue()));
+		        }
+		    }
+		});
 		
 		textField = new JTextField();
 		textField.setColumns(10);

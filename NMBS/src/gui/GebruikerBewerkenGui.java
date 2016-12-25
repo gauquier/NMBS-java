@@ -29,6 +29,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -71,6 +73,7 @@ public class GebruikerBewerkenGui extends JPanel {
 		{
 			dlm.addElement(m);
 		}
+		
 		
 		txtZoekveld = new JTextField();
 		txtZoekveld.setColumns(10);
@@ -126,6 +129,8 @@ public class GebruikerBewerkenGui extends JPanel {
 				}
 	  		  });	
 
+		
+		
 		btnZoeken = new JButton("Zoeken");
 		btnZoeken.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnZoeken.setBackground(Color.ORANGE);
@@ -191,6 +196,13 @@ public class GebruikerBewerkenGui extends JPanel {
 		
 		list = new JList<Medewerker>(dlm);
 		scrollPane.setViewportView(list);
+		list.addMouseListener(new MouseAdapter() {
+		    public void mouseClicked(MouseEvent evt) {
+		        if (evt.getClickCount() == 2) {
+		            AdminGui.setHuidigeKeuze(new GebruikerWeergevenGui(list.getSelectedValue()));
+		        }
+		    }
+		});
 		setLayout(groupLayout);
 	}
 	
@@ -246,7 +258,7 @@ public class GebruikerBewerkenGui extends JPanel {
 				int n = OkCancel("Ben je zeker dat je " + list.getSelectedValue().getVoornaam() + " " + list.getSelectedValue().getAchternaam() + " wil verwijderen?");	
 				
 				if(n==0){
-				MedewerkerDAO.removeMedewerker(list.getSelectedValue().getId());
+				MedewerkerDAO.removeMedewerker(list.getSelectedValue().getMedewerkerId());
 				((DefaultListModel<Medewerker>)list.getModel()).remove(list.getSelectedIndex());
 				JOptionPane.showMessageDialog(new JFrame(), "Gebruiker is succesvol verwijdert.");
 				} else if (n==1){

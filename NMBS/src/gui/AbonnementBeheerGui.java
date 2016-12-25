@@ -20,6 +20,8 @@ import source.*;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.*;
 
 import javax.swing.JList;
@@ -62,6 +64,15 @@ public class AbonnementBeheerGui extends JPanel {
 		}
 		
 		list = new JList<Abonnement>(dlm);
+	
+		list.addMouseListener(new MouseAdapter() {
+		    public void mouseClicked(MouseEvent evt) {
+		        if (evt.getClickCount() == 2) {
+		        	
+		            AdminGui.setHuidigeKeuze(new AbonnementWeergevenGui(list.getSelectedValue()));
+		        }
+		    }
+		});
 		
 		textField = new JTextField();
 		textField.setColumns(10);
@@ -244,6 +255,7 @@ public class AbonnementBeheerGui extends JPanel {
 					}
 				
 			}
+		
 					
 			
 		}

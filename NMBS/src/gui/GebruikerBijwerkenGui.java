@@ -115,7 +115,7 @@ public class GebruikerBijwerkenGui extends JPanel {
 
 		txtBus = new JTextField();
 		txtBus.setColumns(10);
-		txtBus.setText(new Integer(m.getAdres().getBus()).toString());
+		txtBus.setText(m.getAdres().getBus());
 
 		txtGemeente = new JTextField();
 		txtGemeente.setColumns(10);
