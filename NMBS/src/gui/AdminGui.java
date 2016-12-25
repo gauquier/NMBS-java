@@ -244,7 +244,7 @@ public class AdminGui extends JFrame {
 			
 			else if (e.getSource() == klantenBeheer) {	
 				navigation= "klantenBeheer";
-				setHuidigeKeuze(new KlantBewerkenGui());
+				setHuidigeKeuze(new KlantenBeheerGui());
 			}
 			
 			else if (e.getSource()==uitloggen)

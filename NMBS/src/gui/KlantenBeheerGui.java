@@ -37,7 +37,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JPasswordField;
 
 
-public class KlantBewerkenGui extends JPanel {
+public class KlantenBeheerGui extends JPanel {
 	private static ResourceBundle bundle;
 	
 	private JTextField textField;
@@ -50,7 +50,7 @@ public class KlantBewerkenGui extends JPanel {
 	public String navigation;
 	
 	
-	public KlantBewerkenGui() {
+	public KlantenBeheerGui() {
 		bundle = ResourceBundle.getBundle("localization.KlantBewerkenGui");
 		
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));

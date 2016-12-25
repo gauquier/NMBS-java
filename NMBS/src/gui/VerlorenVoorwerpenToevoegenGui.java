@@ -90,6 +90,8 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel {
 		}
 
 		dateChooser = new JDateChooser();
+		Date date = new Date();
+		dateChooser.setDate(date);
 
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(

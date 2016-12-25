@@ -72,6 +72,7 @@ public class GebruikerBijwerkenGui extends JPanel {
 	private JLabel lblEmailError;
 	private Border border = BorderFactory.createEmptyBorder();
 	private Border bordererror = BorderFactory.createLineBorder(Color.RED, 3);
+	private boolean checkvoornaam, checkachternaam, checkstraat, checkhuisnr, checkbus, checkgemeente, checkpostcode, checkemail;
 
 	public GebruikerBijwerkenGui(Medewerker m) {
 		bundle = ResourceBundle.getBundle("localization.GebruikerBijwerkenGui");
@@ -353,56 +354,76 @@ public class GebruikerBijwerkenGui extends JPanel {
 			if (e.getSource() == btnBijwerken) {
 				lblVoornaamError.setText("");
 				txtVoornaam.setBorder(border);
+				checkvoornaam = true;
 				lblAchternaamError.setText("");
 				txtAchternaam.setBorder(border);
+				checkachternaam = true;
 				lblStraatError.setText("");
 				txtStraat.setBorder(border);
+				checkstraat = true;
 				lblHuisnrError.setText("");
 				txtHuisnr.setBorder(border);
+				checkhuisnr = true;
 				lblGemeenteError.setText("");
 				txtGemeente.setBorder(border);
+				checkgemeente = true;
 				lblPostcodeError.setText("");
 				txtPostcode.setBorder(border);
+				checkpostcode = true;
 				lblEmailError.setText("");
 				txtEmail.setBorder(border);
+				checkemail = true;
 				lblBusError.setText("");
 				txtBus.setBorder(border);
+				checkbus = true;
+
 
 				if (!txtVoornaam.getText().isEmpty() && !txtAchternaam.getText().isEmpty()
 						&& !txtStraat.getText().isEmpty() && !txtGemeente.getText().isEmpty()
-						&& !txtPostcode.getText().isEmpty() && !txtHuisnr.getText().isEmpty()) {
-					
+						&& !txtPostcode.getText().isEmpty() && !txtHuisnr.getText().isEmpty()) 
+				{
 					if (!Validation.checkFirstName(txtVoornaam.getText())) {
 						lblVoornaamError.setText(bundle.getString("lblVoornaamError"));
 						txtVoornaam.setBorder(bordererror);
+						checkvoornaam = false;
 					}
 					if (!Validation.checkLastName(txtAchternaam.getText())) {
 						lblAchternaamError.setText(bundle.getString("lblAchternaamError"));
 						txtAchternaam.setBorder(bordererror);
+						checkachternaam = false;
 					}
 					if (!Validation.checkAlphabetical(txtStraat.getText())) {
 						lblStraatError.setText(bundle.getString("lblStraatError"));
 						txtStraat.setBorder(bordererror);
+						checkstraat = false;
 					}
 					if (!Validation.checkHouseNumber(txtHuisnr.getText())) {
 						lblHuisnrError.setText(bundle.getString("lblHuisnrError"));
 						txtHuisnr.setBorder(bordererror);
+						checkhuisnr = false;
 					}
 					if (!Validation.checkAlphabetical(txtGemeente.getText())) {
 						lblGemeenteError.setText(bundle.getString("lblGemeenteError"));
 						txtGemeente.setBorder(bordererror);
+						checkgemeente = false;
 					}
 					if (!Validation.checkPostalCode(txtPostcode.getText())) {
 						lblPostcodeError.setText(bundle.getString("lblPostcodeError"));
 						txtPostcode.setBorder(bordererror);
+						checkpostcode = false;
 					}
 					if (!txtEmail.getText().isEmpty() && !Validation.checkEmail(txtEmail.getText())) {
 						lblEmailError.setText(bundle.getString("lblEmailError"));
 						txtEmail.setBorder(bordererror);
+						checkemail = false;
 					}
 					if (!txtBus.getText().isEmpty() && !Validation.checkBoxNumber(txtBus.getText())) {
 						lblBusError.setText(bundle.getString("lblBusError"));
 						txtBus.setBorder(bordererror);
+						checkbus = false;
+					}
+					if (checkvoornaam == false || checkachternaam == false || checkstraat == false || checkhuisnr == false || checkgemeente == false || checkpostcode == false || checkemail == false || checkbus == false){
+						return;
 					} else {
 						if (!txtBus.getText().isEmpty()) {
 							adres = new Adres(txtStraat.getText().trim(), Integer.parseInt(txtHuisnr.getText()),
