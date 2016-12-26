@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SpinnerModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JButton;
@@ -59,8 +60,10 @@ public class TicketVerkoopGui extends JPanel {
 	private JSpinner terugMaand = new JSpinner();
 	private JSpinner terugJaar = new JSpinner();
 	
-	private JSpinner klasse = new JSpinner();
-	private JSpinner aantal = new JSpinner();
+	private SpinnerModel klas = new SpinnerNumberModel(2, 1, 2, 1);
+	private JSpinner klasse = new JSpinner(klas);
+	private SpinnerModel aant = new SpinnerNumberModel(1, 1, null, 1);
+	private JSpinner aantal = new JSpinner(aant);
 	private JButton btnVerkoop = new JButton(bundle.getString("btnVerkoop"));
 	
 	private JLabel lblVan = new JLabel(bundle.getString("lblVan"));
@@ -380,22 +383,29 @@ public class TicketVerkoopGui extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 
 		    if (e.getSource() == btnVerkoop) {
-				if (txtPrijs.getText().isEmpty()) {
+				if (txtPrijs.getText().isEmpty() || comboNaar.getSelectedItem() == null || comboVan.getSelectedItem() == null ) {
 					JOptionPane.showMessageDialog(new JFrame(), "Vul alle velden in!");
 				} else {
-					if (!isOffline) {
-						
-						 ticket = new Ticket(0, MedewerkerDAO.getMedewerkerIdByUsername(Login.getCurrentUser()),(String) comboVan.getSelectedItem(), (String) comboNaar.getSelectedItem(), StationDAO.checkStation(Station.getCurrentStation()), Double.parseDouble(txtPrijs.getText()),VerkoopType.VerkoopTypeCasting((String) comboVerkoopType.getSelectedItem()), 0, (int)klasse.getValue(), (int)aantal.getValue()
-						,Calendar.getInstance().getTime(), converter((int) heenDag.getValue(),(int) heenMaand.getValue(), (int)heenJaar.getValue()),converter((int) terugDag.getValue(), (int) terugMaand.getValue(), (int) terugJaar.getValue()) );
-					VerkoopController.ticketValidate(ticket, TicketVerkoopGui.this, isOffline);
-						
+					if(comboNaar.getSelectedItem() == comboVan.getSelectedItem() )
+					{
+						JOptionPane.showMessageDialog(new JFrame(), "Van en naar kunnen niet hetzelfde zijn!");
 					}
-					else {
-						ticket = new Ticket(0, 0,(String) comboVan.getSelectedItem(), (String) comboNaar.getSelectedItem(), 0, Double.parseDouble(txtPrijs.getText()),VerkoopType.VerkoopTypeCasting((String) comboVerkoopType.getSelectedItem()), 0, (int)klasse.getValue(), (int)aantal.getValue()
-								,Calendar.getInstance().getTime(), converter((int) heenDag.getValue(),(int) heenMaand.getValue(), (int)heenJaar.getValue()),converter((int) terugDag.getValue(), (int) terugMaand.getValue(), (int) terugJaar.getValue()) );
-							VerkoopController.ticketValidate(ticket, TicketVerkoopGui.this, isOffline);
+					else
+					{
+						if (!isOffline) {
+							
+							 ticket = new Ticket(0, MedewerkerDAO.getMedewerkerIdByUsername(Login.getCurrentUser()),(String) comboVan.getSelectedItem(), (String) comboNaar.getSelectedItem(), StationDAO.checkStation(Station.getCurrentStation()), Double.parseDouble(txtPrijs.getText()),VerkoopType.VerkoopTypeCasting((String) comboVerkoopType.getSelectedItem()), 0, (int)klasse.getValue(), (int)aantal.getValue()
+							,Calendar.getInstance().getTime(), converter((int) heenDag.getValue(),(int) heenMaand.getValue(), (int)heenJaar.getValue()),converter((int) terugDag.getValue(), (int) terugMaand.getValue(), (int) terugJaar.getValue()) );
+						VerkoopController.ticketValidate(ticket, TicketVerkoopGui.this, isOffline);
+							
+						}
+						else {
+							ticket = new Ticket(0, 0,(String) comboVan.getSelectedItem(), (String) comboNaar.getSelectedItem(), 0, Double.parseDouble(txtPrijs.getText()),VerkoopType.VerkoopTypeCasting((String) comboVerkoopType.getSelectedItem()), 0, (int)klasse.getValue(), (int)aantal.getValue()
+									,Calendar.getInstance().getTime(), converter((int) heenDag.getValue(),(int) heenMaand.getValue(), (int)heenJaar.getValue()),converter((int) terugDag.getValue(), (int) terugMaand.getValue(), (int) terugJaar.getValue()) );
+								VerkoopController.ticketValidate(ticket, TicketVerkoopGui.this, isOffline);
+						}
+						VerkoopController.ticketValidate(ticket, TicketVerkoopGui.this, isOffline);
 					}
-					VerkoopController.ticketValidate(ticket, TicketVerkoopGui.this, isOffline);
 				}
 			}
 		}

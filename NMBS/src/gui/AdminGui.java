@@ -107,12 +107,13 @@ public class AdminGui extends JFrame {
 	
 	private void createMenu() {
 		menubar = new JMenuBar();
+		menubar.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		menubar.setForeground(Color.BLACK);
 		menubar.setBackground(Color.ORANGE);
 		home = new JMenuItem(bundle.getString("home"));
 
 		home.setHorizontalAlignment(SwingConstants.LEFT);
-		home.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		home.setFont(new Font("Dialog", Font.BOLD, 20));
 		home.setHorizontalTextPosition(SwingConstants.CENTER);;
 		home.setBackground(Color.ORANGE);
 		home.setOpaque(true);
@@ -120,89 +121,100 @@ public class AdminGui extends JFrame {
 		
 		verkoop = new JMenu(bundle.getString("verkoop"));
 		verkoop.setHorizontalAlignment(SwingConstants.CENTER);
-		verkoop.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		verkoop.setFont(new Font("Dialog", Font.BOLD, 20));
 		verkoop.setBackground(Color.ORANGE);
 		verkoop.setOpaque(true);
 		routeInfo = new JMenuItem(bundle.getString("routeInfo"));
 		routeInfo.setHorizontalAlignment(SwingConstants.CENTER);
-		routeInfo.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		routeInfo.setFont(new Font("Dialog", Font.BOLD, 20));
 		routeInfo.setBackground(Color.ORANGE);
 		routeInfo.setOpaque(true);
 		routeInfo.addActionListener(new MenuItemHandler());
 		
 		stationInfo = new JMenuItem(bundle.getString("stationInfo"));
 		stationInfo.setHorizontalAlignment(SwingConstants.CENTER);
-		stationInfo.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		stationInfo.setFont(new Font("Dialog", Font.BOLD, 20));
 		stationInfo.setBackground(Color.ORANGE);
 		stationInfo.setOpaque(true);
 		stationInfo.addActionListener(new MenuItemHandler());
 		gebruikers = new JMenu(bundle.getString("gebruikers"));
 		gebruikers.setHorizontalAlignment(SwingConstants.CENTER);
-		gebruikers.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		gebruikers.setFont(new Font("Dialog", Font.BOLD, 20));
 		gebruikers.setBackground(Color.ORANGE);
 		gebruikers.setOpaque(true);
 		
 		klanten = new JMenu(bundle.getString("klanten"));
 		klanten.setHorizontalAlignment(SwingConstants.CENTER);
-		klanten.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		klanten.setFont(new Font("Dialog", Font.BOLD, 20));
 		klanten.setBackground(Color.ORANGE);
 		klanten.setOpaque(true);
 		
 		verlorenVoorwerpen = new JMenu(bundle.getString("verlorenVoorwerpen"));
 		verlorenVoorwerpen.setHorizontalAlignment(SwingConstants.CENTER);
-		verlorenVoorwerpen.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		verlorenVoorwerpen.setFont(new Font("Dialog", Font.BOLD, 20));
 		verlorenVoorwerpen.setBackground(Color.ORANGE);
 		verlorenVoorwerpen.setOpaque(true);
 		verlorenVoorwerpToevoegen = new JMenuItem(bundle.getString("verlorenVoorwerpToevoegen"));
+		verlorenVoorwerpToevoegen.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		verlorenVoorwerpToevoegen.addActionListener(new MenuItemHandler());
 		verlorenVoorwerpZoeken = new JMenuItem(bundle.getString("verlorenVoorwerpZoeken"));
+		verlorenVoorwerpZoeken.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		verlorenVoorwerpZoeken.addActionListener(new MenuItemHandler());
 		verlorenVoorwerpen.add(verlorenVoorwerpToevoegen);
 		verlorenVoorwerpen.add(verlorenVoorwerpZoeken);
 		
 		instellingen = new JMenu(bundle.getString("instellingen"));
 		instellingen.setHorizontalAlignment(SwingConstants.CENTER);
-		instellingen.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		instellingen.setFont(new Font("Dialog", Font.BOLD, 20));
 		instellingen.setBackground(Color.ORANGE);
 		instellingen.setOpaque(true);
 		wachtwoordVeranderen = new JMenuItem(bundle.getString("wachtwoordVeranderen"));
+		wachtwoordVeranderen.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		wachtwoordVeranderen.addActionListener(new MenuItemHandler());
+		
+		mntmPrijsbeheer = new JMenuItem(bundle.getString("mntmPrijsbeheer"));
+		mntmPrijsbeheer.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		mntmPrijsbeheer.addActionListener(new MenuItemHandler());
+		instellingen.add(mntmPrijsbeheer);
 		instellingen.add(wachtwoordVeranderen);
 		
 		abonnementBeheer = new JMenuItem(bundle.getString("abonnementBeheer"));
+		abonnementBeheer.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		abonnementBeheer.setBackground(Color.WHITE);
 		abonnementBeheer.addActionListener(new MenuItemHandler());
 		verkoop.add(abonnementBeheer);
 		
 		gebruikersToevoegen = new JMenuItem(bundle.getString("gebruikersToevoegen"));
+		gebruikersToevoegen.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		gebruikersToevoegen.addActionListener(new MenuItemHandler());
 		gebruikersBeheer = new JMenuItem(bundle.getString("gebruikersBeheer"));
+		gebruikersBeheer.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		gebruikersBeheer.addActionListener(new MenuItemHandler());
 		gebruikers.add(gebruikersToevoegen);
 		gebruikers.add(gebruikersBeheer);
 		
 		klantenToevoegen = new JMenuItem(bundle.getString("klantenToevoegen"));
+		klantenToevoegen.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		klantenToevoegen.addActionListener(new MenuItemHandler());
 		klantenBeheer = new JMenuItem(bundle.getString("klantenBeheer"));
+		klantenBeheer.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		klantenBeheer.addActionListener(new MenuItemHandler());
 		klanten.add(klantenToevoegen);
 		klanten.add(klantenBeheer);
 		
 		ticketVerkoop = new JMenuItem(bundle.getString("ticketVerkoop"));
+		ticketVerkoop.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		ticketVerkoop.setBackground(Color.WHITE);
 		ticketVerkoop.addActionListener(new MenuItemHandler());
 		verkoop.add(ticketVerkoop);
 		
 		uitloggen = new JMenuItem(bundle.getString("uitloggen"));
+		uitloggen.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		uitloggen.addActionListener(new MenuItemHandler());
 		instellingen.add(uitloggen);
 		
 		menubar.add(home);
 		menubar.add(verkoop);
-		
-		mntmPrijsbeheer = new JMenuItem(bundle.getString("mntmPrijsbeheer"));
-		mntmPrijsbeheer.addActionListener(new MenuItemHandler());
-		instellingen.add(mntmPrijsbeheer);
 		menubar.add(klanten);
 		menubar.add(routeInfo);
 		menubar.add(stationInfo);

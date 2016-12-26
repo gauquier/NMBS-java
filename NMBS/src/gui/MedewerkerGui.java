@@ -87,46 +87,47 @@ public class MedewerkerGui  extends JFrame {
 	
 	private void createMenu() {
 		menubar = new JMenuBar();
+		menubar.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		menubar.setForeground(Color.BLACK);
 		menubar.setBackground(Color.ORANGE);
 		
 		home = new JMenuItem(bundle.getString("home"));
 		home.setBackground(Color.ORANGE);
-		home.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		home.setFont(new Font("Dialog", Font.BOLD, 20));
 		home.setOpaque(true);
 		home.addActionListener(new MenuItemHandler());
 		
 		verkoop = new JMenu(bundle.getString("verkoop"));
 		verkoop.setBackground(Color.ORANGE);
-		verkoop.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		verkoop.setFont(new Font("Dialog", Font.BOLD, 20));
 		verkoop.setOpaque(true);
 		
 		routeInfo = new JMenuItem(bundle.getString("routeInfo"));
 		routeInfo.setBackground(Color.ORANGE);
-		routeInfo.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		routeInfo.setFont(new Font("Dialog", Font.BOLD, 20));
 		routeInfo.setOpaque(true);
 		routeInfo.addActionListener(new MenuItemHandler());
 		
 		stationInfo = new JMenuItem(bundle.getString("stationInfo"));
 		stationInfo.setBackground(Color.ORANGE);
-		stationInfo.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		stationInfo.setFont(new Font("Dialog", Font.BOLD, 20));
 		stationInfo.setOpaque(true);
 		stationInfo.addActionListener(new MenuItemHandler());
 		
 		verlorenVoorwerpen = new JMenu(bundle.getString("verlorenVoorwerpen"));
 		verlorenVoorwerpen.setBackground(Color.ORANGE);
-		verlorenVoorwerpen.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		verlorenVoorwerpen.setFont(new Font("Dialog", Font.BOLD, 20));
 		verlorenVoorwerpen.setOpaque(true);
 		
 		verlorenVoorwerpToevoegen = new JMenuItem(bundle.getString("verlorenVoorwerpToevoegen"));
 		verlorenVoorwerpToevoegen.setBackground(Color.ORANGE);
-		verlorenVoorwerpToevoegen.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		verlorenVoorwerpToevoegen.setFont(new Font("Dialog", Font.BOLD, 20));
 		verlorenVoorwerpToevoegen.setOpaque(true);
 		verlorenVoorwerpToevoegen.addActionListener(new MenuItemHandler());
 		
 		verlorenVoorwerpZoeken = new JMenuItem(bundle.getString("verlorenVoorwerpZoeken"));
 		verlorenVoorwerpZoeken.setBackground(Color.ORANGE);
-		verlorenVoorwerpZoeken.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		verlorenVoorwerpZoeken.setFont(new Font("Dialog", Font.BOLD, 20));
 		verlorenVoorwerpZoeken.setOpaque(true);
 		verlorenVoorwerpZoeken.addActionListener(new MenuItemHandler());
 		
@@ -135,36 +136,36 @@ public class MedewerkerGui  extends JFrame {
 		
 		instellingen = new JMenu("instellingen");
 		instellingen.setBackground(Color.ORANGE);
-		instellingen.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		instellingen.setFont(new Font("Dialog", Font.BOLD, 20));
 		instellingen.setOpaque(true);
 		
 		wachtwoordVeranderen = new JMenuItem(bundle.getString("wachtwoordVeranderen"));
 		wachtwoordVeranderen.setBackground(Color.ORANGE);
-		wachtwoordVeranderen.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		wachtwoordVeranderen.setFont(new Font("Dialog", Font.BOLD, 20));
 		wachtwoordVeranderen.setOpaque(true);
 		wachtwoordVeranderen.addActionListener(new MenuItemHandler());
 		instellingen.add(wachtwoordVeranderen);
 		
 		abonnementBeheer = new JMenuItem(bundle.getString("abonnementBeheer"));
 		abonnementBeheer.setBackground(Color.ORANGE);
-		abonnementBeheer.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		abonnementBeheer.setFont(new Font("Dialog", Font.BOLD, 20));
 		abonnementBeheer.setOpaque(true);
 		abonnementVerkoop = new JMenuItem(bundle.getString("abonnementVerkoop"));
-		abonnementVerkoop.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		abonnementVerkoop.setFont(new Font("Dialog", Font.BOLD, 20));
 		abonnementVerkoop.setBackground(Color.ORANGE);
 		abonnementVerkoop.setOpaque(true);
 		verkoop.add(abonnementVerkoop);
 		verkoop.add(abonnementBeheer);
 		
 		ticketVerkoop = new JMenuItem(bundle.getString("ticketVerkoop"));
-		ticketVerkoop.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		ticketVerkoop.setFont(new Font("Dialog", Font.BOLD, 20));
 		ticketVerkoop.setBackground(Color.ORANGE);
 		ticketVerkoop.setOpaque(true);
 		ticketVerkoop.addActionListener(new MenuItemHandler());
 		verkoop.add(ticketVerkoop);
 		
 		uitloggen = new JMenuItem(bundle.getString("uitloggen"));
-		uitloggen.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		uitloggen.setFont(new Font("Dialog", Font.BOLD, 20));
 		uitloggen.setBackground(Color.ORANGE);
 		uitloggen.setOpaque(true);
 		uitloggen.addActionListener(new MenuItemHandler());
