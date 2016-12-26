@@ -21,49 +21,66 @@ import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.Font;
 
 public class WachtwoordVeranderenGui extends JPanel {
+	private static ResourceBundle bundle;
+	
 	private JPasswordField pwdHerhaaldWachtwoord;
 	private JPasswordField pwdNieuwwachtwoord;
 	private JButton btnWijzigen;
 	private JPasswordField pwdHuidigWachtwoord;
 	
 	public WachtwoordVeranderenGui() {
+		bundle = ResourceBundle.getBundle("localization.WachtwoordVeranderenGui");
+		
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
-		JLabel lblWachtwoordWijzigen = DefaultComponentFactory.getInstance().createTitle("Wachtwoord wijzigen");
+		JLabel lblWachtwoordWijzigen = DefaultComponentFactory.getInstance().createTitle(bundle.getString("lblWachtwoordWijzigen"));
+		lblWachtwoordWijzigen.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+		lblWachtwoordWijzigen.setForeground(new Color(0, 0, 0));
 		
-		JLabel lblUsername = new JLabel("Username");
+		JLabel lblUsername = new JLabel(bundle.getString("lblUsername"));
+		lblUsername.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblUsername.setForeground(Color.WHITE);
 		
-		JLabel lblWachtwoord = new JLabel("Nieuw wachtwoord");
+		JLabel lblWachtwoord = new JLabel(bundle.getString("lblWachtwoord"));
+		lblWachtwoord.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblWachtwoord.setForeground(Color.WHITE);
 		
-		JLabel lblHerhaalWachtwoord = new JLabel("Herhaal wachtwoord");
+		JLabel lblHerhaalWachtwoord = new JLabel(bundle.getString("lblHerhaalWachtwoord"));
+		lblHerhaalWachtwoord.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblHerhaalWachtwoord.setForeground(Color.WHITE);
 		
 		pwdHerhaaldWachtwoord = new JPasswordField();
+		pwdHerhaaldWachtwoord.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		
 		pwdNieuwwachtwoord = new JPasswordField();
+		pwdNieuwwachtwoord.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		
 		JLabel lblGebruikersnaam = new JLabel("");
+		lblGebruikersnaam.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblGebruikersnaam.setText(Login.getCurrentUser());
 		
 		lblGebruikersnaam.setForeground(Color.WHITE);
 		
-		btnWijzigen = new JButton("Wijzigen");
+		btnWijzigen = new JButton(bundle.getString("btnWijzigen"));
+		btnWijzigen.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		btnWijzigen.addActionListener(new MenuItemHandler());
 		
-		JLabel lblHuidigWachtwoord = new JLabel("Huidig wachtwoord");
+		JLabel lblHuidigWachtwoord = new JLabel(bundle.getString("lblHuidigWachtwoord"));
+		lblHuidigWachtwoord.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblHuidigWachtwoord.setForeground(Color.WHITE);
 		
 		pwdHuidigWachtwoord = new JPasswordField();
+		pwdHuidigWachtwoord.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -76,25 +93,25 @@ public class WachtwoordVeranderenGui extends JPanel {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(69)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(Alignment.TRAILING, groupLayout.createParallelGroup(Alignment.LEADING, false)
+									.addComponent(lblHerhaalWachtwoord, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(lblWachtwoord, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(lblHuidigWachtwoord, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								.addComponent(lblUsername))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblUsername)
 									.addGap(69)
 									.addComponent(lblGebruikersnaam))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(75)
-									.addComponent(btnWijzigen))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblHerhaalWachtwoord)
-										.addComponent(lblWachtwoord)
-										.addComponent(lblHuidigWachtwoord, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE))
+								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 									.addGap(18)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(pwdHuidigWachtwoord, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-											.addComponent(pwdNieuwwachtwoord)
-											.addComponent(pwdHerhaaldWachtwoord, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)))))))
-					.addContainerGap(132, Short.MAX_VALUE))
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(pwdHuidigWachtwoord, GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+										.addComponent(pwdNieuwwachtwoord)
+										.addComponent(pwdHerhaaldWachtwoord)))))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(150)
+							.addComponent(btnWijzigen)))
+					.addContainerGap(172, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -119,7 +136,7 @@ public class WachtwoordVeranderenGui extends JPanel {
 						.addComponent(pwdHerhaaldWachtwoord, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(30)
 					.addComponent(btnWijzigen)
-					.addContainerGap(56, Short.MAX_VALUE))
+					.addContainerGap(95, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 	}

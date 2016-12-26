@@ -31,7 +31,7 @@ public class Parser {
 		return new Station(
 				0,
 				n.getFirstChild().getNodeValue(), 
-				new ArrayList<>());
+				new ArrayList<VerlorenVoorwerp>());
 	} 
 	
 	public static List<Station> parseStations() throws Exception { 

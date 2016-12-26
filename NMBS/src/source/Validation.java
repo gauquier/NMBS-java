@@ -16,7 +16,7 @@ public class Validation {
     }
 	
 	public static boolean checkUsername(String name) {
-        String regex = "[A-Za-z0-9]";
+        String regex = "[A-Za-z]{2,40}";
         if (Pattern.matches(regex, name)) {
             return true;
         } else {

@@ -40,6 +40,8 @@ import java.awt.Toolkit;
 import java.awt.Font;
 
 public class OfflineGui extends JFrame {
+	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.OfflineGui");
+	
 	private Container c = getContentPane();	
 	
 	private static JPanel vorigeKeuze, HuidigeKeuze;
@@ -82,7 +84,7 @@ public class OfflineGui extends JFrame {
 		this.c = c;
 	}
 	public OfflineGui() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("/Users/jonas/Desktop/NMBS-java/NMBS/lib/logo-nmbs.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("/Users/jonas/Desktop/NMBS-java/NMBS/lib/logo.png"));
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		this.setResizable(true);
@@ -101,7 +103,7 @@ public class OfflineGui extends JFrame {
 		menubar = new JMenuBar();
 		menubar.setForeground(Color.BLACK);
 		menubar.setBackground(Color.ORANGE);
-		home = new JMenuItem("Home");
+		home = new JMenuItem(bundle.getString("home"));
 
 		home.setHorizontalAlignment(SwingConstants.LEFT);
 		home.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -110,24 +112,24 @@ public class OfflineGui extends JFrame {
 		home.setOpaque(true);
 		home.addActionListener(new MenuItemHandler());
 		
-		verkoop = new JMenu("Verkoop");
+		verkoop = new JMenu(bundle.getString("verkoop"));
 		verkoop.setHorizontalAlignment(SwingConstants.CENTER);
 		verkoop.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		verkoop.setBackground(Color.ORANGE);
 		verkoop.setOpaque(true);
 		
-		instellingen = new JMenu("Instellingen");
+		instellingen = new JMenu(bundle.getString("instellingen"));
 		instellingen.setHorizontalAlignment(SwingConstants.CENTER);
 		instellingen.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		instellingen.setBackground(Color.ORANGE);
 		instellingen.setOpaque(true);
 		
-		ticketVerkoop = new JMenuItem("Ticketverkoop");
+		ticketVerkoop = new JMenuItem(bundle.getString("ticketVerkoop"));
 		ticketVerkoop.setBackground(Color.WHITE);
 		ticketVerkoop.addActionListener(new MenuItemHandler());
 		verkoop.add(ticketVerkoop);
 		
-		uitloggen = new JMenuItem("Uitloggen");
+		uitloggen = new JMenuItem(bundle.getString("uitloggen"));
 		uitloggen.addActionListener(new MenuItemHandler());
 		instellingen.add(uitloggen);
 		

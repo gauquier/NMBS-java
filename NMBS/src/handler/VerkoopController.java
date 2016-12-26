@@ -81,11 +81,11 @@ public class VerkoopController {
 			else {
 				TicketsOffline.addTicket(ticket);
 			}
-			tvGui.setTickettenVerkocht(true, ticket);
+			tvGui.setTickettenVerkocht(true);
 			return true;
 		}
 		else{
-			tvGui.setTickettenVerkocht(false, ticket);
+			tvGui.setTickettenVerkocht(false);
 			
 			return false;
 			
