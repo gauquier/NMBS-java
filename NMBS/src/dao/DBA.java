@@ -30,10 +30,7 @@ public class DBA {
 		public String getSql() {
 		return sql;
 	}
-	
-	public String getSql() {
-		return sql;
-	}
+
 
 	public void createSelect(String tableName)// SELECT * FROM tableName
 	{
