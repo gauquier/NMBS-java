@@ -68,8 +68,7 @@ public class Adres {
 	
 	@Override
 	public String toString() {
-		return "Adres [adresId=" + adresId + ", straat=" + straat + ", huisnr=" + huisnr + ", woonplaats=" + woonplaats
-				+ ", postcode=" + postcode + ", bus=" + bus + "]";
+		return this.getStraat() + " " + this.getHuisnr() + " , " + this.getPostcode() + " " + this.getWoonplaats();
 	}
 	@Override
 	public int hashCode() {

@@ -132,7 +132,7 @@ public class KlantBijwerkenGui extends JPanel {
 		txtBus = new JTextField();
 		txtBus.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		txtBus.setColumns(10);
-		txtBus.setText(new Integer(k.getAdres().getBus()).toString());
+		txtBus.setText(k.getAdres().getBus());
 
 		txtGemeente = new JTextField();
 		txtGemeente.setFont(new Font("Lucida Grande", Font.PLAIN, 20));

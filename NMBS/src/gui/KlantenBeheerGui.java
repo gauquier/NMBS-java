@@ -35,6 +35,9 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 import java.awt.Font;
 import javax.swing.JRadioButton;
 import javax.swing.JPasswordField;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 
 
 public class KlantenBeheerGui extends JPanel {
@@ -75,6 +78,14 @@ public class KlantenBeheerGui extends JPanel {
 		
 		list = new JList<Klant>(dlm);
 		list.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		list.addMouseListener(new MouseAdapter() {
+		    public void mouseClicked(MouseEvent evt) {
+		        if (evt.getClickCount() == 2) {
+		        	
+		            AdminGui.setHuidigeKeuze(new KlantWeergevenGui(list.getSelectedValue()));
+		        }
+		    }
+		});
 		
 		textField = new JTextField();
 		textField.setFont(new Font("Lucida Grande", Font.PLAIN, 20));

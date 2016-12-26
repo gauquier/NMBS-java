@@ -36,6 +36,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.JScrollPane;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 public class GebruikersBeheerGui extends JPanel {
 	private static ResourceBundle bundle;
 	
@@ -202,6 +205,13 @@ public class GebruikersBeheerGui extends JPanel {
 		list = new JList<Medewerker>(dlm);
 		list.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		scrollPane.setViewportView(list);
+		list.addMouseListener(new MouseAdapter() {
+		    public void mouseClicked(MouseEvent evt) {
+		        if (evt.getClickCount() == 2) {
+					AdminGui.setHuidigeKeuze(new GebruikerWeergevenGui(list.getSelectedValue()));
+		        }
+		    }
+		});
 		setLayout(groupLayout);
 	}
 	
@@ -258,7 +268,7 @@ public class GebruikersBeheerGui extends JPanel {
 				int n = OkCancel("Ben je zeker dat je " + list.getSelectedValue().getVoornaam() + " " + list.getSelectedValue().getAchternaam() + " wil verwijderen?");	
 				
 				if(n==0){
-				MedewerkerDAO.removeMedewerker(list.getSelectedValue().getId());
+				MedewerkerDAO.removeMedewerker(list.getSelectedValue().getMedewerkerId());
 				((DefaultListModel<Medewerker>)list.getModel()).remove(list.getSelectedIndex());
 				JOptionPane.showMessageDialog(new JFrame(), "Gebruiker is succesvol verwijdert.");
 				} else if (n==1){

@@ -27,6 +27,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 public class AbonnementBeheerGui extends JPanel {
 	private JTextField textField;
 	private JButton btnZoeken;
@@ -58,6 +61,15 @@ public class AbonnementBeheerGui extends JPanel {
 
 		list = new JList<Abonnement>(dlm);
 		list.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		
+		list.addMouseListener(new MouseAdapter() {
+		    public void mouseClicked(MouseEvent evt) {
+		        if (evt.getClickCount() == 2) {
+		        	
+		            AdminGui.setHuidigeKeuze(new AbonnementWeergevenGui(list.getSelectedValue()));
+		        }
+		    }
+		});
 
 		textField = new JTextField();
 		textField.setFont(new Font("Lucida Grande", Font.PLAIN, 20));

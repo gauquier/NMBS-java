@@ -133,7 +133,7 @@ public class GebruikerBijwerkenGui extends JPanel {
 		txtBus = new JTextField();
 		txtBus.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		txtBus.setColumns(10);
-		txtBus.setText(new Integer(m.getAdres().getBus()).toString());
+		txtBus.setText(m.getAdres().getBus());
 
 		txtGemeente = new JTextField();
 		txtGemeente.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
