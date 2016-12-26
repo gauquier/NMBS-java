@@ -22,6 +22,7 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 import dao.LoginDao;
 import dao.StationDAO;
 import handler.Controller;
+import source.AutoComboBox;
 import source.Login;
 import source.Station;
 
@@ -35,7 +36,7 @@ public class KiesStationGui {
 	JFrame frmStation;
 	public static KiesStationGui window;
 	private JButton btnSelecteer;
-	private JComboBox cmbbStation;
+	private AutoComboBox cmbbStation;
 	private Station station;
 	Login login;
 	
@@ -73,7 +74,7 @@ public class KiesStationGui {
 		frmStation.setResizable(false);
 		centreWindow(frmStation);
 		
-		cmbbStation = new JComboBox();
+		cmbbStation = new AutoComboBox();
 		cmbbStation.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		cmbbStation.addItem("Hoofdbureau");
 		StationDAO stationDAO=new StationDAO(); 
