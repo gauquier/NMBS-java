@@ -6,6 +6,8 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -30,17 +32,17 @@ import javax.swing.JTextPane;
 import javax.swing.SwingConstants;
 
 public class AbonnementBeheerGui extends JPanel {
-	private JTextField textField;
-	private JButton btnZoeken;
+	private JTextField txtZoekveld;
 	private JButton btnVerlengen;
 	private JButton btnVerwijderen;
 	private JList<Abonnement> list;
 	private ArrayList<Abonnement> arrayLijst;
-	private ArrayList<Object> objecten;
+	private DefaultListModel<Abonnement> dlm;
 	private JButton btnAnnuleren;
 	public String navigation;
 	private JButton btnNieuwAbonnement;
 	public String newline = System.getProperty("line.separator");
+	private JLabel label;
 	
 	public AbonnementBeheerGui() {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
@@ -55,7 +57,7 @@ public class AbonnementBeheerGui extends JPanel {
 		
 		arrayLijst = AbonnementDAO.getAllAbonnementen();
 		
-		DefaultListModel<Abonnement> dlm = new DefaultListModel<Abonnement>();
+		dlm = new DefaultListModel<Abonnement>();
 		
 		
 		for(Abonnement a : arrayLijst)
@@ -74,12 +76,27 @@ public class AbonnementBeheerGui extends JPanel {
 		    }
 		});
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		
-		btnZoeken = new JButton("Zoeken");
-		btnZoeken.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		btnZoeken.setBackground(Color.ORANGE);
+		txtZoekveld = new JTextField();
+		txtZoekveld.setColumns(10);
+		txtZoekveld.getDocument().addDocumentListener(new DocumentListener(){
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				
+				updateLijst();
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				updateLijst();
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				updateLijst();
+			}	
+			
+		});
 		
 		btnVerlengen = new JButton("Verlengen");
 		btnVerlengen.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -101,6 +118,9 @@ public class AbonnementBeheerGui extends JPanel {
 		btnVerwijderen.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnVerwijderen.setBackground(Color.ORANGE);
 		
+		label = new JLabel("Zoeken op naam:");
+		label.setForeground(Color.WHITE);
+		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -111,16 +131,16 @@ public class AbonnementBeheerGui extends JPanel {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(btnZoeken)
-									.addGap(121)
-									.addComponent(textField, GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
-								.addComponent(list, GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE))
+									.addComponent(label, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
+									.addGap(72)
+									.addComponent(txtZoekveld, GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
+								.addComponent(list, GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE))
 							.addGap(10)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnVerwijderen, GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
-								.addComponent(btnAnnuleren, GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
-								.addComponent(btnVerlengen, GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
-								.addComponent(btnNieuwAbonnement, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE))))
+								.addComponent(btnVerwijderen, GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+								.addComponent(btnAnnuleren, GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+								.addComponent(btnVerlengen, GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+								.addComponent(btnNieuwAbonnement, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -130,8 +150,8 @@ public class AbonnementBeheerGui extends JPanel {
 					.addComponent(lblAbonnementenBeheren)
 					.addGap(28)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnZoeken)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtZoekveld, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+						.addComponent(label))
 					.addGap(12)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
@@ -142,7 +162,7 @@ public class AbonnementBeheerGui extends JPanel {
 							.addComponent(btnAnnuleren)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(btnVerwijderen, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
-						.addComponent(list, GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
+						.addComponent(list, GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		setLayout(groupLayout);
@@ -168,7 +188,28 @@ public class AbonnementBeheerGui extends JPanel {
 		
 	}
 	
+	public void updateLijst(){
+		ArrayList <Abonnement> t = new ArrayList<Abonnement>();
+		if(!txtZoekveld.getText().isEmpty()){
+			
+			for(int i=0;i<arrayLijst.size();i++){
+				if(arrayLijst.get(i).getKlant().getNaam().toLowerCase().contains(txtZoekveld.getText().toLowerCase())){
+					t.add(arrayLijst.get(i));
+				}
+				
+			}
+		} else {
+			t=arrayLijst;
+		}
+		
 	
+		dlm.clear();
+		for(Abonnement m: t){
+			dlm.addElement(m);
+		}
+		
+		list.setModel(dlm);
+	}
 	
 	public Boolean unknownIndex(){
 	if(list.getSelectedValue()==null || list.getSelectedIndex()<0){

@@ -6,6 +6,8 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,6 +21,7 @@ import dao.LoginDao;
 import dao.MedewerkerDAO;
 import handler.Controller;
 import source.Adres;
+import source.Klant;
 import source.Login;
 import source.Medewerker;
 import source.Persoon;
@@ -43,14 +46,14 @@ import javax.swing.JScrollPane;
 
 public class GebruikerBewerkenGui extends JPanel {
 	private JTextField txtZoekveld;
-	private JButton btnZoeken;
 	private JButton btnBewerken;
 	private JList<Medewerker> list;
 	private ArrayList<Medewerker> arrayLijst, arrayLijst2;
-	private ArrayList<Object> objecten;
+	private DefaultListModel<Medewerker> dlm;
 	private JButton btnVerwijderen;
 	private JButton btnPasswordReset;
 	public String navigation;
+	private JLabel label;
 	
 	
 	public GebruikerBewerkenGui() {
@@ -65,8 +68,7 @@ public class GebruikerBewerkenGui extends JPanel {
 		arrayLijst = MedewerkerDAO.getAllMedewerkers();
 		
 		
-		
-		DefaultListModel<Medewerker> dlm = new DefaultListModel<Medewerker>();
+		dlm = new DefaultListModel<Medewerker>();
 		
 		
 		for(Medewerker m : arrayLijst)
@@ -77,63 +79,25 @@ public class GebruikerBewerkenGui extends JPanel {
 		
 		txtZoekveld = new JTextField();
 		txtZoekveld.setColumns(10);
-		txtZoekveld.addKeyListener(new KeyListener()
-		  {
+		txtZoekveld.getDocument().addDocumentListener(new DocumentListener(){
+			
 			@Override
-			public void keyPressed(KeyEvent e) {}
-			@Override
-			public void keyReleased(KeyEvent e) {}
-			@Override
-			public void keyTyped(KeyEvent e) {
-					Thread userRefresh = new Thread(new Runnable(){
-						@Override
-						public void run() {
-							if(txtZoekveld.getText().isEmpty()){
-								dlm.clear();
-								for(Medewerker m : arrayLijst)
-								{
-									dlm.addElement(m);
-								}
-								list = new JList<Medewerker>(dlm);
-							}
-							else if(txtZoekveld.getText().isEmpty() && e.getKeyCode() == KeyEvent.VK_BACK_SPACE){
-								dlm.clear();
-								for(Medewerker m : arrayLijst)
-								{
-									dlm.addElement(m);
-								}
-								list = new JList<Medewerker>(dlm);
-							}
-							else if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE || e.getKeyCode() == KeyEvent.VK_ESCAPE){
-								dlm.clear();
-								for(Medewerker m : arrayLijst)
-								{
-									dlm.addElement(m);
-								}
-								list = new JList<Medewerker>(dlm);
-							}
-							else
-							{
-								
-								dlm.clear();
-								arrayLijst2 = MedewerkerDAO.getAllMedewerkersFromSearch(txtZoekveld.getText());
-		    					for(Medewerker m : arrayLijst2)
-		    					{
-		    						dlm.addElement(m);
-		    					}
-		    					list = new JList<Medewerker>(dlm);
-							}
-						}
-					});
-					userRefresh.start();
-				}
-	  		  });	
+			public void changedUpdate(DocumentEvent e) {
+				
+				updateLijst();
+			}
 
-		
-		
-		btnZoeken = new JButton("Zoeken");
-		btnZoeken.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		btnZoeken.setBackground(Color.ORANGE);
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				updateLijst();
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				updateLijst();
+			}	
+			
+		});
 		
 		btnBewerken = new JButton("Bewerken");
 		btnBewerken.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -152,21 +116,24 @@ public class GebruikerBewerkenGui extends JPanel {
 		
 		JScrollPane scrollPane = new JScrollPane(list);
 		
+		label = new JLabel("Zoeken op naam:");
+		label.setForeground(Color.WHITE);
+		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(37)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
 						.addComponent(lblGebruikerBewerken)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnZoeken)
-							.addPreferredGap(ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addComponent(label, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
 							.addComponent(txtZoekveld, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)))
 					.addGap(10)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnVerwijderen, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnVerwijderen, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
 						.addComponent(btnBewerken, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
 						.addComponent(btnPasswordReset, GroupLayout.PREFERRED_SIZE, 130, Short.MAX_VALUE))
 					.addContainerGap())
@@ -180,8 +147,8 @@ public class GebruikerBewerkenGui extends JPanel {
 							.addComponent(lblGebruikerBewerken)
 							.addGap(27)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnZoeken)
-								.addComponent(txtZoekveld, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+								.addComponent(txtZoekveld, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+								.addComponent(label))
 							.addGap(12)
 							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
@@ -191,7 +158,7 @@ public class GebruikerBewerkenGui extends JPanel {
 							.addComponent(btnVerwijderen)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(btnPasswordReset, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(92, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		
 		list = new JList<Medewerker>(dlm);
@@ -236,6 +203,30 @@ public class GebruikerBewerkenGui extends JPanel {
 		}
 	}
 	
+	public void updateLijst(){
+		ArrayList <Medewerker> t = new ArrayList<Medewerker>();
+		if(!txtZoekveld.getText().isEmpty()){
+			
+			for(int i=0;i<arrayLijst.size();i++){
+				if(arrayLijst.get(i).getNaam().toLowerCase().contains(txtZoekveld.getText().toLowerCase())){
+					t.add(arrayLijst.get(i));
+				}
+				
+			}
+		} else {
+			t=arrayLijst;
+		}
+		
+		
+	
+		dlm.clear();
+		for(Medewerker m: t){
+			dlm.addElement(m);
+		}
+		
+		list.setModel(dlm);
+	}
+	
 	private class MenuItemHandler implements ActionListener {
 
 		@Override
@@ -253,9 +244,11 @@ public class GebruikerBewerkenGui extends JPanel {
 		
 			if (e.getSource() == btnVerwijderen) {
 				if(!unknownIndex()){
+		
 					return;
 				} else {
 				int n = OkCancel("Ben je zeker dat je " + list.getSelectedValue().getVoornaam() + " " + list.getSelectedValue().getAchternaam() + " wil verwijderen?");	
+				
 				
 				if(n==0){
 				MedewerkerDAO.removeMedewerker(list.getSelectedValue().getMedewerkerId());

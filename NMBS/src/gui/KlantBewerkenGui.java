@@ -26,9 +26,8 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
-
-
-
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -41,12 +40,11 @@ import javax.swing.JPasswordField;
 
 
 public class KlantBewerkenGui extends JPanel {
-	private JTextField textField;
-	private JButton btnZoeken;
+	private JTextField txtZoeken;
 	private JButton btnBewerken;
 	private JList<Klant> list;
 	private ArrayList<Klant> arrayLijst;
-	private ArrayList<Object> objecten;
+	private DefaultListModel<Klant> dlm;
 	private JButton btnVerwijderen;
 	public String navigation;
 	public String newline = System.getProperty("line.separator");
@@ -64,7 +62,7 @@ public class KlantBewerkenGui extends JPanel {
 		
 		
 		
-		DefaultListModel<Klant> dlm = new DefaultListModel<Klant>();
+		dlm = new DefaultListModel<Klant>();
 		
 		
 		for(Klant m : arrayLijst)
@@ -83,12 +81,27 @@ public class KlantBewerkenGui extends JPanel {
 		    }
 		});
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		
-		btnZoeken = new JButton("Zoeken");
-		btnZoeken.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		btnZoeken.setBackground(Color.ORANGE);
+		txtZoeken = new JTextField();
+		txtZoeken.setColumns(10);
+		txtZoeken.getDocument().addDocumentListener(new DocumentListener(){
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				
+				updateLijst();
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				updateLijst();
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				updateLijst();
+			}	
+			
+		});
 		
 		btnBewerken = new JButton("Bewerken");
 		btnBewerken.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -100,6 +113,9 @@ public class KlantBewerkenGui extends JPanel {
 		btnVerwijderen.setBackground(Color.ORANGE);
 		btnVerwijderen.addActionListener(new MenuItemHandler());
 		
+		JLabel lblZoekenOpNaam = new JLabel("Zoeken op naam:");
+		lblZoekenOpNaam.setForeground(Color.WHITE);
+		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -107,10 +123,10 @@ public class KlantBewerkenGui extends JPanel {
 					.addGap(37)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblKlantBewerken)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnZoeken)
-							.addPreferredGap(ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
-							.addComponent(textField, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addComponent(lblZoekenOpNaam, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+							.addComponent(txtZoeken, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(list, GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)))
@@ -129,8 +145,8 @@ public class KlantBewerkenGui extends JPanel {
 							.addComponent(lblKlantBewerken)
 							.addGap(27)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnZoeken)
-								.addComponent(textField, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
+								.addComponent(txtZoeken, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblZoekenOpNaam))
 							.addGap(12)
 							.addComponent(list, GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
@@ -198,12 +214,35 @@ public class KlantBewerkenGui extends JPanel {
 		return false;
 	}
 	
+	public void updateLijst(){
+		ArrayList <Klant> t = new ArrayList<Klant>();
+		if(!txtZoeken.getText().isEmpty()){
+			
+			for(int i=0;i<arrayLijst.size();i++){
+				if(arrayLijst.get(i).getNaam().toLowerCase().contains(txtZoeken.getText().toLowerCase())){
+					t.add(arrayLijst.get(i));
+				}
+				
+			}
+		} else {
+			t=arrayLijst;
+		}
+		
+		
+	
+		dlm.clear();
+		for(Klant m: t){
+			dlm.addElement(m);
+		}
+		
+		list.setModel(dlm);
+	}
+	
 	private class MenuItemHandler implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-		
-		
+	
 			
 			if (e.getSource() == btnBewerken) {
 				

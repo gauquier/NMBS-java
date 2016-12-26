@@ -15,6 +15,8 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 import dao.*;
 import source.*;
@@ -34,10 +36,9 @@ import javax.swing.JSlider;
 
 public class AbonnementToevoegenGui extends JPanel {
 	private JButton btnAanmaken;
-	private JButton btnZoeken;
 	private Klant klant;
 	private ArrayList<Klant> arrayLijst;
-	private ArrayList<Object> objecten;
+	private DefaultListModel<Klant> dlm;
 	private JList<Klant> list;
 	private JTextField txtKlant;
 	public String navigation;
@@ -61,14 +62,31 @@ public class AbonnementToevoegenGui extends JPanel {
 		
 		txtKlant = new JTextField();
 		txtKlant.setColumns(10);
-		
-		btnZoeken = new JButton("Zoeken");
+		txtKlant.getDocument().addDocumentListener(new DocumentListener(){
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				
+				updateLijst();
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				updateLijst();
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				updateLijst();
+			}	
+			
+		});
 		
 		arrayLijst= new ArrayList<Klant>();
 		
 		arrayLijst = KlantDAO.getAllKlanten();
 		
-		DefaultListModel<Klant> dlm = new DefaultListModel<Klant>();
+		dlm = new DefaultListModel<Klant>();
 		
 		
 		for(Klant m : arrayLijst)
@@ -120,11 +138,7 @@ public class AbonnementToevoegenGui extends JPanel {
 								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(lblGevondenResultaten)
 									.addPreferredGap(ComponentPlacement.UNRELATED)))
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(159)
-									.addComponent(btnZoeken))
-								.addComponent(list, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(list, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
@@ -134,16 +148,16 @@ public class AbonnementToevoegenGui extends JPanel {
 									.addComponent(lblPrijsValue, GroupLayout.PREFERRED_SIZE, 167, GroupLayout.PREFERRED_SIZE)
 									.addGap(202)
 									.addComponent(btnAanmaken, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE))
-								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 									.addGroup(groupLayout.createSequentialGroup()
 										.addComponent(lblAankomst, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
 										.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 										.addComponent(comboNaar, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE))
-									.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createSequentialGroup()
 										.addComponent(lblVertrek, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
 										.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 										.addComponent(comboVan, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE))
-									.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createSequentialGroup()
 										.addGap(110)
 										.addComponent(txtKlant, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE))))))
 					.addContainerGap(34, Short.MAX_VALUE))
@@ -154,16 +168,13 @@ public class AbonnementToevoegenGui extends JPanel {
 					.addGap(19)
 					.addComponent(lblAbonnementAanmaken)
 					.addGap(24)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblKlant)
-								.addComponent(txtKlant, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(29)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblGevondenResultaten)
-								.addComponent(list, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE)))
-						.addComponent(btnZoeken))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblKlant)
+						.addComponent(txtKlant, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(29)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblGevondenResultaten)
+						.addComponent(list, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE))
 					.addGap(35)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(comboVan, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -225,6 +236,30 @@ public class AbonnementToevoegenGui extends JPanel {
 		}  
 		return 1;
 		
+	}
+	
+	public void updateLijst(){
+		ArrayList <Klant> t = new ArrayList<Klant>();
+		if(!txtKlant.getText().isEmpty()){
+			
+			for(int i=0;i<arrayLijst.size();i++){
+				if(arrayLijst.get(i).getNaam().toLowerCase().contains(txtKlant.getText().toLowerCase())){
+					t.add(arrayLijst.get(i));
+				}
+				
+			}
+		} else {
+			t=arrayLijst;
+		}
+		
+		
+	
+		dlm.clear();
+		for(Klant m: t){
+			dlm.addElement(m);
+		}
+		
+		list.setModel(dlm);
 	}
 	
 	private class MenuItemHandler implements ActionListener {
