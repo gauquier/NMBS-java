@@ -4,14 +4,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
 import source.Adres;
+import source.Login;
+import source.Medewerker;
 import source.Persoon;
 import source.Prijs;
 import source.Rol;
 import source.Station;
+import source.Ticket;
 
 public class Help {
 	public static Persoon persoonToevoegen(Persoon persoon) {
@@ -55,43 +60,105 @@ public class Help {
 	public static Prijs prijsOphalen(Prijs prijs) {
 		String prijsZoekenQuery = "SELECT prijsId, verkoopType, prijs FROM Prijs WHERE verkoopType = ?";
 		Map<Integer, Object[]> map = executeQuery(prijsZoekenQuery, false, prijs.getVerkoopType());
-		if (map.size() > 0){
+		if (map.size() > 0) {
 			prijs.setPrijsId((int) map.get(0)[0]);
-		prijs.setVerkoopType((String) map.get(0)[1]);
-		prijs.setPrijs((double) map.get(0)[2]);
-		return prijs;
+			prijs.setVerkoopType((String) map.get(0)[1]);
+			prijs.setPrijs((double) map.get(0)[2]);
+			return prijs;
 		}
 		return null;
 	}
-	public static int countPrijzen(){
+
+	public static int countPrijzen() {
 		String countPrijzen = "SELECT prijsId FROM Prijs";
 		Map<Integer, Object[]> map = executeQuery(countPrijzen, false);
 		return map.size();
 	}
+
 	public static Rol rolOphalen(Rol rol) {
 		String rolZoekenQuery = "SELECT rolId FROM Rol " + "WHERE rol = ?";
 		Map<Integer, Object[]> map = executeQuery(rolZoekenQuery, false, rol.getRol());
 		if (map.size() > 0)
-			rol.setRolId((int) map.get(0)[0]); 
+			rol.setRolId((int) map.get(0)[0]);
 		return rol;
 	}
+
 	public static Rol rolToevoegen(Rol rol) {
-		String rolToevoegenQuery = "INSERT INTO Rol (rol) VALUES(?)"; 
+		String rolToevoegenQuery = "INSERT INTO Rol (rol) VALUES(?)";
 		executeQuery(rolToevoegenQuery, true, rol.getRol());
 		return rolOphalen(rol);
 	}
-	public static Station stationToevoegen(Station station){
-		String stationToevoegen = "INSERT INTO Station (naam) VALUES(?)"; 
+
+	public static Station stationToevoegen(Station station) {
+		String stationToevoegen = "INSERT INTO Station (naam) VALUES(?)";
 		executeQuery(stationToevoegen, true, station.getNaam());
 		return stationOphalen(station);
 	}
-public static Station stationOphalen(Station station){
-	String stationZoekenQuery = "SELECT stationId FROM Station WHERE naam = ?";
-	Map<Integer, Object[]> map = executeQuery(stationZoekenQuery, false, station.getNaam());
-	if (map.size() > 0)
-		station.setStationID((int) map.get(0)[0]);  
-	return station;
-}
+
+	public static Station stationOphalen(Station station) {
+		String stationZoekenQuery = "SELECT stationId FROM Station WHERE naam = ?";
+		Map<Integer, Object[]> map = executeQuery(stationZoekenQuery, false, station.getNaam());
+		if (map.size() > 0)
+			station.setStationID((int) map.get(0)[0]);
+		return station;
+	}
+
+	public static Medewerker medewerkerToevoegen(Medewerker medewerker) {
+
+		medewerker = (Medewerker) persoonToevoegen(medewerker);
+		medewerker.setLogin(loginToevoegen(medewerker.getLogin()));
+		medewerker.setRol(rolToevoegen(medewerker.getRol()));
+		String medewerkerToevoegenQuery = "INSERT INTO Medewerker " + "(loginId, persoonId, rolId,Actief) "
+				+ "VALUES(?,?,?,?)";
+		executeQuery(medewerkerToevoegenQuery, true, medewerker.getLogin().getLoginId(), medewerker.getId(),
+				medewerker.getRol().getRolId(), medewerker.isActief() ? 1 : 0);
+		return medewerkerOphalen(medewerker);
+	}
+
+	public static Medewerker medewerkerOphalen(Medewerker medewerker) {
+		String medewerkerZoekenQuery = "SELECT medewerkerId FROM Medewerker " + "WHERE persoonId = ?";
+		Map<Integer, Object[]> map = executeQuery(medewerkerZoekenQuery, false, medewerker.getId());
+		medewerker.setMedewerkerId((int) map.get(0)[0]);
+		return medewerker;
+	}
+
+	public static Login loginToevoegen(Login login) {
+		String loginToevoen = "INSERT INTO Login (username, pass) " + "VALUES(?,?)";
+		executeQuery(loginToevoen, true, login.getUsername(), login.getPassword());
+		return loginOphalen(login);
+	}
+
+	public static Login loginOphalen(Login login) {
+		String loginOphalen = "SELECT loginId FROM Login WHERE username LIKE '%" + login.getUsername() + "%'";
+		Map<Integer, Object[]> map = executeQuery(loginOphalen, false);
+		login.setLoginId((int) map.get(0)[0]);
+		return login;
+	}
+	public static Ticket ticketToevoegen(Ticket ticket){
+		String ticketToevoegen="INSERT INTO Ticket (medewerkerId , depZone , arrZone , verkoopStation , prijs , verkoopType , korting , klasse , aantal , verkoopDatum , heenDatum , terugDatum) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+		DateFormat date = new SimpleDateFormat("dd-MM-yyyy");
+		executeQuery(ticketToevoegen, true,
+				ticket.getMedewerkerId(),
+				ticket.getDepZone(),
+				ticket.getArrZone(),
+				ticket.getVerkoopStation(),
+				ticket.getPrijs(),
+				ticket.getVerkoop().toString(),
+				ticket.getKorting(),
+				ticket.getKlasse(),
+				ticket.getAantal(),
+				date.format(ticket.getVerkoopDatum()),
+				date.format(ticket.getHeenDatum()),
+				date.format(ticket.getTerugDatum()) 
+				);
+		return ticketOphalen(ticket);
+	}
+	public static Ticket ticketOphalen(Ticket ticket){
+		String ticketOphalen="SELECT  ticketId FROM  Ticket WHERE depZone LIKE '%"+ticket.getDepZone()+"%'";
+		Map<Integer, Object[]> map =executeQuery(ticketOphalen, false);
+		ticket.setAankoopId((int) map.get(0)[0]); 
+		return ticket;
+	}
 
 	public static Map<Integer, Object[]> executeQuery(String query, boolean update, Object... kolomWaarden) {
 		Map<Integer, Object[]> map = new HashMap<Integer, Object[]>();
