@@ -53,7 +53,7 @@ public static void TicketGenerator(Ticket ticket) {
 			
 		    document.add(image);
 			
-		    document.add(new Paragraph("Ticket nummer:  " + ticket.getAankoopId() + "\n\n",fonts[0]));
+		    //document.add(new Paragraph("Ticket nummer:  " + ticket.getAankoopId() + "\n\n",fonts[0]));
 			document.add(new Paragraph("GELDIG VOOR EEN REIS\n",fonts[1]));
 			if(ticket.getTerugDatum() == null){
 				document.add(new Paragraph("HEENREIS",fonts[1]));
