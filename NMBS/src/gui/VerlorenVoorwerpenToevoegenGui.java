@@ -77,8 +77,8 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel {
 		btnToevoegen.addActionListener(new MenuItemHandler());
 
 		JLabel label = DefaultComponentFactory.getInstance().createTitle("Verloren voorwerp toevoegen");
-		label.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		label.setForeground(Color.ORANGE);
+		label.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		label.setForeground(Color.WHITE);
 
 		stationLijst = new JComboBox();
 		ArrayList<Station> lijst = stationDAO.getAll();
@@ -162,6 +162,8 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel {
 						
 						vv = new VerlorenVoorwerp(-1, beschrijving, date, gevonden);
 						verlorenVoorwerpDAO.insertVerlorenVoorwerp(vv, stationDAO.checkStation(station));
+						JOptionPane.showMessageDialog(new JFrame(), "Verloren voorwerp toegevoegd!");
+						AdminGui.setHuidigeKeuze(new VerlorenVoorwerpenToevoegenGui());
 					}
 
 				else {

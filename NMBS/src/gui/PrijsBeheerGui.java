@@ -27,7 +27,6 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 import java.awt.Font;
 
 
-@SuppressWarnings("serial")
 public class PrijsBeheerGui extends JPanel {
 	private JButton btnBewerken;
 	private JList<Prijs> list;
