@@ -155,7 +155,7 @@ public class LoginGui {
 				Controller.offlineInterface.setHome();
 				
 				return;
-			}  
+			} 
 			if (e.getSource() == btnLogin || e.getSource() == txtPassword) {
 
 				String username = txtUsername.getText().trim();

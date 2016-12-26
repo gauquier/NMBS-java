@@ -8,6 +8,7 @@ public class VerlorenVoorwerp {
 	private int verlorenVoorwerpId;
 	private String beschrijving;
 	private Date date;
+	private String date2;
 	private boolean gevonden;
 
 	public VerlorenVoorwerp(int verlorenVoorwerpId, String beschrijving,Date date, boolean gevonden) {
@@ -17,6 +18,13 @@ public class VerlorenVoorwerp {
 		this.gevonden = gevonden;	
 	}
 	
+	protected String getDate2() {
+		return date2;
+	}
+
+	protected void setDate2(String date2) {
+		this.date2 = date2;
+	}
 
 	public int getVerlorenVoorwerpId() {
 		return verlorenVoorwerpId;
