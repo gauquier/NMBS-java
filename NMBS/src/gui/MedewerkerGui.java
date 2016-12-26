@@ -16,14 +16,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import handler.Controller;
-
 import dao.Connection;
-
 import java.awt.Toolkit;
-
 import javax.swing.UIManager;
-
-import com.apple.eawt.Application;
 
 public class MedewerkerGui  extends JFrame {
 	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.MedewerkerGui");

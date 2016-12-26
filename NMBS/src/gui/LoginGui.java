@@ -26,7 +26,6 @@ import source.Login;
 import source.Medewerker;
 import source.Rol;
 import javax.swing.UIManager;
-import com.apple.eawt.Application;
 
 import Hashing.DualHash;
 
@@ -134,7 +133,7 @@ public class LoginGui {
 
 	private class ButtonHandler implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-		/*	if (!(CheckIfConnected.checkIfConnected()))//als er geen internetverbinding is
+			if (!(CheckIfConnected.checkIfConnected()))//als er geen internetverbinding is
 			{
 				closeFrame();
 				JOptionPane.showMessageDialog(new JFrame(), bundle.getString("noInternet"));
@@ -156,7 +155,7 @@ public class LoginGui {
 				Controller.offlineInterface.setHome();
 				
 				return;
-			}  */
+			}  
 			if (e.getSource() == btnLogin || e.getSource() == txtPassword) {
 
 				String username = txtUsername.getText().trim();
