@@ -51,6 +51,9 @@ public class AbonnementDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}  
+		
+		
+		
 	  return resultaat;
       
     }
@@ -81,4 +84,7 @@ public class AbonnementDAO {
 		ResultSet rs = dba.commit();
 		
 	}
+    
+  
+	
 }
