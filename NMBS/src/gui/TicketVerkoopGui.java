@@ -35,7 +35,9 @@ import dao.StationDAO;
 import handler.VerkoopController;
 import javafx.scene.control.ComboBox;
 import source.Login;
+import source.Pdf;
 import source.Station;
+import source.StationCsv;
 import source.Ticket;
 import source.VerkoopType;
 import source.AutoComboBox;
@@ -78,6 +80,8 @@ public class TicketVerkoopGui extends JPanel {
 	private JComboBox<String> comboVerkoopType = new JComboBox<String>();
 	private AutoComboBox comboNaar = new AutoComboBox();
 	private AutoComboBox comboVan = new AutoComboBox();
+	
+	private JButton btnPdf;
 
 	private Ticket ticket = null;
 	private JTextField txtPrijs;
@@ -158,16 +162,22 @@ public class TicketVerkoopGui extends JPanel {
 		paneTickettenVerkocht.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		paneTickettenVerkocht.setBackground((UIManager.getColor("CheckBoxMenuItem.selectionBackground")));
 		paneTickettenVerkocht.setVisible(false);
-
+		
+		ArrayList<Station> stations;
+		
 		if (!isOffline) {
-			ArrayList<Station> stations = StationDAO.getAll();
-			ArrayList<String> stationNamen = new ArrayList<String>();
-			for(int i = 0; i < stations.size(); i++){
-				stationNamen.add(stations.get(i).getNaam());
-			}
-			comboNaar.setKeyWord(stationNamen);
-			comboVan.setKeyWord(stationNamen);
+			stations = StationDAO.getAll();
 		}
+		else {
+			stations = StationCsv.readCsv();
+		}
+		ArrayList<String> stationNamen = new ArrayList<String>();
+		
+		for(int i = 0; i < stations.size(); i++){
+			stationNamen.add(stations.get(i).getNaam());
+		}
+		comboNaar.setKeyWord(stationNamen);
+		comboVan.setKeyWord(stationNamen);
 
 		txtPrijs = new JTextField();
 		txtPrijs.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
@@ -182,6 +192,10 @@ public class TicketVerkoopGui extends JPanel {
 		
 		lblPrijs.setForeground(Color.WHITE);
 		
+		btnPdf = new JButton(bundle.getString("TicketVerkoopGui.btnPdf.text")); //$NON-NLS-1$
+		btnPdf.setFont(new Font("Dialog", Font.PLAIN, 20));
+		btnPdf.setVisible(false);
+		
 		
 
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -193,9 +207,9 @@ public class TicketVerkoopGui extends JPanel {
 							.addGap(77)
 							.addComponent(table, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(30)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(30)
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 										.addComponent(lblNaar)
 										.addComponent(lblVan)
@@ -204,15 +218,13 @@ public class TicketVerkoopGui extends JPanel {
 										.addComponent(lblPrijs)
 										.addComponent(lblDatum)
 										.addComponent(lblKlasse, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblAantal, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(48)
-									.addComponent(lblTicketVerkoop)))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(btnVerkoop)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblAantal, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(btnVerkoop)
+											.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+											.addComponent(btnPdf))
 										.addComponent(comboNaar, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
 										.addComponent(comboVan, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
 										.addGroup(groupLayout.createSequentialGroup()
@@ -239,9 +251,10 @@ public class TicketVerkoopGui extends JPanel {
 											.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
 												.addComponent(klasse, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 												.addComponent(aantal, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE))
-											.addPreferredGap(ComponentPlacement.RELATED)))
-									.addGap(175)
-									.addComponent(paneTickettenVerkocht, GroupLayout.PREFERRED_SIZE, 260, GroupLayout.PREFERRED_SIZE)))))
+											.addPreferredGap(ComponentPlacement.RELATED))))
+								.addComponent(lblTicketVerkoop))
+							.addGap(175)
+							.addComponent(paneTickettenVerkocht, GroupLayout.PREFERRED_SIZE, 260, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -298,11 +311,13 @@ public class TicketVerkoopGui extends JPanel {
 								.addComponent(lblPrijs)
 								.addComponent(txtPrijs, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGap(14)
-							.addComponent(btnVerkoop))
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnVerkoop)
+								.addComponent(btnPdf, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(28)
 							.addComponent(paneTickettenVerkocht, GroupLayout.PREFERRED_SIZE, 298, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(47, Short.MAX_VALUE))
+					.addContainerGap(19, Short.MAX_VALUE))
 		);
 		comboVan.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		comboNaar.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
@@ -315,7 +330,8 @@ public class TicketVerkoopGui extends JPanel {
 	public void setTicket(Ticket ticket){
 		this.ticket = ticket;
 	}
-	public void setTickettenVerkocht(boolean visible, Ticket ticket){
+	public void setTickettenVerkocht(boolean visible){
+		
 		paneTickettenVerkocht.setVisible(visible);
 
 		paneTickettenVerkocht.setText(aantal.getValue() + " " + bundle.getString("ticketsSold") +
@@ -327,6 +343,10 @@ public class TicketVerkoopGui extends JPanel {
 				"\n" + getSelectedButton() +
 				"\n" + bundle.getString("lblSoortBiljet") + " " +  comboVerkoopType.getSelectedItem() +
 				"\n" + bundle.getString("lblPrijs") + " " + ticket.getPrijs()*ticket.getAantal() + "");
+		btnPdf.setVisible(visible);
+		btnPdf.addActionListener(new PdfListener());
+		
+		
 	}
 	private String getSelectedButton(){if(buttonGroup.isSelected(rdbtnHeen.getModel())) return bundle.getString("rdbtnHeen"); else return bundle.getString("rdbtnHeenEnTerug");}
 	
@@ -435,5 +455,16 @@ public class TicketVerkoopGui extends JPanel {
 						VerkoopType.VerkoopTypeCasting((String) comboVerkoopType.getSelectedItem()))));
 			}
 		}
+	}
+	
+	class PdfListener implements ActionListener {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			Pdf.TicketGenerator(ticket);
+			
+		}
+		
 	}
 }
