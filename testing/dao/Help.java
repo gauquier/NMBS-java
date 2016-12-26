@@ -11,6 +11,7 @@ import source.Adres;
 import source.Persoon;
 import source.Prijs;
 import source.Rol;
+import source.Station;
 
 public class Help {
 	public static Persoon persoonToevoegen(Persoon persoon) {
@@ -75,11 +76,22 @@ public class Help {
 		return rol;
 	}
 	public static Rol rolToevoegen(Rol rol) {
-		String rolToevoegenQuery = "INSERT INTO Rol " + "(rol) " + "VALUES(?)"; 
+		String rolToevoegenQuery = "INSERT INTO Rol (rol) VALUES(?)"; 
 		executeQuery(rolToevoegenQuery, true, rol.getRol());
 		return rolOphalen(rol);
 	}
-
+	public static Station stationToevoegen(Station station){
+		String stationToevoegen = "INSERT INTO Station (naam) VALUES(?)"; 
+		executeQuery(stationToevoegen, true, station.getNaam());
+		return stationOphalen(station);
+	}
+public static Station stationOphalen(Station station){
+	String stationZoekenQuery = "SELECT stationId FROM Station WHERE naam = ?";
+	Map<Integer, Object[]> map = executeQuery(stationZoekenQuery, false, station.getNaam());
+	if (map.size() > 0)
+		station.setStationID((int) map.get(0)[0]);  
+	return station;
+}
 
 	public static Map<Integer, Object[]> executeQuery(String query, boolean update, Object... kolomWaarden) {
 		Map<Integer, Object[]> map = new HashMap<Integer, Object[]>();
