@@ -18,7 +18,8 @@ public class CheckIfConnected {
 			}
 			else
 			{
-				p1 = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.com");
+				//p1 = java.lang.Runtime.getRuntime().exec("ping -c 1 www.google.com");
+				p1 = java.lang.Runtime.getRuntime().exec("ping www.google.com");
 			}
 			int returnVal = p1.waitFor();
 			boolean reachable = (returnVal==0);
