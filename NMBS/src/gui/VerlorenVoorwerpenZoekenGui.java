@@ -11,6 +11,8 @@ import java.awt.Color;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
+
 import dao.StationDAO;
 import dao.VerlorenVoorwerpDAO;
 import source.Station;
@@ -27,6 +29,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 
 public class VerlorenVoorwerpenZoekenGui extends JPanel {
+	
+	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.VerlorenVoorwerpenZoekenGui");
+	
 	private JComboBox stationLijst;
 	private StationDAO stationDAO = new StationDAO();
 	private JButton btnBewerken;
@@ -42,11 +47,11 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 	public VerlorenVoorwerpenZoekenGui() {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
-		JLabel lblStation = new JLabel("Station");
+		JLabel lblStation = new JLabel(bundle.getString("lblStation"));
 		lblStation.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblStation.setForeground(Color.WHITE);
 		
-		JLabel lblVerlorenVoorwerpenZoeken = DefaultComponentFactory.getInstance().createTitle("Verloren voorwerpen zoeken");
+		JLabel lblVerlorenVoorwerpenZoeken = DefaultComponentFactory.getInstance().createTitle(bundle.getString("lblVerlorenVoorwerpenZoeken"));
 		lblVerlorenVoorwerpenZoeken.setForeground(Color.ORANGE);
 		lblVerlorenVoorwerpenZoeken.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
@@ -90,7 +95,7 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 			}
 		});
 		
-		btnBewerken = new JButton("Bewerken");
+		btnBewerken = new JButton(bundle.getString("btnBewerken"));
 		
 		
 

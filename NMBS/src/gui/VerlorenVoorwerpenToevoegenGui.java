@@ -32,6 +32,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.ResourceBundle;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
@@ -45,7 +46,9 @@ import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JCalendar;
 import source.Pdf;
 public class VerlorenVoorwerpenToevoegenGui extends JPanel {
-
+	
+	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.VerlorenVoorwerpenToevoegenGui");
+	
 	private JTextArea txtrBeschrijving;
 	private JButton btnToevoegen;
 	private JComboBox stationLijst;
@@ -62,21 +65,21 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel {
 		setDoubleBuffered(false);
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 
-		JLabel lblBeschrijving = new JLabel("Beschrijving");
+		JLabel lblBeschrijving = new JLabel(bundle.getString("lblBeschrijving"));
 		lblBeschrijving.setForeground(Color.WHITE);
 		txtrBeschrijving = new JTextArea();
 
-		JLabel lblStation = new JLabel("Station");
+		JLabel lblStation = new JLabel(bundle.getString("lblStation"));
 		lblStation.setForeground(Color.WHITE);
 
-		JLabel lblDatum = new JLabel("Datum");
+		JLabel lblDatum = new JLabel(bundle.getString("lblDatum"));
 		lblDatum.setForeground(Color.WHITE);
 
-		btnToevoegen = new JButton("Toevoegen");
+		btnToevoegen = new JButton(bundle.getString("btnToevoegen"));
 		btnToevoegen.setForeground(Color.BLACK);
 		btnToevoegen.addActionListener(new MenuItemHandler());
 
-		JLabel label = DefaultComponentFactory.getInstance().createTitle("Verloren voorwerp toevoegen");
+		JLabel label = DefaultComponentFactory.getInstance().createTitle(bundle.getString("label"));
 		label.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		label.setForeground(Color.ORANGE);
 
@@ -165,7 +168,7 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel {
 					}
 
 				else {
-					JOptionPane.showMessageDialog(new JFrame(), "Please fill in all required fields!");
+					JOptionPane.showMessageDialog(new JFrame(), bundle.getString("requiredFieldsWarning"));
 				}
 			}
 
