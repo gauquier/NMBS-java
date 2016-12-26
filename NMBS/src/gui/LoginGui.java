@@ -45,31 +45,28 @@ public class LoginGui {
 	public LoginGui() {
 		initialize();
 	}
-	
-	public static Login getLogin(){
+
+	public static Login getLogin() {
 		return login;
 	}
-	
+
 	public static void start() {
-		//v system look and feel (i.p.v. niet-zo-mooie java look and feel) Source: https://docs.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+		// v system look and feel (i.p.v. niet-zo-mooie java look and feel)
+		// Source:
+		// https://docs.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
 		try {
-            // Set System L&F
-        UIManager.setLookAndFeel(
-            UIManager.getSystemLookAndFeelClassName());
-	    } 
-	    catch (UnsupportedLookAndFeelException e) {
-	       // handle exception
-	    }
-	    catch (ClassNotFoundException e) {
-	       // handle exception
-	    }
-	    catch (InstantiationException e) {
-	       // handle exception
-	    }
-	    catch (IllegalAccessException e) {
-	       // handle exception
-	    }
-		//^ code system look and feel
+			// Set System L&F
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (UnsupportedLookAndFeelException e) {
+			// handle exception
+		} catch (ClassNotFoundException e) {
+			// handle exception
+		} catch (InstantiationException e) {
+			// handle exception
+		} catch (IllegalAccessException e) {
+			// handle exception
+		}
+		// ^ code system look and feel
 		window = new LoginGui();
 		window.frmNmbs.setVisible(true);
 	}
@@ -87,7 +84,7 @@ public class LoginGui {
 
 	private void initialize() {
 		bundle = ResourceBundle.getBundle("localization.LoginGui");
-		
+
 		frmNmbs = new JFrame();
 		frmNmbs.setIconImage(Toolkit.getDefaultToolkit().getImage("NMBS/lib/logo.png"));
 		frmNmbs.setTitle("NMBS");
@@ -133,36 +130,37 @@ public class LoginGui {
 
 	private class ButtonHandler implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			if (!(CheckIfConnected.checkIfConnected()))//als er geen internetverbinding is
+			if (!(CheckIfConnected.checkIfConnected()))// als er geen
+														// internetverbinding is
 			{
 				closeFrame();
 				JOptionPane.showMessageDialog(new JFrame(), bundle.getString("noInternet"));
-				
+
 				JOptionPane.showMessageDialog(new JFrame(), bundle.getString("offlineStart"));
-				
+
 				Controller.offlineInterface = new OfflineGui();
 				Controller.offlineInterface.setHome();
-				
+
 				return;
 			}
-			
+
 			if (!Connection.checkDBConnection()) {
 				JOptionPane.showMessageDialog(new JFrame(), bundle.getString("noDB"));
-				
+
 				JOptionPane.showMessageDialog(new JFrame(), bundle.getString("offlineStart"));
-				
+
 				Controller.offlineInterface = new OfflineGui();
 				Controller.offlineInterface.setHome();
-				
+
 				return;
-			} 
+			}
 			if (e.getSource() == btnLogin || e.getSource() == txtPassword) {
 
 				String username = txtUsername.getText().trim();
 				String password = new String(txtPassword.getPassword());
-				
+
 				String databaseUsername = LoginDao.getUserName(username);
-				
+
 				if (databaseUsername == null) {
 					JOptionPane.showMessageDialog(new JFrame(), bundle.getString("userNoAllow"));
 					return;
@@ -170,21 +168,22 @@ public class LoginGui {
 				if (databaseUsername != null) {
 					if (databaseUsername.equals(username)) {
 						String databasePassword = LoginDao.getWachtwoord(username);
-						if(databasePassword!= null){
+						if (databasePassword != null) {
 							try {
-								if(databasePassword.equals(DualHash.hashString(password))){
+								if (databasePassword.equals(DualHash.hashString(password))) {
 									int loginId = LoginDao.getLoginId(username);
-									if(LoginDao.getActief(loginId) == 1){
+									if (LoginDao.getActief(loginId) == 1) {
 										login = new Login(loginId, username, "");
 										Login.setCurrentUser(username);
 
 										closeFrame();
 										KiesStationGui.start();
-									}else{
-										JOptionPane.showMessageDialog(new JFrame(), bundle.getString("employeeNoAllow"));
+									} else {
+										JOptionPane.showMessageDialog(new JFrame(),
+												bundle.getString("employeeNoAllow"));
 									}
-									
-								}else {
+
+								} else {
 									JOptionPane.showMessageDialog(new JFrame(), bundle.getString("wrongCredentials"));
 								}
 							} catch (HeadlessException e1) {
@@ -194,7 +193,7 @@ public class LoginGui {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
-						}else {
+						} else {
 							JOptionPane.showMessageDialog(new JFrame(), bundle.getString("wrongCredentials"));
 						}
 					} else {

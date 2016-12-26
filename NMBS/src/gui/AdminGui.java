@@ -87,6 +87,7 @@ public class AdminGui extends JFrame {
 	public void setC(Container c) {
 		this.c = c;
 	}
+
 	public AdminGui() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("NMBS/lib/logo.png"));
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));

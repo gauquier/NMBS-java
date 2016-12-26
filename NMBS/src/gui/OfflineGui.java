@@ -3,6 +3,7 @@ package gui;
 
 import java.awt.ComponentOrientation;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -93,7 +94,9 @@ public class OfflineGui extends JFrame {
 	private void menuGUI() {
 		createMenu();
 		setTitle("NMBS");
-		setSize(800, 500);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		setSize(screenSize);
+		setMinimumSize(new Dimension(850, 550));
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setVisible(true);
@@ -101,12 +104,13 @@ public class OfflineGui extends JFrame {
 	
 	private void createMenu() {
 		menubar = new JMenuBar();
+		menubar.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		menubar.setForeground(Color.BLACK);
 		menubar.setBackground(Color.ORANGE);
 		home = new JMenuItem(bundle.getString("home"));
 
 		home.setHorizontalAlignment(SwingConstants.LEFT);
-		home.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		home.setFont(new Font("Dialog", Font.BOLD, 20));
 		home.setHorizontalTextPosition(SwingConstants.CENTER);;
 		home.setBackground(Color.ORANGE);
 		home.setOpaque(true);
@@ -114,22 +118,24 @@ public class OfflineGui extends JFrame {
 		
 		verkoop = new JMenu(bundle.getString("verkoop"));
 		verkoop.setHorizontalAlignment(SwingConstants.CENTER);
-		verkoop.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		verkoop.setFont(new Font("Dialog", Font.BOLD, 20));
 		verkoop.setBackground(Color.ORANGE);
 		verkoop.setOpaque(true);
 		
 		instellingen = new JMenu(bundle.getString("instellingen"));
 		instellingen.setHorizontalAlignment(SwingConstants.CENTER);
-		instellingen.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		instellingen.setFont(new Font("Dialog", Font.BOLD, 20));
 		instellingen.setBackground(Color.ORANGE);
 		instellingen.setOpaque(true);
 		
 		ticketVerkoop = new JMenuItem(bundle.getString("ticketVerkoop"));
+		ticketVerkoop.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		ticketVerkoop.setBackground(Color.WHITE);
 		ticketVerkoop.addActionListener(new MenuItemHandler());
 		verkoop.add(ticketVerkoop);
 		
 		uitloggen = new JMenuItem(bundle.getString("uitloggen"));
+		uitloggen.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		uitloggen.addActionListener(new MenuItemHandler());
 		instellingen.add(uitloggen);
 		
