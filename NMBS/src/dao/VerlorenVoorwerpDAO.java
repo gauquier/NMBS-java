@@ -63,6 +63,22 @@ public class VerlorenVoorwerpDAO {
 		}
 		return verlorenVoorwerp;
 	}
+	
+	private static Date formatDatum(String datum){
+		DateFormat formatter;
+		
+		formatter = new SimpleDateFormat("dd-MM-yyyy");
+		Date geformateerdeDatum = null;
+		try {
+			geformateerdeDatum = formatter.parse(datum);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return geformateerdeDatum;
+	}
+	
+	
 	public ArrayList<VerlorenVoorwerp> getVerlorenVoorwerpByStation(int stationId){
 		
 		dba.createSelect("VerlorenVoorwerp");
@@ -72,18 +88,18 @@ public class VerlorenVoorwerpDAO {
 		
 		try {
 			while(rs.next()){
-				Date datum = new Date();
+				/*Date datum = new Date();
 				DateFormat df = new SimpleDateFormat("dd-MM-YYYY");
-				datum = df.parse(rs.getString(4));
+				datum = df.parse(rs.getString(4));*/
 				arr.add(new VerlorenVoorwerp(rs.getInt(1), rs.getString(3), rs.getDate(4), rs.getBoolean(5)));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (ParseException e) {
+		} /*catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
 		
 		return arr;	
