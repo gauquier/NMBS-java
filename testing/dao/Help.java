@@ -17,6 +17,7 @@ import source.Prijs;
 import source.Rol;
 import source.Station;
 import source.Ticket;
+import source.VerlorenVoorwerp;
 
 public class Help {
 	public static Persoon persoonToevoegen(Persoon persoon) {
@@ -123,7 +124,7 @@ public class Help {
 	}
 
 	public static Login loginToevoegen(Login login) {
-		String loginToevoen = "INSERT INTO Login (username, pass) " + "VALUES(?,?)";
+		String loginToevoen = "INSERT INTO Login (username, pass) VALUES(?,?)";
 		executeQuery(loginToevoen, true, login.getUsername(), login.getPassword());
 		return loginOphalen(login);
 	}
@@ -158,6 +159,23 @@ public class Help {
 		Map<Integer, Object[]> map =executeQuery(ticketOphalen, false);
 		ticket.setAankoopId((int) map.get(0)[0]); 
 		return ticket;
+	}
+	public static VerlorenVoorwerp verlorenVoorwerpToevoegen(VerlorenVoorwerp verlorenVoorwerp, int stationId){
+		String verlorenVoorwerpToevoeen = "INSERT INTO VerlorenVoorwerp (stationId, beschrijving, datum, gevonden) VALUES(?,?,?,?)";
+		DateFormat date = new SimpleDateFormat("dd-MM-yyyy");
+		executeQuery(verlorenVoorwerpToevoeen, true, 
+				stationId,
+				verlorenVoorwerp.getBeschrijving(), 
+				date.format(verlorenVoorwerp.getDate()),
+				verlorenVoorwerp.getGevonden()?1:0 
+				);
+		return verlorenVoorwerpOphalen(verlorenVoorwerp);
+	}
+public static VerlorenVoorwerp verlorenVoorwerpOphalen(VerlorenVoorwerp verlorenVoorwerp){ 
+	String ticketOphalen="SELECT  verlorenVoorwerpId FROM  VerlorenVoorwerp WHERE beschrijving LIKE '%"+verlorenVoorwerp.getBeschrijving()+"%'";
+	Map<Integer, Object[]> map =executeQuery(ticketOphalen, false);
+	verlorenVoorwerp.setVerlorenVoorwerpId((int) map.get(0)[0]); 
+		return verlorenVoorwerp;
 	}
 
 	public static Map<Integer, Object[]> executeQuery(String query, boolean update, Object... kolomWaarden) {
