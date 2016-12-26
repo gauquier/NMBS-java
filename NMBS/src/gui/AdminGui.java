@@ -33,7 +33,7 @@ import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.UIManager;
 
-import com.apple.eawt.Application;
+//import com.apple.eawt.Application;
 
 import dao.AdresDAO;
 import dao.Connection;
@@ -91,7 +91,7 @@ public class AdminGui extends JFrame {
 	}
 	public AdminGui() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("NMBS/lib/logo.png"));
-		Application.getApplication().setDockIconImage(new ImageIcon("NMBS/lib/logo.png").getImage());
+		//Application.getApplication().setDockIconImage(new ImageIcon("NMBS/lib/logo.png").getImage());
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		this.setResizable(true);

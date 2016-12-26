@@ -32,7 +32,7 @@ import javax.swing.SwingConstants;
 import java.awt.Color;
 import javax.swing.UIManager;
 
-import com.apple.eawt.Application;
+//import com.apple.eawt.Application;
 
 /*import dao.AdresDAO;
 import dao.KlantDAO;

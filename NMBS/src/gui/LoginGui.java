@@ -26,7 +26,7 @@ import source.Login;
 import source.Medewerker;
 import source.Rol;
 import javax.swing.UIManager;
-import com.apple.eawt.Application;
+//import com.apple.eawt.Application;
 
 import Hashing.DualHash;
 

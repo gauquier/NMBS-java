@@ -23,7 +23,7 @@ import java.awt.Toolkit;
 
 import javax.swing.UIManager;
 
-import com.apple.eawt.Application;
+//import com.apple.eawt.Application;
 
 public class MedewerkerGui  extends JFrame {
 	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.MedewerkerGui");

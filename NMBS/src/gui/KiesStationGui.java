@@ -17,7 +17,7 @@ import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 
-import com.apple.eawt.Application;
+//import com.apple.eawt.Application;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import dao.LoginDao;
