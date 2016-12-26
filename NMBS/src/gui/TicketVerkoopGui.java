@@ -194,8 +194,8 @@ public class TicketVerkoopGui extends JPanel {
 		
 		btnPdf = new JButton(bundle.getString("TicketVerkoopGui.btnPdf.text")); //$NON-NLS-1$
 		btnPdf.setFont(new Font("Dialog", Font.PLAIN, 20));
+		btnPdf.addActionListener(new PdfListener());
 		btnPdf.setVisible(false);
-		
 		
 
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -344,7 +344,6 @@ public class TicketVerkoopGui extends JPanel {
 				"\n" + bundle.getString("lblSoortBiljet") + " " +  comboVerkoopType.getSelectedItem() +
 				"\n" + bundle.getString("lblPrijs") + " " + ticket.getPrijs()*ticket.getAantal() + "");
 		btnPdf.setVisible(visible);
-		btnPdf.addActionListener(new PdfListener());
 		
 		
 	}
@@ -462,6 +461,7 @@ public class TicketVerkoopGui extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
+			System.out.println("printed how many times?");
 			Pdf.TicketGenerator(ticket);
 			
 		}
