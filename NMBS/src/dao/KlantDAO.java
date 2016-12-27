@@ -35,6 +35,28 @@ public class KlantDAO {
 	
 	public static ArrayList<Klant> getAllKlanten(){
 		ArrayList<Klant> klanten = new ArrayList<Klant>();
+		String sql = "SELECT * FROM Klant k JOIN Persoon p ON k.persoonId = p.persoonId JOIN Adres a ON p.adresId = a.adresId WHERE actief = true";
+		java.sql.Connection conn = dao.Connection.getDBConnection();
+		Statement stmt;
+		ResultSet rs = null;
+		
+		try {
+			stmt = conn.prepareStatement(sql);
+			rs = stmt.executeQuery(sql);
+			
+			while(rs.next())
+			{
+				klanten.add(new Klant(rs.getInt(5), rs.getString(7), rs.getString(8), rs.getString(9), new Adres(rs.getInt(10), rs.getString(11),
+						rs.getInt(12), rs.getString(13), rs.getInt(14), rs.getString(15)), rs.getInt(1), rs.getString(3), rs.getBoolean(4)));
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return klanten;
+		/*
+		ArrayList<Klant> klanten = new ArrayList<Klant>();
 		Persoon persoon = null;
 		dba.createSelect("Klant");
 		dba.addWhere("actief", true);
@@ -52,6 +74,7 @@ public class KlantDAO {
 			e.printStackTrace();
 		}
 		return null;
+		*/
 	}
 	
 	public static void removeKlant(int id){
@@ -113,5 +136,4 @@ public static void bijwerkenKlant(int klantId, int persoonId, Persoon persoon, S
 	}
 	return null;
 	}
-
 }
