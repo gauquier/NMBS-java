@@ -51,14 +51,8 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel {
 	
 	private JTextArea txtrBeschrijving;
 	private JButton btnToevoegen;
-	private JComboBox stationLijst;
+	private JComboBox<Station> stationLijst;
 	private JDateChooser dateChooser;
-
-	private VerlorenVoorwerp verlorenVoorwerp;
-	private Station station;
-
-	private StationDAO stationDAO = new StationDAO();
-	private VerlorenVoorwerpDAO verlorenVoorwerpDAO = new VerlorenVoorwerpDAO();
 
 	public VerlorenVoorwerpenToevoegenGui() {
 		
@@ -88,9 +82,9 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel {
 		label.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		label.setForeground(Color.BLACK);
 
-		stationLijst = new JComboBox();
+		stationLijst = new JComboBox<Station>();
 		stationLijst.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		ArrayList<Station> lijst = stationDAO.getAll();
+		ArrayList<Station> lijst = StationDAO.getAll();
 		for (Station station : lijst) {
 			stationLijst.addItem(station);
 		}
@@ -162,16 +156,16 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel {
 			VerlorenVoorwerp vv;
 
 			if (e.getSource() == btnToevoegen) {
-				if (!txtrBeschrijving.getText().isEmpty() && dateChooser.getDate() != null /*&& !datum.isAfter(today)*/ ) 
+				if (!txtrBeschrijving.getText().isEmpty() && dateChooser.getDate() != null /*&& !datum.isAfter(today) mss niet langer dan een jaar terug*/ ) 
 					{
 						station = stationLijst.getSelectedItem().toString();
 						beschrijving = txtrBeschrijving.getText();
 						date = dateChooser.getDate();
 						
 						vv = new VerlorenVoorwerp(-1, beschrijving, date, gevonden);
-						verlorenVoorwerpDAO.insertVerlorenVoorwerp(vv, stationDAO.checkStation(station));
+						VerlorenVoorwerpDAO.insertVerlorenVoorwerp(vv, StationDAO.checkStation(station));
 						JOptionPane.showMessageDialog(new JFrame(), "Verloren voorwerp toegevoegd!");
-						AdminGui.setHuidigeKeuze(new VerlorenVoorwerpenToevoegenGui());
+						AdminGui.setHuidigeKeuze(new VerlorenVoorwerpenToevoegenGui());//reset functie van maken
 					}
 
 				else {

@@ -36,20 +36,16 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 	
 	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.VerlorenVoorwerpenZoekenGui");
 	
-	private JComboBox stationLijst;
+	private JComboBox<Station> stationLijst;
 	private StationDAO stationDAO = new StationDAO();
 	private JButton btnBewerken;
 	private JList<VerlorenVoorwerp> list;
 	
 	private VerlorenVoorwerpDAO verlorenVoorwerpDAO = new VerlorenVoorwerpDAO();
 	private ArrayList<VerlorenVoorwerp> arrayLijst;
-	private ArrayList<Object> objecten;
-	private DefaultListModel<VerlorenVoorwerp> dlm;
 	
 	String navigation;
-	
-	
-	
+
 	public VerlorenVoorwerpenZoekenGui() {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
@@ -61,15 +57,14 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 		lblVerlorenVoorwerpenZoeken.setForeground(Color.WHITE);
 		lblVerlorenVoorwerpenZoeken.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
-		stationLijst = new JComboBox();
-		ArrayList<Station> lijst = stationDAO.getAll();
+		stationLijst = new JComboBox<Station>();
+		ArrayList<Station> lijst = StationDAO.getAll();
 		for (Station station : lijst) {
 			stationLijst.addItem(station);
 		}
 		
 		
 		stationLijst.setSelectedIndex(0);//veranderen naar current user station id
-		arrayLijst= new ArrayList<VerlorenVoorwerp>();
 		arrayLijst = verlorenVoorwerpDAO.getVerlorenVoorwerpByStation(1);//veranderen naar current user station id
 		final DefaultListModel<VerlorenVoorwerp> dlm = new DefaultListModel<VerlorenVoorwerp>();
 		for(VerlorenVoorwerp v : arrayLijst){
@@ -89,7 +84,7 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 				list.removeAll();
 				
 				arrayLijst= new ArrayList<VerlorenVoorwerp>();
-				arrayLijst = verlorenVoorwerpDAO.getVerlorenVoorwerpByStation(stationDAO.checkStation(stationLijst.getSelectedItem().toString()));//veranderen naar current user station id
+				arrayLijst = verlorenVoorwerpDAO.getVerlorenVoorwerpByStation(StationDAO.checkStation(stationLijst.getSelectedItem().toString()));//veranderen naar current user station id
 				
 				
 				for(VerlorenVoorwerp v : arrayLijst){
@@ -155,9 +150,9 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 					JOptionPane.showMessageDialog(new JFrame(), "Er is geen verloren voorwerp aangeduid.");
 				} else {
 					 
-					verlorenVoorwerpDAO.verlorenVoowerpUpdate(verlorenVoorwerpDAO.getId(list.getSelectedValue()));
+					VerlorenVoorwerpDAO.verlorenVoowerpUpdate(VerlorenVoorwerpDAO.getId(list.getSelectedValue()));
 					JOptionPane.showMessageDialog(new JFrame(), "Verloren verwijdert");
-					AdminGui.setHuidigeKeuze(new VerlorenVoorwerpenZoekenGui());
+					AdminGui.setHuidigeKeuze(new VerlorenVoorwerpenZoekenGui());//reset zou beter zijn
 					
 
 				}
