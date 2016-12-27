@@ -18,6 +18,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import dao.*;
 import source.*;
+import source.AutoComboBox;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
