@@ -12,4 +12,5 @@ public class SHA512 {
        return new BigInteger(1,m.digest()).toString(16);
        
     }
+
 }

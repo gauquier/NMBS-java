@@ -19,14 +19,9 @@ import source.VerlorenVoorwerp;
 
 public class VerlorenVoorwerpDAO {
 
-	private DBA dba = new DBA();
-	private StationDAO stationDAO;
-	private static java.sql.Connection connection;
-	private static Statement command;
-	private static ResultSet data;
-	private static PreparedStatement stmt = null;
+	private static DBA dba = new DBA();
 	
-	public int insertVerlorenVoorwerp(VerlorenVoorwerp verlorenVoorwerp, int stationId){
+	public static int insertVerlorenVoorwerp(VerlorenVoorwerp verlorenVoorwerp, int stationId){
 		if(getId(verlorenVoorwerp) == 0)
 		{
 			dba.createInsert("VerlorenVoorwerp");
@@ -39,7 +34,7 @@ public class VerlorenVoorwerpDAO {
 		return getId(verlorenVoorwerp);
 	}
 	
-	public int getId(VerlorenVoorwerp vv){
+	public static int getId(VerlorenVoorwerp vv){
 		
 		dba.createSelect("VerlorenVoorwerp", "verlorenVoorwerpId");
 		dba.addWhere("beschrijving", vv.getBeschrijving());
@@ -57,7 +52,7 @@ public class VerlorenVoorwerpDAO {
 	}
 	
 	
-	public VerlorenVoorwerp getVerlorenVoorwerp(int id){
+	public static VerlorenVoorwerp getVerlorenVoorwerp(int id){
 		VerlorenVoorwerp verlorenVoorwerp = null;
 		dba.createSelect("VerlorenVoorwerp");
 		dba.addWhere("verlorenVoorwerpId", id);
@@ -88,7 +83,7 @@ public class VerlorenVoorwerpDAO {
 	}
 	
 	
-	public ArrayList<VerlorenVoorwerp> getVerlorenVoorwerpByStation(int stationId){
+	public static ArrayList<VerlorenVoorwerp> getVerlorenVoorwerpByStation(int stationId){
 		
 		dba.createSelect("VerlorenVoorwerp");
 		dba.addWhere("stationId", stationId);
@@ -112,7 +107,7 @@ public class VerlorenVoorwerpDAO {
 		return arr;	
 	}
 	
-	public void verlorenVoowerpUpdate(int verlorenVoorwerpId) {
+	public static void verlorenVoowerpUpdate(int verlorenVoorwerpId) {
 		dba.createUpdate("VerlorenVoorwerp", "gevonden", 1);
 		dba.addWhere("verlorenVoorwerpId", verlorenVoorwerpId);
 		dba.commit();

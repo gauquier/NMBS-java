@@ -1,6 +1,6 @@
 package source;
-
 import java.util.Date;
+
 
 public class Periode {
 	private int periodeId;
@@ -9,7 +9,7 @@ public class Periode {
 	private Date verkoopdatum;
 	private int medewerkerId;
 	private Abonnement abonnement;
-
+	
 	public Periode(int periodeId, Date startDate, Date endDate, Date verkoopdatum) {
 		super();
 		this.periodeId = periodeId;
@@ -19,8 +19,8 @@ public class Periode {
 
 	}
 
-	public Periode(int periodeId, Abonnement abonnement, int medewerkerId, Date startDate, Date endDate,
-			Date verkoopdatum) {
+
+	public Periode(int periodeId, Abonnement abonnement, int medewerkerId, Date startDate, Date endDate, Date verkoopdatum) {
 		super();
 		this.periodeId = periodeId;
 		this.startDate = startDate;
@@ -30,10 +30,13 @@ public class Periode {
 		this.abonnement = abonnement;
 	}
 
+	
+	
 	public Periode(int periodeId, Date endDate) {
 		this.periodeId = periodeId;
-		this.endDate = endDate;
+		this.endDate=endDate;
 	}
+
 
 	public int getPeriodeId() {
 		return periodeId;
@@ -66,13 +69,17 @@ public class Periode {
 	public void setVerkoopdatum(Date verkoopdatum) {
 		this.verkoopdatum = verkoopdatum;
 	}
-	
+
 
 	public int getMedewerkerId() {
 		return medewerkerId;
 	}
 
+
 	public void setMedewerkerId(int medewerkerId) {
 		this.medewerkerId = medewerkerId;
 	}
+	
+	
+	
 }

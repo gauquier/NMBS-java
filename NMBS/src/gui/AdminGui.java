@@ -89,7 +89,9 @@ public class AdminGui extends JFrame {
 	}
 
 	public AdminGui() {
+
 		setIconImage(Toolkit.getDefaultToolkit().getImage("NMBS/lib/logo.png"));
+
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		this.setResizable(true);
@@ -288,7 +290,7 @@ public class AdminGui extends JFrame {
 				setHuidigeKeuze(new WachtwoordVeranderenGui());
 			}
 			else if (e.getSource() == abonnementBeheer){
-				setHuidigeKeuze(new AbonnementBeheerGui());
+			setHuidigeKeuze(new AbonnementBeheerGui());
 			}
 		
 		}
