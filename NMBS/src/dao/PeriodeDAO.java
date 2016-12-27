@@ -62,7 +62,7 @@ private static DBA dba = new DBA();
 		ResultSet rs = dba.commit();
 		try {
 			if(rs.next()){
-				return new Periode(rs.getInt(1), abonnement, rs.getInt(3), formatDatum(rs.getString(4)), formatDatum(rs.getString(5)), formatDatum(rs.getString(6)) );
+				return new Periode(rs.getInt(1), rs.getInt(3), formatDatum(rs.getString(4)), formatDatum(rs.getString(5)), formatDatum(rs.getString(6)) );
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

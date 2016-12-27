@@ -8,7 +8,6 @@ public class Periode {
 	private Date endDate;
 	private Date verkoopdatum;
 	private int medewerkerId;
-	private Abonnement abonnement;
 	
 	public Periode(int periodeId, Date startDate, Date endDate, Date verkoopdatum) {
 		super();
@@ -20,14 +19,14 @@ public class Periode {
 	}
 
 
-	public Periode(int periodeId, Abonnement abonnement, int medewerkerId, Date startDate, Date endDate, Date verkoopdatum) {
+	public Periode(int periodeId, int medewerkerId, Date startDate, Date endDate, Date verkoopdatum) {
 		super();
 		this.periodeId = periodeId;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.verkoopdatum = verkoopdatum;
 		this.medewerkerId = medewerkerId;
-		this.abonnement = abonnement;
+		//this.abonnement = abonnement;
 	}
 
 	

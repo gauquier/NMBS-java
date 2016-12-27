@@ -41,7 +41,6 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 	private JButton btnBewerken;
 	private JList<VerlorenVoorwerp> list;
 	
-	private VerlorenVoorwerpDAO verlorenVoorwerpDAO = new VerlorenVoorwerpDAO();
 	private ArrayList<VerlorenVoorwerp> arrayLijst;
 	
 	String navigation;
@@ -65,7 +64,7 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 		
 		
 		stationLijst.setSelectedIndex(0);//veranderen naar current user station id
-		arrayLijst = verlorenVoorwerpDAO.getVerlorenVoorwerpByStation(1);//veranderen naar current user station id
+		arrayLijst = VerlorenVoorwerpDAO.getVerlorenVoorwerpByStation(1);//veranderen naar current user station id
 		final DefaultListModel<VerlorenVoorwerp> dlm = new DefaultListModel<VerlorenVoorwerp>();
 		for(VerlorenVoorwerp v : arrayLijst){
 			dlm.addElement(v);
@@ -84,7 +83,7 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 				list.removeAll();
 				
 				arrayLijst= new ArrayList<VerlorenVoorwerp>();
-				arrayLijst = verlorenVoorwerpDAO.getVerlorenVoorwerpByStation(StationDAO.checkStation(stationLijst.getSelectedItem().toString()));//veranderen naar current user station id
+				arrayLijst = VerlorenVoorwerpDAO.getVerlorenVoorwerpByStation(StationDAO.checkStation(stationLijst.getSelectedItem().toString()));//veranderen naar current user station id
 				
 				
 				for(VerlorenVoorwerp v : arrayLijst){

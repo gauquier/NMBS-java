@@ -19,6 +19,10 @@ public class Login {
 		Login.currentUser = currentUser;
 	}
 	
+	@Override
+	public String toString() {
+		return "Login [loginId=" + loginId + ", username=" + username + ", password=" + password + "]";
+	}
 	public Login(String currentUser ) {
 		this.currentUser = currentUser;
 	}

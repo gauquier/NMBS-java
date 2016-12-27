@@ -40,6 +40,16 @@ public class Abonnement extends Aankoop {
 		this.abonnementId = abonnementId;
 		this.p=PeriodeDAO.getPeriode(this);
 	}
+	public Abonnement(int abonnementId, Klant klant, String depZone, String arrZone , double prijs ,  VerkoopType verkoop,double korting 
+			, Periode periode, boolean actief) {
+		super(korting, prijs, verkoop);
+		this.klant = klant;
+		this.depZone = depZone;
+		this.arrZone = arrZone;
+		this.actief = actief;
+		this.abonnementId = abonnementId;
+		this.p=periode;
+	}
 	
 	public Periode getP() {
 		return p;

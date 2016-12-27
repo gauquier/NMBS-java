@@ -192,5 +192,10 @@ public class Medewerker extends Persoon {
 	{
 		return getVoornaam() + " " + getAchternaam() + " (" + getRol().getRol() +")";
 	}
+	public String test(){
+		return medewerkerId + ": (" + login.toString() + ") + (" + rol.toString() + ") + ("
+				+ "voornaam=" + getVoornaam() + ", achternaam=" + getAchternaam() + ", email="
+						+ getEmail() + ", adres=" + getAdres().toString() + "])!!!";
+	}
 
 }
