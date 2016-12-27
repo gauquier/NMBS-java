@@ -19,11 +19,15 @@ import source.Station;
 import source.VerlorenVoorwerp;
 
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+
 import java.awt.SystemColor;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
@@ -41,6 +45,8 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 	private ArrayList<VerlorenVoorwerp> arrayLijst;
 	private ArrayList<Object> objecten;
 	private DefaultListModel<VerlorenVoorwerp> dlm;
+	
+	String navigation;
 	
 	
 	
@@ -79,8 +85,8 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 			public void itemStateChanged(ItemEvent e) {
 				
 				arrayLijst.clear();
-				
 				dlm.removeAllElements();
+				list.removeAll();
 				
 				arrayLijst= new ArrayList<VerlorenVoorwerp>();
 				arrayLijst = verlorenVoorwerpDAO.getVerlorenVoorwerpByStation(stationDAO.checkStation(stationLijst.getSelectedItem().toString()));//veranderen naar current user station id
@@ -95,47 +101,68 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 			}
 		});
 		
+
 		btnBewerken = new JButton(bundle.getString("btnBewerken"));
-		
-		
+		btnBewerken.addActionListener(new MenuItemHandler());
 
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(251)
-					.addComponent(lblVerlorenVoorwerpenZoeken, GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
-					.addGap(255))
-				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(42)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(list, GroupLayout.PREFERRED_SIZE, 701, GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblStation)
-							.addGap(30)
-							.addComponent(stationLijst, GroupLayout.PREFERRED_SIZE, 302, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnBewerken, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(35, Short.MAX_VALUE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblVerlorenVoorwerpenZoeken, GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
+						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+							.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+								.addComponent(lblStation)
+								.addGap(32)
+								.addComponent(stationLijst, GroupLayout.PREFERRED_SIZE, 302, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnBewerken, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE))
+							.addComponent(list, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 701, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(30)
+					.addGap(33)
 					.addComponent(lblVerlorenVoorwerpenZoeken)
-					.addGap(21)
+					.addGap(27)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(stationLijst, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblStation)
 						.addComponent(btnBewerken))
-					.addGap(36)
+					.addGap(30)
 					.addComponent(list, GroupLayout.PREFERRED_SIZE, 237, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(340, Short.MAX_VALUE))
+					.addContainerGap(334, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 	}
 	public void close()
 	{
 		this.setVisible(false);
+	}
+	
+
+	private class MenuItemHandler implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+
+			if (e.getSource() == btnBewerken) {
+
+				if (list.getSelectedValue() == null) {
+					JOptionPane.showMessageDialog(new JFrame(), "Er is geen verloren voorwerp aangeduid.");
+				} else {
+					 
+					verlorenVoorwerpDAO.verlorenVoowerpUpdate(verlorenVoorwerpDAO.getId(list.getSelectedValue()));
+					JOptionPane.showMessageDialog(new JFrame(), "Verloren verwijdert");
+					AdminGui.setHuidigeKeuze(new VerlorenVoorwerpenZoekenGui());
+					
+
+				}
+			}
+
+		}
 	}
 }

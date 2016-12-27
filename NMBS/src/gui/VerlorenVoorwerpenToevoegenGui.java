@@ -170,6 +170,8 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel {
 						
 						vv = new VerlorenVoorwerp(-1, beschrijving, date, gevonden);
 						verlorenVoorwerpDAO.insertVerlorenVoorwerp(vv, stationDAO.checkStation(station));
+						JOptionPane.showMessageDialog(new JFrame(), "Verloren voorwerp toegevoegd!");
+						AdminGui.setHuidigeKeuze(new VerlorenVoorwerpenToevoegenGui());
 					}
 
 				else {
