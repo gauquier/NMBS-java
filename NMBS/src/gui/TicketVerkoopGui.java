@@ -1,5 +1,6 @@
 package gui;
 
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ButtonModel;
 import javax.swing.GroupLayout;
@@ -10,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerModel;
+import javax.swing.border.Border;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JButton;
@@ -85,6 +87,8 @@ public class TicketVerkoopGui extends JPanel {
 	private AutoComboBox comboVan = new AutoComboBox();
 	
 	private JButton btnPdf;
+	private Border border = BorderFactory.createEmptyBorder();
+	private Border borderError = BorderFactory.createLineBorder(Color.RED, 3);
 
 	private Ticket ticket = null;
 	private JTextField txtPrijs;
@@ -352,43 +356,66 @@ public class TicketVerkoopGui extends JPanel {
 	}
 	private String getSelectedButton(){if(buttonGroup.isSelected(rdbtnHeen.getModel())) return bundle.getString("rdbtnHeen"); else return bundle.getString("rdbtnHeenEnTerug");}
 	
-	public void setColor(boolean depZone, boolean arrZone, boolean klasse, boolean aantal, boolean heenDatum, boolean terugDatum){
+	public void setColor(boolean depZone, boolean arrZone, boolean klasse, boolean aantal, boolean heenDatum, boolean terugDatum, boolean prijs){
+		String errorText = "de volgende velden zijn niet correct ingevuld:";
 		if(depZone){
-			lblVan.setForeground(Color.WHITE);
+			comboVan.setBorder(border);
 		}
 		else{
-			lblVan.setForeground(Color.RED);
+			comboVan.setBorder(borderError);
+			errorText = errorText + "\nstart station";
 		}
 		if(arrZone){
-			lblNaar.setForeground(Color.WHITE);
+			comboNaar.setBorder(border);
 		}
 		else{
-			lblNaar.setForeground(Color.RED);
+			comboNaar.setBorder(borderError);
+			errorText = errorText + "\neind station";
 		}
 		if(klasse){
-			lblKlasse.setForeground(Color.WHITE);
+			this.klasse.setBorder(border);
 		}
 		else{
-			lblKlasse.setForeground(Color.RED);
+			this.klasse.setBorder(borderError);
+			errorText = errorText + "\nklasse";
 		}
 		if(aantal){
-			lblAantal.setForeground(Color.WHITE);
+			this.aantal.setBorder(border);
 		}
 		else{
-			lblAantal.setForeground(Color.RED);
+			this.aantal.setBorder(borderError);
+			errorText = errorText + "\naantal";
 		}
 		if(heenDatum){
-			lblDatum.setForeground(Color.WHITE);
+			heenDag.setBorder(border);
+			heenMaand.setBorder(border);
+			heenJaar.setBorder(border);
 		}
 		else{
-			lblDatum.setForeground(Color.RED);
+			heenDag.setBorder(borderError);
+			heenMaand.setBorder(borderError);
+			heenJaar.setBorder(borderError);
+			errorText = errorText + "\nheen datum";
 		}
 		if(terugDatum){
-			lblTerugDatum.setForeground(Color.WHITE);
+			terugDag.setBorder(border);
+			terugMaand.setBorder(border);
+			terugJaar.setBorder(border);
 		}
 		else{
-			lblTerugDatum.setForeground(Color.RED);
+			terugDag.setBorder(borderError);
+			terugMaand.setBorder(borderError);
+			terugJaar.setBorder(borderError);
+			errorText = errorText + "\nterug datum";
 		}
+		if(prijs){
+			txtPrijs.setBorder(border);
+		}else{
+			txtPrijs.setBorder(borderError);
+			errorText = errorText + "\nprijs";
+		}
+		if(errorText != "de volgende velden zijn niet correct ingevuld:")
+			JOptionPane.showMessageDialog(new JFrame(), errorText);
 	}
 
 	class ButtonHandler implements ActionListener {
@@ -403,29 +430,20 @@ public class TicketVerkoopGui extends JPanel {
 
 		    if (e.getSource() == btnVerkoop) {
 				if (txtPrijs.getText().isEmpty() || comboNaar.getSelectedItem() == null || comboVan.getSelectedItem() == null ) {
-					JOptionPane.showMessageDialog(new JFrame(), "Vul alle velden in!");
+					//JOptionPane.showMessageDialog(new JFrame(), "Vul alle velden in!");
 				} else {
-					if(comboNaar.getSelectedItem() == comboVan.getSelectedItem() )
-					{
-						JOptionPane.showMessageDialog(new JFrame(), "Van en naar kunnen niet hetzelfde zijn!");
-					}
-					else
-					{
-						if (!isOffline) {
-							
-							 ticket = new Ticket(0, MedewerkerDAO.getMedewerkerIdByUsername(Login.getCurrentUser()),(String) comboVan.getSelectedItem(), (String) comboNaar.getSelectedItem(), StationDAO.checkStation(Station.getCurrentStation()), Double.parseDouble(txtPrijs.getText()),VerkoopType.VerkoopTypeCasting((String) comboVerkoopType.getSelectedItem()), 0, (int)klasse.getValue(), (int)aantal.getValue()
-							,Calendar.getInstance().getTime(), converter((int) heenDag.getValue(),(int) heenMaand.getValue(), (int)heenJaar.getValue()),converter((int) terugDag.getValue(), (int) terugMaand.getValue(), (int) terugJaar.getValue()) );
-						VerkoopController.ticketValidate(ticket, TicketVerkoopGui.this, isOffline);
-							
-						}
-						else {
-							ticket = new Ticket(0, 0,(String) comboVan.getSelectedItem(), (String) comboNaar.getSelectedItem(), 0, Double.parseDouble(txtPrijs.getText()),VerkoopType.VerkoopTypeCasting((String) comboVerkoopType.getSelectedItem()), 0, (int)klasse.getValue(), (int)aantal.getValue()
-									,Calendar.getInstance().getTime(), converter((int) heenDag.getValue(),(int) heenMaand.getValue(), (int)heenJaar.getValue()),converter((int) terugDag.getValue(), (int) terugMaand.getValue(), (int) terugJaar.getValue()) );
-								VerkoopController.ticketValidate(ticket, TicketVerkoopGui.this, isOffline);
-						}
-						VerkoopController.ticketValidate(ticket, TicketVerkoopGui.this, isOffline);
-					}
+
+					if (!isOffline) {
+						
+						 ticket = new Ticket(0, MedewerkerDAO.getMedewerkerIdByUsername(Login.getCurrentUser()),(String) comboVan.getSelectedItem(), (String) comboNaar.getSelectedItem(), StationDAO.checkStation(Station.getCurrentStation()), Double.parseDouble(txtPrijs.getText()),VerkoopType.VerkoopTypeCasting((String) comboVerkoopType.getSelectedItem()), 0, (int)klasse.getValue(), (int)aantal.getValue()
+						,Calendar.getInstance().getTime(), converter((int) heenDag.getValue(),(int) heenMaand.getValue(), (int)heenJaar.getValue()),converter((int) terugDag.getValue(), (int) terugMaand.getValue(), (int) terugJaar.getValue()) );
+
+					else {
+						ticket = new Ticket(0, 0,(String) comboVan.getSelectedItem(), (String) comboNaar.getSelectedItem(), 0, Double.parseDouble(txtPrijs.getText()),VerkoopType.VerkoopTypeCasting((String) comboVerkoopType.getSelectedItem()), 0, (int)klasse.getValue(), (int)aantal.getValue()
+								,Calendar.getInstance().getTime(), converter((int) heenDag.getValue(),(int) heenMaand.getValue(), (int)heenJaar.getValue()),converter((int) terugDag.getValue(), (int) terugMaand.getValue(), (int) terugJaar.getValue()) );
 				}
+				VerkoopController.ticketValidate(ticket, TicketVerkoopGui.this, isOffline);
+				
 			}
 		}
 		private Date converter(int dag, int maand, int jaar){

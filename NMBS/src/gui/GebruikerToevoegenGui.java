@@ -59,7 +59,6 @@ public class GebruikerToevoegenGui extends JPanel {
 	private LoginDao loginDao = new LoginDao();
 	private Persoon persoon;
 	private Rol rol;
-	private List<Persoon> mijnpersonen;
 	private ButtonGroup radiobuttons;
 	private JRadioButton rbtnAdmin;
 	private JRadioButton rbtnUser;
