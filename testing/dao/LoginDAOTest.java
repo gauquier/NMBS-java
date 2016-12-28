@@ -147,7 +147,7 @@ public class LoginDAOTest {
 	@Test
 	public void testUpdateWachtwoordWhere() {
 		Login loginVanUitDB = loginToevoegen(login);
-		String ww = "testUpdadeWachtwoordLoginDAOTest";
+		String ww = "testUpdateWachtwoordLoginDAOTest";
 		LoginDao.updateWachtwoordWhere(loginVanUitDB.getLoginId(), ww);
 		loginVanUitDB = loginOphalen(login);
 		assertEquals(ww, loginVanUitDB.getPassword());

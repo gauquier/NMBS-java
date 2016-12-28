@@ -114,4 +114,17 @@ public class Ticket extends Aankoop {
 	public void setVerkoopStation(int verkoopStation) {
 		this.verkoopStation = verkoopStation;
 	}
+
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return super.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return super.equals(obj);
+	}
+	
 }

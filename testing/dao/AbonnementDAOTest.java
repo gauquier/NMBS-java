@@ -46,10 +46,7 @@ public class AbonnementDAOTest {
 		verwijderAdres(bestaandeKlantAdres);  
 	}
 	@Test
-	public void testAddAbonnement() {
-		//even wqchten o updqte
-		fail(); 
-		//error No enum constant source.VerkoopType.1
+	public void testAddAbonnement() { 
 		AbonnementDAO.addAbonnement(abonnement);
 		assertEquals(abonnement, abonnementOphalen(abonnement)); 
 	} 

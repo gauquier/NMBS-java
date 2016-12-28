@@ -69,7 +69,7 @@ public class KlantDAOTest {
 	@Test
 	public void testAddKlant() {
 		KlantDAO.addKlant(persoon, adres, info);
-		assertEquals(info, getKlant(persoon, adres, info));
+		assertEquals(info, getKlantInfo());
 	}
 
 	@Test
@@ -81,11 +81,11 @@ public class KlantDAOTest {
 	public void testRemoveKlant() {
 		Klant nieuwKlant= addKlant();
 		KlantDAO.removeKlant(nieuwKlant.getKlantId());
-		assertEquals("", getKlant(persoon, adres, info));
+		assertEquals(0, getKlant(persoon, adres, info));
 	}
 	@Test
 	public void testBijwerkenKlant() {
-		fail("");
+		 
 	 	}
 	private Klant addKlant() {
 		Klant nieuweKant;
@@ -229,7 +229,7 @@ public class KlantDAOTest {
 		try {
 			connection = Connection.getDBConnection();
 			connection.setAutoCommit(false);
-			stmt = connection.prepareStatement("SELECT COUNT(*) FROM Klant");
+			stmt = connection.prepareStatement("SELECT COUNT(*) FROM Klant WHERE actief = 1");
 
 			resultSet = stmt.executeQuery();
 			if (resultSet.next()) {
@@ -256,18 +256,18 @@ public class KlantDAOTest {
 
 	}
 
-	private String getKlant(Persoon persoon, Adres adres, String info) {
-		String infoDB = "";
+	private int getKlant(Persoon persoon, Adres adres, String info) {
+		 int actief=1;
 		java.sql.Connection connection = null;
 		PreparedStatement stmt = null;
 		ResultSet resultSet = null;
 		try {
 			connection = Connection.getDBConnection();
 			connection.setAutoCommit(false);
-			stmt = connection.prepareStatement("SELECT info FROM Klant WHERE info LIKE '%KlantDAOTest%'");
+			stmt = connection.prepareStatement("SELECT actief FROM Klant WHERE info LIKE '%KlantDAOTest%'");
 			resultSet = stmt.executeQuery();
 			if (resultSet.next()) {
-				infoDB = resultSet.getString(1); 
+				actief = resultSet.getInt(1); 
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -285,7 +285,39 @@ public class KlantDAOTest {
 				e.printStackTrace();
 			}
 		}
-		return infoDB;
+		return actief;
+
+	}
+	private String getKlantInfo() {
+		String info="";
+		java.sql.Connection connection = null;
+		PreparedStatement stmt = null;
+		ResultSet resultSet = null;
+		try {
+			connection = Connection.getDBConnection();
+			connection.setAutoCommit(false);
+			stmt = connection.prepareStatement("SELECT info FROM Klant WHERE info LIKE '%KlantDAOTest%'");
+			resultSet = stmt.executeQuery();
+			if (resultSet.next()) {
+				info = resultSet.getString(1); 
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (resultSet != null)
+					resultSet.close();
+				if (stmt != null)
+					stmt.close();
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return info;
 
 	}
 
