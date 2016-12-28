@@ -1,7 +1,11 @@
 package handler;
 
+import java.sql.Array;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Arrays;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -60,7 +64,7 @@ public class VerkoopController {
 		else{
 			heenDatum = false;
 		}
-		if(Integer.parseInt(compareFormat.format(ticket.getTerugDatum())) >= Integer.parseInt(compareFormat.format(new Date()))){
+		if(Integer.parseInt(compareFormat.format(ticket.getTerugDatum())) >= Integer.parseInt(compareFormat.format(ticket.getHeenDatum())) && Integer.parseInt(compareFormat.format(ticket.getTerugDatum())) >= Integer.parseInt(compareFormat.format(new Date()))){
 			terugDatum = true;
 		}
 		else{
@@ -97,7 +101,32 @@ public class VerkoopController {
 			
 		}		
 	}
-	
+	/*
+	private static boolean isDate(Date date){
+		DateFormat month = new SimpleDateFormat("MM");
+		DateFormat day = new SimpleDateFormat("dd");
+		ArrayList<Integer> month31 = new ArrayList<>(Arrays.asList(1,3,5,7,8,10,12));
+		ArrayList<Integer> month30 = new ArrayList<>(Arrays.asList(4,6,9,11));
+		int month28 = 2;
+		
+		if(Integer.parseInt(day.format(date)) > 31 || Integer.parseInt(day.format(date)) < 1 || Integer.parseInt(month.format(date)) > 12 || Integer.parseInt(month.format(date)) < 1){
+			return false;
+		}
+		if(month31.contains(Integer.parseInt(month.format(date)))){
+			System.out.println("month31" + day.format(date) + month.format(date));
+			return true;
+		}
+		if(month30.contains(Integer.parseInt(month.format(date))) && Integer.parseInt(day.format(date)) < 30){
+			System.out.println("month30" + day.format(date) + month.format(date));
+			return true;
+		}
+		if(Integer.parseInt(month.format(date)) == month28 && Integer.parseInt(day.format(date)) < 28){
+			System.out.println("month28" + day.format(date) + month.format(date));
+			return true;
+		}
+		return false;
+	}
+	*/
 	/*
 	private void ticketVerkoop(){
 		boolean depZone = false, arrZone = false, klasse = false, aantal = false, heenDatum = false, terugDatum = false;

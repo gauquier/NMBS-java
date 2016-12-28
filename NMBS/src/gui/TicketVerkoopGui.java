@@ -1,6 +1,7 @@
 package gui;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ButtonModel;
 import javax.swing.GroupLayout;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
+import com.toedter.calendar.JDateChooser;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
@@ -50,6 +52,8 @@ import javax.swing.JTextPane;
 import javax.swing.JTable;
 import javax.swing.JSpinner;
 import java.awt.Font;
+import java.awt.GridLayout;
+
 import javax.swing.SpinnerNumberModel;
 
 @SuppressWarnings("serial")
@@ -57,12 +61,10 @@ public class TicketVerkoopGui extends JPanel {
 	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.TicketVerkoopGui");
 	
 	private JTable table;
-	private JSpinner heenDag = new JSpinner();
-	private JSpinner heenMaand = new JSpinner();
-	private JSpinner heenJaar = new JSpinner();
-	private JSpinner terugDag = new JSpinner();
-	private JSpinner terugMaand = new JSpinner();
-	private JSpinner terugJaar = new JSpinner();
+	
+	JDateChooser heenDatum = new JDateChooser(new Date());
+	JDateChooser terugDatum = new JDateChooser(new Date());
+
 	
 	private SpinnerModel klas = new SpinnerNumberModel(2, 1, 2, 1);
 	private JSpinner klasse = new JSpinner(klas);
@@ -96,7 +98,7 @@ public class TicketVerkoopGui extends JPanel {
 
 	public TicketVerkoopGui(boolean isOffline) {
 		this.setVisible(true);
-		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
+		setBackground(new Color(51, 153, 255));
 		lblVan.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 
 		lblVan.setForeground(Color.WHITE);
@@ -142,19 +144,6 @@ public class TicketVerkoopGui extends JPanel {
 		SimpleDateFormat dagFormat = new SimpleDateFormat("dd");
 		SimpleDateFormat maandFormat = new SimpleDateFormat("MM");
 		SimpleDateFormat jaarFormat = new SimpleDateFormat("yyyy");
-		heenDag.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-
-		heenDag.setValue(Integer.parseInt(dagFormat.format(new Date())));
-		heenMaand.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		heenMaand.setValue(Integer.parseInt(maandFormat.format(new Date())));
-		heenJaar.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		heenJaar.setValue(Integer.parseInt(jaarFormat.format(new Date())));
-		terugDag.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		terugDag.setValue(Integer.parseInt(dagFormat.format(new Date())));
-		terugMaand.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		terugMaand.setValue(Integer.parseInt(maandFormat.format(new Date())));
-		terugJaar.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		terugJaar.setValue(Integer.parseInt(jaarFormat.format(new Date())));
 		lblKlasse.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblKlasse.setForeground(Color.WHITE);
 		klasse.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
@@ -204,6 +193,11 @@ public class TicketVerkoopGui extends JPanel {
 		btnPdf.addActionListener(new PdfListener());
 		btnPdf.setVisible(false);
 		
+		JPanel datePanel = new JPanel();
+		datePanel.add(heenDatum);
+		datePanel.add(terugDatum);
+		datePanel.setLayout(new GridLayout(2, 1));
+		
 
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -227,38 +221,26 @@ public class TicketVerkoopGui extends JPanel {
 										.addComponent(lblKlasse, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
 										.addComponent(lblAantal, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(btnVerkoop)
-											.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-											.addComponent(btnPdf))
-										.addComponent(comboNaar, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-										.addComponent(comboVan, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(rdbtnHeenEnTerug)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(rdbtnHeen))
-										.addComponent(comboVerkoopType, 0, 201, Short.MAX_VALUE)
-										.addComponent(txtPrijs)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-												.addComponent(heenDag, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(terugDag, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-											.addPreferredGap(ComponentPlacement.UNRELATED)
-											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(terugMaand, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(heenMaand, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(terugJaar, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addGroup(groupLayout.createSequentialGroup()
-													.addGap(18)
-													.addComponent(heenJaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-										.addGroup(groupLayout.createSequentialGroup()
-											.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-												.addComponent(klasse, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(aantal, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE))
-											.addPreferredGap(ComponentPlacement.RELATED))))
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(datePanel, GroupLayout.PREFERRED_SIZE, 284, GroupLayout.PREFERRED_SIZE)
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+											.addGroup(groupLayout.createSequentialGroup()
+												.addComponent(btnVerkoop)
+												.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+												.addComponent(btnPdf))
+											.addComponent(comboNaar, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+											.addComponent(comboVan, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+											.addGroup(groupLayout.createSequentialGroup()
+												.addComponent(rdbtnHeenEnTerug)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(rdbtnHeen))
+											.addComponent(comboVerkoopType, 0, 201, Short.MAX_VALUE)
+											.addComponent(txtPrijs)
+											.addGroup(groupLayout.createSequentialGroup()
+												.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+													.addComponent(klasse, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+													.addComponent(aantal, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE))
+												.addPreferredGap(ComponentPlacement.RELATED)))))
 								.addComponent(lblTicketVerkoop))
 							.addGap(175)
 							.addComponent(paneTickettenVerkocht, GroupLayout.PREFERRED_SIZE, 260, GroupLayout.PREFERRED_SIZE)))
@@ -279,19 +261,16 @@ public class TicketVerkoopGui extends JPanel {
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(comboNaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblNaar))
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(heenDag, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblDatum)
-								.addComponent(heenMaand, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(heenJaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblTerugDatum)
-								.addComponent(terugJaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(terugDag, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(terugMaand, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblDatum)
+									.addGap(18)
+									.addComponent(lblTerugDatum)
+									.addGap(13))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(datePanel, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)))
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblKlasse)
 								.addComponent(klasse, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
@@ -324,7 +303,7 @@ public class TicketVerkoopGui extends JPanel {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(28)
 							.addComponent(paneTickettenVerkocht, GroupLayout.PREFERRED_SIZE, 298, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(19, Short.MAX_VALUE))
+					.addContainerGap(41, Short.MAX_VALUE))
 		);
 		comboVan.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		comboNaar.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
@@ -344,8 +323,8 @@ public class TicketVerkoopGui extends JPanel {
 		paneTickettenVerkocht.setText(aantal.getValue() + " " + bundle.getString("ticketsSold") +
 				"\n\n" + bundle.getString("lblVan") + " " + comboVan.getSelectedItem() +
 				"\n" + bundle.getString("lblNaar") + " " + comboNaar.getSelectedItem() +
-				"\n" + bundle.getString("lblDatum") + " " +  heenDag.getValue() + "-" + heenMaand.getValue() + "-" + heenJaar.getValue() + 
-				"\n" + bundle.getString("lblTerugDatum") + " " + terugDag.getValue() + "-" + terugMaand.getValue() + "-" + terugJaar.getValue() + 
+				"\n" + bundle.getString("lblDatum") + " " +  heenDatum.getDateFormatString() + 
+				"\n" + bundle.getString("lblTerugDatum") + " " + terugDatum.getDateFormatString() + 
 				"\n" + bundle.getString("lblKlasse") + " " + klasse.getValue() +
 				"\n" + getSelectedButton() +
 				"\n" + bundle.getString("lblSoortBiljet") + " " +  comboVerkoopType.getSelectedItem() +
@@ -387,25 +366,17 @@ public class TicketVerkoopGui extends JPanel {
 			errorText = errorText + "\naantal";
 		}
 		if(heenDatum){
-			heenDag.setBorder(border);
-			heenMaand.setBorder(border);
-			heenJaar.setBorder(border);
+			this.heenDatum.setBorder(border);
 		}
 		else{
-			heenDag.setBorder(borderError);
-			heenMaand.setBorder(borderError);
-			heenJaar.setBorder(borderError);
+			this.heenDatum.setBorder(borderError);
 			errorText = errorText + "\nheen datum";
 		}
 		if(terugDatum){
-			terugDag.setBorder(border);
-			terugMaand.setBorder(border);
-			terugJaar.setBorder(border);
+			this.terugDatum.setBorder(border);
 		}
 		else{
-			terugDag.setBorder(borderError);
-			terugMaand.setBorder(borderError);
-			terugJaar.setBorder(borderError);
+			this.terugDatum.setBorder(borderError);
 			errorText = errorText + "\nterug datum";
 		}
 		if(prijs){
@@ -430,22 +401,23 @@ public class TicketVerkoopGui extends JPanel {
 
 		    if (e.getSource() == btnVerkoop) {
 				if (txtPrijs.getText().isEmpty() || comboNaar.getSelectedItem() == null || comboVan.getSelectedItem() == null ) {
-					//JOptionPane.showMessageDialog(new JFrame(), "Vul alle velden in!");
+					JOptionPane.showMessageDialog(new JFrame(), "Vul alle velden in!");
 				} else {
 
 					if (!isOffline) {
 						
 						 ticket = new Ticket(0, MedewerkerDAO.getMedewerkerIdByUsername(Login.getCurrentUser()),(String) comboVan.getSelectedItem(), (String) comboNaar.getSelectedItem(), StationDAO.checkStation(Station.getCurrentStation()), Double.parseDouble(txtPrijs.getText()),VerkoopType.VerkoopTypeCasting((String) comboVerkoopType.getSelectedItem()), 0, (int)klasse.getValue(), (int)aantal.getValue()
-						,Calendar.getInstance().getTime(), converter((int) heenDag.getValue(),(int) heenMaand.getValue(), (int)heenJaar.getValue()),converter((int) terugDag.getValue(), (int) terugMaand.getValue(), (int) terugJaar.getValue()) );
-
+						,Calendar.getInstance().getTime(), heenDatum.getDate(),terugDatum.getDate() );
+					}
 					else {
 						ticket = new Ticket(0, 0,(String) comboVan.getSelectedItem(), (String) comboNaar.getSelectedItem(), 0, Double.parseDouble(txtPrijs.getText()),VerkoopType.VerkoopTypeCasting((String) comboVerkoopType.getSelectedItem()), 0, (int)klasse.getValue(), (int)aantal.getValue()
-								,Calendar.getInstance().getTime(), converter((int) heenDag.getValue(),(int) heenMaand.getValue(), (int)heenJaar.getValue()),converter((int) terugDag.getValue(), (int) terugMaand.getValue(), (int) terugJaar.getValue()) );
+								,Calendar.getInstance().getTime(), heenDatum.getDate(),terugDatum.getDate() );
 				}
 				VerkoopController.ticketValidate(ticket, TicketVerkoopGui.this, isOffline);
-				
+				}
 			}
 		}
+		/*
 		private Date converter(int dag, int maand, int jaar){
 			SimpleDateFormat setFormat = new SimpleDateFormat("dd-MM-yyyy");
 			String dateString = "";
@@ -461,7 +433,7 @@ public class TicketVerkoopGui extends JPanel {
 			}
 			return null;
 		}
-
+*/
 		public boolean isOffline() {
 			return isOffline;
 		}
