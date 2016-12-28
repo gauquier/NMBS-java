@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -157,6 +158,36 @@ public class MedewerkerDAO {
 
 	public static ArrayList<Medewerker> getAllMedewerkers() {
 		ArrayList<Medewerker> medewerkers = new ArrayList<Medewerker>();
+		Statement stmt;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM Medewerker m JOIN Login l ON m.loginId = l.loginId JOIN Persoon p ON m.persoonId = p.persoonId"
+				+ " JOIN Rol r ON m.rolId = r.rolId JOIN Adres a ON p.adresId = a.adresId WHERE actief = true;";
+		
+		Connection conn = dao.Connection.getDBConnection();
+		try {
+			stmt =(Statement) conn.prepareStatement(sql);
+			rs = stmt.executeQuery(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			Persoon persoon;
+			while(rs.next()){
+				persoon = new Persoon(rs.getInt(9), rs.getString(11), rs.getString(12), rs.getString(13), new Adres(rs.getInt(16), rs.getString(17), rs.getInt(18), rs.getString(19), rs.getInt(20), rs.getString(21)));
+				medewerkers.add(new Medewerker(persoon.getId(), persoon.getVoornaam(), persoon.getAchternaam(),
+						persoon.getEmail(), persoon.getAdres(), rs.getInt(1), new Rol(rs.getInt(14), rs.getString(15)),
+						new Login(rs.getInt(6), rs.getString(7), rs.getString(8)), rs.getBoolean(5)));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return medewerkers;
+		/*
+		ArrayList<Medewerker> medewerkers = new ArrayList<Medewerker>();
 		Persoon persoon = null;
 		dba.createSelect("Medewerker");
 		dba.addWhere("actief", true);
@@ -185,7 +216,8 @@ public class MedewerkerDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return null
+		*/
 	}
 
 	public static ArrayList<Medewerker> getAllMedewerkersFromSearch(String search) {
@@ -193,7 +225,7 @@ public class MedewerkerDAO {
 		Persoon persoon = null;
 		String search2 = "%" + search + "%";
 		try {
-			connection = Connection.getDBConnection();
+			connection = dao.Connection.getDBConnection();
 			stmt = connection.prepareStatement("SELECT * FROM Persoon where Voornaam LIKE ?");
 			stmt.setString(1, search2);
 			data = stmt.executeQuery();
@@ -236,7 +268,7 @@ public class MedewerkerDAO {
 			Adres adres) {
 
 		try {
-			connection = Connection.getDBConnection();
+			connection = dao.Connection.getDBConnection();
 
 			stmt = connection
 					.prepareStatement("UPDATE Persoon SET voornaam=?, achternaam=?, email=? WHERE persoonId=?");
@@ -268,5 +300,4 @@ public class MedewerkerDAO {
 		ResultSet rs = dba.commit();
 
 	}
-
 }

@@ -1,7 +1,11 @@
 package handler;
 
+import java.sql.Array;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Arrays;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -18,7 +22,7 @@ public class VerkoopController {
 	
 	public static boolean ticketValidate(Ticket ticket, TicketVerkoopGui tvGui, boolean isOffline){
 		
-		boolean depZone = false, arrZone = false, klasse = false, aantal = false, heenDatum = false, terugDatum = false;
+		boolean depZone = false, arrZone = false, klasse = false, aantal = false, heenDatum = false, terugDatum = false, prijs = false;
 
 		if (!isOffline) {
 			if(StationDAO.checkStation(ticket.getDepZone()) != 0){
@@ -60,20 +64,26 @@ public class VerkoopController {
 		else{
 			heenDatum = false;
 		}
-		if(Integer.parseInt(compareFormat.format(ticket.getTerugDatum())) >= Integer.parseInt(compareFormat.format(new Date()))){
+		if(Integer.parseInt(compareFormat.format(ticket.getTerugDatum())) >= Integer.parseInt(compareFormat.format(ticket.getHeenDatum())) && Integer.parseInt(compareFormat.format(ticket.getTerugDatum())) >= Integer.parseInt(compareFormat.format(new Date()))){
 			terugDatum = true;
 		}
 		else{
 			terugDatum = false;
 		}
+		if(ticket.getPrijs() < 0){
+			prijs = false;
+		}
+		else{
+			prijs = true;
+		}
 
-		System.out.println(compareFormat.format(ticket.getHeenDatum()) + "         " + compareFormat.format(ticket.getTerugDatum()) + "         " + compareFormat.format(new Date()));
-		tvGui.setColor(depZone, arrZone, klasse, aantal, heenDatum, terugDatum);
+		//System.out.println(compareFormat.format(ticket.getHeenDatum()) + "         " + compareFormat.format(ticket.getTerugDatum()) + "         " + compareFormat.format(new Date()));
+		tvGui.setColor(depZone, arrZone, klasse, aantal, heenDatum, terugDatum, prijs);
 		if(!depZone || !arrZone) {
-			JOptionPane.showMessageDialog(new JFrame(), "Vul alle velden in!");
+			//JOptionPane.showMessageDialog(new JFrame(), "Vul alle velden in!");
 		}
 		
-		if(depZone && arrZone && klasse && aantal && heenDatum && terugDatum){
+		if(depZone && arrZone && klasse && aantal && heenDatum && terugDatum && prijs){
 			if (!isOffline) {
 				//ticket.setPrijs(PrijsDAO.getPrijsByVerkoopType(ticket.getVerkoop()));
 				TicketDao.insertTicket(ticket);
