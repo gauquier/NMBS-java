@@ -1,33 +1,37 @@
 package gui;
 
-import javax.swing.JPanel;
-import javax.swing.DefaultListModel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.UIManager;
 import java.awt.Color;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
-
-import dao.*;
-import source.*;
-
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
 
+import javax.swing.DefaultListModel;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JTextPane;
-import javax.swing.SwingConstants;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.UIManager;
+
+import com.jgoodies.forms.factories.DefaultComponentFactory;
+
+import dao.AbonnementDAO;
+import dao.LoginDao;
+import dao.MedewerkerDAO;
+import dao.PeriodeDAO;
+import dao.PrijsDAO;
+import source.Abonnement;
+import source.Login;
+import source.VerkoopType;
 
 public class AbonnementBeheerGui extends JPanel {
 	private JTextField textField;

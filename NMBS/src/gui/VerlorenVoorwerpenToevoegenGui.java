@@ -1,50 +1,31 @@
 package gui;
 
-import javax.swing.JPanel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.UIManager;
-import javax.swing.border.EmptyBorder;
-
-import org.omg.CORBA.PRIVATE_MEMBER;
-import org.omg.CORBA.PUBLIC_MEMBER;
-
-import source.Station;
-import source.VerlorenVoorwerp;
-import sun.util.resources.LocaleData;
-
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.UIManager;
+
 import com.jgoodies.forms.factories.DefaultComponentFactory;
+import com.toedter.calendar.JDateChooser;
 
 import dao.StationDAO;
 import dao.VerlorenVoorwerpDAO;
-import javafx.scene.control.ComboBox;
-
-import java.awt.Font;
-import javax.swing.JComboBox;
-import com.toedter.calendar.JDateChooser;
-import com.toedter.calendar.JCalendar;
-import source.Pdf;
+import source.Station;
+import source.VerlorenVoorwerp;
 public class VerlorenVoorwerpenToevoegenGui extends JPanel {
 	
 	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.VerlorenVoorwerpenToevoegenGui");

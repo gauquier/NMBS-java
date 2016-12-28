@@ -1,7 +1,5 @@
 package iRailExamples;
 
-import api.datastructs.ArrivalDeparture;
-import api.datastructs.Liveboard;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -10,7 +8,11 @@ import java.awt.Graphics;
 import java.util.Calendar;
 import java.util.Observable;
 import java.util.Observer;
+
 import javax.swing.JPanel;
+
+import api.datastructs.ArrivalDeparture;
+import api.datastructs.Liveboard;
 
 /**
  *

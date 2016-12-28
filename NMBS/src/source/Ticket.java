@@ -1,8 +1,6 @@
 package source;
 
 import java.util.Date;
-import source.Aankoop;
-import source.VerkoopType;
 
 public class Ticket extends Aankoop {
 

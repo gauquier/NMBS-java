@@ -6,11 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.sql.DataSource;
-
 import source.Login;
-import source.Station;
-import source.VerlorenVoorwerp;
 
 public class LoginDao {
 	private static String username1, password1;

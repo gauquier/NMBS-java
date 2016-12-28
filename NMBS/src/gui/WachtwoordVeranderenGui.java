@@ -1,34 +1,27 @@
 package gui;
 
-import javax.swing.JPanel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import com.jgoodies.forms.factories.DefaultComponentFactory;
-
-import Hashing.DualHash;
-import dao.LoginDao;
-import dao.MedewerkerDAO;
-import source.Adres;
-import source.Login;
-import source.Persoon;
-import source.Rol;
-
-import javax.swing.UIManager;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
 
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.Font;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.UIManager;
+
+import com.jgoodies.forms.factories.DefaultComponentFactory;
+
+import Hashing.DualHash;
+import dao.LoginDao;
+import source.Login;
 
 public class WachtwoordVeranderenGui extends JPanel {
 	private static ResourceBundle bundle;

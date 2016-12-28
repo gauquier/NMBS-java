@@ -1,36 +1,30 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 
-import javax.swing.*;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
+import Hashing.DualHash;
 import dao.CheckIfConnected;
 import dao.Connection;
 import dao.LoginDao;
 import handler.Controller;
 import source.Login;
-import source.Medewerker;
-import source.Rol;
-import javax.swing.UIManager;
-
-import Hashing.DualHash;
-
-import java.awt.Color;
-import java.awt.Font;
 
 public class LoginGui {
 

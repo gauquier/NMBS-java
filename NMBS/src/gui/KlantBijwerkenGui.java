@@ -1,37 +1,33 @@
 package gui;
 
-import dao.PersoonDao;
-import source.Adres;
-import dao.KlantDAO;
-import source.Klant;
-import source.Persoon;
-import source.Validation;
-
-import javax.swing.JPanel;
-
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Array;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.border.Border;
-import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.UIManager;
-import java.awt.Color;
+import javax.swing.border.Border;
+
 import com.jgoodies.forms.factories.DefaultComponentFactory;
-import java.awt.Font;
-import javax.swing.JRadioButton;
-import javax.swing.JPasswordField;
+
+import dao.KlantDAO;
+import dao.PersoonDao;
+import source.Adres;
+import source.Klant;
+import source.Persoon;
+import source.Validation;
 
 public class KlantBijwerkenGui extends JPanel {
 	private static ResourceBundle bundle;

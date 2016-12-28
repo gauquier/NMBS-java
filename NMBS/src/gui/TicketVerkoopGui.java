@@ -1,60 +1,53 @@
 package gui;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
-import javax.swing.ButtonModel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.SpinnerModel;
-import javax.swing.border.Border;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import javax.swing.JRadioButton;
-import javax.swing.UIManager;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
-import com.toedter.calendar.JDateChooser;
+
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JSpinner;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.UIManager;
+import javax.swing.border.Border;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
+import com.toedter.calendar.JDateChooser;
 
 import dao.MedewerkerDAO;
 import dao.PrijsDAO;
 import dao.StationDAO;
 import handler.VerkoopController;
-import javafx.scene.control.ComboBox;
+import source.AutoComboBox;
 import source.Login;
 import source.Pdf;
 import source.Station;
 import source.StationCsv;
 import source.Ticket;
 import source.VerkoopType;
-import source.AutoComboBox;
-
-import javax.swing.JTextArea;
-import javax.swing.JTextPane;
-import javax.swing.JTable;
-import javax.swing.JSpinner;
-import java.awt.Font;
-import java.awt.GridLayout;
-
-import javax.swing.SpinnerNumberModel;
 
 @SuppressWarnings("serial")
 public class TicketVerkoopGui extends JPanel {

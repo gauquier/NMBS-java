@@ -1,8 +1,5 @@
 package dao;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.ConnectException;
 //import logins.*;
 import java.sql.DriverManager;
 import java.sql.SQLException;

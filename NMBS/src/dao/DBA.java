@@ -1,14 +1,13 @@
 package dao;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.Date;
 
-import source.*;
-
-import java.sql.Connection;
 import com.mysql.jdbc.Statement;
+
+import source.VerkoopType;
 
 public class DBA {
 	private String sql;

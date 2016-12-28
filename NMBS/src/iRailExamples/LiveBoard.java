@@ -1,5 +1,6 @@
 package iRailExamples;
 import javax.swing.JFrame;
+
 import api.IRail;
 import api.datastructs.Station;
 

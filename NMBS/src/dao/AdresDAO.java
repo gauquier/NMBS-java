@@ -2,14 +2,8 @@ package dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 import source.Adres;
-import source.Login;
-import source.Medewerker;
-import source.Persoon;
 
 public class AdresDAO {
 

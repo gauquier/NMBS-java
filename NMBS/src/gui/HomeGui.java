@@ -1,40 +1,26 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.image.DataBufferByte;
 import java.awt.image.WritableRaster;
 import java.io.File;
-import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
 
+import dao.TicketDao;
 import source.Login;
 import source.Station;
 import source.Ticketstatistiek;
-
-import javax.swing.JLabel;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JInternalFrame;
-import javax.swing.JTable;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
-import javax.swing.JList;
-import javax.swing.table.DefaultTableModel;
-
-import dao.DBA;
-import dao.TicketDao;
-
-import javax.swing.JTabbedPane;
-import javax.swing.JToolBar;
-import javax.swing.JTextField;
 
 public class HomeGui extends JPanel {
 

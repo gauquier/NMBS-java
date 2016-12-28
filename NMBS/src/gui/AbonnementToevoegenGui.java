@@ -1,37 +1,35 @@
 package gui;
 
-import javax.swing.JPanel;
-
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.List;
 
-import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.LayoutStyle.ComponentPlacement;
-
-import dao.*;
-import source.*;
-import source.AutoComboBox;
-
-import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.UIManager;
-import java.awt.Color;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
-import java.awt.Font;
-import javax.swing.JRadioButton;
-import javax.swing.JPasswordField;
+import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.ListModel;
-import javax.swing.JSlider;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.UIManager;
+
+import com.jgoodies.forms.factories.DefaultComponentFactory;
+
+import dao.AbonnementDAO;
+import dao.KlantDAO;
+import dao.PrijsDAO;
+import dao.StationDAO;
+import source.Abonnement;
+import source.AutoComboBox;
+import source.Klant;
+import source.Station;
+import source.VerkoopType;
 
 public class AbonnementToevoegenGui extends JPanel {
 	private JButton btnAanmaken;

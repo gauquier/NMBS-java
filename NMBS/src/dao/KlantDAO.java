@@ -1,16 +1,14 @@
 package dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 import source.Adres;
 import source.Klant;
-import source.Medewerker;
 import source.Persoon;
-import source.Rol;
 
 public class KlantDAO {
 	

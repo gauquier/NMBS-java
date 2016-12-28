@@ -3,7 +3,6 @@ package dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import source.Adres;
 import source.Persoon;
 
 

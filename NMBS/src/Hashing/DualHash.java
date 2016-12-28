@@ -1,8 +1,5 @@
 package Hashing;
 
-import java.security.*;
-import java.math.*;
-
 public class DualHash {	
 	
 	public static String hashString(String meegegevenString) throws Exception{

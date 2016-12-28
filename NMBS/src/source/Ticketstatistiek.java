@@ -1,7 +1,5 @@
 package source;
 
-import java.util.Calendar;
-
 public class Ticketstatistiek {
 	private String verkoopdatum;
 	private int verkochteTickets;

@@ -1,21 +1,13 @@
 package handler;
 
-import java.sql.Array;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Arrays;
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 import dao.StationDAO;
 import dao.TicketDao;
 import gui.TicketVerkoopGui;
 import source.Ticket;
 import source.TicketsOffline;
-import dao.PrijsDAO;
 
 public class VerkoopController {	
 	public VerkoopController(){}

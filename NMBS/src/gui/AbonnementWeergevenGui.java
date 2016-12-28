@@ -1,29 +1,23 @@
 package gui;
 
-import javax.swing.JPanel;
-import javax.swing.DefaultListModel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.LayoutStyle.ComponentPlacement;
-
-import dao.*;
-import source.*;
-
-import javax.swing.UIManager;
 import java.awt.Color;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
-
-import Hashing.DualHash;
-
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.UIManager;
+
+import com.jgoodies.forms.factories.DefaultComponentFactory;
+
+import dao.MedewerkerDAO;
+import source.Abonnement;
 
 public class AbonnementWeergevenGui extends JPanel {
 	private SimpleDateFormat formatDatum = new SimpleDateFormat("dd-MM-yyyy");

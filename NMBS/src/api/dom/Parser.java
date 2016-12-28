@@ -1,29 +1,32 @@
 package api.dom;
 
-import api.datastructs.ArrivalDeparture;
-import api.datastructs.Location;
-import api.datastructs.Station;
-import api.datastructs.TripNode;
-import api.datastructs.Vehicle;
-import api.datastructs.Via;
-import api.datastructs.ViaTripNode;
-import api.datastructs.Connection;
-import api.datastructs.Liveboard;
-import api.datastructs.Stop;
-import api.datastructs.VehicleInformation;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import api.datastructs.ArrivalDeparture;
+import api.datastructs.Connection;
+import api.datastructs.Liveboard;
+import api.datastructs.Location;
+import api.datastructs.Station;
+import api.datastructs.Stop;
+import api.datastructs.TripNode;
+import api.datastructs.Vehicle;
+import api.datastructs.VehicleInformation;
+import api.datastructs.Via;
+import api.datastructs.ViaTripNode;
 
 /**
  *

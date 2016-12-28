@@ -4,6 +4,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Vector;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -79,4 +80,4 @@ public Vector getFilteredList(String text)
 }
 
 }
-//bron: http://stackoverflow.com/questions/13681977/jcombobox-autocomplete (mits enkele aanpâssingen)
+//bron: http://stackoverflow.com/questions/13681977/jcombobox-autocomplete (mits enkele aanpï¿½ssingen)

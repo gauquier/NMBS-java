@@ -1,9 +1,10 @@
 package iRailExamples;
+import java.util.Calendar;
+import java.util.List;
+
 import api.IRail;
 import api.datastructs.Connection;
 import api.datastructs.TripNode;
-import java.util.Calendar;
-import java.util.List;
 public class IRailExample {
     public static final String TEST_URL="http://api.irail.be";
 

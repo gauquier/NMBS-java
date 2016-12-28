@@ -1,7 +1,7 @@
 package Hashing;
 
-import java.security.*;
-import java.math.*;
+import java.math.BigInteger;
+import java.security.MessageDigest;
 
 public class MD5 {	
 	

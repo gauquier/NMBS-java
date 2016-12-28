@@ -1,38 +1,39 @@
 package gui;
 
-import javax.swing.JPanel;
-import javax.swing.DefaultListModel;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import java.awt.Color;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
-import dao.*;
-import source.*;
-
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Month;
-import java.util.*;
-
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JTextPane;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
+import dao.AbonnementDAO;
+import dao.LoginDao;
+import dao.MedewerkerDAO;
+import dao.PeriodeDAO;
+import dao.PrijsDAO;
+import source.Abonnement;
+import source.Klant;
+import source.Login;
+import source.Periode;
+import source.VerkoopType;
 
 
 public class AbonnementVerlengenGui extends JPanel {

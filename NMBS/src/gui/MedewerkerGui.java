@@ -4,21 +4,20 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-
-import handler.Controller;
-import dao.Connection;
-import java.awt.Toolkit;
 import javax.swing.UIManager;
+
+import dao.Connection;
+import handler.Controller;
 
 public class MedewerkerGui  extends JFrame {
 	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.MedewerkerGui");

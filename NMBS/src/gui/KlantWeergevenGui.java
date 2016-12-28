@@ -1,21 +1,18 @@
 package gui;
 
-import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Font;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
-
-import dao.*;
-import source.*;
-
 import javax.swing.UIManager;
-import java.awt.Color;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
-import java.awt.Font;
-import java.text.SimpleDateFormat;
 
-import javax.swing.JButton;
+import com.jgoodies.forms.factories.DefaultComponentFactory;
+
+import source.Klant;
 
 public class KlantWeergevenGui extends JPanel {
 	

@@ -10,7 +10,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import source.*;
+import source.Abonnement;
+import source.Adres;
+import source.Klant;
+import source.Periode;
+import source.VerkoopType;
 
 public class AbonnementDAO {
 	private static DBA dba = new DBA();

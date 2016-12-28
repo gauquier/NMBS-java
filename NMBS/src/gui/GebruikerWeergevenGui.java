@@ -1,29 +1,18 @@
 package gui;
 
-import javax.swing.JPanel;
-import javax.swing.DefaultListModel;
+import java.awt.Color;
+import java.awt.Font;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.LayoutStyle.ComponentPlacement;
-
-import dao.*;
-import source.*;
-
+import javax.swing.JPanel;
 import javax.swing.UIManager;
-import java.awt.Color;
+
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
-import Hashing.DualHash;
-
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
+import source.Abonnement;
+import source.Medewerker;
 
 public class GebruikerWeergevenGui extends JPanel {
 

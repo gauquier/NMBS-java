@@ -3,7 +3,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-import dao.KlantDAO;
 import dao.PeriodeDAO;
 
 public class Abonnement extends Aankoop {

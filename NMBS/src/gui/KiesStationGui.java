@@ -1,12 +1,8 @@
 package gui;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.UIManager;
-import javax.swing.JComboBox;
-
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
@@ -14,8 +10,12 @@ import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
 
 import javax.swing.GroupLayout;
-import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.UIManager;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
@@ -25,10 +25,6 @@ import handler.Controller;
 import source.AutoComboBox;
 import source.Login;
 import source.Station;
-
-import javax.swing.LayoutStyle.ComponentPlacement;
-import java.awt.Color;
-import java.awt.Font;
 
 public class KiesStationGui {
 	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.KiesStationGui");

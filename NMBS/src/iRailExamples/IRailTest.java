@@ -1,13 +1,10 @@
 package iRailExamples;
 
-import api.IRail;
-import api.datastructs.Connection;
-import api.datastructs.TripNode;
-import java.util.Calendar;
-import java.util.List;
-import java.io.*;
-import java.net.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URL;
 
 
 public class IRailTest {
@@ -82,7 +79,7 @@ public class IRailTest {
 			    System.out.println("You entered : " + arrival);
 		 		System.out.println(getHTML(URLMaker("https://api.irail.be/connections/?from=", departure, arrival)));
 		 		break;
-		 	case 2://doorkomsten van één station
+		 	case 2://doorkomsten van ï¿½ï¿½n station
 		 		System.out.print("Please enter station : ");
 			    String request = null;
 			    try {

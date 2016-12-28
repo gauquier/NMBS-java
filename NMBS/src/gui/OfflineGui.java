@@ -1,44 +1,29 @@
 package gui;
 /* http://zetcode.com/tutorials/javaswingtutorial/menusandtoolbars/ */
 
-import java.awt.ComponentOrientation;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-
-import javax.imageio.ImageIO;
-import javax.swing.Box;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
-import handler.Controller;
-import handler.VerkoopController;
-import source.Klant;
-import source.Medewerker;
-
-import java.awt.BorderLayout;
-import javax.swing.SwingConstants;
-import java.awt.Color;
-import javax.swing.UIManager;
+import java.awt.Font;
 
 /*import dao.AdresDAO;
 import dao.KlantDAO;
 import dao.MedewerkerDAO;*/
 
 import java.awt.Toolkit;
-import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
+
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+
+import handler.Controller;
 
 public class OfflineGui extends JFrame {
 	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.OfflineGui");

@@ -13,7 +13,6 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import api.datastructs.Location;
 import source.Station;
 import source.VerlorenVoorwerp;
 

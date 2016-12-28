@@ -1,35 +1,34 @@
 
 package gui;
-import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
+
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.UIManager;
-import java.awt.Color;
+
 import com.jgoodies.forms.factories.DefaultComponentFactory;
-import java.awt.Font;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 import dao.StationDAO;
 import dao.VerlorenVoorwerpDAO;
 import source.Station;
 import source.VerlorenVoorwerp;
-
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-
-import java.awt.SystemColor;
-import javax.swing.LayoutStyle.ComponentPlacement;
 
 
 public class VerlorenVoorwerpenZoekenGui extends JPanel {

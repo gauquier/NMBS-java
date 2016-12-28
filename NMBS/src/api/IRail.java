@@ -1,16 +1,16 @@
 package api;
 
-import api.dom.Parser;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
 import api.datastructs.Connection;
 import api.datastructs.Liveboard;
 import api.datastructs.Station;
 import api.datastructs.Vehicle;
 import api.datastructs.VehicleInformation;
-import api.URLFactory;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import api.dom.Parser;
 
 public class IRail 
 {

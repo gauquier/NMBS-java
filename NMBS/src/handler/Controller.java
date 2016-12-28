@@ -1,12 +1,9 @@
 package handler;
 
-import gui.*;
-import dao.CheckIfConnected;
-import dao.DBA;
-import java.sql.ResultSet;
-import java.util.ResourceBundle;
-
-import javax.swing.UIManager;
+import gui.AdminGui;
+import gui.LoginGui;
+import gui.MedewerkerGui;
+import gui.OfflineGui;
 
 public class Controller extends LoginGui{
 	

@@ -1,10 +1,11 @@
 package iRailExamples;
-import api.IRail;
-import api.datastructs.Liveboard;
-import api.datastructs.Station;
 import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import api.IRail;
+import api.datastructs.Liveboard;
+import api.datastructs.Station;
 
 /**
  *
