@@ -343,7 +343,10 @@ public class TicketVerkoopGui extends JPanel {
 				+ bundle.getString("lblSoortBiljet") + " " + this.comboVerkoopType.getSelectedItem() + "\n"
 				+ bundle.getString("lblPrijs") + " " + this.ticket.getPrijs() * this.ticket.getAantal() + "");
 		this.btnPdf.setVisible(visible);
-		this.reset();
+		if(visible)
+		{
+			this.reset();
+		}
 	}
 
 	private String getSelectedButton() {
