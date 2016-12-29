@@ -51,9 +51,9 @@ public class PeriodeDAOTest {
 
 		adres = new Adres("straatnaam" + testClassName, 170, "woonplaats" + testClassName, 1070, "6");
 		info = "info" + testClassName;
-		actief = true;
+		actief = true; 
 		klant = new Klant(0, "voornaam" + testClassName, "achternaam" + testClassName, "email" + testClassName, adres,
-				info, actief);
+				0,info, actief);
 
 		korting = 5.00;
 		prijs = 10.00;
@@ -66,20 +66,14 @@ public class PeriodeDAOTest {
 		login=new Login("username" + testClassName, "password" + testClassName);
 		rol=new Rol(0, "rol" + testClassName);
 		
-		medewerker = new Medewerker(0, "voornaam" + testClassName, "achternaam" + testClassName,
-				"email" + testClassName, adres);
-		((Medewerker) medewerker).setLogin(login); 
-		((Medewerker) medewerker).setRol(rol);
-		((Medewerker) medewerker).setActief(true);
-
+		medewerker = new Medewerker(0, "voornaam"+testClassName, "achternaam"+testClassName, "email"+testClassName, adres, 0,
+				rol, login, true); 
 		periodeStartDate = "24-12-2999";
 		periodeEndDate = "24-12-2999";
 		periodeVerkoopdatum = "24-12-2999";
 		DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 		periode = new Periode(0, formatter.parse(periodeStartDate), formatter.parse(periodeEndDate),
-				formatter.parse(periodeVerkoopdatum));
-		periode.setAbonnement(abonnement);
-		
+				formatter.parse(periodeVerkoopdatum)); 
 
 	}
 
@@ -116,27 +110,14 @@ public class PeriodeDAOTest {
 	@Test(expected=Exception.class)
 	public void testUpdatePeriodeMetOnbestaandePeriode(){
 		PeriodeDAO.updatePeriode(periode, periode.getMedewerkerId());
-	} 
-	@Test
-	public void testGetPeriode() throws ParseException {
-		Medewerker medewerkerTmp = medewerkerToevoegen((Medewerker) medewerker);
-		medewerker=medewerkerTmp;
-		periode.setMedewerkerId(medewerkerTmp.getMedewerkerId()); 
-		periode=periodeToevoegen(periode);
-		Periode periodeTmp = PeriodeDAO.getPeriode(periode.getAbonnement());
-		assertEquals(periode.getStartDate(), periodeTmp.getStartDate()); 
-	}
-	@Test
-	public void testGetPeriodeMetOnbestaandePeriodeAbonnement() throws ParseException {
-		assertNull(PeriodeDAO.getPeriode(periode.getAbonnement()));
-	}
+	}  
 	private Periode periodeToevoegen(Periode periode) throws ParseException{
-		periode.setAbonnement(abonnementToevoegen(periode.getAbonnement()));
+		abonnement=abonnementToevoegen(abonnement); 
 		DateFormat date = new SimpleDateFormat("dd-MM-yyyy"); 
 		String periodeToevoegen = "INSERT INTO Periode (abonnementId, medewerkerId, startDate, endDate, verkoopdatum) " 
 	+ "VALUES(?,?,?,?,?)";
 		executeQuery(periodeToevoegen, true,
-				periode.getAbonnement().getAbonnementId(),
+				abonnement.getAbonnementId(),
 				periode.getMedewerkerId(),
 				date.format(periode.getStartDate()),
 				date.format(periode.getEndDate()),

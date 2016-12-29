@@ -25,22 +25,14 @@ public class TicketDAOTest {
 	private Station verkoopStation;
 	private Ticket ticket;
 	@Before
-	public void initialize() throws ParseException { 
-		medewerker = new Medewerker(0, 
-				"voornaam"+testClassName, "achternaam"+testClassName,
-				"email"+testClassName, 
-				new Adres("straatnaam" + testClassName, 170, "woonplaats" + testClassName, 1070, "6") 
-				);
-		((Medewerker)medewerker).setLogin(
-				new Login("username"+ testClassName, "password"+ testClassName)
-				);
-		((Medewerker)medewerker).setRol(
-				new Rol(0, "rol"+ testClassName)
-				);
+	public void initialize() throws ParseException {  
+		medewerker =new Medewerker(0, "voornaam"+testClassName, "achternaam"+testClassName, "email"+testClassName, 
+				 new Adres("straatnaam" + testClassName, 170, "woonplaats" + testClassName, 1070, "6"), 0,
+				 new Rol(0, "rol"+ testClassName), 
+				 new Login("username"+ testClassName, "password"+ testClassName), true);  
 		medewerker=Help.medewerkerToevoegen((Medewerker)medewerker);
 		verkoopStation=Help.stationToevoegen(new Station(0,testClassName));
-		DateFormat date = new SimpleDateFormat("dd-MM-yyyy"); 
-		
+		DateFormat date = new SimpleDateFormat("dd-MM-yyyy");  
 		ticket=new Ticket(0,
 				((Medewerker)medewerker).getMedewerkerId() , 
 				"depZone"+testClassName, 

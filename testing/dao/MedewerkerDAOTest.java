@@ -22,6 +22,7 @@ import source.Persoon;
 import source.Rol;
 
 public class MedewerkerDAOTest {
+	private String testClassName = "MedewerkerDAOTest";
 	private Login login;
 	private Persoon medewerker;
 	private Rol rol;
@@ -31,10 +32,9 @@ public class MedewerkerDAOTest {
 	public void initialize() {
 		login = new Login("testusernameMedewerkerDAOTest", "testpasswordMedewerkerDAOTest");
 		adres = new Adres("teststraatnaamMedewerkerDAOTest", 170, "testwoonplaatsMedewerkerDAOTest", 1070, "6");
-		medewerker = new Medewerker(0, "testvoornaamMedewerkerDAOTest", "testachternaamMedewerkerDAOTest",
-				"testemailMedewerkerDAOTest", adres);
 		rol = new Rol(0, "testrolMedewerkerDAOTest");
-
+		medewerker = new Medewerker(0, "voornaam"+testClassName, "achternaam"+testClassName, "email"+testClassName, adres, 0,
+				rol, login, true);  
 	}
 
 	@After
@@ -56,7 +56,7 @@ public class MedewerkerDAOTest {
 	public void testAddMedewerker() {
 		((Medewerker) medewerker).setLogin(login);
 		((Medewerker) medewerker).setRol(rol);
-		MedewerkerDAO.addMedewerker((Medewerker) medewerker);
+		MedewerkerDAO.addMedewerker(((Medewerker) medewerker).getLogin(), medewerker, ((Medewerker) medewerker).getRol(), medewerker.getAdres());
 		assertEquals(medewerker.getId(), medewerkerOphalen(medewerker).getId());
 	}
 
@@ -64,33 +64,9 @@ public class MedewerkerDAOTest {
 	public void testBestaandeMedewerkerToevoegen() {
 		((Medewerker) medewerker).setLogin(login);
 		((Medewerker) medewerker).setRol(rol);
-		MedewerkerDAO.addMedewerker((Medewerker) medewerker);
-		MedewerkerDAO.addMedewerker((Medewerker) medewerker);
-	}
-
-	@Test
-	public void testGetMedewerkerId() {
-		login = loginToevoegen(login);
-		adres = adresToevoegen(adres);
-		rol = rolToevoegen(rol);
-		medewerker.setAdres(adres);
-		medewerker = persoonToevoegen(medewerker);
-		((Medewerker) medewerker).setLogin(login);
-		((Medewerker) medewerker).setRol(rol);
-		((Medewerker) medewerker).setActief(true);
-		medewerker = medewerkerOpslaanInDB((Medewerker) medewerker);
-		assertEquals(((Medewerker) medewerker).getMedewerkerId(),
-				MedewerkerDAO.getMedewerkerId((Medewerker) medewerker));
-	}
-
-	@Test
-	public void testGetMedewerkerIdMetOnbestaandeMedewerker() {
-		((Medewerker) medewerker).setLogin(login);
-		((Medewerker) medewerker).setRol(rol);
-		((Medewerker) medewerker).setActief(true);
-		assertEquals(0, MedewerkerDAO.getMedewerkerId((Medewerker) medewerker));
-	}
-
+		MedewerkerDAO.addMedewerker(((Medewerker) medewerker).getLogin(), medewerker, ((Medewerker) medewerker).getRol(), medewerker.getAdres());
+		MedewerkerDAO.addMedewerker(((Medewerker) medewerker).getLogin(), medewerker, ((Medewerker) medewerker).getRol(), medewerker.getAdres());
+	}  
 	@Test
 	public void testgetMedewerker() {
 		login = loginToevoegen(login);
