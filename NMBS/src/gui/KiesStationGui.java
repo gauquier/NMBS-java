@@ -137,7 +137,7 @@ public class KiesStationGui {
 						Controller.medewerkerInterface.setHome();
 					}
 				} else{
-					JOptionPane.showMessageDialog(new JFrame(), "Dit station bestaat niet.");
+					JOptionPane.showMessageDialog(new JFrame(), bundle.getString("inexistantStation"));
 					cmbbStation.setSelectedIndex(-1);
 				}
 			}
