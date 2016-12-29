@@ -11,6 +11,7 @@ import javax.swing.UIManager;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 import source.Medewerker;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class GebruikerWeergevenGui extends JPanel {
 	
@@ -24,7 +25,7 @@ public class GebruikerWeergevenGui extends JPanel {
 
 
 		JLabel lblGebruiker = DefaultComponentFactory.getInstance().createTitle("<dynamic>");
-		lblGebruiker.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblGebruiker.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		if(!medewerker.isActief()){
 			lblGebruiker.setText(medewerker.getNaam() + " (Inactief)");
 		}
@@ -33,25 +34,31 @@ public class GebruikerWeergevenGui extends JPanel {
 		}
 		
 		JLabel lblEmail = new JLabel("Email:");
+		lblEmail.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblEmail.setForeground(Color.WHITE);
 		
 		JLabel lblEmailValue = new JLabel("");
+		lblEmailValue.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblEmailValue.setForeground(Color.WHITE);
 		lblEmailValue.setText(medewerker.getEmail());
 		
 		
 		JLabel lblVertrek = new JLabel("Adres:");
+		lblVertrek.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblVertrek.setForeground(Color.WHITE);
 		
 		JLabel lblAdresValue = new JLabel("");
+		lblAdresValue.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblAdresValue.setForeground(Color.WHITE);
 		lblAdresValue.setText(medewerker.getAdres().toString());
 		
 		JLabel lblBus = new JLabel("Bus:");
+		lblBus.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblBus.setForeground(Color.WHITE);
 		
 		
 		JLabel lblBusValue = new JLabel("");
+		lblBusValue.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblBusValue.setForeground(Color.WHITE);
 		if(medewerker.getAdres().getBus()==null||medewerker.getAdres().getBus()==""||medewerker.getAdres().getBus()==" "){
 			lblBusValue.setText("Niet van toepassing");
@@ -60,17 +67,21 @@ public class GebruikerWeergevenGui extends JPanel {
 		}
 		
 		JLabel lblUsername = new JLabel("Username:");
+		lblUsername.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblUsername.setForeground(Color.WHITE);
 		
 		JLabel lblUsernameValue = new JLabel("");
+		lblUsernameValue.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblUsernameValue.setForeground(Color.WHITE);
 		lblUsernameValue.setText(medewerker.getLogin().getUsername());
 
 		
 		JLabel lblType = new JLabel("Type:");
+		lblType.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblType.setForeground(Color.WHITE);
 		
 		JLabel lblTypeValue = new JLabel("<dynamic>");
+		lblTypeValue.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblTypeValue.setForeground(Color.WHITE);
 		lblTypeValue.setText(medewerker.getRol().getRol());
 		
@@ -83,21 +94,24 @@ public class GebruikerWeergevenGui extends JPanel {
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblGebruiker)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblEmail)
-								.addComponent(lblVertrek, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblBus, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblType, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE))
-							.addGap(25)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblTypeValue, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblAdresValue, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblEmailValue, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
-								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-									.addComponent(lblBusValue, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(lblUsernameValue, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)))))
-					.addContainerGap(225, Short.MAX_VALUE))
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblEmail)
+										.addComponent(lblBus, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblType, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblVertrek, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE))
+									.addGap(45))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(lblBusValue)
+								.addComponent(lblEmailValue, GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+								.addComponent(lblAdresValue, GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+								.addComponent(lblUsernameValue, GroupLayout.PREFERRED_SIZE, 185, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblTypeValue, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+					.addContainerGap(88, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -107,24 +121,24 @@ public class GebruikerWeergevenGui extends JPanel {
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblEmail)
-						.addComponent(lblEmailValue, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblEmailValue, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblVertrek)
-						.addComponent(lblAdresValue, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblAdresValue, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblBus)
 						.addComponent(lblBusValue, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(lblUsername, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(lblUsernameValue, GroupLayout.DEFAULT_SIZE, 14, Short.MAX_VALUE))
-					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblUsernameValue, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblUsername, GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblType)
 						.addComponent(lblTypeValue))
-					.addContainerGap(163, Short.MAX_VALUE))
+					.addContainerGap(64, Short.MAX_VALUE))
 		);
 
 		setLayout(groupLayout);

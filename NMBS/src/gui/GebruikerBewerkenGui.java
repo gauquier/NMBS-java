@@ -50,7 +50,7 @@ public class GebruikerBewerkenGui extends JPanel {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
 		JLabel lblGebruikerBewerken = DefaultComponentFactory.getInstance().createTitle("Gebruikers beheren");
-		lblGebruikerBewerken.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblGebruikerBewerken.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		
 		arrayLijst= new ArrayList<Medewerker>();
@@ -69,6 +69,7 @@ public class GebruikerBewerkenGui extends JPanel {
 		
 		
 		txtZoekveld = new JTextField();
+		txtZoekveld.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		txtZoekveld.setColumns(10);
 		txtZoekveld.addKeyListener(new KeyListener()
 		  {
@@ -125,21 +126,21 @@ public class GebruikerBewerkenGui extends JPanel {
 		
 		
 		btnZoeken = new JButton("Zoeken");
-		btnZoeken.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnZoeken.setFont(new Font("Dialog", Font.BOLD, 20));
 		btnZoeken.setBackground(Color.ORANGE);
 		
 		btnBewerken = new JButton("Bewerken");
-		btnBewerken.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnBewerken.setFont(new Font("Dialog", Font.BOLD, 20));
 		btnBewerken.setBackground(Color.ORANGE);
 		btnBewerken.addActionListener(new MenuItemHandler());
 		
 		btnVerwijderen = new JButton("Verwijderen");
-		btnVerwijderen.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnVerwijderen.setFont(new Font("Dialog", Font.BOLD, 20));
 		btnVerwijderen.setBackground(Color.ORANGE);
 		btnVerwijderen.addActionListener(new MenuItemHandler());
 		
 		btnPasswordReset = new JButton("Password Reset");
-		btnPasswordReset.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		btnPasswordReset.setFont(new Font("Dialog", Font.BOLD, 20));
 		btnPasswordReset.setBackground(Color.ORANGE);
 		btnPasswordReset.addActionListener(new MenuItemHandler());
 		
@@ -151,17 +152,17 @@ public class GebruikerBewerkenGui extends JPanel {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(37)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
 						.addComponent(lblGebruikerBewerken)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnZoeken)
-							.addPreferredGap(ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-							.addComponent(txtZoekveld, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)))
+							.addGap(18)
+							.addComponent(txtZoekveld, GroupLayout.PREFERRED_SIZE, 258, GroupLayout.PREFERRED_SIZE)))
 					.addGap(10)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnVerwijderen, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnBewerken, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-						.addComponent(btnPasswordReset, GroupLayout.PREFERRED_SIZE, 130, Short.MAX_VALUE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(btnPasswordReset, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnVerwijderen, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnBewerken, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -176,18 +177,20 @@ public class GebruikerBewerkenGui extends JPanel {
 								.addComponent(btnZoeken)
 								.addComponent(txtZoekveld, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
 							.addGap(12)
-							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE))
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(btnBewerken)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(btnVerwijderen))))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(97)
-							.addComponent(btnBewerken)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnVerwijderen)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnPasswordReset, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(92, Short.MAX_VALUE))
+							.addGap(187)
+							.addComponent(btnPasswordReset)))
+					.addContainerGap(148, Short.MAX_VALUE))
 		);
 		
 		list = new JList<Medewerker>(dlm);
+		list.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		scrollPane.setViewportView(list);
 		list.addMouseListener(new MouseAdapter() {
 		    public void mouseClicked(MouseEvent evt) {

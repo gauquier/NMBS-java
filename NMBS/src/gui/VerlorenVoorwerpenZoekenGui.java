@@ -50,7 +50,7 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
 		JLabel lblStation = new JLabel(bundle.getString("lblStation"));
-		lblStation.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblStation.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblStation.setForeground(Color.WHITE);
 		
 		JLabel lblVerlorenVoorwerpenZoeken = DefaultComponentFactory.getInstance().createTitle(bundle.getString("lblVerlorenVoorwerpenZoeken"));
@@ -58,6 +58,7 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 		lblVerlorenVoorwerpenZoeken.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		stationLijst = new JComboBox<Station>();
+		stationLijst.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		ArrayList<Station> lijst = StationDAO.getAll();
 		for (Station station : lijst) {
 			stationLijst.addItem(station);
@@ -72,6 +73,7 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 		}
 		
 		list = new JList<VerlorenVoorwerp>(dlm);
+		list.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		list.setBackground(SystemColor.menu);
 		
 		stationLijst.addItemListener(new ItemListener() {
@@ -97,6 +99,7 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 		});
 		
 		btnBewerken = new JButton(bundle.getString("btnBewerken"));
+		btnBewerken.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		btnBewerken.addActionListener(new MenuItemHandler());
 
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -105,15 +108,15 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(42)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblVerlorenVoorwerpenZoeken, GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
-						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-							.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+						.addComponent(lblVerlorenVoorwerpenZoeken, GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+							.addGroup(groupLayout.createSequentialGroup()
 								.addComponent(lblStation)
 								.addGap(32)
 								.addComponent(stationLijst, GroupLayout.PREFERRED_SIZE, 302, GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(btnBewerken, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE))
-							.addComponent(list, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 701, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(list, GroupLayout.PREFERRED_SIZE, 701, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -123,12 +126,12 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 					.addComponent(lblVerlorenVoorwerpenZoeken)
 					.addGap(27)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(stationLijst, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(stationLijst, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblStation)
 						.addComponent(btnBewerken))
 					.addGap(30)
 					.addComponent(list, GroupLayout.PREFERRED_SIZE, 237, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(334, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 	}
