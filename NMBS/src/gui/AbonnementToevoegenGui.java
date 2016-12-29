@@ -29,6 +29,7 @@ import java.awt.Color;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 import java.awt.Font;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JPasswordField;
 import javax.swing.JList;
 import javax.swing.ListModel;
@@ -95,6 +96,9 @@ public class AbonnementToevoegenGui extends JPanel {
 		}
 		
 		list = new JList<Klant>(dlm);
+		
+		JScrollPane scrollPane = new JScrollPane(list);
+		scrollPane.setViewportView(list);
 		
 		JLabel lblGevondenResultaten = new JLabel("Gevonden resultaten:");
 		lblGevondenResultaten.setForeground(Color.WHITE);

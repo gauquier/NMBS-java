@@ -1,6 +1,7 @@
 package gui;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -66,7 +67,8 @@ public class AbonnementBeheerGui extends JPanel {
 		}
 		
 		list = new JList<Abonnement>(dlm);
-	
+		JScrollPane scrollPane = new JScrollPane(list);
+		scrollPane.setViewportView(list);
 		list.addMouseListener(new MouseAdapter() {
 		    public void mouseClicked(MouseEvent evt) {
 		        if (evt.getClickCount() == 2) {
@@ -120,6 +122,8 @@ public class AbonnementBeheerGui extends JPanel {
 		
 		label = new JLabel("Zoeken op naam:");
 		label.setForeground(Color.WHITE);
+		
+		
 		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(

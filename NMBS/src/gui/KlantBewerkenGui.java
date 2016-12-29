@@ -36,6 +36,7 @@ import java.awt.Color;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 import java.awt.Font;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JPasswordField;
 
 
@@ -71,6 +72,8 @@ public class KlantBewerkenGui extends JPanel {
 		}
 		
 		list = new JList<Klant>(dlm);
+		JScrollPane scrollPane = new JScrollPane(list);
+		scrollPane.setViewportView(list);
 		
 		list.addMouseListener(new MouseAdapter() {
 		    public void mouseClicked(MouseEvent evt) {
