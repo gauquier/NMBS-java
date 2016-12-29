@@ -29,8 +29,8 @@ import source.Station;
 public class KiesStationGui {
 	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.KiesStationGui");
 	
-	JFrame frmStation;
-	public static KiesStationGui window;
+	private JFrame frmStation;
+	private static KiesStationGui window;
 	private JButton btnSelecteer;
 	private AutoComboBox cmbbStation;
 	private Station station;

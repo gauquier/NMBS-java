@@ -29,13 +29,13 @@ public class MedewerkerGui  extends JFrame {
 	
 	private Container c = getContentPane();	
 	
-	JPanel vorigeKeuze, HuidigeKeuze;
-    public String navigation;
+	private JPanel vorigeKeuze, HuidigeKeuze;
+    private String navigation;
     
-    JMenuBar menubar;
-    JMenuItem home , routeInfo, stationInfo;
-    JMenu verkoop, verlorenVoorwerpen, instellingen;
-    JMenuItem abonnementVerkoop, abonnementBeheer, uitloggen, ticketVerkoop, verlorenVoorwerpToevoegen, verlorenVoorwerpZoeken, wachtwoordVeranderen;
+    private JMenuBar menubar;
+    private JMenuItem home , routeInfo, stationInfo;
+    private JMenu verkoop, verlorenVoorwerpen, instellingen;
+    private JMenuItem abonnementVerkoop, abonnementBeheer, uitloggen, ticketVerkoop, verlorenVoorwerpToevoegen, verlorenVoorwerpZoeken, wachtwoordVeranderen;
     
     public JPanel getHuidigeKeuze() {
 		return HuidigeKeuze;

@@ -18,7 +18,7 @@ public class DBA {
 	}
 
 	private Type type = Type.NONE;
-	boolean isWhere = false;
+	private boolean isWhere = false;
 	boolean valueAdded = false;
 
 	private Connection conn = null;

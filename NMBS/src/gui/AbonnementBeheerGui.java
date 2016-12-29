@@ -47,7 +47,7 @@ public class AbonnementBeheerGui extends JPanel {
 	private JButton btnAnnuleren;
 	public String navigation;
 	private JButton btnNieuwAbonnement;
-	public String newline = System.getProperty("line.separator");
+	private String newline = System.getProperty("line.separator");
 	
 	public AbonnementBeheerGui() {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));

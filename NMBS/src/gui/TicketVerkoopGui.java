@@ -54,8 +54,8 @@ public class TicketVerkoopGui extends JPanel {
 
 	private JTable table;
 
-	JDateChooser heenDatum = new JDateChooser(new Date());
-	JDateChooser terugDatum = new JDateChooser(new Date());
+	private JDateChooser heenDatum = new JDateChooser(new Date());
+	private JDateChooser terugDatum = new JDateChooser(new Date());
 
 	private SpinnerModel klas = new SpinnerNumberModel(2, 1, 2, 1);
 	private JSpinner klasse = new JSpinner(klas);

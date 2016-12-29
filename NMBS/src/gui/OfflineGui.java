@@ -36,12 +36,12 @@ public class OfflineGui extends JFrame {
 	private Container c = getContentPane();	
 	
 	private static JPanel vorigeKeuze, HuidigeKeuze;
-    public String navigation;
+    private String navigation;
     
-    JMenuBar menubar;
-    JMenuItem home;
-    JMenu verkoop, instellingen;
-    JMenuItem uitloggen, ticketVerkoop;
+    private JMenuBar menubar;
+    private JMenuItem home;
+    private JMenu verkoop, instellingen;
+    private JMenuItem uitloggen, ticketVerkoop;
 
 	public static JPanel getHuidigeKeuze() {
 		return HuidigeKeuze;

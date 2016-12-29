@@ -47,7 +47,7 @@ public class GebruikersBeheerGui extends JPanel {
 	private ArrayList<Medewerker> arrayLijst, arrayLijst2;
 	private JButton btnVerwijderen;
 	private JButton btnPasswordReset;
-	public String navigation;
+	private String navigation;
 	
 	
 	public GebruikersBeheerGui() {

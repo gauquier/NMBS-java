@@ -2,10 +2,10 @@ package source;
 
 public class Aankoop {
 	
-	protected int aankoopId;
-	protected double korting;
-	protected double prijs;
-	protected VerkoopType verkoop;
+	private int aankoopId;
+	private double korting;
+	private double prijs;
+	private VerkoopType verkoop;
 	
 	public Aankoop(double korting, double prijs, VerkoopType verkoop) {
 		setKorting(korting);

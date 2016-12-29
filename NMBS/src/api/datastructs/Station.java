@@ -12,9 +12,9 @@ public class Station implements Serializable
 	 * 
 	 */
 	private static final long serialVersionUID = 3631477534712658791L;
-	String      name;
-    String      id;
-    Location    location;
+	private String      name;
+    private String      id;
+    private Location    location;
 
     public Station(String name, String id, Location location)
     {

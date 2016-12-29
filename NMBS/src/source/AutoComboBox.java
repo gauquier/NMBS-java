@@ -16,7 +16,7 @@ public class AutoComboBox extends JComboBox<Object> {
 	 * 
 	 */
 	private static final long serialVersionUID = 4127002739909805989L;
-Vector<String> myVector = new Vector<String>();
+private Vector<String> myVector = new Vector<String>();
 
 public AutoComboBox() {
 
@@ -43,9 +43,9 @@ public void setKeyWord(ArrayList<String> keyWord) {
 
 public class ComboListener extends KeyAdapter
 {
-@SuppressWarnings("rawtypes")
+private @SuppressWarnings("rawtypes")
 JComboBox cbListener;
-@SuppressWarnings("rawtypes")
+private @SuppressWarnings("rawtypes")
 Vector vector;
 
 @SuppressWarnings("rawtypes")

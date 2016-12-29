@@ -41,7 +41,7 @@ public class AbonnementToevoegenGui extends JPanel {
 	private ArrayList<Klant> arrayLijst;
 	private JList<Klant> list;
 	private JTextField txtKlant;
-	public String navigation;
+	private String navigation;
 	private AutoComboBox comboNaar = new AutoComboBox();
 	private AutoComboBox comboVan = new AutoComboBox();
 

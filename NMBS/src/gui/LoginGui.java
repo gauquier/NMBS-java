@@ -28,12 +28,12 @@ import source.Login;
 
 public class LoginGui {
 
-	JFrame frmNmbs;
+	private JFrame frmNmbs;
 	private JTextField txtUsername;
 	private JButton btnLogin;
 	private JPasswordField txtPassword;
-	public static LoginGui window;
-	public static Login login;
+	private static LoginGui window;
+	private static Login login;
 	private static ResourceBundle bundle;
 
 	public LoginGui() {

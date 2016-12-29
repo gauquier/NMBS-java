@@ -32,7 +32,7 @@ public class PrijsBeheerGui extends JPanel {
 	private JButton btnBewerken;
 	private JList<Prijs> list;
 	private ArrayList<Prijs> arrayLijst;
-	public String navigation;
+	private String navigation;
 
 	public PrijsBeheerGui() {
 		bundle = ResourceBundle.getBundle("localization.PrijsBeheerGui");

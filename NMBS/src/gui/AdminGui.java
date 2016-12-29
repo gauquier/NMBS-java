@@ -32,12 +32,12 @@ public class AdminGui extends JFrame {
 	private Container c = getContentPane();	
 	
 	private static JPanel vorigeKeuze, HuidigeKeuze;
-    public String navigation;
+    private String navigation;
     
-    JMenuBar menubar;
-    JMenuItem home , routeInfo, stationInfo;
-    JMenu verkoop, verlorenVoorwerpen, instellingen, gebruikers, klanten;
-    JMenuItem abonnementBeheer, uitloggen, gebruikersToevoegen, gebruikersBeheer, ticketVerkoop
+    private JMenuBar menubar;
+    private JMenuItem home , routeInfo, stationInfo;
+    private JMenu verkoop, verlorenVoorwerpen, instellingen, gebruikers, klanten;
+    private JMenuItem abonnementBeheer, uitloggen, gebruikersToevoegen, gebruikersBeheer, ticketVerkoop
     , verlorenVoorwerpToevoegen, verlorenVoorwerpZoeken, wachtwoordVeranderen ,klantenToevoegen, klantenBeheer;
     private JMenuItem mntmPrijsbeheer;
 

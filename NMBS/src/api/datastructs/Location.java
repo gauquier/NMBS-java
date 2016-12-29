@@ -12,7 +12,7 @@ public class Location implements Serializable
 	 * 
 	 */
 	private static final long serialVersionUID = 1053961404468635331L;
-	double longitude, latitude;
+	private double longitude, latitude;
 
     public Location(double longitude, double latitude)
     {

@@ -43,7 +43,7 @@ public class KlantenBeheerGui extends JPanel {
 	private JList<Klant> list;
 	private ArrayList<Klant> arrayLijst;
 	private JButton btnVerwijderen;
-	public String navigation;
+	private String navigation;
 	
 	
 	public KlantenBeheerGui() {
