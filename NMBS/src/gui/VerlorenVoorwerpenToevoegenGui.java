@@ -91,14 +91,14 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel {
 								.addComponent(lblDatum))
 							.addGap(31)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(btnToevoegen, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE)
 								.addComponent(txtrBeschrijving, GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
 								.addComponent(stationLijst, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(dateChooser, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+								.addComponent(dateChooser, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnToevoegen, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(label)))
-					.addContainerGap(84, Short.MAX_VALUE))
+					.addContainerGap(110, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -119,7 +119,7 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel {
 						.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(31)
 					.addComponent(btnToevoegen)
-					.addGap(185))
+					.addContainerGap())
 		);
 		this.setLayout(groupLayout);
 

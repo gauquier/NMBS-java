@@ -45,7 +45,7 @@ public class KlantBewerkenGui extends JPanel {
 		this.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 
 		JLabel lblKlantBewerken = DefaultComponentFactory.getInstance().createTitle("Klanten beheren");
-		lblKlantBewerken.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblKlantBewerken.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		this.arrayLijst = new ArrayList<Klant>();
 
@@ -58,6 +58,7 @@ public class KlantBewerkenGui extends JPanel {
 		}
 
 		this.list = new JList<Klant>(this.dlm);
+		this.list.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		JScrollPane scrollPane = new JScrollPane(this.list);
 		scrollPane.setViewportView(this.list);
 
@@ -73,6 +74,7 @@ public class KlantBewerkenGui extends JPanel {
 
 		this.txtZoeken = new JTextField();
 		this.txtZoeken.setColumns(10);
+		this.txtZoeken.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		this.txtZoeken.getDocument().addDocumentListener(new DocumentListener() {
 
 			@Override
@@ -94,24 +96,26 @@ public class KlantBewerkenGui extends JPanel {
 		});
 
 		this.btnBewerken = new JButton("Bewerken");
-		this.btnBewerken.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		this.btnBewerken.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		this.btnBewerken.setBackground(Color.ORANGE);
 		this.btnBewerken.addActionListener(new MenuItemHandler());
 
 		this.btnVerwijderen = new JButton("Verwijderen");
-		this.btnVerwijderen.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		this.btnVerwijderen.setFont(new Font("Segoe UI", Font.BOLD, 20));
 		this.btnVerwijderen.setBackground(Color.ORANGE);
 		this.btnVerwijderen.addActionListener(new MenuItemHandler());
 
 		JLabel lblZoekenOpNaam = new JLabel("Zoeken op naam:");
 		lblZoekenOpNaam.setForeground(Color.WHITE);
+		lblZoekenOpNaam.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		
 
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
 				.createSequentialGroup().addGap(37)
 				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING).addComponent(lblKlantBewerken)
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-								.addComponent(lblZoekenOpNaam, GroupLayout.PREFERRED_SIZE, 132,
+								.addComponent(lblZoekenOpNaam, GroupLayout.PREFERRED_SIZE, 175,
 										GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(ComponentPlacement.RELATED, 38, Short.MAX_VALUE).addComponent(
 										this.txtZoeken, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))

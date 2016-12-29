@@ -82,18 +82,18 @@ public class KlantWeergevenGui extends JPanel {
 								.addComponent(lblEmail))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblInfoValue, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblEmailValue, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblBusValue, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblAdresValue, GroupLayout.PREFERRED_SIZE, 296, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblInfoValue, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(lblAdresValue, GroupLayout.PREFERRED_SIZE, 296, GroupLayout.PREFERRED_SIZE)))
 						.addComponent(lblKlant, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap(316, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
+				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(lblKlant, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+					.addComponent(lblKlant, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblEmail)
@@ -109,10 +109,10 @@ public class KlantWeergevenGui extends JPanel {
 						.addComponent(lblBus)
 						.addComponent(lblBusValue, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblInfoValue, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(lblInfo))
-					.addGap(219))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblInfo)
+						.addComponent(lblInfoValue))
+					.addContainerGap(219, Short.MAX_VALUE))
 		);
 
 		this.setLayout(groupLayout);

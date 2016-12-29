@@ -174,197 +174,167 @@ public class KlantBijwerkenGui extends JPanel {
 		this.txtInfo.setColumns(10);
 		this.txtInfo.setText(k.getInfo());
 
-		this.lblVoornaamError = new JLabel("voornaam error");
+		this.lblVoornaamError = new JLabel("");
 		this.lblVoornaamError.setForeground(Color.RED);
 		this.lblVoornaamError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 
-		this.lblAchternaamError = new JLabel("achternaam error");
+		this.lblAchternaamError = new JLabel("");
 		this.lblAchternaamError.setForeground(Color.RED);
 		this.lblAchternaamError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 
-		this.lblStraatError = new JLabel("straat error");
+		this.lblStraatError = new JLabel("");
 		this.lblStraatError.setForeground(Color.RED);
 		this.lblStraatError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 
-		this.lblHuisnrError = new JLabel("huisnr error");
+		this.lblHuisnrError = new JLabel("");
 		this.lblHuisnrError.setForeground(Color.RED);
 		this.lblHuisnrError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 
-		this.lblBusError = new JLabel("bus error");
+		this.lblBusError = new JLabel("");
 		this.lblBusError.setForeground(Color.RED);
 		this.lblBusError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 
-		this.lblGemeenteError = new JLabel("gemeente error");
+		this.lblGemeenteError = new JLabel("");
 		this.lblGemeenteError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		this.lblGemeenteError.setForeground(Color.RED);
 
-		this.lblPostcodeError = new JLabel("postcode error");
+		this.lblPostcodeError = new JLabel("");
 		this.lblPostcodeError.setForeground(Color.RED);
 		this.lblPostcodeError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 
-		this.lblEmailError = new JLabel("email error");
+		this.lblEmailError = new JLabel("");
 		this.lblEmailError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		this.lblEmailError.setForeground(Color.RED);
 
 		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(
-				Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup().addGroup(groupLayout
-						.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
-								.createSequentialGroup().addGap(30)
-								.addGroup(groupLayout
-										.createParallelGroup(
-												Alignment.LEADING)
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(30)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblKlantBijwerken)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblVoornaam)
+										.addComponent(lblAchternaam)
+										.addComponent(lblBus)
+										.addComponent(lblPostcode)
+										.addComponent(lblHuisnummer)
+										.addComponent(lblGemeente)
+										.addComponent(lblStraat)
+										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+											.addComponent(lblExtraInformatie, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+											.addComponent(lblEmail, Alignment.LEADING)))
+									.addGap(50)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(txtInfo, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE)
+										.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE)
 										.addGroup(groupLayout.createSequentialGroup()
-												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-														.addComponent(lblVoornaam).addComponent(lblAchternaam)
-														.addComponent(lblBus).addComponent(lblPostcode)
-														.addComponent(lblHuisnummer).addComponent(lblGemeente)
-														.addComponent(lblStraat))
-												.addGap(50)
-												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-														.addGroup(groupLayout.createSequentialGroup()
-																.addComponent(this.txtPostcode,
-																		GroupLayout.PREFERRED_SIZE, 79,
-																		GroupLayout.PREFERRED_SIZE)
-																.addGap(18).addComponent(this.lblPostcodeError))
-														.addGroup(groupLayout.createSequentialGroup()
-																.addGroup(groupLayout
-																		.createParallelGroup(Alignment.TRAILING, false)
-																		.addComponent(this.txtBus, Alignment.LEADING, 0,
-																				0, Short.MAX_VALUE)
-																		.addComponent(this.txtHuisnr, Alignment.LEADING,
-																				GroupLayout.DEFAULT_SIZE, 81,
-																				Short.MAX_VALUE))
-																.addGap(18)
-																.addGroup(groupLayout
-																		.createParallelGroup(Alignment.LEADING)
-																		.addComponent(this.lblBusError)
-																		.addComponent(this.lblHuisnrError)))
-														.addGroup(groupLayout.createSequentialGroup()
-																.addComponent(this.txtVoornaam,
-																		GroupLayout.PREFERRED_SIZE, 286,
-																		GroupLayout.PREFERRED_SIZE)
-																.addGap(18).addComponent(this.lblVoornaamError))
-														.addGroup(groupLayout.createSequentialGroup()
-																.addComponent(this.txtAchternaam,
-																		GroupLayout.PREFERRED_SIZE, 286,
-																		GroupLayout.PREFERRED_SIZE)
-																.addGap(18).addComponent(this.lblAchternaamError))
-														.addGroup(groupLayout.createSequentialGroup()
-																.addComponent(this.txtStraat,
-																		GroupLayout.PREFERRED_SIZE, 286,
-																		GroupLayout.PREFERRED_SIZE)
-																.addGap(18).addComponent(this.lblStraatError))
-														.addGroup(groupLayout.createSequentialGroup()
-																.addGroup(groupLayout
-																		.createParallelGroup(Alignment.LEADING)
-																		.addComponent(label_1, GroupLayout.DEFAULT_SIZE,
-																				347, Short.MAX_VALUE)
-																		.addComponent(this.txtInfo,
-																				GroupLayout.PREFERRED_SIZE, 286,
-																				GroupLayout.PREFERRED_SIZE)
-																		.addGroup(groupLayout.createSequentialGroup()
-																				.addComponent(this.txtEmail,
-																						GroupLayout.PREFERRED_SIZE, 286,
-																						GroupLayout.PREFERRED_SIZE)
-																				.addGap(18)
-																				.addComponent(this.lblEmailError)
-																				.addPreferredGap(
-																						ComponentPlacement.RELATED)))
-																.addPreferredGap(ComponentPlacement.RELATED)
-																.addGroup(groupLayout
-																		.createParallelGroup(Alignment.LEADING)
-																		.addGroup(groupLayout.createSequentialGroup()
-																				.addGap(206).addComponent(
-																						this.btnBijwerken,
-																						GroupLayout.PREFERRED_SIZE, 111,
-																						GroupLayout.PREFERRED_SIZE))
-																		.addGroup(groupLayout.createSequentialGroup()
-																				.addGap(86).addComponent(
-																						this.btnBijwerken,
-																						GroupLayout.PREFERRED_SIZE, 111,
-																						GroupLayout.PREFERRED_SIZE))))
-														.addGroup(groupLayout.createSequentialGroup()
-																.addComponent(this.txtGemeente,
-																		GroupLayout.PREFERRED_SIZE, 286,
-																		GroupLayout.PREFERRED_SIZE)
-																.addGap(18).addComponent(this.lblGemeenteError))))
-										.addComponent(lblKlantBijwerken)))
-						.addGroup(groupLayout.createSequentialGroup().addGap(32)
-								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-										.addComponent(this.lblExtraInformatie, Alignment.LEADING,
-												GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(this.lblEmail, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-						.addContainerGap()));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.TRAILING).addGroup(groupLayout
-				.createSequentialGroup()
-				.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createSequentialGroup().addContainerGap().addComponent(this.btnBijwerken,
-								GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup().addGap(19).addComponent(lblKlantBijwerken)
-								.addGap(18)
-								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblVoornaam)
-										.addComponent(this.txtVoornaam, GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(this.lblVoornaamError))
-								.addGap(15)
-								.addGroup(
-										groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblAchternaam)
-												.addComponent(this.txtAchternaam, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(this.lblAchternaamError))
-								.addGap(15)
-								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-										.addComponent(this.txtStraat, GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblStraat).addComponent(this.lblStraatError))
-								.addGap(15)
-								.addGroup(
-										groupLayout.createParallelGroup(Alignment.TRAILING).addComponent(lblHuisnummer)
-												.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-														.addComponent(this.txtHuisnr, GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-														.addComponent(this.lblHuisnrError)))
-								.addGap(15)
-								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING).addComponent(lblBus)
-										.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-												.addComponent(this.txtBus, GroupLayout.PREFERRED_SIZE,
-														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(this.lblBusError)))
-								.addGap(15)
-								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-										.addComponent(this.txtGemeente, GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblGemeente).addComponent(this.lblGemeenteError))
-								.addGap(15)
-								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblPostcode)
-										.addComponent(this.txtPostcode, GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(this.lblPostcodeError))
-								.addGap(138)
-								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+											.addComponent(txtPostcode, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
+											.addGap(18)
+											.addComponent(lblPostcodeError))
 										.addGroup(groupLayout.createSequentialGroup()
-												.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-														.addComponent(this.lblEmail)
-														.addComponent(this.txtEmail, GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-														.addComponent(this.lblEmailError))
-												.addGap(31))
+											.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+												.addComponent(txtBus, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+												.addComponent(txtHuisnr, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE))
+											.addGap(18)
+											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addComponent(lblBusError)
+												.addComponent(lblHuisnrError)))
 										.addGroup(groupLayout.createSequentialGroup()
-												.addComponent(this.btnBijwerken, GroupLayout.PREFERRED_SIZE, 43,
-														GroupLayout.PREFERRED_SIZE)
-												.addGap(29)))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-										.addComponent(this.lblExtraInformatie).addComponent(this.txtInfo,
-												GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(ComponentPlacement.UNRELATED, GroupLayout.DEFAULT_SIZE,
-										Short.MAX_VALUE)
-								.addComponent(label_1)))
-				.addGap(29)));
+											.addComponent(txtVoornaam, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE)
+											.addGap(18)
+											.addComponent(lblVoornaamError))
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(txtAchternaam, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE)
+											.addGap(18)
+											.addComponent(lblAchternaamError))
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(txtStraat, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE)
+											.addGap(18)
+											.addComponent(lblStraatError))
+										.addGroup(groupLayout.createSequentialGroup()
+											.addGap(304)
+											.addComponent(lblEmailError)
+											.addPreferredGap(ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addGroup(groupLayout.createSequentialGroup()
+													.addGap(206)
+													.addComponent(btnBijwerken, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE))
+												.addGroup(groupLayout.createSequentialGroup()
+													.addGap(86)
+													.addComponent(btnBijwerken, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE))))
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(txtGemeente, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE)
+											.addGap(18)
+											.addComponent(lblGemeenteError))))))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addGap(174)
+							.addComponent(label_1, GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE)))
+					.addContainerGap())
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(19)
+					.addComponent(lblKlantBijwerken)
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblVoornaam)
+						.addComponent(txtVoornaam, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblVoornaamError))
+					.addGap(15)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblAchternaam)
+						.addComponent(txtAchternaam, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblAchternaamError))
+					.addGap(15)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(txtStraat, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblStraat)
+						.addComponent(lblStraatError))
+					.addGap(15)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblHuisnummer)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(txtHuisnr, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblHuisnrError)))
+					.addGap(15)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblBus)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(txtBus, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblBusError)))
+					.addGap(15)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(txtGemeente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblGemeente)
+						.addComponent(lblGemeenteError))
+					.addGap(15)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblPostcode)
+						.addComponent(txtPostcode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblPostcodeError))
+					.addGap(22)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblEmail)
+						.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(31)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblExtraInformatie)
+						.addComponent(txtInfo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addComponent(label_1)
+					.addPreferredGap(ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(btnBijwerken, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblEmailError)
+							.addGap(31)))
+					.addGap(29))
+		);
 
 		this.setLayout(groupLayout);
 	}

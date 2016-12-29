@@ -150,8 +150,9 @@ public class TicketVerkoopGui extends JPanel {
 		this.aantal.setValue(1);
 
 		this.paneTickettenVerkocht.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		this.paneTickettenVerkocht.setBackground((UIManager.getColor("CheckBoxMenuItem.selectionBackground")));
+		this.paneTickettenVerkocht.setBackground(new Color(51, 153, 255));
 		this.paneTickettenVerkocht.setVisible(false);
+		
 		
 		heenDatum.setDateFormatString("dd-MM-yyyy");
 		terugDatum.setDateFormatString("dd-MM-yyyy");
@@ -197,129 +198,111 @@ public class TicketVerkoopGui extends JPanel {
 		datePanel.setLayout(new GridLayout(2, 1));
 
 		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout
-				.setHorizontalGroup(
-						groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup().addGroup(groupLayout
-										.createParallelGroup(Alignment.LEADING, false)
-										.addGroup(groupLayout
-												.createSequentialGroup().addGap(77)
-												.addComponent(this.table, GroupLayout.PREFERRED_SIZE, 80,
-														GroupLayout.PREFERRED_SIZE))
-										.addGroup(groupLayout.createSequentialGroup().addGap(30).addGroup(groupLayout
-												.createParallelGroup(Alignment.LEADING)
-												.addGroup(groupLayout.createSequentialGroup().addGroup(groupLayout
-														.createParallelGroup(Alignment.LEADING)
-														.addComponent(this.lblNaar).addComponent(this.lblVan)
-														.addComponent(this.lblTerugDatum)
-														.addComponent(this.lblSoortBiljet).addComponent(this.lblPrijs)
-														.addComponent(this.lblDatum)
-														.addComponent(this.lblKlasse, GroupLayout.PREFERRED_SIZE, 72,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(this.lblAantal, GroupLayout.PREFERRED_SIZE, 90,
-																GroupLayout.PREFERRED_SIZE))
-														.addPreferredGap(ComponentPlacement.RELATED)
-														.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-																.addComponent(datePanel, GroupLayout.PREFERRED_SIZE,
-																		284, GroupLayout.PREFERRED_SIZE)
-																.addGroup(groupLayout
-																		.createParallelGroup(Alignment.LEADING, false)
-																		.addGroup(groupLayout.createSequentialGroup()
-																				.addComponent(this.btnVerkoop)
-																				.addPreferredGap(
-																						ComponentPlacement.RELATED,
-																						GroupLayout.DEFAULT_SIZE,
-																						Short.MAX_VALUE)
-																				.addComponent(this.btnPdf))
-																		.addComponent(this.comboNaar,
-																				GroupLayout.DEFAULT_SIZE, 201,
-																				Short.MAX_VALUE)
-																		.addComponent(this.comboVan,
-																				GroupLayout.DEFAULT_SIZE, 201,
-																				Short.MAX_VALUE)
-																		.addGroup(groupLayout.createSequentialGroup()
-																				.addComponent(this.rdbtnHeenEnTerug)
-																				.addPreferredGap(
-																						ComponentPlacement.RELATED)
-																				.addComponent(this.rdbtnHeen))
-																		.addComponent(this.comboVerkoopType, 0, 201,
-																				Short.MAX_VALUE)
-																		.addComponent(this.txtPrijs)
-																		.addGroup(groupLayout.createSequentialGroup()
-																				.addGroup(groupLayout
-																						.createParallelGroup(
-																								Alignment.TRAILING,
-																								false)
-																						.addComponent(this.klasse,
-																								Alignment.LEADING,
-																								GroupLayout.PREFERRED_SIZE,
-																								GroupLayout.DEFAULT_SIZE,
-																								GroupLayout.PREFERRED_SIZE)
-																						.addComponent(this.aantal,
-																								Alignment.LEADING,
-																								GroupLayout.DEFAULT_SIZE,
-																								47, Short.MAX_VALUE))
-																				.addPreferredGap(
-																						ComponentPlacement.RELATED)))))
-												.addComponent(lblTicketVerkoop)).addGap(175)
-												.addComponent(this.paneTickettenVerkocht, GroupLayout.PREFERRED_SIZE,
-														260, GroupLayout.PREFERRED_SIZE)))
-										.addContainerGap()));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
-				.createSequentialGroup()
-				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
-						.createSequentialGroup().addContainerGap().addComponent(lblTicketVerkoop)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(this.lblVan)
-								.addComponent(this.comboVan, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(this.comboNaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE)
-								.addComponent(this.lblNaar))
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addGroup(groupLayout.createSequentialGroup().addComponent(this.lblDatum).addGap(18)
-										.addComponent(this.lblTerugDatum).addGap(13))
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(77)
+							.addComponent(table, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(30)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(datePanel, GroupLayout.PREFERRED_SIZE, 81,
-												GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED)))
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(this.lblKlasse)
-								.addComponent(this.klasse, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-						.addGap(18)
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup().addGap(24).addComponent(this.table,
-										GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblNaar)
+										.addComponent(lblVan)
+										.addComponent(lblTerugDatum)
+										.addComponent(lblSoortBiljet)
+										.addComponent(lblPrijs)
+										.addComponent(lblDatum)
+										.addComponent(lblKlasse, GroupLayout.PREFERRED_SIZE, 72, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblAantal, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(datePanel, GroupLayout.PREFERRED_SIZE, 284, GroupLayout.PREFERRED_SIZE)
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+											.addGroup(groupLayout.createSequentialGroup()
+												.addComponent(btnVerkoop)
+												.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+												.addComponent(btnPdf))
+											.addComponent(comboNaar, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+											.addComponent(comboVan, GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+											.addGroup(groupLayout.createSequentialGroup()
+												.addComponent(rdbtnHeenEnTerug)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(rdbtnHeen))
+											.addComponent(comboVerkoopType, 0, 201, Short.MAX_VALUE)
+											.addComponent(txtPrijs)
+											.addGroup(groupLayout.createSequentialGroup()
+												.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+													.addComponent(klasse, Alignment.LEADING)
+													.addComponent(aantal, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE))
+												.addPreferredGap(ComponentPlacement.RELATED)))))
+								.addComponent(lblTicketVerkoop))
+							.addGap(175)
+							.addComponent(paneTickettenVerkocht, GroupLayout.PREFERRED_SIZE, 260, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap())
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblTicketVerkoop)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblVan)
+								.addComponent(comboVan, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(comboNaar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNaar))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 								.addGroup(groupLayout.createSequentialGroup()
-										.addPreferredGap(ComponentPlacement.UNRELATED).addGroup(
-												groupLayout.createParallelGroup(Alignment.BASELINE)
-														.addComponent(this.aantal, GroupLayout.PREFERRED_SIZE,
-																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-														.addComponent(this.lblAantal))))
-						.addGap(18)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(this.rdbtnHeenEnTerug).addComponent(this.rdbtnHeen))
-						.addGap(18)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(this.comboVerkoopType, GroupLayout.PREFERRED_SIZE,
-										GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(this.lblSoortBiljet))
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(this.lblPrijs)
-								.addComponent(this.txtPrijs, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-										GroupLayout.PREFERRED_SIZE))
-						.addGap(14)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(this.btnVerkoop)
-								.addComponent(this.btnPdf, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
-										Short.MAX_VALUE)))
-						.addGroup(
-								groupLayout.createSequentialGroup().addGap(28).addComponent(this.paneTickettenVerkocht,
-										GroupLayout.PREFERRED_SIZE, 298, GroupLayout.PREFERRED_SIZE)))
-				.addContainerGap(41, Short.MAX_VALUE)));
+									.addComponent(lblDatum)
+									.addGap(18)
+									.addComponent(lblTerugDatum)
+									.addGap(13))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(datePanel, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)))
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblKlasse)
+								.addComponent(klasse, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(24)
+									.addComponent(table, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(aantal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblAantal))))
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(rdbtnHeenEnTerug)
+								.addComponent(rdbtnHeen))
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(comboVerkoopType, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblSoortBiljet))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblPrijs)
+								.addComponent(txtPrijs, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(14)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnVerkoop)
+								.addComponent(btnPdf, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(28)
+							.addComponent(paneTickettenVerkocht, GroupLayout.PREFERRED_SIZE, 298, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
 		this.comboVan.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		this.comboNaar.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		this.setLayout(groupLayout);
