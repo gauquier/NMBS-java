@@ -46,7 +46,7 @@ public class StationInfoGui extends JPanel {
 	private JList<String> list;
 	private StationDAO stationDAO = new StationDAO();
 	private ArrayList<BillBoard> billBoardLijst;
-	private JDateChooser dateChooser;
+	private JDateChooser dateChooser = new JDateChooser();
 	private DefaultListModel<BillBoard> dlm;
 	public StationInfoGui() {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
@@ -76,8 +76,7 @@ public class StationInfoGui extends JPanel {
 		
 		JLabel lblStationInfo = DefaultComponentFactory.getInstance().createTitle("Station info");
 		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setCalendar(Calendar.getInstance());
+		dateChooser.setDate(new Date());
 		dateChooser.setDateFormatString("dd-MM-yyyy");
 		
 		list = new JList<String>();
@@ -151,7 +150,7 @@ public class StationInfoGui extends JPanel {
 			if (e.getSource() == btnZoeken)
 			{
 				DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
-				Date date = new Date();
+				Date date = dateChooser.getDate();
 				String datum = dateFormat.format(date);
 				if (cmbbStation.getSelectedItem() != null && txtTijd.getText().isEmpty())
 				{
