@@ -162,7 +162,7 @@ public class AbonnementToevoegenGui extends JPanel {
 														.addComponent(lblPrijsValue, GroupLayout.PREFERRED_SIZE, 167,
 																GroupLayout.PREFERRED_SIZE)
 														.addGap(202).addComponent(this.btnAanmaken,
-																GroupLayout.PREFERRED_SIZE, 120,
+																GroupLayout.PREFERRED_SIZE, 160,
 																GroupLayout.PREFERRED_SIZE))
 												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 														.addGroup(groupLayout.createSequentialGroup()
