@@ -105,25 +105,6 @@ public class AbonnementDAO {
 		}
 		
 		return abonnementen;
-		/*
-		ArrayList<Abonnement> abonnementen = new ArrayList<Abonnement>();
-
-		dba.createSelect("Abonnement");
-		dba.addWhere("actief", true);
-		ResultSet rs = dba.commit();
-		try {
-			while(rs.next()){
-				abonnementen.add(new Abonnement(rs.getInt(1), KlantDAO.getKlant(rs.getInt(2)), rs.getString(3), rs.getString(4), rs.getDouble(5), VerkoopType.ABONNEMENT, rs.getDouble(7), rs.getBoolean(8) ));
-			}
-			
-			
-			return abonnementen;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
-		*/
 	}
 	
 	public static void updatePrijs(Abonnement abonnement, double Prijs){

@@ -170,24 +170,4 @@ public class LoginDao {
 		}		
 		return id;
 	}
-	
-	public static void loginWijzigen(Login login) throws Exception{ 
-	}
-	public static Login loginZoekenOpLoginId(int loginId) throws Exception{
-		return null; 
-	}
-	public static Login loginZoekenOpLoginId(Login login) throws Exception{
-		return null;
-		
-	}
-
-	public static Login loginZoekenOpUsername(Login login) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public static Login loginToevoegen(Login login) throws Exception{
-		return null;
-		
-	}
 }

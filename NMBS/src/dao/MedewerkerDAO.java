@@ -35,21 +35,6 @@ public class MedewerkerDAO {
 		dba.commit();
 	}
 
-	public static int addMedewerker(Medewerker medewerker) {
-
-		if (getMedewerkerId(medewerker) == 0) {
-			dba.createInsert("Medewerker");
-			dba.addValue(LoginDao.addLogin(medewerker.getLogin()));
-			dba.addValue(PersoonDao.addPersoon(new Persoon(0, medewerker.getVoornaam(), medewerker.getAchternaam(),
-					medewerker.getEmail(), medewerker.getAdres())));
-			dba.addValue(RolDAO.addRol(medewerker.getRol()));
-			dba.addValue(true);
-			dba.commit();
-		}
-
-		return getMedewerkerId(medewerker);
-	}
-
 	public static int getMedewerkerId(Medewerker medewerker) {
 		dba.createSelect("Medewerker", "medewerkerId");
 		dba.addWhere("loginId", LoginDao.getLoginId(medewerker.getLogin()));

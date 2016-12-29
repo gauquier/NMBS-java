@@ -1,15 +1,11 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.image.DataBufferByte;
-import java.awt.image.WritableRaster;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -27,11 +23,6 @@ public class HomeGui extends JPanel {
 	private static final long serialVersionUID = 2564170957766548127L;
 	
 	private static ResourceBundle bundle;
-
-	ImageIcon photo;
-	WritableRaster raster;
-	DataBufferByte data;
-	File image;
 	private JTable table;
 
 	public HomeGui(boolean isOffline) {

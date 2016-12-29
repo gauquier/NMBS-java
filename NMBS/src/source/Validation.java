@@ -6,26 +6,9 @@ import java.util.Date;
 import java.util.regex.Pattern;
 
 public class Validation {
-	public static boolean checkLenght(String name, int lenght) {
-        String regex = "^.{"+lenght+",}$";
-        if (Pattern.matches(regex, name)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 	
 	public static boolean checkUsername(String name) {
         String regex = "[A-Za-z]{2,40}";
-        if (Pattern.matches(regex, name)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public static boolean checkAlphaNumerical(String name) {
-        String regex = "[A-Za-z0-9]{2,40}";
         if (Pattern.matches(regex, name)) {
             return true;
         } else {
@@ -62,15 +45,6 @@ public class Validation {
 
     public static boolean checkPostalCode(String name) {
         String regex = "[1-9][0-9]{3}";
-        if (Pattern.matches(regex, name)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public static boolean checkPhone(String name) {
-        String regex = "[\\+]{0,1}[0-9]{5,20}";
         if (Pattern.matches(regex, name)) {
             return true;
         } else {

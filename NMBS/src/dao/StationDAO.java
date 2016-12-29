@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import source.Station;
-import source.api.aangepast.Parser;
 
 public class StationDAO {
 
@@ -55,38 +54,6 @@ public class StationDAO {
 		}
 		return 0;
 	}
-
-	public static int checkStationZone(String stationZone) {
-
-		dba.createSelect("Station", "stationId");
-		dba.addWhere("zone", stationZone);
-		ResultSet rs = dba.commit();
-		try {
-			if (rs.next()) {
-				return rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return 0;
-	}
-
-	public Station getStation(int id) {
-		Station station = null;
-		dba.createSelect("Station");
-		dba.addWhere("stationId", id);
-		ResultSet rs = dba.commit();
-		try {
-			if (rs.next()) {
-				station = new Station(rs.getInt(1), rs.getString(2), VerlorenVoorwerpDAO.getVerlorenVoorwerpByStation(rs.getInt(1)));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch blocks
-			e.printStackTrace();
-		}
-		return station;
-	} 
 	
 	public static ArrayList<Station> getAll(){
 		dba.createSelect("Station");
@@ -138,32 +105,4 @@ public class StationDAO {
 		}
 		return null;
 	} 
-	public void updateStationsInDB() {
-		try {
-			List<Station> bestaandeStations = getStations();
-			List<Station> nieuwStations = new ArrayList<>();
-			for (Station station : Parser.parseStations()) {
-				if (!bestaandeStations.contains(station))
-					nieuwStations.add(station);
-			}
-			for (Station station : nieuwStations)
-				insertStation(station); 
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
-	// public static void main(String[] args) {
-	/*
-	 * ArrayList<VerlorenVoorwerp> vv = new ArrayList<VerlorenVoorwerp>();
-	 * vv.add(new VerlorenVoorwerp(-1, "gsm", new java.sql.Date(11,11,1900),
-	 * false)); Station s = new Station(-1, "Luxembourg","brussel", 2, 2, false,
-	 * true, vv); StationDAO sd = new StationDAO();
-	 * System.out.println(sd.getStationId(s)); /*sd.insertStation(s);
-	 * System.out.println(sd.getStation(sd.getStationId(s)).getZone());
-	 * System.out.println(sd.getStationId(f));
-	 */
-	// }
 }

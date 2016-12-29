@@ -7,8 +7,6 @@ import java.util.Date;
 
 import com.mysql.jdbc.Statement;
 
-import source.VerkoopType;
-
 public class DBA {
 	private String sql;
 	private String tableName;
@@ -19,7 +17,6 @@ public class DBA {
 
 	private Type type = Type.NONE;
 	private boolean isWhere = false;
-	boolean valueAdded = false;
 
 	private Connection conn = null;
 	private Statement stmt = null;
@@ -97,25 +94,6 @@ public class DBA {
 		createUpdate(tableName, columnName, (double) value);
 	}
 
-	public void createUpdate(String tableName, String columnName, boolean value) // UPDATE
-																					// tableName
-																					// SET
-																					// columnName
-																					// =
-																					// value
-	{
-		reset();
-
-		type = Type.UPDATE;
-		this.tableName = tableName;
-		sql = "UPDATE " + tableName + " SET " + columnName + " = ";
-		if (value) {
-			sql = sql + "1";
-		} else {
-			sql = sql + "0";
-		}
-	}
-
 	public void createInsert(String tableName) // INSERT INTO tableName Values
 												// (0,... (autoset id)
 	{
@@ -163,15 +141,6 @@ public class DBA {
 		}
 	}
 
-	public void addValue(VerkoopType value) // haal type STRING uit enum
-	{
-		if (type == Type.INSERT) {
-			sql = sql + ", " + value;
-		} else {
-			System.out.println("can only add values when type = INSERT");
-		}
-	}
-
 	public void addValue(Date value) {
 		String ss = "";
 		if (value.getDate() < 0)
@@ -203,21 +172,6 @@ public class DBA {
 				isWhere = true;
 			}
 			sql = sql + " " + columnName + " = \"" + value + "\" AND";
-		} else {
-			System.out.println("can only add WHERE clausule when type = UPDATE or type = SELECT");
-		}
-	}
-
-	public void addWhereLike(String columnName, String value) // ... WHERE
-																// columnName =
-																// value
-	{
-		if (type == Type.UPDATE || type == Type.SELECT) {
-			if (!isWhere) {
-				sql = sql + " WHERE";
-				isWhere = true;
-			}
-			sql = sql + " " + columnName + " LIKE '" + value + "' AND";
 		} else {
 			System.out.println("can only add WHERE clausule when type = UPDATE or type = SELECT");
 		}

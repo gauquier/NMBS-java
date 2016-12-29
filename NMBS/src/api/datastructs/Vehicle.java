@@ -27,11 +27,6 @@ public class Vehicle  implements Serializable
         this.type       = type;
     }
 
-    public Vehicle(String id)
-    {
-        this.id         = id;
-    }
-
     public String getCompany()
     {
         return company;

@@ -28,18 +28,6 @@ public class Ticket extends Aankoop {
 		setHeenDatum(heenDatum);
 		setTerugDatum(terugDatum);
 	}
-
-	public Ticket(int aankoopId, int medewerkerId, String depZone,
-			String arrZone, int verkoopStation,double prijs, VerkoopType verkoop,double korting, Date verkoopDatum, Date heenDatum) {
-		super(aankoopId,korting, prijs, verkoop);
-		this.medewerkerId = medewerkerId;
-		this.depZone = depZone;
-		this.arrZone = arrZone;
-		this.verkoopStation = verkoopStation;
-		this.verkoopDatum = verkoopDatum;
-		this.heenDatum = heenDatum;
-	}
-
 	
 	public int getMedewerkerId() {
 		return medewerkerId;

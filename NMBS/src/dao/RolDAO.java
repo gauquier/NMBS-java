@@ -45,14 +45,4 @@ public class RolDAO {
 		}
 		return null;
 	} 
-	public static Rol zoekRolOpRolId(int rolId) throws Exception{ 
-		return null;
-	}
-	/*
-public static void main(String[] args) {
-	Rol rol = new Rol(0, "testRol111");
-	Rol rol2 = getRol(addRol(rol));
-	System.out.println(rol2.getRolId() + " " + rol2.getRol());
-	}
-*/
 }

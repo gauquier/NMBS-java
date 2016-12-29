@@ -45,7 +45,6 @@ public class AbonnementBeheerGui extends JPanel {
 	private JList<Abonnement> list;
 	private ArrayList<Abonnement> arrayLijst;
 	private JButton btnAnnuleren;
-	public String navigation;
 	private JButton btnNieuwAbonnement;
 	private String newline = System.getProperty("line.separator");
 	

@@ -70,18 +70,4 @@ public class PersoonDao {
 		return -1;
 		
 	}
-	
-	public static boolean persoonWijzigen(Persoon persoon) throws Exception{
-		
-		return false;
-	}
-	public static Persoon zoekPersoonOpPersoonId(int persoonId) {
-		return null;
-	}
-	public static Persoon zoekPersoonOpPersoonId(Persoon medewerker) { 
-		return null;
-	}
-	public static Persoon persoonToevoegen(Persoon persoon) {
-		return null;
-	}
 }

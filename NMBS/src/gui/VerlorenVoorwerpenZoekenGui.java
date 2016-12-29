@@ -45,8 +45,6 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 	private JList<VerlorenVoorwerp> list;
 	
 	private ArrayList<VerlorenVoorwerp> arrayLijst;
-	
-	String navigation;
 
 	public VerlorenVoorwerpenZoekenGui() {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));

@@ -13,13 +13,6 @@ public class Klant extends Persoon {
 	public void setKlantId(int klantId) {
 		this.klantId = klantId;
 	}
-
-	public Klant(int persoonId, String voornaam, String achternaam,  String email, Adres adres, String info, boolean actief) {
-		super(persoonId, voornaam, achternaam, email, adres);
-		this.info = info;
-		this.actief=actief;
-		
-	}
 	
 	public Klant(int persoonId, String voornaam, String achternaam,  String email, Adres adres, int klantId, String info, boolean actief) {
 		super(persoonId, voornaam, achternaam, email, adres);

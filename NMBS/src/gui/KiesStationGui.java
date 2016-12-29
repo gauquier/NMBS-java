@@ -34,7 +34,6 @@ public class KiesStationGui {
 	private JButton btnSelecteer;
 	private AutoComboBox cmbbStation;
 	private Station station;
-	Login login;
 	
 	public KiesStationGui() {
 		initialize();

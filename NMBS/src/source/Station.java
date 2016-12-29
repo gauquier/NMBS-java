@@ -17,10 +17,6 @@ public class Station {
 		this.stationID = stationID;
 		this.naam = naam;
 	}
-	
-	public Station(int stationID){
-		this.stationID = stationID;
-	} 
 	public Station(String currentStation) {
 		super();
 		this.currentStation = currentStation;

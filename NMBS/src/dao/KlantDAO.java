@@ -116,20 +116,4 @@ public static void bijwerkenKlant(int klantId, int persoonId, Persoon persoon, S
 	    
 	    
 	}
-	
-	public static Klant getKlant(int id){
-	dba.createSelect("Klant");
-	dba.addWhere("klantId", id);
-	ResultSet rs = dba.commit();
-	try {
-		if(rs.next()){
-			Persoon persoon = PersoonDao.getPersoon(rs.getInt(2));
-			return new Klant(persoon.getId(), persoon.getVoornaam(), persoon.getAchternaam(), persoon.getEmail(), persoon.getAdres(),rs.getInt(1),rs.getString(3) , true);
-		}
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	return null;
-	}
 }

@@ -42,26 +42,6 @@ public class VerlorenVoorwerpDAO {
 		return 0;
 	}
 	
-	
-	public static VerlorenVoorwerp getVerlorenVoorwerp(int id){
-		VerlorenVoorwerp verlorenVoorwerp = null;
-		dba.createSelect("VerlorenVoorwerp");
-		dba.addWhere("verlorenVoorwerpId", id);
-		ResultSet rs = dba.commit();	
-		try {
-			if(rs.next()){
-				verlorenVoorwerp = new VerlorenVoorwerp(rs.getInt(1), rs.getString(3), rs.getDate(4), rs.getBoolean(5));
-						}
-		} catch (SQLException e) {	
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return verlorenVoorwerp;
-	}
-	
-	
-	
-	
 	public static ArrayList<VerlorenVoorwerp> getVerlorenVoorwerpByStation(int stationId){
 		
 		dba.createSelect("VerlorenVoorwerp");
