@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -32,6 +33,7 @@ public class HomeGui extends JPanel {
 
 		JLabel lblHuidigeGebruiker;
 		JLabel lblStation;
+		
 
 		if (!isOffline) {
 			lblHuidigeGebruiker = new JLabel(bundle.getString("curUser") + Login.getCurrentUser());
@@ -43,6 +45,9 @@ public class HomeGui extends JPanel {
 			lblStation = new JLabel(bundle.getString("station") + bundle.getString("unknown"));
 		}
 
+		lblHuidigeGebruiker.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		lblStation.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		
 		JLabel lblTicketverkoop;
 
 		if (!isOffline) {
@@ -60,7 +65,10 @@ public class HomeGui extends JPanel {
 				}
 			}
 
+			lblTicketverkoop.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+			
 			this.table = new JTable();
+			table.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 			this.table.setModel(
 					new DefaultTableModel(
 							new Object[][] {

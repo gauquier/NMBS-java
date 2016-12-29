@@ -465,7 +465,7 @@ public class KlantBijwerkenGui extends JPanel {
 									KlantBijwerkenGui.this.persoon, info, KlantBijwerkenGui.this.adresId,
 									KlantBijwerkenGui.this.adres);
 							JOptionPane.showMessageDialog(new JFrame(), bundle.getString("customerEdited"));
-							AdminGui.setHuidigeKeuze(new KlantenBeheerGui());
+							AdminGui.setHuidigeKeuze(new KlantBewerkenGui());
 						}
 					}
 				} else {

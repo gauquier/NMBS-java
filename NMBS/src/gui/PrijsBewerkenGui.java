@@ -137,7 +137,12 @@ public class PrijsBewerkenGui extends JPanel {
 						&& !PrijsBewerkenGui.this.txtPrijs.getText().isEmpty()) {
 					String verkooptype = PrijsBewerkenGui.this.txtVerkooptype.getText().trim();
 					Double prijs = Double.parseDouble(PrijsBewerkenGui.this.txtPrijs.getText());
-
+					if(prijs<=0){
+						JOptionPane.showMessageDialog(new JFrame(), "Prijs kan niet kleiner dan of gelijk aan 0 zijn.");
+						return;
+					}
+					
+					
 					PrijsDAO.updatePrijsByVerkoopType(verkooptype, prijs);
 
 					JOptionPane.showMessageDialog(new JFrame(), "Prijs is bijgewerkt!");

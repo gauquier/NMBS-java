@@ -150,117 +150,103 @@ public class AbonnementWeergevenGui extends JPanel {
 		}
 
 		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING,
-						groupLayout.createSequentialGroup().addContainerGap(386, Short.MAX_VALUE)
-								.addComponent(this.btnMedewerkerBekijken, GroupLayout.PREFERRED_SIZE, 253,
-										GroupLayout.PREFERRED_SIZE)
-								.addGap(122))
-				.addGroup(groupLayout.createSequentialGroup().addGap(30).addGroup(groupLayout
-						.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup().addComponent(lblResterendeTijd)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(lblResterendeTijdValue, GroupLayout.PREFERRED_SIZE, 209,
-										GroupLayout.PREFERRED_SIZE)
-								.addGap(365))
-						.addGroup(groupLayout.createSequentialGroup().addGroup(groupLayout
-								.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-												.addComponent(lblNaam)
-												.addComponent(lblPrijs, GroupLayout.PREFERRED_SIZE, 56,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblStartdatum)
-												.addComponent(lblVertrek, GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
-												.addComponent(lblAankomst, GroupLayout.PREFERRED_SIZE, 111,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblPeriode, GroupLayout.DEFAULT_SIZE,
-														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-												.addComponent(lblEinddatum, 0, 0, Short.MAX_VALUE))
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addGroup(groupLayout.createSequentialGroup().addGroup(groupLayout
-														.createParallelGroup(Alignment.LEADING)
-														.addComponent(lblEinddatumValue, GroupLayout.PREFERRED_SIZE,
-																209, GroupLayout.PREFERRED_SIZE)
-														.addComponent(lblStartdatumValue, GroupLayout.PREFERRED_SIZE,
-																209, GroupLayout.PREFERRED_SIZE)
-														.addComponent(lblPeriodeValue, GroupLayout.PREFERRED_SIZE, 209,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(lblAankomstValue, GroupLayout.PREFERRED_SIZE, 209,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(lblVertrekValue, GroupLayout.PREFERRED_SIZE, 209,
-																GroupLayout.PREFERRED_SIZE)
-														.addComponent(lblPrijsValue, GroupLayout.PREFERRED_SIZE, 143,
-																GroupLayout.PREFERRED_SIZE))
-														.addPreferredGap(ComponentPlacement.RELATED, 192,
-																Short.MAX_VALUE))
-												.addComponent(lblNaamValue, GroupLayout.PREFERRED_SIZE, 209,
-														GroupLayout.PREFERRED_SIZE))
-										.addGap(18)
-										.addComponent(this.btnKlantBekijken, GroupLayout.PREFERRED_SIZE, 186,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(61))
-								.addGroup(groupLayout.createSequentialGroup().addGroup(groupLayout
-										.createParallelGroup(Alignment.LEADING).addComponent(lblAbonnement)
-										.addGroup(groupLayout.createSequentialGroup().addComponent(lblVerkoopdatum)
-												.addGap(8).addComponent(lblVerkoopdatumValue,
-														GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE))
-										.addGroup(
-												groupLayout.createSequentialGroup().addComponent(lblLaatstGewijzigdDoor)
-														.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(
-																lblLaatstGewijzigdDoorValue, GroupLayout.PREFERRED_SIZE,
-																154, GroupLayout.PREFERRED_SIZE)))
-										.addPreferredGap(ComponentPlacement.RELATED, 141, Short.MAX_VALUE)))
-								.addGap(139)))));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.TRAILING).addGroup(groupLayout
-				.createSequentialGroup()
-				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
-						.createSequentialGroup().addGap(11).addComponent(lblAbonnement).addGap(18)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblNaam)
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(30)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblResterendeTijd)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblResterendeTijdValue, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblAbonnement)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblVerkoopdatum)
+							.addGap(8)
+							.addComponent(lblVerkoopdatumValue, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblLaatstGewijzigdDoor)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblLaatstGewijzigdDoorValue, GroupLayout.PREFERRED_SIZE, 313, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(lblNaam)
+								.addComponent(lblPrijs, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblStartdatum)
+								.addComponent(lblVertrek, GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)
+								.addComponent(lblAankomst, GroupLayout.PREFERRED_SIZE, 111, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblPeriode, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(lblEinddatum, 0, 0, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblEinddatumValue, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblStartdatumValue, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblPeriodeValue, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblAankomstValue, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblVertrekValue, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblPrijsValue, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNaamValue, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(btnKlantBekijken, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnMedewerkerBekijken, GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE))))
+					.addContainerGap(43, Short.MAX_VALUE))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(11)
+							.addComponent(lblAbonnement)
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblNaam)
 								.addComponent(lblNaamValue, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-						.addGap(18)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblVertrek)
-								.addComponent(lblVertrekValue, GroupLayout.PREFERRED_SIZE, 20,
-										GroupLayout.PREFERRED_SIZE))
-						.addGap(18)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblAankomst)
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblVertrek)
+								.addComponent(lblVertrekValue, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblAankomst)
 								.addComponent(lblAankomstValue))
-						.addGap(18)
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblPrijsValue, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
-										Short.MAX_VALUE)
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(lblPrijsValue)
 								.addComponent(lblPrijs))
-						.addGap(18)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblPeriode)
-								.addComponent(lblPeriodeValue, GroupLayout.PREFERRED_SIZE, 25,
-										GroupLayout.PREFERRED_SIZE))
-						.addGap(18)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblStartdatum)
-								.addComponent(lblStartdatumValue, GroupLayout.PREFERRED_SIZE, 25,
-										GroupLayout.PREFERRED_SIZE))
-						.addGap(18)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblEinddatum)
-								.addComponent(lblEinddatumValue, GroupLayout.PREFERRED_SIZE, 25,
-										GroupLayout.PREFERRED_SIZE))
-						.addGap(18))
-						.addGroup(groupLayout.createSequentialGroup().addGap(55)
-								.addComponent(this.btnKlantBekijken, GroupLayout.PREFERRED_SIZE, 44,
-										GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED)))
-				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblVerkoopdatum)
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblPeriode)
+								.addComponent(lblPeriodeValue, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblStartdatum)
+								.addComponent(lblStartdatumValue, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(55)
+							.addComponent(btnKlantBekijken, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(btnMedewerkerBekijken, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 141, Short.MAX_VALUE)))
+					.addGap(54)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblEinddatum)
+						.addComponent(lblEinddatumValue, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblVerkoopdatum)
 						.addComponent(lblVerkoopdatumValue, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-				.addGap(63)
-				.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING).addComponent(lblResterendeTijd)
-						.addComponent(lblResterendeTijdValue, GroupLayout.PREFERRED_SIZE, 22,
-								GroupLayout.PREFERRED_SIZE))
-				.addGap(18)
-				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblLaatstGewijzigdDoor)
-						.addComponent(lblLaatstGewijzigdDoorValue, GroupLayout.PREFERRED_SIZE, 25,
-								GroupLayout.PREFERRED_SIZE))
-				.addGap(32)
-				.addComponent(this.btnMedewerkerBekijken, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-				.addGap(14)));
+					.addGap(63)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblResterendeTijd)
+						.addComponent(lblResterendeTijdValue, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblLaatstGewijzigdDoor)
+						.addComponent(lblLaatstGewijzigdDoorValue, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+					.addGap(76))
+		);
 
 		this.setLayout(groupLayout);
 	}

@@ -286,17 +286,17 @@ public class AbonnementToevoegenGui extends JPanel {
 						return;
 					}
 					else{
-						if(StationDAO.checkStation((String) comboVan.getSelectedItem()) != 0){
+						if(StationDAO.checkStation((String) comboVan.getSelectedItem()) == 0){
 							comboVan.setBorder(borderError);
 						}else{
 							comboVan.setBorder(border);
 						}
-						if(StationDAO.checkStation((String) comboNaar.getSelectedItem()) != 0){
+						if(StationDAO.checkStation((String) comboNaar.getSelectedItem()) == 0){
 							comboNaar.setBorder(borderError);
 						}else{
 							comboNaar.setBorder(border);
 						}
-					if(StationDAO.checkStation((String) comboVan.getSelectedItem()) != 0 || StationDAO.checkStation((String) comboNaar.getSelectedItem()) != 0){
+					if(StationDAO.checkStation((String) comboVan.getSelectedItem()) == 0 || StationDAO.checkStation((String) comboNaar.getSelectedItem()) == 0){
 						JOptionPane.showMessageDialog(new JFrame(), "Dit station bestaat niet.");
 					}
 					else {

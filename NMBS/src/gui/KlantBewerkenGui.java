@@ -28,6 +28,7 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import dao.AbonnementDAO;
 import dao.KlantDAO;
+import dao.MedewerkerDAO;
 import source.Abonnement;
 import source.Klant;
 
@@ -260,6 +261,7 @@ public class KlantBewerkenGui extends JPanel {
 						KlantDAO.removeKlant(KlantBewerkenGui.this.list.getSelectedValue().getKlantId());
 						((DefaultListModel<Klant>) KlantBewerkenGui.this.list.getModel())
 								.remove(KlantBewerkenGui.this.list.getSelectedIndex());
+						arrayLijst = KlantDAO.getAllKlanten();
 						JOptionPane.showMessageDialog(new JFrame(), "Klant is succesvol verwijdert.");
 					} else if (n == 1) {
 						return;

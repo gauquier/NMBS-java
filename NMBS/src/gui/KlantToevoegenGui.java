@@ -496,8 +496,8 @@ public class KlantToevoegenGui extends JPanel {
 							KlantToevoegenGui.this.persoon.toString();
 							String info = KlantToevoegenGui.this.txtInfo.getText().trim();
 							KlantDAO.addKlant(KlantToevoegenGui.this.persoon, KlantToevoegenGui.this.adres, info);
-							KlantToevoegenGui.this.close();
 							JOptionPane.showMessageDialog(new JFrame(), bundle.getString("customerAdded"));
+							AdminGui.setHuidigeKeuze(new KlantBewerkenGui());
 						}
 					}
 				} else {

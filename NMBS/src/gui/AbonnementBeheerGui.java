@@ -28,6 +28,7 @@ import javax.swing.event.DocumentListener;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import dao.AbonnementDAO;
+import dao.KlantDAO;
 import dao.LoginDao;
 import dao.MedewerkerDAO;
 import dao.PeriodeDAO;
@@ -308,6 +309,7 @@ public class AbonnementBeheerGui extends JPanel {
 									AbonnementBeheerGui.this.list.getSelectedValue().getAbonnementId());
 							((DefaultListModel<Abonnement>) AbonnementBeheerGui.this.list.getModel())
 									.remove(AbonnementBeheerGui.this.list.getSelectedIndex());
+							arrayLijst = AbonnementDAO.getAllAbonnementen();
 							JOptionPane.showMessageDialog(new JFrame(), "Abonnement is succesvol verwijdert.");
 						} else if (n == 1) {
 							return;

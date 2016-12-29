@@ -331,7 +331,7 @@ public class TicketVerkoopGui extends JPanel {
 				+ bundle.getString("lblVan") + " " + this.comboVan.getSelectedItem() + "\n"
 				+ bundle.getString("lblNaar") + " " + this.comboNaar.getSelectedItem() + "\n"
 				+ bundle.getString("lblDatum") + " " + format.format(this.heenDatum.getDate()) + "\n"
-				+ bundle.getString("lblTerugDatum") + " " + format.format(this.terugDatum.getDate()) + "\n"
+				+ bundle.getString("lblTerugDatum") + " " + (ticket.getTerugDatum()==null ? "Niet van toepassing" : format.format(this.terugDatum.getDate())) + "\n"
 				+ bundle.getString("lblKlasse") + " " + this.klasse.getValue() + "\n" + this.getSelectedButton() + "\n"
 				+ bundle.getString("lblSoortBiljet") + " " + this.comboVerkoopType.getSelectedItem() + "\n"
 				+ bundle.getString("lblPrijs") + " " + this.ticket.getPrijs() * this.ticket.getAantal() + "");
