@@ -31,7 +31,7 @@ import Hashing.DualHash;
 import dao.LoginDao;
 import dao.MedewerkerDAO;
 import source.Medewerker;
-
+//Deze klasse wordt niet gebruikt. Gelieve te negeren. / This class is unused. Please ignore it.
 public class GebruikersBeheerGui extends JPanel {
 	/**
 	 * 
