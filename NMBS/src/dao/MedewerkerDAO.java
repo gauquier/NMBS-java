@@ -35,24 +35,6 @@ public class MedewerkerDAO {
 		dba.commit();
 	}
 
-	public static int getMedewerkerId(Medewerker medewerker) {
-		dba.createSelect("Medewerker", "medewerkerId");
-		dba.addWhere("loginId", LoginDao.getLoginId(medewerker.getLogin()));
-		dba.addWhere("persoonId", PersoonDao.getPersoonId(new Persoon(0, medewerker.getVoornaam(),
-				medewerker.getAchternaam(), medewerker.getEmail(), medewerker.getAdres())));
-		dba.addWhere("rolId", RolDAO.getRolId(medewerker.getRol()));
-		dba.addWhere("actief", true);
-		ResultSet rs = dba.commit();
-		try {
-			if (rs.next()) {
-				return rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return 0;
-	}
 
 	public static Medewerker getMedewerker(int id) {
 		dba.createSelect("Medewerker");

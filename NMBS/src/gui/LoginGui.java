@@ -40,10 +40,6 @@ public class LoginGui {
 		initialize();
 	}
 
-	public static Login getLogin() {
-		return login;
-	}
-
 	public static void start() {
 		// v system look and feel (i.p.v. niet-zo-mooie java look and feel)
 		// Source:

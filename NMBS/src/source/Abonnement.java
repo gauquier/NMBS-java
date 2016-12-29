@@ -3,23 +3,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
-import dao.PeriodeDAO;
-
 public class Abonnement extends Aankoop {
 	private Klant klant;
 	private String depZone, arrZone;
 	private boolean actief;
 	private int abonnementId;
 	private Periode p;
-	
-	public Abonnement(double korting, double prijs, VerkoopType verkoop, Klant klant, String depZone, String arrZone,
-			boolean actief) {
-		super(korting, prijs, verkoop);
-		this.klant = klant;
-		this.depZone = depZone;
-		this.arrZone = arrZone;
-		this.actief = actief;
-	}
 
 	public Abonnement(double korting, double prijs, VerkoopType verkoop, Klant klant, String depZone, String arrZone) {
 		super(korting, prijs, verkoop);
@@ -28,17 +17,6 @@ public class Abonnement extends Aankoop {
 		this.arrZone = arrZone;
 	}
 	
-
-	public Abonnement(int abonnementId, Klant klant, String depZone, String arrZone , double prijs ,  VerkoopType verkoop,double korting, 
-			boolean actief) {
-		super(korting, prijs, verkoop);
-		this.klant = klant;
-		this.depZone = depZone;
-		this.arrZone = arrZone;
-		this.actief = actief;
-		this.abonnementId = abonnementId;
-		this.p=PeriodeDAO.getPeriode(this);
-	}
 	public Abonnement(int abonnementId, Klant klant, String depZone, String arrZone , double prijs ,  VerkoopType verkoop,double korting 
 			, Periode periode, boolean actief) {
 		super(korting, prijs, verkoop);

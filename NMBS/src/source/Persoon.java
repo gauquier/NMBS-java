@@ -25,24 +25,6 @@ public class Persoon {
 		this.adres = adres;
 	}
 
-	public Persoon(int persoonId, String voornaam, String achternaam) {
-		super();
-		this.id = persoonId;
-		this.voornaam = voornaam;
-		this.achternaam = achternaam;
-	}
-
-	public Persoon(String voornaam, String achternaam, Adres adres) {
-		this.voornaam = voornaam;
-		this.achternaam = achternaam;
-		this.adres = adres;
-	}
-
-	public Persoon(String voornaam, String achternaam) {
-		this.voornaam = voornaam;
-		this.achternaam = achternaam;
-	}
-
 	public String getNaam() {
 		return voornaam + " " + achternaam;
 	}
