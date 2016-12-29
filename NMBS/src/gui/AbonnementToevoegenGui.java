@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -18,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.Border;
 import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -43,7 +45,9 @@ public class AbonnementToevoegenGui extends JPanel {
 	public String navigation;
 	private AutoComboBox comboNaar = new AutoComboBox();
 	private AutoComboBox comboVan = new AutoComboBox();
-
+	private Border border = BorderFactory.createEmptyBorder();
+	private Border borderError = BorderFactory.createLineBorder(Color.RED, 3);
+	
 	public AbonnementToevoegenGui() {
 		this.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 
@@ -274,13 +278,26 @@ public class AbonnementToevoegenGui extends JPanel {
 					return;
 				} else {
 					if (AbonnementToevoegenGui.this.comboVan.getSelectedItem() == null) {
-						JOptionPane.showMessageDialog(new JFrame(), "Er is vertrekpunt gekozen.");
+						JOptionPane.showMessageDialog(new JFrame(), "Er is geen vertrekpunt gekozen.");
 						return;
 					} else if (AbonnementToevoegenGui.this.comboNaar.getSelectedItem() == null) {
-						JOptionPane.showMessageDialog(new JFrame(), "Er is aankomstpunt gekozen.");
+						JOptionPane.showMessageDialog(new JFrame(), "Er is geen aankomstpunt gekozen.");
 						return;
 					}
-
+					else{
+						if(StationDAO.checkStation((String) comboVan.getSelectedItem()) != 0){
+							comboVan.setBorder(borderError);
+						}else{
+							comboVan.setBorder(border);
+						}
+						if(StationDAO.checkStation((String) comboNaar.getSelectedItem()) != 0){
+							comboNaar.setBorder(borderError);
+						}else{
+							comboNaar.setBorder(border);
+						}
+					if(StationDAO.checkStation((String) comboVan.getSelectedItem()) != 0 || StationDAO.checkStation((String) comboNaar.getSelectedItem()) != 0){
+						JOptionPane.showMessageDialog(new JFrame(), "Dit station bestaat niet.");
+					}
 					else {
 						if (AbonnementToevoegenGui.this.comboVan
 								.getSelectedItem() == AbonnementToevoegenGui.this.comboNaar.getSelectedItem()) {
@@ -297,7 +314,7 @@ public class AbonnementToevoegenGui extends JPanel {
 								return;
 							}
 						}
-
+					}
 						VerkoopType v = VerkoopType.ABONNEMENT;
 
 						Abonnement abonnement = new Abonnement(0.00, 0, v,

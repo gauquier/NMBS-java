@@ -14,6 +14,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.UIManager;
 
@@ -119,19 +120,25 @@ public class KiesStationGui {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == KiesStationGui.this.btnSelecteer) {
-				String username = Login.getCurrentUser();
-				int loginId = LoginDao.getLoginId(username);
-				int rollId = LoginDao.getRoll(loginId);
-				String currentStation = (String) KiesStationGui.this.cmbbStation.getSelectedItem();
-				KiesStationGui.this.station = new Station(currentStation);
-				if (rollId == 1) {
-					KiesStationGui.this.closeFrame();
-					Controller.adminInterface = new AdminGui();
-					Controller.adminInterface.setHome();
-				} else if (rollId == 2) {
-					KiesStationGui.this.closeFrame();
-					Controller.medewerkerInterface = new MedewerkerGui();
-					Controller.medewerkerInterface.setHome();
+					if(StationDAO.checkStation((String) KiesStationGui.this.cmbbStation.getSelectedItem()) != 0){
+						
+					String username = Login.getCurrentUser();
+					int loginId = LoginDao.getLoginId(username);
+					int rollId = LoginDao.getRoll(loginId);
+					String currentStation = (String) KiesStationGui.this.cmbbStation.getSelectedItem();
+					KiesStationGui.this.station = new Station(currentStation);
+					if (rollId == 1) {
+						KiesStationGui.this.closeFrame();
+						Controller.adminInterface = new AdminGui();
+						Controller.adminInterface.setHome();
+					} else if (rollId == 2) {
+						KiesStationGui.this.closeFrame();
+						Controller.medewerkerInterface = new MedewerkerGui();
+						Controller.medewerkerInterface.setHome();
+					}
+				} else{
+					JOptionPane.showMessageDialog(new JFrame(), "Dit station bestaat niet.");
+					cmbbStation.setSelectedIndex(-1);
 				}
 			}
 		}
