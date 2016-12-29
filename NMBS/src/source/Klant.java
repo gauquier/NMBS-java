@@ -5,25 +5,26 @@ public class Klant extends Persoon {
 	private int klantId;
 	private String info;
 	private boolean actief;
-	
+
 	public int getKlantId() {
-		return klantId;
+		return this.klantId;
 	}
 
 	public void setKlantId(int klantId) {
 		this.klantId = klantId;
 	}
-	
-	public Klant(int persoonId, String voornaam, String achternaam,  String email, Adres adres, int klantId, String info, boolean actief) {
+
+	public Klant(int persoonId, String voornaam, String achternaam, String email, Adres adres, int klantId, String info,
+			boolean actief) {
 		super(persoonId, voornaam, achternaam, email, adres);
 		this.klantId = klantId;
 		this.info = info;
-		this.actief=actief;
-		
+		this.actief = actief;
+
 	}
-	
+
 	public String getInfo() {
-		return info;
+		return this.info;
 	}
 
 	public void setInfo(String info) {
@@ -34,47 +35,51 @@ public class Klant extends Persoon {
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + (actief ? 1231 : 1237);
-		result = prime * result + ((info == null) ? 0 : info.hashCode());
-		result = prime * result + klantId;
+		result = prime * result + (this.actief ? 1231 : 1237);
+		result = prime * result + ((this.info == null) ? 0 : this.info.hashCode());
+		result = prime * result + this.klantId;
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (!super.equals(obj))
+		}
+		if (!super.equals(obj)) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (this.getClass() != obj.getClass()) {
 			return false;
+		}
 		Klant other = (Klant) obj;
-		if (actief != other.actief)
+		if (this.actief != other.actief) {
 			return false;
-		if (info == null) {
-			if (other.info != null)
+		}
+		if (this.info == null) {
+			if (other.info != null) {
 				return false;
-		} else if (!info.equals(other.info))
+			}
+		} else if (!this.info.equals(other.info)) {
 			return false;
-		if (klantId != other.klantId)
+		}
+		if (this.klantId != other.klantId) {
 			return false;
+		}
 		return true;
 	}
 
 	public boolean isActief() {
-		return actief;
+		return this.actief;
 	}
 
 	public void setActief(boolean actief) {
 		this.actief = actief;
 	}
 
-	public String toString()
-	{
-			return getVoornaam() + " " + getAchternaam();
+	@Override
+	public String toString() {
+		return this.getVoornaam() + " " + this.getAchternaam();
 	}
-	
-	
-
 
 }

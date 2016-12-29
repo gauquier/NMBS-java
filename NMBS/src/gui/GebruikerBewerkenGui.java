@@ -1,290 +1,271 @@
 package gui;
 
-import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.UIManager;
-import java.awt.Color;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
 import com.jgoodies.forms.factories.DefaultComponentFactory;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 import Hashing.DualHash;
 import dao.LoginDao;
 import dao.MedewerkerDAO;
-import handler.Controller;
-import source.Adres;
-import source.Klant;
-import source.Login;
 import source.Medewerker;
-import source.Persoon;
-import source.Rol;
-
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Vector;
-
-import java.util.*;
-
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JTextPane;
-import javax.swing.JScrollPane;
 
 public class GebruikerBewerkenGui extends JPanel {
 	private JTextField txtZoekveld;
 	private JButton btnBewerken;
 	private JList<Medewerker> list;
-	private ArrayList<Medewerker> arrayLijst, arrayLijst2;
+	private ArrayList<Medewerker> arrayLijst;
 	private DefaultListModel<Medewerker> dlm;
 	private JButton btnVerwijderen;
 	private JButton btnPasswordReset;
 	public String navigation;
 	private JLabel label;
-	
-	
+
 	public GebruikerBewerkenGui() {
-		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
-		
+		this.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
+
 		JLabel lblGebruikerBewerken = DefaultComponentFactory.getInstance().createTitle("Gebruikers beheren");
 		lblGebruikerBewerken.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		
-		
-		arrayLijst= new ArrayList<Medewerker>();
-		
-		arrayLijst = MedewerkerDAO.getAllMedewerkers();
-		
-		
-		dlm = new DefaultListModel<Medewerker>();
-		
-		
-		for(Medewerker m : arrayLijst)
-		{
-			dlm.addElement(m);
+
+		this.arrayLijst = new ArrayList<Medewerker>();
+
+		this.arrayLijst = MedewerkerDAO.getAllMedewerkers();
+
+		this.dlm = new DefaultListModel<Medewerker>();
+
+		for (Medewerker m : this.arrayLijst) {
+			this.dlm.addElement(m);
 		}
-		
-		
-		txtZoekveld = new JTextField();
-		txtZoekveld.setColumns(10);
-		txtZoekveld.getDocument().addDocumentListener(new DocumentListener(){
-			
+
+		this.txtZoekveld = new JTextField();
+		this.txtZoekveld.setColumns(10);
+		this.txtZoekveld.getDocument().addDocumentListener(new DocumentListener() {
+
 			@Override
 			public void changedUpdate(DocumentEvent e) {
-				
-				updateLijst();
+
+				GebruikerBewerkenGui.this.updateLijst();
 			}
 
 			@Override
 			public void insertUpdate(DocumentEvent e) {
-				updateLijst();
+				GebruikerBewerkenGui.this.updateLijst();
 			}
 
 			@Override
 			public void removeUpdate(DocumentEvent e) {
-				updateLijst();
-			}	
-			
+				GebruikerBewerkenGui.this.updateLijst();
+			}
+
 		});
-		
-		btnBewerken = new JButton("Bewerken");
-		btnBewerken.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		btnBewerken.setBackground(Color.ORANGE);
-		btnBewerken.addActionListener(new MenuItemHandler());
-		
-		btnVerwijderen = new JButton("Verwijderen");
-		btnVerwijderen.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		btnVerwijderen.setBackground(Color.ORANGE);
-		btnVerwijderen.addActionListener(new MenuItemHandler());
-		
-		btnPasswordReset = new JButton("Password Reset");
-		btnPasswordReset.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		btnPasswordReset.setBackground(Color.ORANGE);
-		btnPasswordReset.addActionListener(new MenuItemHandler());
-		
-		JScrollPane scrollPane = new JScrollPane(list);
-		
-		label = new JLabel("Zoeken op naam:");
-		label.setForeground(Color.WHITE);
-		
+
+		this.btnBewerken = new JButton("Bewerken");
+		this.btnBewerken.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		this.btnBewerken.setBackground(Color.ORANGE);
+		this.btnBewerken.addActionListener(new MenuItemHandler());
+
+		this.btnVerwijderen = new JButton("Verwijderen");
+		this.btnVerwijderen.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		this.btnVerwijderen.setBackground(Color.ORANGE);
+		this.btnVerwijderen.addActionListener(new MenuItemHandler());
+
+		this.btnPasswordReset = new JButton("Password Reset");
+		this.btnPasswordReset.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		this.btnPasswordReset.setBackground(Color.ORANGE);
+		this.btnPasswordReset.addActionListener(new MenuItemHandler());
+
+		JScrollPane scrollPane = new JScrollPane(this.list);
+
+		this.label = new JLabel("Zoeken op naam:");
+		this.label.setForeground(Color.WHITE);
+
 		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup().addGap(37)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+								.addComponent(lblGebruikerBewerken).addGroup(Alignment.TRAILING,
+										groupLayout.createSequentialGroup()
+												.addComponent(this.label, GroupLayout.PREFERRED_SIZE, 132,
+														GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+												.addComponent(this.txtZoekveld, GroupLayout.PREFERRED_SIZE, 110,
+														GroupLayout.PREFERRED_SIZE)))
+						.addGap(10)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(this.btnVerwijderen, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+								.addComponent(this.btnBewerken, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+								.addComponent(this.btnPasswordReset, GroupLayout.PREFERRED_SIZE, 130, Short.MAX_VALUE))
+						.addContainerGap()));
+		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(37)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
-						.addComponent(lblGebruikerBewerken)
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(label, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-							.addComponent(txtZoekveld, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)))
-					.addGap(10)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnVerwijderen, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-						.addComponent(btnBewerken, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-						.addComponent(btnPasswordReset, GroupLayout.PREFERRED_SIZE, 130, Short.MAX_VALUE))
-					.addContainerGap())
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(12)
-							.addComponent(lblGebruikerBewerken)
-							.addGap(27)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(txtZoekveld, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
-								.addComponent(label))
-							.addGap(12)
-							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(97)
-							.addComponent(btnBewerken)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnVerwijderen)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnPasswordReset, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		);
-		
-		list = new JList<Medewerker>(dlm);
-		scrollPane.setViewportView(list);
-		list.addMouseListener(new MouseAdapter() {
-		    public void mouseClicked(MouseEvent evt) {
-		        if (evt.getClickCount() == 2) {
-		            AdminGui.setHuidigeKeuze(new GebruikerWeergevenGui(list.getSelectedValue()));
-		        }
-		    }
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup().addGap(12)
+										.addComponent(lblGebruikerBewerken).addGap(27)
+										.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+												.addComponent(this.txtZoekveld, GroupLayout.PREFERRED_SIZE, 27,
+														GroupLayout.PREFERRED_SIZE)
+												.addComponent(this.label))
+										.addGap(12).addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 223,
+												GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup().addGap(97).addComponent(this.btnBewerken)
+										.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(this.btnVerwijderen)
+										.addPreferredGap(ComponentPlacement.UNRELATED)
+										.addComponent(this.btnPasswordReset, GroupLayout.PREFERRED_SIZE, 29,
+												GroupLayout.PREFERRED_SIZE)))
+						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+
+		this.list = new JList<Medewerker>(this.dlm);
+		scrollPane.setViewportView(this.list);
+		this.list.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent evt) {
+				if (evt.getClickCount() == 2) {
+					AdminGui.setHuidigeKeuze(
+							new GebruikerWeergevenGui(GebruikerBewerkenGui.this.list.getSelectedValue()));
+				}
+			}
 		});
-		setLayout(groupLayout);
+		this.setLayout(groupLayout);
 	}
-	
-	
-	public int OkCancel(String message){
-		int n = JOptionPane.showConfirmDialog(
-                null, message,
-                "Bevestiging",
-                JOptionPane.YES_NO_OPTION);
-		
+
+	public int OkCancel(String message) {
+		int n = JOptionPane.showConfirmDialog(null, message, "Bevestiging", JOptionPane.YES_NO_OPTION);
+
 		if (n == JOptionPane.YES_OPTION) {
 			return n;
 		} else if (n == JOptionPane.NO_OPTION) {
 			return n;
-		}  
+		}
 		return 1;
-		
+
 	}
-	
+
 	public void close() {
 		this.setVisible(false);
 	}
-	
-	public Boolean unknownIndex(){
-		if(list.getSelectedValue()==null || list.getSelectedIndex()<0){
+
+	public Boolean unknownIndex() {
+		if (this.list.getSelectedValue() == null || this.list.getSelectedIndex() < 0) {
 			JOptionPane.showMessageDialog(new JFrame(), "Er is geen gebruiker aangeduid.");
 			return false;
-		}
-		else {
+		} else {
 			return true;
 		}
 	}
-	
-	public void updateLijst(){
-		ArrayList <Medewerker> t = new ArrayList<Medewerker>();
-		if(!txtZoekveld.getText().isEmpty()){
-			
-			for(int i=0;i<arrayLijst.size();i++){
-				if(arrayLijst.get(i).getNaam().toLowerCase().contains(txtZoekveld.getText().toLowerCase())){
-					t.add(arrayLijst.get(i));
+
+	public void updateLijst() {
+		ArrayList<Medewerker> t = new ArrayList<Medewerker>();
+		if (!this.txtZoekveld.getText().isEmpty()) {
+
+			for (int i = 0; i < this.arrayLijst.size(); i++) {
+				if (this.arrayLijst.get(i).getNaam().toLowerCase().contains(this.txtZoekveld.getText().toLowerCase())) {
+					t.add(this.arrayLijst.get(i));
 				}
-				
+
 			}
 		} else {
-			t=arrayLijst;
+			t = this.arrayLijst;
 		}
-		
-		
-	
-		dlm.clear();
-		for(Medewerker m: t){
-			dlm.addElement(m);
+
+		this.dlm.clear();
+		for (Medewerker m : t) {
+			this.dlm.addElement(m);
 		}
-		
-		list.setModel(dlm);
+
+		this.list.setModel(this.dlm);
 	}
-	
+
 	private class MenuItemHandler implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			if (e.getSource() == btnBewerken) {
-				
-				if(!unknownIndex()){
+			if (e.getSource() == GebruikerBewerkenGui.this.btnBewerken) {
+
+				if (!GebruikerBewerkenGui.this.unknownIndex()) {
 					return;
 				} else {
-					navigation= "gebruikerBijwerken";
-					AdminGui.setHuidigeKeuze(new GebruikerBijwerkenGui(list.getSelectedValue()));
+					GebruikerBewerkenGui.this.navigation = "gebruikerBijwerken";
+					AdminGui.setHuidigeKeuze(
+							new GebruikerBijwerkenGui(GebruikerBewerkenGui.this.list.getSelectedValue()));
 				}
 			}
-		
-			if (e.getSource() == btnVerwijderen) {
-				if(!unknownIndex()){
-		
+
+			if (e.getSource() == GebruikerBewerkenGui.this.btnVerwijderen) {
+				if (!GebruikerBewerkenGui.this.unknownIndex()) {
+
 					return;
 				} else {
-				int n = OkCancel("Ben je zeker dat je " + list.getSelectedValue().getVoornaam() + " " + list.getSelectedValue().getAchternaam() + " wil verwijderen?");	
-				
-				
-				if(n==0){
-				MedewerkerDAO.removeMedewerker(list.getSelectedValue().getMedewerkerId());
-				((DefaultListModel<Medewerker>)list.getModel()).remove(list.getSelectedIndex());
-				JOptionPane.showMessageDialog(new JFrame(), "Gebruiker is succesvol verwijdert.");
-				} else if (n==1){
-					return;
-				}
-			}
-			}
-			if(e.getSource() == btnPasswordReset){
-				if(!unknownIndex()){
-					return;
-			 } else {
-					
-					String wachtwoord =  new String("reset1");
-					
-					int n = OkCancel("Ben je zeker dat je een password reset wil uitvoeren op " + list.getSelectedValue().getVoornaam() + " " + list.getSelectedValue().getAchternaam() + "?");
-					
-					if(n==0){
-					try {
-						LoginDao.updateWachtwoordWhere(list.getSelectedValue().getLogin().getLoginId(), DualHash.hashString(wachtwoord));
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					JOptionPane.showMessageDialog(new JFrame(), "Het wachtwoord van " + list.getSelectedValue().getVoornaam() + " " + list.getSelectedValue().getAchternaam() + " is gereset naar 'reset1'.");
-					} else if (n==1){
+					int n = GebruikerBewerkenGui.this.OkCancel("Ben je zeker dat je "
+							+ GebruikerBewerkenGui.this.list.getSelectedValue().getVoornaam() + " "
+							+ GebruikerBewerkenGui.this.list.getSelectedValue().getAchternaam() + " wil verwijderen?");
+
+					if (n == 0) {
+						MedewerkerDAO
+								.removeMedewerker(GebruikerBewerkenGui.this.list.getSelectedValue().getMedewerkerId());
+						((DefaultListModel<Medewerker>) GebruikerBewerkenGui.this.list.getModel())
+								.remove(GebruikerBewerkenGui.this.list.getSelectedIndex());
+						JOptionPane.showMessageDialog(new JFrame(), "Gebruiker is succesvol verwijdert.");
+					} else if (n == 1) {
 						return;
 					}
-				
 				}
-				
 			}
-			
+			if (e.getSource() == GebruikerBewerkenGui.this.btnPasswordReset) {
+				if (!GebruikerBewerkenGui.this.unknownIndex()) {
+					return;
+				} else {
+
+					String wachtwoord = new String("reset1");
+
+					int n = GebruikerBewerkenGui.this
+							.OkCancel("Ben je zeker dat je een password reset wil uitvoeren op "
+									+ GebruikerBewerkenGui.this.list.getSelectedValue().getVoornaam() + " "
+									+ GebruikerBewerkenGui.this.list.getSelectedValue().getAchternaam() + "?");
+
+					if (n == 0) {
+						try {
+							LoginDao.updateWachtwoordWhere(
+									GebruikerBewerkenGui.this.list.getSelectedValue().getLogin().getLoginId(),
+									DualHash.hashString(wachtwoord));
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						JOptionPane.showMessageDialog(new JFrame(),
+								"Het wachtwoord van " + GebruikerBewerkenGui.this.list.getSelectedValue().getVoornaam()
+										+ " " + GebruikerBewerkenGui.this.list.getSelectedValue().getAchternaam()
+										+ " is gereset naar 'reset1'.");
+					} else if (n == 1) {
+						return;
+					}
+
+				}
+
+			}
+
 		}
 	}
 }
-

@@ -21,34 +21,33 @@ import source.Ticketstatistiek;
 public class HomeGui extends JPanel {
 
 	private static final long serialVersionUID = 2564170957766548127L;
-	
+
 	private static ResourceBundle bundle;
 	private JTable table;
 
 	public HomeGui(boolean isOffline) {
 		bundle = ResourceBundle.getBundle("localization.HomeGui");
-		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
-		setForeground(Color.WHITE);
-		
+		this.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
+		this.setForeground(Color.WHITE);
+
 		JLabel lblHuidigeGebruiker;
 		JLabel lblStation;
-		
+
 		if (!isOffline) {
 			lblHuidigeGebruiker = new JLabel(bundle.getString("curUser") + Login.getCurrentUser());
-	
+
 			lblStation = new JLabel(bundle.getString("station") + Station.getCurrentStation());
-		}
-		else {
+		} else {
 			lblHuidigeGebruiker = new JLabel(bundle.getString("curUser") + bundle.getString("offline"));
-			
+
 			lblStation = new JLabel(bundle.getString("station") + bundle.getString("unknown"));
 		}
-		
+
 		JLabel lblTicketverkoop;
 
 		if (!isOffline) {
 			lblTicketverkoop = new JLabel(bundle.getString("ticketSales"));
-			
+
 			ArrayList<Ticketstatistiek> ticketstats = TicketDao.getTicketstatistieken();
 
 			// Om mogelijke out-of-boundsexception tegen te gaan
@@ -61,8 +60,8 @@ public class HomeGui extends JPanel {
 				}
 			}
 
-			table = new JTable();
-			table.setModel(
+			this.table = new JTable();
+			this.table.setModel(
 					new DefaultTableModel(
 							new Object[][] {
 									{ ticketstats.get(0).getVerkoopdatum(), ticketstats.get(0).getVerkochteTickets() },
@@ -76,34 +75,37 @@ public class HomeGui extends JPanel {
 						private static final long serialVersionUID = 7778959677031066336L;
 						boolean[] columnEditables = new boolean[] { false, false };
 
+						@Override
 						public boolean isCellEditable(int row, int column) {
-							return columnEditables[column];
+							return this.columnEditables[column];
 						}
 					});
-			table.getColumnModel().getColumn(0).setResizable(false);
-			table.getColumnModel().getColumn(0).setPreferredWidth(100);
-			table.getColumnModel().getColumn(1).setResizable(false);
-			table.getColumnModel().getColumn(1).setPreferredWidth(100);
-		}
-		else {
+			this.table.getColumnModel().getColumn(0).setResizable(false);
+			this.table.getColumnModel().getColumn(0).setPreferredWidth(100);
+			this.table.getColumnModel().getColumn(1).setResizable(false);
+			this.table.getColumnModel().getColumn(1).setPreferredWidth(100);
+		} else {
 			lblTicketverkoop = new JLabel("");
-			table = new JTable();
+			this.table = new JTable();
 		}
 
 		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
-				.createSequentialGroup().addContainerGap()
-				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(table, GroupLayout.PREFERRED_SIZE, 254, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblHuidigeGebruiker).addComponent(lblStation).addComponent(lblTicketverkoop))
-				.addContainerGap(186, Short.MAX_VALUE)));
+		groupLayout
+				.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup().addContainerGap()
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(this.table, GroupLayout.PREFERRED_SIZE, 254,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblHuidigeGebruiker).addComponent(lblStation)
+										.addComponent(lblTicketverkoop))
+								.addContainerGap(186, Short.MAX_VALUE)));
 		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup().addContainerGap().addComponent(lblHuidigeGebruiker)
 						.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblStation).addGap(30)
 						.addComponent(lblTicketverkoop)
-						.addPreferredGap(ComponentPlacement.RELATED).addComponent(table, GroupLayout.PREFERRED_SIZE,
-								GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED).addComponent(this.table,
+								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addContainerGap(125, Short.MAX_VALUE)));
-		setLayout(groupLayout);
+		this.setLayout(groupLayout);
 	}
 }

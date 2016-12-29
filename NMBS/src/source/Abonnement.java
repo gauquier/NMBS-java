@@ -1,4 +1,5 @@
 package source;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
@@ -16,20 +17,20 @@ public class Abonnement extends Aankoop {
 		this.depZone = depZone;
 		this.arrZone = arrZone;
 	}
-	
-	public Abonnement(int abonnementId, Klant klant, String depZone, String arrZone , double prijs ,  VerkoopType verkoop,double korting 
-			, Periode periode, boolean actief) {
+
+	public Abonnement(int abonnementId, Klant klant, String depZone, String arrZone, double prijs, VerkoopType verkoop,
+			double korting, Periode periode, boolean actief) {
 		super(korting, prijs, verkoop);
 		this.klant = klant;
 		this.depZone = depZone;
 		this.arrZone = arrZone;
 		this.actief = actief;
 		this.abonnementId = abonnementId;
-		this.p=periode;
+		this.p = periode;
 	}
-	
+
 	public Periode getP() {
-		return p;
+		return this.p;
 	}
 
 	public void setP(Periode p) {
@@ -37,7 +38,7 @@ public class Abonnement extends Aankoop {
 	}
 
 	public Klant getKlant() {
-		return klant;
+		return this.klant;
 	}
 
 	public void setKlant(Klant klant) {
@@ -45,7 +46,7 @@ public class Abonnement extends Aankoop {
 	}
 
 	public String getDepZone() {
-		return depZone;
+		return this.depZone;
 	}
 
 	public void setDepZone(String depZone) {
@@ -53,7 +54,7 @@ public class Abonnement extends Aankoop {
 	}
 
 	public String getArrZone() {
-		return arrZone;
+		return this.arrZone;
 	}
 
 	public void setArrZone(String arrZone) {
@@ -61,53 +62,53 @@ public class Abonnement extends Aankoop {
 	}
 
 	public boolean isActief() {
-		return actief;
+		return this.actief;
 	}
 
 	public void setActief(boolean actief) {
 		this.actief = actief;
 	}
-	
+
 	public int getAbonnementId() {
-		return abonnementId;
+		return this.abonnementId;
 	}
 
 	public void setAbonnementId(int abonnementId) {
 		this.abonnementId = abonnementId;
 	}
 
-	public long getResterendeDagen(){
-		long resterendeDagen=0;
-		
-		if(p!=null){
-			resterendeDagen= TimeUnit.DAYS.convert((p.getEndDate().getTime()-Calendar.getInstance().getTime().getTime()), TimeUnit.MILLISECONDS);
-			resterendeDagen+=1;
+	public long getResterendeDagen() {
+		long resterendeDagen = 0;
+
+		if (this.p != null) {
+			resterendeDagen = TimeUnit.DAYS.convert(
+					(this.p.getEndDate().getTime() - Calendar.getInstance().getTime().getTime()),
+					TimeUnit.MILLISECONDS);
+			resterendeDagen += 1;
 		}
-		
+
 		return resterendeDagen;
 	}
-	
-	
-	public String toString()
-	{
-		String resultaat=null;
-		SimpleDateFormat formatDatum = new SimpleDateFormat("dd-MM-yyyy");
-		long resterendeDagen=getResterendeDagen();
 
-		
-		
-		if(resterendeDagen > 0){
-		resultaat = getKlant().getVoornaam() + " " + getKlant().getAchternaam() + " / " + formatDatum.format(p.getStartDate()) + " -> " + formatDatum.format(p.getEndDate()) + " / " + resterendeDagen + " dag(en) resterend";
-		
-		}else {
-		this.setP(null);
-		resultaat= getKlant().getVoornaam() + " " + getKlant().getAchternaam() + " / Geen actieve periode gelinkt aan dit abonnement";
-			
+	@Override
+	public String toString() {
+		String resultaat = null;
+		SimpleDateFormat formatDatum = new SimpleDateFormat("dd-MM-yyyy");
+		long resterendeDagen = this.getResterendeDagen();
+
+		if (resterendeDagen > 0) {
+			resultaat = this.getKlant().getVoornaam() + " " + this.getKlant().getAchternaam() + " / "
+					+ formatDatum.format(this.p.getStartDate()) + " -> " + formatDatum.format(this.p.getEndDate())
+					+ " / " + resterendeDagen + " dag(en) resterend";
+
+		} else {
+			this.setP(null);
+			resultaat = this.getKlant().getVoornaam() + " " + this.getKlant().getAchternaam()
+					+ " / Geen actieve periode gelinkt aan dit abonnement";
+
 		}
-		
+
 		return resultaat;
 	}
-	
-	
-	
+
 }

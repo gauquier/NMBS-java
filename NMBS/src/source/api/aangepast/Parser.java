@@ -9,13 +9,11 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import source.Station;
 import source.VerlorenVoorwerp;
-
 
 public class Parser {
 	private static Document getDocument(URL url) throws Exception {
@@ -26,15 +24,12 @@ public class Parser {
 	}
 
 	private static Station readStation(Node n) {
-		NamedNodeMap m = n.getAttributes(); 
-		return new Station(
-				0,
-				n.getFirstChild().getNodeValue(), 
-				new ArrayList<VerlorenVoorwerp>());
-	} 
-	
-	public static List<Station> parseStations() throws Exception { 
-		Document doc = getDocument(new URL("https://api.irail.be/stations/"));
+		n.getAttributes();
+		return new Station(0, n.getFirstChild().getNodeValue(), new ArrayList<VerlorenVoorwerp>());
+	}
+
+	public static List<Station> parseStations() throws Exception {
+		Document doc = Parser.getDocument(new URL("https://api.irail.be/stations/"));
 		ArrayList<Station> stations = new ArrayList<Station>();
 		Element rootNode = doc.getDocumentElement();
 		NodeList stationNodes = rootNode.getChildNodes();
@@ -43,7 +38,7 @@ public class Parser {
 		}
 		for (int i = 0; i < stationNodes.getLength(); i++) {
 			Node stationNode = stationNodes.item(i);
-			Station s = readStation(stationNode);
+			Station s = Parser.readStation(stationNode);
 			stations.add(s);
 		}
 		return stations;

@@ -4,16 +4,16 @@ public class Prijs {
 	private int prijsId;
 	private String verkoopType;
 	private double prijs;
-	
+
 	public Prijs(int prijsId, String verkoopType, double prijs) {
 		super();
-		setPrijsId(prijsId);
-		setVerkoopType(verkoopType);
-		setPrijs(prijs);
+		this.setPrijsId(prijsId);
+		this.setVerkoopType(verkoopType);
+		this.setPrijs(prijs);
 	}
 
 	public int getPrijsId() {
-		return prijsId;
+		return this.prijsId;
 	}
 
 	public void setPrijsId(int prijsId) {
@@ -21,7 +21,7 @@ public class Prijs {
 	}
 
 	public String getVerkoopType() {
-		return verkoopType;
+		return this.verkoopType;
 	}
 
 	public void setVerkoopType(String verkoopType) {
@@ -29,7 +29,7 @@ public class Prijs {
 	}
 
 	public double getPrijs() {
-		return prijs;
+		return this.prijs;
 	}
 
 	public void setPrijs(double prijs) {
@@ -38,8 +38,7 @@ public class Prijs {
 
 	@Override
 	public String toString() {
-		return verkoopType + ": " + prijs + " EUR";
+		return this.verkoopType + ": " + this.prijs + " EUR";
 	}
-	
-	
+
 }

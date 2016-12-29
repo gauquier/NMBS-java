@@ -74,11 +74,11 @@ public class KlantBijwerkenGui extends JPanel {
 	public KlantBijwerkenGui(Klant k) {
 		bundle = ResourceBundle.getBundle("localization.KlantBijwerkenGui");
 
-		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
-		klantId = k.getKlantId();
-		persoonId = k.getId();
-		adresId = k.getAdres().getAdresId();
-		huidigeEmail = k.getEmail();
+		this.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
+		this.klantId = k.getKlantId();
+		this.persoonId = k.getId();
+		this.adresId = k.getAdres().getAdresId();
+		this.huidigeEmail = k.getEmail();
 
 		JLabel lblVoornaam = new JLabel(bundle.getString("lblVoornaam"));
 		lblVoornaam.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
@@ -108,54 +108,54 @@ public class KlantBijwerkenGui extends JPanel {
 		lblBus.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblBus.setForeground(Color.WHITE);
 
-		txtVoornaam = new JTextField();
-		txtVoornaam.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		txtVoornaam.setColumns(10);
-		txtVoornaam.setText(k.getVoornaam());
+		this.txtVoornaam = new JTextField();
+		this.txtVoornaam.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.txtVoornaam.setColumns(10);
+		this.txtVoornaam.setText(k.getVoornaam());
 
-		txtAchternaam = new JTextField();
-		txtAchternaam.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		txtAchternaam.setColumns(10);
-		txtAchternaam.setText(k.getAchternaam());
+		this.txtAchternaam = new JTextField();
+		this.txtAchternaam.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.txtAchternaam.setColumns(10);
+		this.txtAchternaam.setText(k.getAchternaam());
 
-		txtStraat = new JTextField();
-		txtStraat.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		txtStraat.setColumns(10);
-		txtStraat.setText(k.getAdres().getStraat());
+		this.txtStraat = new JTextField();
+		this.txtStraat.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.txtStraat.setColumns(10);
+		this.txtStraat.setText(k.getAdres().getStraat());
 
-		txtHuisnr = new JTextField();
-		txtHuisnr.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		txtHuisnr.setColumns(10);
-		txtHuisnr.setText(new Integer(k.getAdres().getHuisnr()).toString());
+		this.txtHuisnr = new JTextField();
+		this.txtHuisnr.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.txtHuisnr.setColumns(10);
+		this.txtHuisnr.setText(new Integer(k.getAdres().getHuisnr()).toString());
 
-		txtBus = new JTextField();
-		txtBus.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		txtBus.setColumns(10);
-		txtBus.setText(k.getAdres().getBus());
+		this.txtBus = new JTextField();
+		this.txtBus.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.txtBus.setColumns(10);
+		this.txtBus.setText(k.getAdres().getBus());
 
-		txtGemeente = new JTextField();
-		txtGemeente.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		txtGemeente.setColumns(10);
-		txtGemeente.setText(k.getAdres().getWoonplaats());
+		this.txtGemeente = new JTextField();
+		this.txtGemeente.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.txtGemeente.setColumns(10);
+		this.txtGemeente.setText(k.getAdres().getWoonplaats());
 
-		txtPostcode = new JTextField();
-		txtPostcode.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		txtPostcode.setColumns(10);
-		txtPostcode.setText(new Integer(k.getAdres().getPostcode()).toString());
+		this.txtPostcode = new JTextField();
+		this.txtPostcode.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.txtPostcode.setColumns(10);
+		this.txtPostcode.setText(new Integer(k.getAdres().getPostcode()).toString());
 
-		btnBijwerken = new JButton(bundle.getString("btnBijwerken"));
-		btnBijwerken.setFont(new Font("Segoe UI", Font.BOLD, 20));
-		btnBijwerken.setBackground(Color.ORANGE);
-		btnBijwerken.addActionListener(new MenuItemHandler());
+		this.btnBijwerken = new JButton(bundle.getString("btnBijwerken"));
+		this.btnBijwerken.setFont(new Font("Segoe UI", Font.BOLD, 20));
+		this.btnBijwerken.setBackground(Color.ORANGE);
+		this.btnBijwerken.addActionListener(new MenuItemHandler());
 
-		lblEmail = new JLabel(bundle.getString("lblEmail"));
-		lblEmail.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		lblEmail.setForeground(Color.WHITE);
+		this.lblEmail = new JLabel(bundle.getString("lblEmail"));
+		this.lblEmail.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.lblEmail.setForeground(Color.WHITE);
 
-		txtEmail = new JTextField();
-		txtEmail.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		txtEmail.setColumns(10);
-		txtEmail.setText(k.getEmail());
+		this.txtEmail = new JTextField();
+		this.txtEmail.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.txtEmail.setColumns(10);
+		this.txtEmail.setText(k.getEmail());
 
 		JLabel lblKlantBijwerken = DefaultComponentFactory.getInstance()
 				.createTitle(bundle.getString("lblKlantBijwerken"));
@@ -165,207 +165,200 @@ public class KlantBijwerkenGui extends JPanel {
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		label_1.setForeground(Color.WHITE);
 
-		lblExtraInformatie = new JLabel(bundle.getString("lblExtraInformatie"));
-		lblExtraInformatie.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		lblExtraInformatie.setForeground(Color.WHITE);
+		this.lblExtraInformatie = new JLabel(bundle.getString("lblExtraInformatie"));
+		this.lblExtraInformatie.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.lblExtraInformatie.setForeground(Color.WHITE);
 
-		txtInfo = new JTextField();
-		txtInfo.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		txtInfo.setColumns(10);
-		txtInfo.setText(k.getInfo());
+		this.txtInfo = new JTextField();
+		this.txtInfo.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.txtInfo.setColumns(10);
+		this.txtInfo.setText(k.getInfo());
 
-		lblVoornaamError = new JLabel("voornaam error");
-		lblVoornaamError.setForeground(Color.RED);
-		lblVoornaamError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.lblVoornaamError = new JLabel("voornaam error");
+		this.lblVoornaamError.setForeground(Color.RED);
+		this.lblVoornaamError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 
-		lblAchternaamError = new JLabel("achternaam error");
-		lblAchternaamError.setForeground(Color.RED);
-		lblAchternaamError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.lblAchternaamError = new JLabel("achternaam error");
+		this.lblAchternaamError.setForeground(Color.RED);
+		this.lblAchternaamError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 
-		lblStraatError = new JLabel("straat error");
-		lblStraatError.setForeground(Color.RED);
-		lblStraatError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.lblStraatError = new JLabel("straat error");
+		this.lblStraatError.setForeground(Color.RED);
+		this.lblStraatError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 
-		lblHuisnrError = new JLabel("huisnr error");
-		lblHuisnrError.setForeground(Color.RED);
-		lblHuisnrError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.lblHuisnrError = new JLabel("huisnr error");
+		this.lblHuisnrError.setForeground(Color.RED);
+		this.lblHuisnrError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 
-		lblBusError = new JLabel("bus error");
-		lblBusError.setForeground(Color.RED);
-		lblBusError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.lblBusError = new JLabel("bus error");
+		this.lblBusError.setForeground(Color.RED);
+		this.lblBusError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 
-		lblGemeenteError = new JLabel("gemeente error");
-		lblGemeenteError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		lblGemeenteError.setForeground(Color.RED);
+		this.lblGemeenteError = new JLabel("gemeente error");
+		this.lblGemeenteError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.lblGemeenteError.setForeground(Color.RED);
 
-		lblPostcodeError = new JLabel("postcode error");
-		lblPostcodeError.setForeground(Color.RED);
-		lblPostcodeError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.lblPostcodeError = new JLabel("postcode error");
+		this.lblPostcodeError.setForeground(Color.RED);
+		this.lblPostcodeError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 
-		lblEmailError = new JLabel("email error");
-		lblEmailError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		lblEmailError.setForeground(Color.RED);
+		this.lblEmailError = new JLabel("email error");
+		this.lblEmailError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.lblEmailError.setForeground(Color.RED);
 
 		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout
-				.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
-						.createSequentialGroup().addGroup(groupLayout
-								.createParallelGroup(Alignment.LEADING).addGroup(groupLayout.createSequentialGroup()
-										.addGap(30).addGroup(groupLayout
-												.createParallelGroup(Alignment.LEADING)
-												.addGroup(groupLayout.createSequentialGroup()
-														.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-																.addComponent(lblVoornaam).addComponent(lblAchternaam)
-																.addComponent(lblBus)
-																.addComponent(lblPostcode).addComponent(lblHuisnummer)
-																.addComponent(lblGemeente)
-																.addComponent(lblStraat))
-														.addGap(50)
-														.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-																.addGroup(groupLayout.createSequentialGroup()
-																		.addComponent(txtPostcode,
-																				GroupLayout.PREFERRED_SIZE, 79,
-																				GroupLayout.PREFERRED_SIZE)
-																		.addGap(18).addComponent(lblPostcodeError))
-																.addGroup(groupLayout.createSequentialGroup()
-																		.addGroup(groupLayout
-																				.createParallelGroup(Alignment.TRAILING,
-																						false)
-																				.addComponent(txtBus, Alignment.LEADING,
-																						0, 0, Short.MAX_VALUE)
-																				.addComponent(txtHuisnr,
-																						Alignment.LEADING,
-																						GroupLayout.DEFAULT_SIZE, 81,
-																						Short.MAX_VALUE))
-																		.addGap(18)
-																		.addGroup(groupLayout
-																				.createParallelGroup(Alignment.LEADING)
-																				.addComponent(lblBusError)
-																				.addComponent(lblHuisnrError)))
-																.addGroup(groupLayout.createSequentialGroup()
-																		.addComponent(txtVoornaam,
+		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(
+				Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup().addGroup(groupLayout
+						.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
+								.createSequentialGroup().addGap(30)
+								.addGroup(groupLayout
+										.createParallelGroup(
+												Alignment.LEADING)
+										.addGroup(groupLayout.createSequentialGroup()
+												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+														.addComponent(lblVoornaam).addComponent(lblAchternaam)
+														.addComponent(lblBus).addComponent(lblPostcode)
+														.addComponent(lblHuisnummer).addComponent(lblGemeente)
+														.addComponent(lblStraat))
+												.addGap(50)
+												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+														.addGroup(groupLayout.createSequentialGroup()
+																.addComponent(this.txtPostcode,
+																		GroupLayout.PREFERRED_SIZE, 79,
+																		GroupLayout.PREFERRED_SIZE)
+																.addGap(18).addComponent(this.lblPostcodeError))
+														.addGroup(groupLayout.createSequentialGroup()
+																.addGroup(groupLayout
+																		.createParallelGroup(Alignment.TRAILING, false)
+																		.addComponent(this.txtBus, Alignment.LEADING, 0,
+																				0, Short.MAX_VALUE)
+																		.addComponent(this.txtHuisnr, Alignment.LEADING,
+																				GroupLayout.DEFAULT_SIZE, 81,
+																				Short.MAX_VALUE))
+																.addGap(18)
+																.addGroup(groupLayout
+																		.createParallelGroup(Alignment.LEADING)
+																		.addComponent(this.lblBusError)
+																		.addComponent(this.lblHuisnrError)))
+														.addGroup(groupLayout.createSequentialGroup()
+																.addComponent(this.txtVoornaam,
+																		GroupLayout.PREFERRED_SIZE, 286,
+																		GroupLayout.PREFERRED_SIZE)
+																.addGap(18).addComponent(this.lblVoornaamError))
+														.addGroup(groupLayout.createSequentialGroup()
+																.addComponent(this.txtAchternaam,
+																		GroupLayout.PREFERRED_SIZE, 286,
+																		GroupLayout.PREFERRED_SIZE)
+																.addGap(18).addComponent(this.lblAchternaamError))
+														.addGroup(groupLayout.createSequentialGroup()
+																.addComponent(this.txtStraat,
+																		GroupLayout.PREFERRED_SIZE, 286,
+																		GroupLayout.PREFERRED_SIZE)
+																.addGap(18).addComponent(this.lblStraatError))
+														.addGroup(groupLayout.createSequentialGroup()
+																.addGroup(groupLayout
+																		.createParallelGroup(Alignment.LEADING)
+																		.addComponent(label_1, GroupLayout.DEFAULT_SIZE,
+																				347, Short.MAX_VALUE)
+																		.addComponent(this.txtInfo,
 																				GroupLayout.PREFERRED_SIZE, 286,
 																				GroupLayout.PREFERRED_SIZE)
-																		.addGap(18).addComponent(lblVoornaamError))
-																.addGroup(groupLayout.createSequentialGroup()
-																		.addComponent(txtAchternaam,
-																				GroupLayout.PREFERRED_SIZE, 286,
-																				GroupLayout.PREFERRED_SIZE)
-																		.addGap(18).addComponent(lblAchternaamError))
-																.addGroup(groupLayout.createSequentialGroup()
-																		.addComponent(txtStraat,
-																				GroupLayout.PREFERRED_SIZE, 286,
-																				GroupLayout.PREFERRED_SIZE)
-																		.addGap(18).addComponent(lblStraatError))
-																.addGroup(groupLayout.createSequentialGroup()
-																		.addGroup(groupLayout
-																				.createParallelGroup(Alignment.LEADING)
-																				.addComponent(label_1,
-																						GroupLayout.DEFAULT_SIZE, 347,
-																						Short.MAX_VALUE)
-																				.addComponent(txtInfo,
+																		.addGroup(groupLayout.createSequentialGroup()
+																				.addComponent(this.txtEmail,
 																						GroupLayout.PREFERRED_SIZE, 286,
 																						GroupLayout.PREFERRED_SIZE)
-																				.addGroup(groupLayout
-																						.createSequentialGroup()
-																						.addComponent(txtEmail,
-																								GroupLayout.PREFERRED_SIZE,
-																								286,
-																								GroupLayout.PREFERRED_SIZE)
-																						.addGap(18)
-																						.addComponent(lblEmailError)
-																						.addPreferredGap(
-																								ComponentPlacement.RELATED)))
-																		.addPreferredGap(ComponentPlacement.RELATED)
-																		.addGroup(groupLayout
-																				.createParallelGroup(Alignment.LEADING)
-																				.addGroup(groupLayout
-																						.createSequentialGroup()
-																						.addGap(206)
-																						.addComponent(btnBijwerken,
-																								GroupLayout.PREFERRED_SIZE,
-																								111,
-																								GroupLayout.PREFERRED_SIZE))
-																				.addGroup(groupLayout
-																						.createSequentialGroup()
-																						.addGap(86)
-																						.addComponent(btnBijwerken,
-																								GroupLayout.PREFERRED_SIZE,
-																								111,
-																								GroupLayout.PREFERRED_SIZE))))
-																.addGroup(groupLayout.createSequentialGroup()
-																		.addComponent(txtGemeente,
-																				GroupLayout.PREFERRED_SIZE, 286,
-																				GroupLayout.PREFERRED_SIZE)
-																		.addGap(18).addComponent(lblGemeenteError))))
-												.addComponent(lblKlantBijwerken)))
-								.addGroup(groupLayout.createSequentialGroup().addGap(32).addGroup(groupLayout
-										.createParallelGroup(Alignment.TRAILING, false)
-										.addComponent(lblExtraInformatie, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(lblEmail, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+																				.addGap(18)
+																				.addComponent(this.lblEmailError)
+																				.addPreferredGap(
+																						ComponentPlacement.RELATED)))
+																.addPreferredGap(ComponentPlacement.RELATED)
+																.addGroup(groupLayout
+																		.createParallelGroup(Alignment.LEADING)
+																		.addGroup(groupLayout.createSequentialGroup()
+																				.addGap(206).addComponent(
+																						this.btnBijwerken,
+																						GroupLayout.PREFERRED_SIZE, 111,
+																						GroupLayout.PREFERRED_SIZE))
+																		.addGroup(groupLayout.createSequentialGroup()
+																				.addGap(86).addComponent(
+																						this.btnBijwerken,
+																						GroupLayout.PREFERRED_SIZE, 111,
+																						GroupLayout.PREFERRED_SIZE))))
+														.addGroup(groupLayout.createSequentialGroup()
+																.addComponent(this.txtGemeente,
+																		GroupLayout.PREFERRED_SIZE, 286,
+																		GroupLayout.PREFERRED_SIZE)
+																.addGap(18).addComponent(this.lblGemeenteError))))
+										.addComponent(lblKlantBijwerken)))
+						.addGroup(groupLayout.createSequentialGroup().addGap(32)
+								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+										.addComponent(this.lblExtraInformatie, Alignment.LEADING,
+												GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(this.lblEmail, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
 												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
 						.addContainerGap()));
 		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.TRAILING).addGroup(groupLayout
 				.createSequentialGroup()
 				.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createSequentialGroup().addContainerGap().addComponent(btnBijwerken,
+						.addGroup(groupLayout.createSequentialGroup().addContainerGap().addComponent(this.btnBijwerken,
 								GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup().addGap(19).addComponent(lblKlantBijwerken)
 								.addGap(18)
 								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblVoornaam)
-										.addComponent(txtVoornaam, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblVoornaamError))
+										.addComponent(this.txtVoornaam, GroupLayout.PREFERRED_SIZE,
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(this.lblVoornaamError))
 								.addGap(15)
 								.addGroup(
 										groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblAchternaam)
-												.addComponent(txtAchternaam, GroupLayout.PREFERRED_SIZE,
+												.addComponent(this.txtAchternaam, GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblAchternaamError))
+												.addComponent(this.lblAchternaamError))
 								.addGap(15)
 								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-										.addComponent(txtStraat, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblStraat).addComponent(lblStraatError))
+										.addComponent(this.txtStraat, GroupLayout.PREFERRED_SIZE,
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblStraat).addComponent(this.lblStraatError))
 								.addGap(15)
 								.addGroup(
 										groupLayout.createParallelGroup(Alignment.TRAILING).addComponent(lblHuisnummer)
 												.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-														.addComponent(txtHuisnr, GroupLayout.PREFERRED_SIZE,
+														.addComponent(this.txtHuisnr, GroupLayout.PREFERRED_SIZE,
 																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-														.addComponent(lblHuisnrError)))
+														.addComponent(this.lblHuisnrError)))
 								.addGap(15)
 								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING).addComponent(lblBus)
 										.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-												.addComponent(txtBus, GroupLayout.PREFERRED_SIZE,
+												.addComponent(this.txtBus, GroupLayout.PREFERRED_SIZE,
 														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblBusError)))
+												.addComponent(this.lblBusError)))
 								.addGap(15)
 								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-										.addComponent(txtGemeente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblGemeente).addComponent(lblGemeenteError))
+										.addComponent(this.txtGemeente, GroupLayout.PREFERRED_SIZE,
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblGemeente).addComponent(this.lblGemeenteError))
 								.addGap(15)
 								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblPostcode)
-										.addComponent(txtPostcode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblPostcodeError))
+										.addComponent(this.txtPostcode, GroupLayout.PREFERRED_SIZE,
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(this.lblPostcodeError))
 								.addGap(138)
-								.addGroup(
-										groupLayout.createParallelGroup(Alignment.TRAILING)
-												.addGroup(groupLayout.createSequentialGroup().addGroup(groupLayout
-														.createParallelGroup(Alignment.BASELINE).addComponent(lblEmail)
-														.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE,
+								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+										.addGroup(groupLayout.createSequentialGroup()
+												.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+														.addComponent(this.lblEmail)
+														.addComponent(this.txtEmail, GroupLayout.PREFERRED_SIZE,
 																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-														.addComponent(lblEmailError)).addGap(31))
-												.addGroup(groupLayout.createSequentialGroup()
-														.addComponent(btnBijwerken, GroupLayout.PREFERRED_SIZE, 43,
-																GroupLayout.PREFERRED_SIZE)
-														.addGap(29)))
+														.addComponent(this.lblEmailError))
+												.addGap(31))
+										.addGroup(groupLayout.createSequentialGroup()
+												.addComponent(this.btnBijwerken, GroupLayout.PREFERRED_SIZE, 43,
+														GroupLayout.PREFERRED_SIZE)
+												.addGap(29)))
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-										.addComponent(lblExtraInformatie).addComponent(txtInfo,
+										.addComponent(this.lblExtraInformatie).addComponent(this.txtInfo,
 												GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 												GroupLayout.PREFERRED_SIZE))
 								.addPreferredGap(ComponentPlacement.UNRELATED, GroupLayout.DEFAULT_SIZE,
@@ -373,7 +366,7 @@ public class KlantBijwerkenGui extends JPanel {
 								.addComponent(label_1)))
 				.addGap(29)));
 
-		setLayout(groupLayout);
+		this.setLayout(groupLayout);
 	}
 
 	public void close() {
@@ -386,102 +379,121 @@ public class KlantBijwerkenGui extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			// refresh();
 
-			if (e.getSource() == btnBijwerken) {
-				lblVoornaamError.setText("");
-				txtVoornaam.setBorder(border);
-				checkvoornaam = true;
-				lblAchternaamError.setText("");
-				txtAchternaam.setBorder(border);
-				checkachternaam = true;
-				lblStraatError.setText("");
-				txtStraat.setBorder(border);
-				checkstraat = true;
-				lblHuisnrError.setText("");
-				txtHuisnr.setBorder(border);
-				checkhuisnr = true;
-				lblGemeenteError.setText("");
-				txtGemeente.setBorder(border);
-				checkgemeente = true;
-				lblPostcodeError.setText("");
-				txtPostcode.setBorder(border);
-				checkpostcode = true;
-				lblEmailError.setText("");
-				txtEmail.setBorder(border);
-				checkemail = true;
-				lblBusError.setText("");
-				txtBus.setBorder(border);
-				checkbus = true;
+			if (e.getSource() == KlantBijwerkenGui.this.btnBijwerken) {
+				KlantBijwerkenGui.this.lblVoornaamError.setText("");
+				KlantBijwerkenGui.this.txtVoornaam.setBorder(KlantBijwerkenGui.this.border);
+				KlantBijwerkenGui.this.checkvoornaam = true;
+				KlantBijwerkenGui.this.lblAchternaamError.setText("");
+				KlantBijwerkenGui.this.txtAchternaam.setBorder(KlantBijwerkenGui.this.border);
+				KlantBijwerkenGui.this.checkachternaam = true;
+				KlantBijwerkenGui.this.lblStraatError.setText("");
+				KlantBijwerkenGui.this.txtStraat.setBorder(KlantBijwerkenGui.this.border);
+				KlantBijwerkenGui.this.checkstraat = true;
+				KlantBijwerkenGui.this.lblHuisnrError.setText("");
+				KlantBijwerkenGui.this.txtHuisnr.setBorder(KlantBijwerkenGui.this.border);
+				KlantBijwerkenGui.this.checkhuisnr = true;
+				KlantBijwerkenGui.this.lblGemeenteError.setText("");
+				KlantBijwerkenGui.this.txtGemeente.setBorder(KlantBijwerkenGui.this.border);
+				KlantBijwerkenGui.this.checkgemeente = true;
+				KlantBijwerkenGui.this.lblPostcodeError.setText("");
+				KlantBijwerkenGui.this.txtPostcode.setBorder(KlantBijwerkenGui.this.border);
+				KlantBijwerkenGui.this.checkpostcode = true;
+				KlantBijwerkenGui.this.lblEmailError.setText("");
+				KlantBijwerkenGui.this.txtEmail.setBorder(KlantBijwerkenGui.this.border);
+				KlantBijwerkenGui.this.checkemail = true;
+				KlantBijwerkenGui.this.lblBusError.setText("");
+				KlantBijwerkenGui.this.txtBus.setBorder(KlantBijwerkenGui.this.border);
+				KlantBijwerkenGui.this.checkbus = true;
 
-				if (!txtVoornaam.getText().isEmpty() && !txtAchternaam.getText().isEmpty()
-						&& !txtStraat.getText().isEmpty() && !txtGemeente.getText().isEmpty()
-						&& !txtPostcode.getText().isEmpty() && !txtHuisnr.getText().isEmpty()
-						&& !txtEmail.getText().isEmpty()) {
-					if (!Validation.checkFirstName(txtVoornaam.getText())) {
-						lblVoornaamError.setText(bundle.getString("lblVoornaamError"));
-						txtVoornaam.setBorder(bordererror);
-						checkvoornaam = false;
+				if (!KlantBijwerkenGui.this.txtVoornaam.getText().isEmpty()
+						&& !KlantBijwerkenGui.this.txtAchternaam.getText().isEmpty()
+						&& !KlantBijwerkenGui.this.txtStraat.getText().isEmpty()
+						&& !KlantBijwerkenGui.this.txtGemeente.getText().isEmpty()
+						&& !KlantBijwerkenGui.this.txtPostcode.getText().isEmpty()
+						&& !KlantBijwerkenGui.this.txtHuisnr.getText().isEmpty()
+						&& !KlantBijwerkenGui.this.txtEmail.getText().isEmpty()) {
+					if (!Validation.checkFirstName(KlantBijwerkenGui.this.txtVoornaam.getText())) {
+						KlantBijwerkenGui.this.lblVoornaamError.setText(bundle.getString("lblVoornaamError"));
+						KlantBijwerkenGui.this.txtVoornaam.setBorder(KlantBijwerkenGui.this.bordererror);
+						KlantBijwerkenGui.this.checkvoornaam = false;
 					}
-					if (!Validation.checkLastName(txtAchternaam.getText())) {
-						lblAchternaamError.setText(bundle.getString("lblAchternaamError"));
-						txtAchternaam.setBorder(bordererror);
-						checkachternaam = false;
+					if (!Validation.checkLastName(KlantBijwerkenGui.this.txtAchternaam.getText())) {
+						KlantBijwerkenGui.this.lblAchternaamError.setText(bundle.getString("lblAchternaamError"));
+						KlantBijwerkenGui.this.txtAchternaam.setBorder(KlantBijwerkenGui.this.bordererror);
+						KlantBijwerkenGui.this.checkachternaam = false;
 					}
-					if (!Validation.checkAlphabetical(txtStraat.getText())) {
-						lblStraatError.setText(bundle.getString("lblStraatError"));
-						txtStraat.setBorder(bordererror);
-						checkstraat = false;
+					if (!Validation.checkAlphabetical(KlantBijwerkenGui.this.txtStraat.getText())) {
+						KlantBijwerkenGui.this.lblStraatError.setText(bundle.getString("lblStraatError"));
+						KlantBijwerkenGui.this.txtStraat.setBorder(KlantBijwerkenGui.this.bordererror);
+						KlantBijwerkenGui.this.checkstraat = false;
 					}
-					if (!Validation.checkHouseNumber(txtHuisnr.getText())) {
-						lblHuisnrError.setText(bundle.getString("lblHuisnrError"));
-						txtHuisnr.setBorder(bordererror);
-						checkhuisnr = false;
+					if (!Validation.checkHouseNumber(KlantBijwerkenGui.this.txtHuisnr.getText())) {
+						KlantBijwerkenGui.this.lblHuisnrError.setText(bundle.getString("lblHuisnrError"));
+						KlantBijwerkenGui.this.txtHuisnr.setBorder(KlantBijwerkenGui.this.bordererror);
+						KlantBijwerkenGui.this.checkhuisnr = false;
 					}
-					if (!Validation.checkAlphabetical(txtGemeente.getText())) {
-						lblGemeenteError.setText(bundle.getString("lblGemeenteError"));
-						txtGemeente.setBorder(bordererror);
-						checkgemeente = false;
+					if (!Validation.checkAlphabetical(KlantBijwerkenGui.this.txtGemeente.getText())) {
+						KlantBijwerkenGui.this.lblGemeenteError.setText(bundle.getString("lblGemeenteError"));
+						KlantBijwerkenGui.this.txtGemeente.setBorder(KlantBijwerkenGui.this.bordererror);
+						KlantBijwerkenGui.this.checkgemeente = false;
 					}
-					if (!Validation.checkPostalCode(txtPostcode.getText())) {
-						lblPostcodeError.setText(bundle.getString("lblPostcodeError"));
-						txtPostcode.setBorder(bordererror);
-						checkpostcode = false;
+					if (!Validation.checkPostalCode(KlantBijwerkenGui.this.txtPostcode.getText())) {
+						KlantBijwerkenGui.this.lblPostcodeError.setText(bundle.getString("lblPostcodeError"));
+						KlantBijwerkenGui.this.txtPostcode.setBorder(KlantBijwerkenGui.this.bordererror);
+						KlantBijwerkenGui.this.checkpostcode = false;
 					}
-					if (!txtEmail.getText().isEmpty() && !Validation.checkEmail(txtEmail.getText())) {
-						lblEmailError.setText(bundle.getString("lblEmailError"));
-						txtEmail.setBorder(bordererror);
-						checkemail = false;
+					if (!KlantBijwerkenGui.this.txtEmail.getText().isEmpty()
+							&& !Validation.checkEmail(KlantBijwerkenGui.this.txtEmail.getText())) {
+						KlantBijwerkenGui.this.lblEmailError.setText(bundle.getString("lblEmailError"));
+						KlantBijwerkenGui.this.txtEmail.setBorder(KlantBijwerkenGui.this.bordererror);
+						KlantBijwerkenGui.this.checkemail = false;
 					}
-					if (!txtBus.getText().isEmpty() && !Validation.checkBoxNumber(txtBus.getText())) {
-						lblBusError.setText(bundle.getString("lblBusError"));
-						txtBus.setBorder(bordererror);
-						checkbus = false;
+					if (!KlantBijwerkenGui.this.txtBus.getText().isEmpty()
+							&& !Validation.checkBoxNumber(KlantBijwerkenGui.this.txtBus.getText())) {
+						KlantBijwerkenGui.this.lblBusError.setText(bundle.getString("lblBusError"));
+						KlantBijwerkenGui.this.txtBus.setBorder(KlantBijwerkenGui.this.bordererror);
+						KlantBijwerkenGui.this.checkbus = false;
 					}
-					if (checkvoornaam == false || checkachternaam == false || checkstraat == false
-							|| checkhuisnr == false || checkgemeente == false || checkpostcode == false
-							|| checkemail == false || checkbus == false) {
+					if (KlantBijwerkenGui.this.checkvoornaam == false || KlantBijwerkenGui.this.checkachternaam == false
+							|| KlantBijwerkenGui.this.checkstraat == false
+							|| KlantBijwerkenGui.this.checkhuisnr == false
+							|| KlantBijwerkenGui.this.checkgemeente == false
+							|| KlantBijwerkenGui.this.checkpostcode == false
+							|| KlantBijwerkenGui.this.checkemail == false || KlantBijwerkenGui.this.checkbus == false) {
 						return;
 					} else {
-						email = txtEmail.getText().trim();
+						KlantBijwerkenGui.this.email = KlantBijwerkenGui.this.txtEmail.getText().trim();
 
-						if (persoonDao.checkEmail(email) > 0 && !(email.equals(huidigeEmail))) {
+						if (KlantBijwerkenGui.this.persoonDao.checkEmail(KlantBijwerkenGui.this.email) > 0
+								&& !(KlantBijwerkenGui.this.email.equals(KlantBijwerkenGui.this.huidigeEmail))) {
 							JOptionPane.showMessageDialog(new JFrame(), bundle.getString("customerAlreadyExists"));
-							txtEmail.setText("");
+							KlantBijwerkenGui.this.txtEmail.setText("");
 							return;
 						} else {
-							if (!txtBus.getText().isEmpty()) {
-								adres = new Adres(txtStraat.getText().trim(), Integer.parseInt(txtHuisnr.getText()),
-										txtGemeente.getText().trim(), Integer.parseInt(txtPostcode.getText()),
-										txtBus.getText());
+							if (!KlantBijwerkenGui.this.txtBus.getText().isEmpty()) {
+								KlantBijwerkenGui.this.adres = new Adres(
+										KlantBijwerkenGui.this.txtStraat.getText().trim(),
+										Integer.parseInt(KlantBijwerkenGui.this.txtHuisnr.getText()),
+										KlantBijwerkenGui.this.txtGemeente.getText().trim(),
+										Integer.parseInt(KlantBijwerkenGui.this.txtPostcode.getText()),
+										KlantBijwerkenGui.this.txtBus.getText());
 							} else {
-								adres = new Adres(txtStraat.getText().trim(), Integer.parseInt(txtHuisnr.getText()),
-										txtGemeente.getText().trim(), Integer.parseInt(txtPostcode.getText()), "");
+								KlantBijwerkenGui.this.adres = new Adres(
+										KlantBijwerkenGui.this.txtStraat.getText().trim(),
+										Integer.parseInt(KlantBijwerkenGui.this.txtHuisnr.getText()),
+										KlantBijwerkenGui.this.txtGemeente.getText().trim(),
+										Integer.parseInt(KlantBijwerkenGui.this.txtPostcode.getText()), "");
 							}
-							adres.toString();
-							persoon = new Persoon(txtVoornaam.getText().trim(), txtAchternaam.getText().trim(),
-									txtEmail.getText().trim(), adres);
-							persoon.toString();
-							String info = txtInfo.getText().trim();
-							KlantDAO.bijwerkenKlant(klantId, persoonId, persoon, info, adresId, adres);
+							KlantBijwerkenGui.this.adres.toString();
+							KlantBijwerkenGui.this.persoon = new Persoon(
+									KlantBijwerkenGui.this.txtVoornaam.getText().trim(),
+									KlantBijwerkenGui.this.txtAchternaam.getText().trim(),
+									KlantBijwerkenGui.this.txtEmail.getText().trim(), KlantBijwerkenGui.this.adres);
+							KlantBijwerkenGui.this.persoon.toString();
+							String info = KlantBijwerkenGui.this.txtInfo.getText().trim();
+							KlantDAO.bijwerkenKlant(KlantBijwerkenGui.this.klantId, KlantBijwerkenGui.this.persoonId,
+									KlantBijwerkenGui.this.persoon, info, KlantBijwerkenGui.this.adresId,
+									KlantBijwerkenGui.this.adres);
 							JOptionPane.showMessageDialog(new JFrame(), bundle.getString("customerEdited"));
 							AdminGui.setHuidigeKeuze(new KlantenBeheerGui());
 						}

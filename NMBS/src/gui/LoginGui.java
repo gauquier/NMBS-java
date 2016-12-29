@@ -37,7 +37,7 @@ public class LoginGui {
 	private static ResourceBundle bundle;
 
 	public LoginGui() {
-		initialize();
+		this.initialize();
 	}
 
 	public static void start() {
@@ -75,55 +75,56 @@ public class LoginGui {
 	private void initialize() {
 		bundle = ResourceBundle.getBundle("localization.LoginGui");
 
-		frmNmbs = new JFrame();
-		frmNmbs.setIconImage(Toolkit.getDefaultToolkit().getImage("NMBS/lib/logo.png"));
-		frmNmbs.setTitle("NMBS");
-		frmNmbs.getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
+		this.frmNmbs = new JFrame();
+		this.frmNmbs.setIconImage(Toolkit.getDefaultToolkit().getImage("NMBS/lib/logo.png"));
+		this.frmNmbs.setTitle("NMBS");
+		this.frmNmbs.getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 
-		frmNmbs.setBounds(0, 0, 450, 300);
-		frmNmbs.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmNmbs.getContentPane().setLayout(null);
-		frmNmbs.setResizable(false);
-		centreWindow(frmNmbs);
+		this.frmNmbs.setBounds(0, 0, 450, 300);
+		this.frmNmbs.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.frmNmbs.getContentPane().setLayout(null);
+		this.frmNmbs.setResizable(false);
+		LoginGui.centreWindow(this.frmNmbs);
 
-		btnLogin = new JButton(bundle.getString("login"));
-		btnLogin.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		btnLogin.setBounds(234, 196, 149, 38);
-		frmNmbs.getContentPane().add(btnLogin);
+		this.btnLogin = new JButton(bundle.getString("login"));
+		this.btnLogin.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.btnLogin.setBounds(234, 196, 149, 38);
+		this.frmNmbs.getContentPane().add(this.btnLogin);
 
-		txtUsername = new JTextField();
-		txtUsername.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		txtUsername.setBounds(234, 96, 149, 26);
-		frmNmbs.getContentPane().add(txtUsername);
-		txtUsername.setColumns(10);
+		this.txtUsername = new JTextField();
+		this.txtUsername.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.txtUsername.setBounds(234, 96, 149, 26);
+		this.frmNmbs.getContentPane().add(this.txtUsername);
+		this.txtUsername.setColumns(10);
 
 		JLabel lblUser = new JLabel(bundle.getString("user"));
 		lblUser.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblUser.setForeground(Color.WHITE);
 		lblUser.setBounds(41, 90, 181, 38);
-		frmNmbs.getContentPane().add(lblUser);
+		this.frmNmbs.getContentPane().add(lblUser);
 
 		JLabel lblPassword = new JLabel(bundle.getString("pass"));
 		lblPassword.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblPassword.setForeground(Color.WHITE);
 		lblPassword.setBounds(41, 140, 181, 38);
-		frmNmbs.getContentPane().add(lblPassword);
+		this.frmNmbs.getContentPane().add(lblPassword);
 
-		txtPassword = new JPasswordField();
-		txtPassword.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		txtPassword.setBounds(234, 146, 149, 26);
-		frmNmbs.getContentPane().add(txtPassword);
-		btnLogin.addActionListener(new ButtonHandler());
-		txtPassword.addActionListener(new ButtonHandler());
+		this.txtPassword = new JPasswordField();
+		this.txtPassword.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.txtPassword.setBounds(234, 146, 149, 26);
+		this.frmNmbs.getContentPane().add(this.txtPassword);
+		this.btnLogin.addActionListener(new ButtonHandler());
+		this.txtPassword.addActionListener(new ButtonHandler());
 
 	}
 
 	private class ButtonHandler implements ActionListener {
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (!(CheckIfConnected.checkIfConnected()))// als er geen
 														// internetverbinding is
 			{
-				closeFrame();
+				LoginGui.this.closeFrame();
 				JOptionPane.showMessageDialog(new JFrame(), bundle.getString("noInternet"));
 
 				JOptionPane.showMessageDialog(new JFrame(), bundle.getString("offlineStart"));
@@ -144,10 +145,10 @@ public class LoginGui {
 
 				return;
 			}
-			if (e.getSource() == btnLogin || e.getSource() == txtPassword) {
+			if (e.getSource() == LoginGui.this.btnLogin || e.getSource() == LoginGui.this.txtPassword) {
 
-				String username = txtUsername.getText().trim();
-				String password = new String(txtPassword.getPassword());
+				String username = LoginGui.this.txtUsername.getText().trim();
+				String password = new String(LoginGui.this.txtPassword.getPassword());
 
 				String databaseUsername = LoginDao.getUserName(username);
 
@@ -166,7 +167,7 @@ public class LoginGui {
 										login = new Login(loginId, username, "");
 										Login.setCurrentUser(username);
 
-										closeFrame();
+										LoginGui.this.closeFrame();
 										KiesStationGui.start();
 									} else {
 										JOptionPane.showMessageDialog(new JFrame(),

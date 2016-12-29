@@ -18,271 +18,274 @@ import api.datastructs.Liveboard;
  *
  * @author frank@apsu.be
  */
-public class LiveBoardPanel extends JPanel implements Observer
-{
+public class LiveBoardPanel extends JPanel implements Observer {
 
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 5448686831494956912L;
-	private static final Color  BACKGROUND_COLOR    = new Color(48, 45, 59);
-    private static final Color  HEADER_COLOR        = new Color(27, 118, 248);
-    private static final Color  LINE_COLOR          = new Color(82, 102, 155);
-    private static final Color  TEXT_COLOR          = new Color(255, 255, 0);
-    private static final int    NUM_LINES           = 15;
-    private static final int    CHARS_IN_TITLE      = 36;
-    private static final int    CHARS_IN_LINE       = 50;
-    private static final int    MAX_CHARS_IN_STATION= 28;
-    private static final String FONT                = "Courier";
-    private static final int    MIN_FONT_SIZE       = 2;
-    private static final int    MAX_FONT_SIZE       = 72;
-    private static final int    TIME_COLUMN         = 0;
-    private static final int    STATION_COLUMN      = 1;
-    private static final int    TYPE_COLUMN         = 2;
-    private static final int    PLATFORM_COLUMN     = 3;
-    private static final int    DELAY_COLUMN        = 4;
-    
-    private Liveboard       liveBoard;
-    private int             width, height, borderThickness, imageableXPos, imageableYPos, imageableWidth, imageableHeight, lineHeight, dataYPos;
-    private int             titleBaselineOffset, lineBaselineOffset,titleImageableHeight,lineImageableHeight;
-    private int[]           lineColumns;
-    private Font            titleFont, lineFont;
-    private Calendar        calendar;
-    private Dimension       oldSize;
-    private String          captionLine;
+	private static final Color BACKGROUND_COLOR = new Color(48, 45, 59);
+	private static final Color HEADER_COLOR = new Color(27, 118, 248);
+	private static final Color LINE_COLOR = new Color(82, 102, 155);
+	private static final Color TEXT_COLOR = new Color(255, 255, 0);
+	private static final int NUM_LINES = 15;
+	private static final int CHARS_IN_TITLE = 36;
+	private static final int CHARS_IN_LINE = 50;
+	private static final int MAX_CHARS_IN_STATION = 28;
+	private static final String FONT = "Courier";
+	private static final int MIN_FONT_SIZE = 2;
+	private static final int MAX_FONT_SIZE = 72;
+	private static final int TIME_COLUMN = 0;
+	private static final int STATION_COLUMN = 1;
+	private static final int TYPE_COLUMN = 2;
+	private static final int PLATFORM_COLUMN = 3;
+	private static final int DELAY_COLUMN = 4;
 
-    /*
-     * A LiveBoardPanel is an Observer that will show Liveboard instances in an NMBS-like "small station" display
-     * Since it's a JPanel, add it to any Container. The Liveboard prefers to be an arbitrary 640x480
-     * but will resize to any reasonable size and remain readable as long as possible. Beware that the
-     * tricks for determining Font size can be computationally expensive.
-     */
-    public LiveBoardPanel()
-    {
-        super();
-        calendar = Calendar.getInstance();
-        setDoubleBuffered(false);
-        setBackground(BACKGROUND_COLOR);
-        setPreferredSize(new Dimension(640,480));
-    }
+	private Liveboard liveBoard;
+	private int width, height, borderThickness, imageableXPos, imageableYPos, imageableWidth, imageableHeight,
+			lineHeight, dataYPos;
+	private int titleBaselineOffset, lineBaselineOffset, titleImageableHeight, lineImageableHeight;
+	private int[] lineColumns;
+	private Font titleFont, lineFont;
+	private Calendar calendar;
+	private Dimension oldSize;
+	private String captionLine;
 
-    public void setCaptionLine(String captionLine)
-    {
-        this.captionLine = captionLine;
-    }
+	/*
+	 * A LiveBoardPanel is an Observer that will show Liveboard instances in an
+	 * NMBS-like "small station" display Since it's a JPanel, add it to any
+	 * Container. The Liveboard prefers to be an arbitrary 640x480 but will
+	 * resize to any reasonable size and remain readable as long as possible.
+	 * Beware that the tricks for determining Font size can be computationally
+	 * expensive.
+	 */
+	public LiveBoardPanel() {
+		super();
+		this.calendar = Calendar.getInstance();
+		this.setDoubleBuffered(false);
+		this.setBackground(BACKGROUND_COLOR);
+		this.setPreferredSize(new Dimension(640, 480));
+	}
 
-    @Override
-    public boolean isOpaque()
-    {
-        return true;
-    }
+	public void setCaptionLine(String captionLine) {
+		this.captionLine = captionLine;
+	}
 
-    /*
-     * paints the liveboard into ourselves.
-     */
-    @Override
-    protected void paintComponent(Graphics graphics)
-    {
-        // recalculate metrics first time or when resized
-        if(oldSize==null || oldSize.getHeight()!=getHeight() || oldSize.getWidth()!=getWidth())
-        {
-            calculateMetrics(graphics);
-            oldSize=new Dimension(getWidth(),getHeight());
-        }
-        
-        drawBorders(graphics);
+	@Override
+	public boolean isOpaque() {
+		return true;
+	}
 
-        if (liveBoard == null)
-            return;
+	/*
+	 * paints the liveboard into ourselves.
+	 */
+	@Override
+	protected void paintComponent(Graphics graphics) {
+		// recalculate metrics first time or when resized
+		if (this.oldSize == null || this.oldSize.getHeight() != this.getHeight()
+				|| this.oldSize.getWidth() != this.getWidth()) {
+			this.calculateMetrics(graphics);
+			this.oldSize = new Dimension(this.getWidth(), this.getHeight());
+		}
 
-        drawTitle(graphics);    
-        
-        int line=0;
-        for(ArrivalDeparture event : liveBoard.getArrivalsAndDepartures())
-        {
-            if(!event.hasLeft())
-            {
-                calendar.setTime(event.getDate());
-                drawArrivalDeparture(graphics,event,line++);
-                if(line>(NUM_LINES-3))
-                    break;
-            }
-        }
+		this.drawBorders(graphics);
 
-        // remaining empty lines ; one less if there is a caption line to display
-        for(;line<=(captionLine!=null?(NUM_LINES-4):(NUM_LINES-3));line++)
-            drawLineBackground(graphics, line);
+		if (this.liveBoard == null) {
+			return;
+		}
 
-        // This is just drawing a simple line for advertisement *evil*
-        if(captionLine!=null)
-            drawString(graphics,captionLine, (NUM_LINES-3));
-    }
+		this.drawTitle(graphics);
 
-   
-    /*
-     * calculates various places to draw, and Fonts to use to fit all the info
-     * on the current size
-     */
-    private void calculateMetrics(Graphics g2d)
-    {
-        FontMetrics metrics=null;
-                
-        width                   = getWidth();
-        height                  = getHeight();
-        borderThickness         = (height / NUM_LINES) / 4;
-        imageableXPos           = borderThickness;
-        imageableYPos           = borderThickness;
-        imageableWidth          = width - (borderThickness * 2);
-        imageableHeight         = height - (borderThickness * 3);
-        lineHeight              = imageableHeight / NUM_LINES;
-        dataYPos                = imageableYPos+(lineHeight * 2) + borderThickness;
-        
-        titleImageableHeight    = (lineHeight*2)-(lineHeight/16);
-        lineImageableHeight     = lineHeight-(lineHeight/32);
-        
-        titleFont=fontThatFits(g2d, imageableWidth, titleImageableHeight, CHARS_IN_TITLE);
-        if(titleFont!=null)
-        {
-            metrics=g2d.getFontMetrics(titleFont);
-            titleBaselineOffset=metrics.getAscent()+(titleImageableHeight-metrics.getHeight())/2;
-        }
+		int line = 0;
+		for (ArrivalDeparture event : this.liveBoard.getArrivalsAndDepartures()) {
+			if (!event.hasLeft()) {
+				this.calendar.setTime(event.getDate());
+				this.drawArrivalDeparture(graphics, event, line++);
+				if (line > (NUM_LINES - 3)) {
+					break;
+				}
+			}
+		}
 
-        lineFont=fontThatFits(g2d, imageableWidth, lineImageableHeight, CHARS_IN_LINE);
-        if(lineFont!=null)
-        {
-            metrics=g2d.getFontMetrics(lineFont);
-            lineBaselineOffset=metrics.getAscent()+(lineImageableHeight-metrics.getHeight())/2;
-        }
+		// remaining empty lines ; one less if there is a caption line to
+		// display
+		for (; line <= (this.captionLine != null ? (NUM_LINES - 4) : (NUM_LINES - 3)); line++) {
+			this.drawLineBackground(graphics, line);
+		}
 
-        if(metrics!=null)
-        {
-            lineColumns=new int[5];
-            lineColumns[TIME_COLUMN]=imageableXPos+metrics.getMaxAdvance();
-            lineColumns[STATION_COLUMN]=lineColumns[TIME_COLUMN]+(6*metrics.getMaxAdvance());
-            lineColumns[TYPE_COLUMN]=lineColumns[STATION_COLUMN]+((MAX_CHARS_IN_STATION+1)*metrics.getMaxAdvance());
-            lineColumns[PLATFORM_COLUMN]=lineColumns[TYPE_COLUMN]+(5*metrics.getMaxAdvance());
-            lineColumns[DELAY_COLUMN]=lineColumns[PLATFORM_COLUMN]+(4*metrics.getMaxAdvance());
-        }
-    }
+		// This is just drawing a simple line for advertisement *evil*
+		if (this.captionLine != null) {
+			this.drawString(graphics, this.captionLine, (NUM_LINES - 3));
+		}
+	}
 
-    // draw border and separator between title and lines
-    private void drawBorders(Graphics g2d)
-    {
-        g2d.setColor(BACKGROUND_COLOR);
-        g2d.fillRect(0, 0, width, borderThickness);
-        g2d.fillRect(0, height-(borderThickness*2), width, (borderThickness*2));
+	/*
+	 * calculates various places to draw, and Fonts to use to fit all the info
+	 * on the current size
+	 */
+	private void calculateMetrics(Graphics g2d) {
+		FontMetrics metrics = null;
 
-        g2d.fillRect(0, 0, borderThickness, height);
-        g2d.fillRect(width-borderThickness, 0, borderThickness, height);
+		this.width = this.getWidth();
+		this.height = this.getHeight();
+		this.borderThickness = (this.height / NUM_LINES) / 4;
+		this.imageableXPos = this.borderThickness;
+		this.imageableYPos = this.borderThickness;
+		this.imageableWidth = this.width - (this.borderThickness * 2);
+		this.imageableHeight = this.height - (this.borderThickness * 3);
+		this.lineHeight = this.imageableHeight / NUM_LINES;
+		this.dataYPos = this.imageableYPos + (this.lineHeight * 2) + this.borderThickness;
 
-        g2d.fillRect(0,imageableYPos+(2*lineHeight),width,borderThickness);
+		this.titleImageableHeight = (this.lineHeight * 2) - (this.lineHeight / 16);
+		this.lineImageableHeight = this.lineHeight - (this.lineHeight / 32);
 
-    }
+		this.titleFont = this.fontThatFits(g2d, this.imageableWidth, this.titleImageableHeight, CHARS_IN_TITLE);
+		if (this.titleFont != null) {
+			metrics = g2d.getFontMetrics(this.titleFont);
+			this.titleBaselineOffset = metrics.getAscent() + (this.titleImageableHeight - metrics.getHeight()) / 2;
+		}
 
-    private void drawLineBackground(Graphics graphics, int line)
-    {
-        graphics.setColor(line % 2 == 0 ? LINE_COLOR : BACKGROUND_COLOR);
-        graphics.fillRect(imageableXPos, dataYPos + (line * lineHeight), imageableWidth, lineHeight);
-    }
+		this.lineFont = this.fontThatFits(g2d, this.imageableWidth, this.lineImageableHeight, CHARS_IN_LINE);
+		if (this.lineFont != null) {
+			metrics = g2d.getFontMetrics(this.lineFont);
+			this.lineBaselineOffset = metrics.getAscent() + (this.lineImageableHeight - metrics.getHeight()) / 2;
+		}
 
-    // draw title at the top, displays timestamp and station name
-    private void drawTitle(Graphics graphics)
-    {
-        graphics.setColor(HEADER_COLOR);
-        graphics.fillRect(imageableXPos, imageableYPos, imageableWidth, lineHeight * 2);
-        if(titleFont!=null)
-        {
-            graphics.setFont(titleFont);
-            graphics.setColor(Color.white);
-            calendar.setTime(liveBoard.getTimeStamp());
-            graphics.drawString(String.format("%1$2d:%2$02d (%3$s)",calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE),liveBoard.getStation().getName()),
-                    lineColumns[TIME_COLUMN],imageableYPos+titleBaselineOffset);
-        }
-    }
+		if (metrics != null) {
+			this.lineColumns = new int[5];
+			this.lineColumns[TIME_COLUMN] = this.imageableXPos + metrics.getMaxAdvance();
+			this.lineColumns[STATION_COLUMN] = this.lineColumns[TIME_COLUMN] + (6 * metrics.getMaxAdvance());
+			this.lineColumns[TYPE_COLUMN] = this.lineColumns[STATION_COLUMN]
+					+ ((MAX_CHARS_IN_STATION + 1) * metrics.getMaxAdvance());
+			this.lineColumns[PLATFORM_COLUMN] = this.lineColumns[TYPE_COLUMN] + (5 * metrics.getMaxAdvance());
+			this.lineColumns[DELAY_COLUMN] = this.lineColumns[PLATFORM_COLUMN] + (4 * metrics.getMaxAdvance());
+		}
+	}
 
-    private void drawString(Graphics graphics, String text, int line)
-    {
-        drawLineBackground(graphics, line);
+	// draw border and separator between title and lines
+	private void drawBorders(Graphics g2d) {
+		g2d.setColor(BACKGROUND_COLOR);
+		g2d.fillRect(0, 0, this.width, this.borderThickness);
+		g2d.fillRect(0, this.height - (this.borderThickness * 2), this.width, (this.borderThickness * 2));
 
-        if(lineFont!=null)
-        {
-            graphics.setFont(lineFont);
-            graphics.setColor(TEXT_COLOR);
-            graphics.drawString((text.length()>CHARS_IN_LINE?text.substring(0, (CHARS_IN_LINE-2)) + "..":text),
-                    lineColumns[TIME_COLUMN],dataYPos + lineBaselineOffset + (line * lineHeight));
-        }
-    }
+		g2d.fillRect(0, 0, this.borderThickness, this.height);
+		g2d.fillRect(this.width - this.borderThickness, 0, this.borderThickness, this.height);
 
-    // draw one departure line: time, station name, vehicle type, platform, and optionally delay
-    // will vehicles that are supposed to to departed are displayed in light gray
-    private void drawArrivalDeparture(Graphics graphics, ArrivalDeparture departure, int line)
-    {
-        drawLineBackground(graphics, line);
-        
-        if(departure!=null && lineFont!=null)
-        {
-            calendar.setTime(departure.getDate());
+		g2d.fillRect(0, this.imageableYPos + (2 * this.lineHeight), this.width, this.borderThickness);
 
-            graphics.setFont(lineFont);
-            
-            if(departure.shouldHaveLeftAt(liveBoard.getTimeStamp()))
-                graphics.setColor(TEXT_COLOR);
-            else
-                graphics.setColor(Color.LIGHT_GRAY);
+	}
 
+	private void drawLineBackground(Graphics graphics, int line) {
+		graphics.setColor(line % 2 == 0 ? LINE_COLOR : BACKGROUND_COLOR);
+		graphics.fillRect(this.imageableXPos, this.dataYPos + (line * this.lineHeight), this.imageableWidth,
+				this.lineHeight);
+	}
 
-            graphics.drawString(String.format("%1$2d:%2$02d",calendar.get(Calendar.HOUR_OF_DAY),calendar.get(Calendar.MINUTE)),
-                    lineColumns[TIME_COLUMN],dataYPos + lineBaselineOffset + (line * lineHeight));
+	// draw title at the top, displays timestamp and station name
+	private void drawTitle(Graphics graphics) {
+		graphics.setColor(HEADER_COLOR);
+		graphics.fillRect(this.imageableXPos, this.imageableYPos, this.imageableWidth, this.lineHeight * 2);
+		if (this.titleFont != null) {
+			graphics.setFont(this.titleFont);
+			graphics.setColor(Color.white);
+			this.calendar.setTime(this.liveBoard.getTimeStamp());
+			graphics.drawString(
+					String.format("%1$2d:%2$02d (%3$s)", this.calendar.get(Calendar.HOUR_OF_DAY),
+							this.calendar.get(Calendar.MINUTE), this.liveBoard.getStation().getName()),
+					this.lineColumns[TIME_COLUMN], this.imageableYPos + this.titleBaselineOffset);
+		}
+	}
 
-            graphics.drawString((departure.getStation().getName().length()>MAX_CHARS_IN_STATION?departure.getStation().getName().substring(0, (MAX_CHARS_IN_STATION-2)) + "..":departure.getStation().getName()),
-                    lineColumns[STATION_COLUMN],dataYPos + lineBaselineOffset + (line * lineHeight));
+	private void drawString(Graphics graphics, String text, int line) {
+		this.drawLineBackground(graphics, line);
 
-            if(departure.getVehicle().getType()!=null)
-                graphics.drawString(String.format("%1$-4s",departure.getVehicle().getType()),
-                    lineColumns[TYPE_COLUMN],dataYPos + lineBaselineOffset + (line * lineHeight));
-            else
-                graphics.drawString("---",
-                    lineColumns[TYPE_COLUMN],dataYPos + lineBaselineOffset + (line * lineHeight));
+		if (this.lineFont != null) {
+			graphics.setFont(this.lineFont);
+			graphics.setColor(TEXT_COLOR);
+			graphics.drawString((text.length() > CHARS_IN_LINE ? text.substring(0, (CHARS_IN_LINE - 2)) + ".." : text),
+					this.lineColumns[TIME_COLUMN], this.dataYPos + this.lineBaselineOffset + (line * this.lineHeight));
+		}
+	}
 
-            if(departure.getPlatform()!=null)
-                graphics.drawString(String.format("%1$2s",departure.getPlatform()),
-                    lineColumns[PLATFORM_COLUMN],dataYPos + lineBaselineOffset + (line * lineHeight));
-            else
-             graphics.drawString("--",
-                    lineColumns[PLATFORM_COLUMN],dataYPos + lineBaselineOffset + (line * lineHeight));
+	// draw one departure line: time, station name, vehicle type, platform, and
+	// optionally delay
+	// will vehicles that are supposed to to departed are displayed in light
+	// gray
+	private void drawArrivalDeparture(Graphics graphics, ArrivalDeparture departure, int line) {
+		this.drawLineBackground(graphics, line);
 
-            if(departure.getDelay()>0)
-            {
-                graphics.setColor(Color.red);
-                graphics.drawString(String.format("+%1$1dH%2$02d",(departure.getDelay()/60)/60,(departure.getDelay()/60)%60),
-                    lineColumns[DELAY_COLUMN],dataYPos + lineBaselineOffset + (line * lineHeight));
-            }
-        }
-    }
+		if (departure != null && this.lineFont != null) {
+			this.calendar.setTime(departure.getDate());
 
-    // hack to find a Font instance that will fit the number of characters in our current size
-    private Font fontThatFits(Graphics g2d, int width, int height,  int terminalWidth)
-    {
-        Font testFont, font = null;
+			graphics.setFont(this.lineFont);
 
-        for (int size = MAX_FONT_SIZE; size > MIN_FONT_SIZE; size--)
-        {
-            testFont = new Font(FONT, Font.PLAIN, size);
-            FontMetrics metrics = g2d.getFontMetrics(testFont);
-            if ((metrics.getMaxAdvance() * terminalWidth) < width && metrics.getHeight() < height)
-            {
-                font = testFont;
-                break;
-            }
-        }
+			if (departure.shouldHaveLeftAt(this.liveBoard.getTimeStamp())) {
+				graphics.setColor(TEXT_COLOR);
+			} else {
+				graphics.setColor(Color.LIGHT_GRAY);
+			}
 
-        return font;
-    }
+			graphics.drawString(
+					String.format("%1$2d:%2$02d", this.calendar.get(Calendar.HOUR_OF_DAY),
+							this.calendar.get(Calendar.MINUTE)),
+					this.lineColumns[TIME_COLUMN], this.dataYPos + this.lineBaselineOffset + (line * this.lineHeight));
 
-    // called by a LiveboardController when a new Liveboard is available
-    public void update(Observable observable, Object observed)
-    {
-        liveBoard = (Liveboard) observed;
-        repaint();
-    }
+			graphics.drawString(
+					(departure.getStation().getName().length() > MAX_CHARS_IN_STATION
+							? departure.getStation().getName().substring(0, (MAX_CHARS_IN_STATION - 2)) + ".."
+							: departure.getStation().getName()),
+					this.lineColumns[STATION_COLUMN],
+					this.dataYPos + this.lineBaselineOffset + (line * this.lineHeight));
+
+			if (departure.getVehicle().getType() != null) {
+				graphics.drawString(String.format("%1$-4s", departure.getVehicle().getType()),
+						this.lineColumns[TYPE_COLUMN],
+						this.dataYPos + this.lineBaselineOffset + (line * this.lineHeight));
+			} else {
+				graphics.drawString("---", this.lineColumns[TYPE_COLUMN],
+						this.dataYPos + this.lineBaselineOffset + (line * this.lineHeight));
+			}
+
+			if (departure.getPlatform() != null) {
+				graphics.drawString(String.format("%1$2s", departure.getPlatform()), this.lineColumns[PLATFORM_COLUMN],
+						this.dataYPos + this.lineBaselineOffset + (line * this.lineHeight));
+			} else {
+				graphics.drawString("--", this.lineColumns[PLATFORM_COLUMN],
+						this.dataYPos + this.lineBaselineOffset + (line * this.lineHeight));
+			}
+
+			if (departure.getDelay() > 0) {
+				graphics.setColor(Color.red);
+				graphics.drawString(
+						String.format("+%1$1dH%2$02d", (departure.getDelay() / 60) / 60,
+								(departure.getDelay() / 60) % 60),
+						this.lineColumns[DELAY_COLUMN],
+						this.dataYPos + this.lineBaselineOffset + (line * this.lineHeight));
+			}
+		}
+	}
+
+	// hack to find a Font instance that will fit the number of characters in
+	// our current size
+	private Font fontThatFits(Graphics g2d, int width, int height, int terminalWidth) {
+		Font testFont, font = null;
+
+		for (int size = MAX_FONT_SIZE; size > MIN_FONT_SIZE; size--) {
+			testFont = new Font(FONT, Font.PLAIN, size);
+			FontMetrics metrics = g2d.getFontMetrics(testFont);
+			if ((metrics.getMaxAdvance() * terminalWidth) < width && metrics.getHeight() < height) {
+				font = testFont;
+				break;
+			}
+		}
+
+		return font;
+	}
+
+	// called by a LiveboardController when a new Liveboard is available
+	@Override
+	public void update(Observable observable, Object observed) {
+		this.liveBoard = (Liveboard) observed;
+		this.repaint();
+	}
 }

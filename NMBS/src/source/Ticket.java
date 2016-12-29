@@ -13,24 +13,24 @@ public class Ticket extends Aankoop {
 	private Date verkoopDatum;
 	private Date heenDatum;
 	private Date terugDatum = null;
-	
-	
-	public Ticket(int aankoopId,   int medewerkerId, String depZone, String arrZone,int verkoopStation, double prijs, VerkoopType verkoop
-			,double korting,int klasse, int aantal, Date verkoopDatum, Date heenDatum, Date terugDatum) {
+
+	public Ticket(int aankoopId, int medewerkerId, String depZone, String arrZone, int verkoopStation, double prijs,
+			VerkoopType verkoop, double korting, int klasse, int aantal, Date verkoopDatum, Date heenDatum,
+			Date terugDatum) {
 		super(aankoopId, korting, prijs, verkoop);
-		setMedewerkerId(medewerkerId);
-		setDepZone(depZone);
-		setArrZone(arrZone);
-		setVerkoopStation(verkoopStation);
-		setKlasse(klasse);
-		setAantal(aantal);
-		setVerkoopDatum(verkoopDatum);
-		setHeenDatum(heenDatum);
-		setTerugDatum(terugDatum);
+		this.setMedewerkerId(medewerkerId);
+		this.setDepZone(depZone);
+		this.setArrZone(arrZone);
+		this.setVerkoopStation(verkoopStation);
+		this.setKlasse(klasse);
+		this.setAantal(aantal);
+		this.setVerkoopDatum(verkoopDatum);
+		this.setHeenDatum(heenDatum);
+		this.setTerugDatum(terugDatum);
 	}
-	
+
 	public int getMedewerkerId() {
-		return medewerkerId;
+		return this.medewerkerId;
 	}
 
 	public void setMedewerkerId(int medewerkerId) {
@@ -38,7 +38,7 @@ public class Ticket extends Aankoop {
 	}
 
 	public String getDepZone() {
-		return depZone;
+		return this.depZone;
 	}
 
 	public void setDepZone(String depZone) {
@@ -46,7 +46,7 @@ public class Ticket extends Aankoop {
 	}
 
 	public String getArrZone() {
-		return arrZone;
+		return this.arrZone;
 	}
 
 	public void setArrZone(String arrZone) {
@@ -54,15 +54,15 @@ public class Ticket extends Aankoop {
 	}
 
 	public Date getVerkoopDatum() {
-		return verkoopDatum;
+		return this.verkoopDatum;
 	}
 
 	public void setVerkoopDatum(Date verkoopDatum) {
 		this.verkoopDatum = verkoopDatum;
 	}
-	
+
 	public int getKlasse() {
-		return klasse;
+		return this.klasse;
 	}
 
 	public void setKlasse(int klasse) {
@@ -70,7 +70,7 @@ public class Ticket extends Aankoop {
 	}
 
 	public int getAantal() {
-		return aantal;
+		return this.aantal;
 	}
 
 	public void setAantal(int aantal) {
@@ -78,7 +78,7 @@ public class Ticket extends Aankoop {
 	}
 
 	public Date getHeenDatum() {
-		return heenDatum;
+		return this.heenDatum;
 	}
 
 	public void setHeenDatum(Date heenDatum) {
@@ -86,7 +86,7 @@ public class Ticket extends Aankoop {
 	}
 
 	public Date getTerugDatum() {
-		return terugDatum;
+		return this.terugDatum;
 	}
 
 	public void setTerugDatum(Date terugDatum) {
@@ -94,7 +94,7 @@ public class Ticket extends Aankoop {
 	}
 
 	public int getVerkoopStation() {
-		return verkoopStation;
+		return this.verkoopStation;
 	}
 
 	public void setVerkoopStation(int verkoopStation) {

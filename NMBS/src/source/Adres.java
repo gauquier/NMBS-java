@@ -8,6 +8,7 @@ public class Adres {
 	private String woonplaats;
 	private int postcode;
 	private String bus;
+
 	public Adres(int adresId, String straat, int huisnr, String woonplaats, int postcode, String bus) {
 		super();
 		this.adresId = adresId;
@@ -17,6 +18,7 @@ public class Adres {
 		this.postcode = postcode;
 		this.bus = bus;
 	}
+
 	public Adres(String straat, int huisnr, String woonplaats, int postcode, String bus) {
 		super();
 		this.straat = straat;
@@ -25,91 +27,118 @@ public class Adres {
 		this.postcode = postcode;
 		this.bus = bus;
 	}
-	
+
 	public int getAdresId() {
-		return adresId;
+		return this.adresId;
 	}
+
 	public void setAdresId(int adresId) {
-		if(adresId > 0)
-		this.adresId = adresId;
+		if (adresId > 0) {
+			this.adresId = adresId;
+		}
 	}
+
 	public String getStraat() {
-		return straat;
+		return this.straat;
 	}
+
 	public void setStraat(String straat) {
 		this.straat = straat;
 	}
+
 	public int getHuisnr() {
-		return huisnr;
+		return this.huisnr;
 	}
+
 	public void setHuisnr(int huisnr) {
-		if(huisnr > 0)
+		if (huisnr > 0) {
 			this.huisnr = huisnr;
+		}
 	}
+
 	public String getWoonplaats() {
-		return woonplaats;
+		return this.woonplaats;
 	}
+
 	public void setWoonplaats(String woonplaats) {
 		this.woonplaats = woonplaats;
 	}
+
 	public int getPostcode() {
-		return postcode;
+		return this.postcode;
 	}
+
 	public void setPostcode(int postcode) {
-		if(postcode >= 1000 && postcode <= 9999)
-		this.postcode = postcode;
+		if (postcode >= 1000 && postcode <= 9999) {
+			this.postcode = postcode;
+		}
 	}
+
 	public String getBus() {
-		return bus;
+		return this.bus;
 	}
+
 	public void setBus(String bus) {
 		this.bus = bus;
 	}
-	
+
 	@Override
 	public String toString() {
 		return this.getStraat() + " " + this.getHuisnr() + " , " + this.getPostcode() + " " + this.getWoonplaats();
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((bus == null) ? 0 : bus.hashCode());
-		result = prime * result + huisnr;
-		result = prime * result + postcode;
-		result = prime * result + ((straat == null) ? 0 : straat.hashCode());
-		result = prime * result + ((woonplaats == null) ? 0 : woonplaats.hashCode());
+		result = prime * result + ((this.bus == null) ? 0 : this.bus.hashCode());
+		result = prime * result + this.huisnr;
+		result = prime * result + this.postcode;
+		result = prime * result + ((this.straat == null) ? 0 : this.straat.hashCode());
+		result = prime * result + ((this.woonplaats == null) ? 0 : this.woonplaats.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (this.getClass() != obj.getClass()) {
 			return false;
+		}
 		Adres other = (Adres) obj;
-		if (bus == null) {
-			if (other.bus != null)
+		if (this.bus == null) {
+			if (other.bus != null) {
 				return false;
-		} else if (!bus.equals(other.bus))
+			}
+		} else if (!this.bus.equals(other.bus)) {
 			return false;
-		if (huisnr != other.huisnr)
+		}
+		if (this.huisnr != other.huisnr) {
 			return false;
-		if (postcode != other.postcode)
+		}
+		if (this.postcode != other.postcode) {
 			return false;
-		if (straat == null) {
-			if (other.straat != null)
+		}
+		if (this.straat == null) {
+			if (other.straat != null) {
 				return false;
-		} else if (!straat.equals(other.straat))
+			}
+		} else if (!this.straat.equals(other.straat)) {
 			return false;
-		if (woonplaats == null) {
-			if (other.woonplaats != null)
+		}
+		if (this.woonplaats == null) {
+			if (other.woonplaats != null) {
 				return false;
-		} else if (!woonplaats.equals(other.woonplaats))
+			}
+		} else if (!this.woonplaats.equals(other.woonplaats)) {
 			return false;
+		}
 		return true;
 	}
-	
+
 }

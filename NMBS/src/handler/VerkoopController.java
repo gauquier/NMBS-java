@@ -9,88 +9,87 @@ import gui.TicketVerkoopGui;
 import source.Ticket;
 import source.TicketsOffline;
 
-public class VerkoopController {	
-	public VerkoopController(){}
-	
-	public static boolean ticketValidate(Ticket ticket, TicketVerkoopGui tvGui, boolean isOffline){
-		
-		boolean depZone = false, arrZone = false, klasse = false, aantal = false, heenDatum = false, terugDatum = false, prijs = false;
+public class VerkoopController {
+	public VerkoopController() {
+	}
+
+	public static boolean ticketValidate(Ticket ticket, TicketVerkoopGui tvGui, boolean isOffline) {
+
+		boolean depZone = false, arrZone = false, klasse = false, aantal = false, heenDatum = false, terugDatum = false,
+				prijs = false;
 
 		if (!isOffline) {
-			if(StationDAO.checkStation(ticket.getDepZone()) != 0){
+			if (StationDAO.checkStation(ticket.getDepZone()) != 0) {
 				depZone = true;
-			}
-			else{
+			} else {
 				depZone = false;
 			}
-			
-			if(StationDAO.checkStation(ticket.getArrZone()) != 0){
+
+			if (StationDAO.checkStation(ticket.getArrZone()) != 0) {
 				arrZone = true;
-			}
-			else{
+			} else {
 				arrZone = false;
 			}
-		}
-		else {
+		} else {
 			depZone = true;
 			arrZone = true;
 		}
-		
-		if(ticket.getKlasse() == 1 || ticket.getKlasse() == 2){
+
+		if (ticket.getKlasse() == 1 || ticket.getKlasse() == 2) {
 			klasse = true;
-		}
-		else{
+		} else {
 			klasse = false;
 		}
-		if(ticket.getAantal() >= 1){
+		if (ticket.getAantal() >= 1) {
 			aantal = true;
-		}
-		else{
+		} else {
 			aantal = false;
 		}
-	      SimpleDateFormat compareFormat = new SimpleDateFormat("yyyyMMdd");
-	      
-		if(Integer.parseInt(compareFormat.format(ticket.getHeenDatum())) >= Integer.parseInt(compareFormat.format(new Date()))){
+		SimpleDateFormat compareFormat = new SimpleDateFormat("yyyyMMdd");
+
+		if (Integer.parseInt(compareFormat.format(ticket.getHeenDatum())) >= Integer
+				.parseInt(compareFormat.format(new Date()))) {
 			heenDatum = true;
-		}
-		else{
+		} else {
 			heenDatum = false;
 		}
-		if(Integer.parseInt(compareFormat.format(ticket.getTerugDatum())) >= Integer.parseInt(compareFormat.format(ticket.getHeenDatum())) && Integer.parseInt(compareFormat.format(ticket.getTerugDatum())) >= Integer.parseInt(compareFormat.format(new Date()))){
+		if (Integer.parseInt(compareFormat.format(ticket.getTerugDatum())) >= Integer
+				.parseInt(compareFormat.format(ticket.getHeenDatum()))
+				&& Integer.parseInt(compareFormat.format(ticket.getTerugDatum())) >= Integer
+						.parseInt(compareFormat.format(new Date()))) {
 			terugDatum = true;
-		}
-		else{
+		} else {
 			terugDatum = false;
 		}
-		if(ticket.getPrijs() < 0){
+		if (ticket.getPrijs() < 0) {
 			prijs = false;
-		}
-		else{
+		} else {
 			prijs = true;
 		}
 
-		//System.out.println(compareFormat.format(ticket.getHeenDatum()) + "         " + compareFormat.format(ticket.getTerugDatum()) + "         " + compareFormat.format(new Date()));
+		// System.out.println(compareFormat.format(ticket.getHeenDatum()) + " "
+		// + compareFormat.format(ticket.getTerugDatum()) + " " +
+		// compareFormat.format(new Date()));
 		tvGui.setColor(depZone, arrZone, klasse, aantal, heenDatum, terugDatum, prijs);
-		if(!depZone || !arrZone) {
-			//JOptionPane.showMessageDialog(new JFrame(), "Vul alle velden in!");
+		if (!depZone || !arrZone) {
+			// JOptionPane.showMessageDialog(new JFrame(), "Vul alle velden
+			// in!");
 		}
-		
-		if(depZone && arrZone && klasse && aantal && heenDatum && terugDatum && prijs){
+
+		if (depZone && arrZone && klasse && aantal && heenDatum && terugDatum && prijs) {
 			if (!isOffline) {
-				//ticket.setPrijs(PrijsDAO.getPrijsByVerkoopType(ticket.getVerkoop()));
+				// ticket.setPrijs(PrijsDAO.getPrijsByVerkoopType(ticket.getVerkoop()));
 				TicketDao.insertTicket(ticket);
-			}
-			else {
+			} else {
 				TicketsOffline.addTicket(ticket);
 			}
 			tvGui.setTickettenVerkocht(true);
 			return true;
-		}
-		else{
+		} else {
 			tvGui.setTickettenVerkocht(false);
-			
+
 			return false;
-			
-		}		
+
+		}
 	}
 }

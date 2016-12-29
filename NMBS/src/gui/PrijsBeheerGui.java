@@ -24,67 +24,57 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 import dao.PrijsDAO;
 import source.Prijs;
 
-
 @SuppressWarnings("serial")
 public class PrijsBeheerGui extends JPanel {
 	private static ResourceBundle bundle;
-	
+
 	private JButton btnBewerken;
 	private JList<Prijs> list;
 	private ArrayList<Prijs> arrayLijst;
-	private String navigation;
 
 	public PrijsBeheerGui() {
 		bundle = ResourceBundle.getBundle("localization.PrijsBeheerGui");
-		
-		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 
-		JLabel lblPrijzenBeheren = DefaultComponentFactory.getInstance().createTitle(bundle.getString("lblPrijzenBeheren"));
+		this.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
+
+		JLabel lblPrijzenBeheren = DefaultComponentFactory.getInstance()
+				.createTitle(bundle.getString("lblPrijzenBeheren"));
 		lblPrijzenBeheren.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
-		arrayLijst = new ArrayList<Prijs>();
+		this.arrayLijst = new ArrayList<Prijs>();
 
-		arrayLijst = PrijsDAO.getAllPrijzen();
+		this.arrayLijst = PrijsDAO.getAllPrijzen();
 
 		DefaultListModel<Prijs> dlm = new DefaultListModel<Prijs>();
 
-		for (Prijs m : arrayLijst) {
+		for (Prijs m : this.arrayLijst) {
 			dlm.addElement(m);
 		}
 
-		list = new JList<Prijs>(dlm);
-		list.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.list = new JList<Prijs>(dlm);
+		this.list.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 
-		btnBewerken = new JButton(bundle.getString("btnBewerken"));
-		btnBewerken.setFont(new Font("Dialog", Font.BOLD, 20));
-		btnBewerken.setBackground(Color.ORANGE);
-		btnBewerken.addActionListener(new MenuItemHandler());
+		this.btnBewerken = new JButton(bundle.getString("btnBewerken"));
+		this.btnBewerken.setFont(new Font("Dialog", Font.BOLD, 20));
+		this.btnBewerken.setBackground(Color.ORANGE);
+		this.btnBewerken.addActionListener(new MenuItemHandler());
 
 		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(list, GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnBewerken, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE))
-						.addComponent(lblPrijzenBeheren))
-					.addContainerGap())
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(12)
-					.addComponent(lblPrijzenBeheren)
-					.addGap(11)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnBewerken)
-						.addComponent(list, GroupLayout.PREFERRED_SIZE, 234, GroupLayout.PREFERRED_SIZE))
-					.addGap(49))
-		);
-		setLayout(groupLayout);
+		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup().addContainerGap()
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+										.addComponent(this.list, GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
+										.addPreferredGap(ComponentPlacement.RELATED).addComponent(this.btnBewerken,
+												GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblPrijzenBeheren))
+						.addContainerGap()));
+		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup().addGap(12).addComponent(lblPrijzenBeheren).addGap(11)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING).addComponent(this.btnBewerken)
+								.addComponent(this.list, GroupLayout.PREFERRED_SIZE, 234, GroupLayout.PREFERRED_SIZE))
+						.addGap(49)));
+		this.setLayout(groupLayout);
 	}
 
 	public void close() {
@@ -104,7 +94,7 @@ public class PrijsBeheerGui extends JPanel {
 	}
 
 	public Boolean unknownIndex() {
-		if (list.getSelectedValue() == null || list.getSelectedIndex() < 0) {
+		if (this.list.getSelectedValue() == null || this.list.getSelectedIndex() < 0) {
 			JOptionPane.showMessageDialog(new JFrame(), "Er is geen prijs aangeduid.");
 			return false;
 		} else {
@@ -117,14 +107,13 @@ public class PrijsBeheerGui extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
-			if (e.getSource() == btnBewerken) {
+			if (e.getSource() == PrijsBeheerGui.this.btnBewerken) {
 
-				if (!unknownIndex()) {
+				if (!PrijsBeheerGui.this.unknownIndex()) {
 					return;
 				} else {
 
-					navigation = "gebruikerBijwerken";
-					AdminGui.setHuidigeKeuze(new PrijsBewerkenGui(list.getSelectedValue()));
+					AdminGui.setHuidigeKeuze(new PrijsBewerkenGui(PrijsBeheerGui.this.list.getSelectedValue()));
 
 				}
 			}

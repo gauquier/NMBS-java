@@ -7,48 +7,55 @@ public class Station {
 	private String naam;
 	private static String currentStation;
 	private ArrayList<VerlorenVoorwerp> verlorenVoorwerpen = new ArrayList<VerlorenVoorwerp>();
-	
+
 	public Station(int stationID, String naam, ArrayList<VerlorenVoorwerp> verlorenVoorwerpen) {
 		this.stationID = stationID;
 		this.naam = naam;
-		this.verlorenVoorwerpen=verlorenVoorwerpen;
+		this.verlorenVoorwerpen = verlorenVoorwerpen;
 	}
+
 	public Station(int stationID, String naam) {
 		this.stationID = stationID;
 		this.naam = naam;
 	}
+
 	public Station(String currentStation) {
 		super();
-		this.currentStation = currentStation;
+		Station.currentStation = currentStation;
 	}
-	public void addVerlorenVoorwerp(VerlorenVoorwerp station){
-		verlorenVoorwerpen.add(station);
-	} 
-	public void delVerlorenVoorwerp(VerlorenVoorwerp station){
-		verlorenVoorwerpen.remove(station);
-	} 
+
+	public void addVerlorenVoorwerp(VerlorenVoorwerp station) {
+		this.verlorenVoorwerpen.add(station);
+	}
+
+	public void delVerlorenVoorwerp(VerlorenVoorwerp station) {
+		this.verlorenVoorwerpen.remove(station);
+	}
+
 	public ArrayList<VerlorenVoorwerp> getVerlorenVoorwerpen() {
-		return verlorenVoorwerpen;
-	} 
+		return this.verlorenVoorwerpen;
+	}
+
 	public void setVerlorenVoorwerpen(ArrayList<VerlorenVoorwerp> verlorenVoorwerpen) {
 		this.verlorenVoorwerpen = verlorenVoorwerpen;
 	}
 
 	public int getStationID() {
-		return stationID;
+		return this.stationID;
 	}
-	
+
 	public void setStationID(int stationID) {
 		this.stationID = stationID;
 	}
-	 
+
 	public String getNaam() {
-		return naam;
+		return this.naam;
 	}
 
 	public void setNaam(String naam) {
 		this.naam = naam;
 	}
+
 	/**
 	 * @return the currentStation
 	 */
@@ -57,45 +64,56 @@ public class Station {
 	}
 
 	/**
-	 * @param currentStation the currentStation to set
+	 * @param currentStation
+	 *            the currentStation to set
 	 */
 	public void setCurrentStation(String currentStation) {
-		this.currentStation = currentStation;
+		Station.currentStation = currentStation;
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((naam == null) ? 0 : naam.hashCode());
+		result = prime * result + ((this.naam == null) ? 0 : this.naam.hashCode());
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (this.getClass() != obj.getClass()) {
 			return false;
+		}
 		Station other = (Station) obj;
-		if (naam == null) {
-			if (other.naam != null)
+		if (this.naam == null) {
+			if (other.naam != null) {
 				return false;
-		} else if (!naam.equals(other.naam))
+			}
+		} else if (!this.naam.equals(other.naam)) {
 			return false;
+		}
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return naam;
+		return this.naam;
 
 	}
 }
