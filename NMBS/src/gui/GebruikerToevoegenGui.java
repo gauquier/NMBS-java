@@ -159,7 +159,7 @@ public class GebruikerToevoegenGui extends JPanel {
 		this.txtEmail.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		this.txtEmail.setColumns(10);
 
-		JLabel lblMedewerkerToevoegen = DefaultComponentFactory.getInstance().createTitle("Medewerker toevoegen");
+		JLabel lblMedewerkerToevoegen = DefaultComponentFactory.getInstance().createTitle("Gebruiker toevoegen");
 		lblMedewerkerToevoegen.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		this.radiobuttons = new ButtonGroup();
@@ -235,9 +235,9 @@ public class GebruikerToevoegenGui extends JPanel {
 							.addComponent(rbtnUser)
 							.addGap(18)
 							.addComponent(rbtnAdmin)
-							.addPreferredGap(ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
-							.addComponent(btnToevoegen, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)
-							.addGap(98))
+							.addPreferredGap(ComponentPlacement.RELATED, 216, Short.MAX_VALUE)
+							.addComponent(btnToevoegen, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblVoornaam)
@@ -291,12 +291,12 @@ public class GebruikerToevoegenGui extends JPanel {
 									.addComponent(txtPostcode, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(lblPostcodeError)
-									.addPreferredGap(ComponentPlacement.RELATED, 463, Short.MAX_VALUE)))
+									.addPreferredGap(ComponentPlacement.RELATED, 462, Short.MAX_VALUE)))
 							.addGap(52))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblMedewerkerToevoegen)
-							.addPreferredGap(ComponentPlacement.RELATED, 530, Short.MAX_VALUE)))
-					.addGap(88))
+							.addPreferredGap(ComponentPlacement.RELATED, 528, Short.MAX_VALUE)))
+					.addGap(10))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -364,7 +364,7 @@ public class GebruikerToevoegenGui extends JPanel {
 						.addComponent(btnToevoegen, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE))
 					.addGap(13)
 					.addComponent(label_1)
-					.addContainerGap(91, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 
 		this.setLayout(groupLayout);

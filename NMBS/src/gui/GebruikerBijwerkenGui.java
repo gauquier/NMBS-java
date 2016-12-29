@@ -187,32 +187,40 @@ public class GebruikerBijwerkenGui extends JPanel {
 		label.setForeground(Color.WHITE);
 
 		JLabel label_1 = new JLabel(bundle.getString("label_1"));
-		label_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		label_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		label_1.setForeground(Color.WHITE);
 
 		this.lblVoornaamError = new JLabel("");
 		this.lblVoornaamError.setForeground(Color.RED);
+		this.lblVoornaamError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 
 		this.lblAchternaamError = new JLabel("");
 		this.lblAchternaamError.setForeground(Color.RED);
+		this.lblAchternaamError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 
 		this.lblStraatError = new JLabel("");
 		this.lblStraatError.setForeground(Color.RED);
+		this.lblStraatError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 
 		this.lblHuisnrError = new JLabel("");
 		this.lblHuisnrError.setForeground(Color.RED);
+		this.lblHuisnrError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 
 		this.lblBusError = new JLabel("");
 		this.lblBusError.setForeground(Color.RED);
+		this.lblBusError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 
 		this.lblGemeenteError = new JLabel("");
 		this.lblGemeenteError.setForeground(Color.RED);
+		this.lblGemeenteError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 
 		this.lblPostcodeError = new JLabel("");
 		this.lblPostcodeError.setForeground(Color.RED);
+		this.lblPostcodeError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 
 		this.lblEmailError = new JLabel("");
 		this.lblEmailError.setForeground(Color.RED);
+		this.lblEmailError.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout
 				.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
@@ -467,7 +475,7 @@ public class GebruikerBijwerkenGui extends JPanel {
 								GebruikerBijwerkenGui.this.rol, GebruikerBijwerkenGui.this.adresId,
 								GebruikerBijwerkenGui.this.adres);
 						JOptionPane.showMessageDialog(new JFrame(), bundle.getString("userEdited"));
-						AdminGui.setHuidigeKeuze(new GebruikersBeheerGui());
+						AdminGui.setHuidigeKeuze(new GebruikerBewerkenGui());
 					}
 				} else {
 					JOptionPane.showMessageDialog(new JFrame(), bundle.getString("requiredFieldsWarning"));

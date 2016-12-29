@@ -83,56 +83,62 @@ public class GebruikerWeergevenGui extends JPanel {
 		lblTypeValue.setText(medewerker.getRol().getRol());
 
 		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup().addGap(30)
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(
-										lblGebruiker)
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(30)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createSequentialGroup()
+								.addComponent(lblType, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
+								.addGap(45))
+							.addComponent(lblTypeValue, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addComponent(lblGebruiker)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 								.addGroup(groupLayout.createSequentialGroup()
-										.addGroup(groupLayout
-												.createParallelGroup(Alignment.TRAILING).addGroup(
-														groupLayout.createSequentialGroup().addGroup(groupLayout
-																.createParallelGroup(Alignment.LEADING)
-																.addComponent(lblEmail)
-																.addComponent(lblBus, GroupLayout.PREFERRED_SIZE, 56,
-																		GroupLayout.PREFERRED_SIZE)
-																.addComponent(lblType, GroupLayout.PREFERRED_SIZE, 56,
-																		GroupLayout.PREFERRED_SIZE)
-																.addComponent(lblVertrek, GroupLayout.PREFERRED_SIZE,
-																		78, GroupLayout.PREFERRED_SIZE))
-																.addGap(45))
-												.addGroup(groupLayout.createSequentialGroup()
-														.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, 117,
-																GroupLayout.PREFERRED_SIZE)
-														.addPreferredGap(ComponentPlacement.RELATED)))
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-												.addComponent(lblBusValue)
-												.addComponent(lblEmailValue, GroupLayout.DEFAULT_SIZE, 209,
-														Short.MAX_VALUE)
-												.addComponent(lblAdresValue, GroupLayout.DEFAULT_SIZE, 209,
-														Short.MAX_VALUE)
-												.addComponent(lblUsernameValue, GroupLayout.PREFERRED_SIZE, 185,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblTypeValue, GroupLayout.DEFAULT_SIZE,
-														GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-						.addContainerGap(88, Short.MAX_VALUE)));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
-				.createSequentialGroup().addGap(11).addComponent(lblGebruiker).addGap(18)
-				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblEmail)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblEmail)
+										.addComponent(lblBus, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblVertrek, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE))
+									.addGap(45))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(lblBusValue)
+								.addComponent(lblEmailValue, GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+								.addComponent(lblAdresValue, GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+								.addComponent(lblUsernameValue, GroupLayout.PREFERRED_SIZE, 185, GroupLayout.PREFERRED_SIZE))))
+					.addContainerGap())
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(11)
+					.addComponent(lblGebruiker)
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblEmail)
 						.addComponent(lblEmailValue, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-				.addGap(18)
-				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblVertrek)
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblVertrek)
 						.addComponent(lblAdresValue, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-				.addGap(18)
-				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblBus)
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblBus)
 						.addComponent(lblBusValue, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
-				.addGap(18)
-				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE, false)
 						.addComponent(lblUsernameValue, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblUsername, GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE))
-				.addPreferredGap(ComponentPlacement.RELATED, 19, Short.MAX_VALUE).addGroup(groupLayout
-						.createParallelGroup(Alignment.BASELINE).addComponent(lblType).addComponent(lblTypeValue))
-				.addContainerGap(64, Short.MAX_VALUE)));
+						.addComponent(lblUsername, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblType)
+						.addComponent(lblTypeValue))
+					.addGap(41))
+		);
 
 		this.setLayout(groupLayout);
 	}

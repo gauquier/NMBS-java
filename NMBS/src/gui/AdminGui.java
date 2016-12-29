@@ -236,7 +236,7 @@ public class AdminGui extends JFrame {
 			}
 
 			else if (e.getSource() == AdminGui.this.klantenBeheer) {
-				AdminGui.setHuidigeKeuze(new KlantenBeheerGui());
+				AdminGui.setHuidigeKeuze(new KlantBewerkenGui());
 			}
 
 			else if (e.getSource() == AdminGui.this.uitloggen) {

@@ -43,7 +43,7 @@ public class WachtwoordVeranderenGui extends JPanel {
 
 		JLabel lblWachtwoordWijzigen = DefaultComponentFactory.getInstance()
 				.createTitle(bundle.getString("lblWachtwoordWijzigen"));
-		lblWachtwoordWijzigen.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+		lblWachtwoordWijzigen.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblWachtwoordWijzigen.setForeground(new Color(0, 0, 0));
 
 		JLabel lblUsername = new JLabel(bundle.getString("lblUsername"));
@@ -71,7 +71,7 @@ public class WachtwoordVeranderenGui extends JPanel {
 		lblGebruikersnaam.setForeground(Color.WHITE);
 
 		this.btnWijzigen = new JButton(bundle.getString("btnWijzigen"));
-		this.btnWijzigen.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.btnWijzigen.setFont(new Font("Dialog", Font.BOLD, 20));
 		this.btnWijzigen.addActionListener(new MenuItemHandler());
 
 		JLabel lblHuidigWachtwoord = new JLabel(bundle.getString("lblHuidigWachtwoord"));
@@ -82,51 +82,58 @@ public class WachtwoordVeranderenGui extends JPanel {
 		this.pwdHuidigWachtwoord.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 
 		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(
-				Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup().addGroup(groupLayout
-						.createParallelGroup(Alignment.LEADING).addGroup(groupLayout.createSequentialGroup()
-								.addGap(29)
-								.addComponent(lblWachtwoordWijzigen))
-						.addGroup(groupLayout.createSequentialGroup().addGap(69)
-								.addGroup(groupLayout
-										.createParallelGroup(Alignment.LEADING).addGroup(Alignment.TRAILING,
-												groupLayout.createParallelGroup(Alignment.LEADING, false)
-														.addComponent(lblHerhaalWachtwoord, GroupLayout.DEFAULT_SIZE,
-																GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-														.addComponent(lblWachtwoord, GroupLayout.DEFAULT_SIZE,
-																GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-														.addComponent(lblHuidigWachtwoord, GroupLayout.DEFAULT_SIZE,
-																GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-										.addComponent(lblUsername))
-								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addGroup(groupLayout.createSequentialGroup().addGap(69)
-												.addComponent(lblGebruikersnaam))
-										.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup().addGap(18)
-												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-														.addComponent(this.pwdHuidigWachtwoord,
-																GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
-														.addComponent(this.pwdNieuwwachtwoord)
-														.addComponent(this.pwdHerhaaldWachtwoord)))))
-						.addGroup(groupLayout.createSequentialGroup().addGap(150).addComponent(this.btnWijzigen)))
-						.addContainerGap(172, Short.MAX_VALUE)));
-		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
-				.createSequentialGroup().addGap(24).addComponent(lblWachtwoordWijzigen).addGap(34)
-				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblUsername)
-						.addComponent(lblGebruikersnaam))
-				.addGap(15)
-				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblHuidigWachtwoord)
-						.addComponent(this.pwdHuidigWachtwoord, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE))
-				.addGap(18)
-				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblWachtwoord).addComponent(
-						this.pwdNieuwwachtwoord, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-						GroupLayout.PREFERRED_SIZE))
-				.addGap(18)
-				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblHerhaalWachtwoord)
-						.addComponent(this.pwdHerhaaldWachtwoord, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE))
-				.addGap(30).addComponent(this.btnWijzigen).addContainerGap(95, Short.MAX_VALUE)));
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(69)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+									.addComponent(lblHerhaalWachtwoord, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(lblWachtwoord, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(lblHuidigWachtwoord, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								.addComponent(lblUsername))
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(lblGebruikersnaam, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(pwdHuidigWachtwoord, GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+								.addComponent(pwdNieuwwachtwoord)
+								.addComponent(pwdHerhaaldWachtwoord)))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(150)
+							.addComponent(btnWijzigen))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblWachtwoordWijzigen)))
+					.addContainerGap(98, Short.MAX_VALUE))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblWachtwoordWijzigen)
+							.addGap(47)
+							.addComponent(lblUsername))
+						.addComponent(lblGebruikersnaam, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE))
+					.addGap(15)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblHuidigWachtwoord)
+						.addComponent(pwdHuidigWachtwoord, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblWachtwoord)
+						.addComponent(pwdNieuwwachtwoord, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblHerhaalWachtwoord)
+						.addComponent(pwdHerhaaldWachtwoord, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(30)
+					.addComponent(btnWijzigen)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
 		this.setLayout(groupLayout);
 	}
 
