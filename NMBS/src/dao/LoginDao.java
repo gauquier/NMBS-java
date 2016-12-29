@@ -1,58 +1,50 @@
 package dao;
 
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-
-import javax.sql.DataSource;
 
 import source.Login;
-import source.Station;
-import source.VerlorenVoorwerp;
 
 public class LoginDao {
-	private static String username1, password1;
-	private static int rollid, loginId;
+	private static int loginId;
 	private static DBA dba = new DBA();
-	
+
 	private static java.sql.Connection connection;
-	private static Statement command;
 	private static ResultSet data;
 	private static PreparedStatement stmt = null;
-	
-	public static int addLogin(Login login){
+
+	public static int addLogin(Login login) {
 		dba.createInsert("Login");
 		dba.addValue(login.getUsername());
 		dba.addValue(login.getPassword());
 		dba.commit();
-		return getLoginId(login);
+		return LoginDao.getLoginId(login);
 	}
-	
-	public static int getLoginId(Login login){
-		
+
+	public static int getLoginId(Login login) {
+
 		dba.createSelect("Login", "loginId");
-		dba.addWhere("username", login.getUsername()); 
+		dba.addWhere("username", login.getUsername());
 		dba.addWhere("pass", login.getPassword());
 		ResultSet rs = dba.commit();
 		try {
-			if(rs.next()){
+			if (rs.next()) {
 				return rs.getInt(1);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+		}
 		return 0;
 	}
-	
-	public static Login getLogin(int id){
+
+	public static Login getLogin(int id) {
 		dba.createSelect("Login");
 		dba.addWhere("loginId", id);
 		ResultSet rs = dba.commit();
 		try {
-			if(rs.next()){
+			if (rs.next()) {
 				return new Login(rs.getInt(1), rs.getString(2), rs.getString(3));
 			}
 		} catch (SQLException e) {
@@ -61,54 +53,54 @@ public class LoginDao {
 		}
 		return null;
 	}
-	
-	public static String getUserName(String user){
+
+	public static String getUserName(String user) {
 		dba.createSelect("Login", "username");
-		dba.addWhere("username", user); 
+		dba.addWhere("username", user);
 		ResultSet rs = dba.commit();
 		try {
-			if(rs.next()){
+			if (rs.next()) {
 				return rs.getString(1);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+		}
 		return null;
 	}
-	
-	public int checkUsername(String username){
+
+	public int checkUsername(String username) {
 		dba.createSelect("Login", "loginId");
 		dba.addWhere("username", username);
 		ResultSet rs = dba.commit();
 		try {
-			if(rs.next()){
+			if (rs.next()) {
 				return rs.getInt(1);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+		}
 		return -1;
-		
+
 	}
-	
-	public static int getRoll(int loginId){
+
+	public static int getRoll(int loginId) {
 		dba.createSelect("Medewerker", "rolId");
-		dba.addWhere("loginId", loginId); 
+		dba.addWhere("loginId", loginId);
 		ResultSet rs = dba.commit();
 		try {
-			if(rs.next()){
+			if (rs.next()) {
 				loginId = rs.getInt(1);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+		}
 		return loginId;
 	}
-	
-	public static int getLoginId(String username){
+
+	public static int getLoginId(String username) {
 
 		try {
 			connection = Connection.getDBConnection();
@@ -116,85 +108,69 @@ public class LoginDao {
 			stmt.setString(1, username);
 			data = stmt.executeQuery();
 
-			while(data.next()){
-				loginId=data.getInt(1);
+			while (data.next()) {
+				loginId = data.getInt(1);
 			}
 			data.close();
 			connection.close();
-		}catch (SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		}finally{
-			try{
-				if(data!=null) data.close();
-				if(connection!=null)connection.close();
-			}catch(SQLException se2){
+		} finally {
+			try {
+				if (data != null) {
+					data.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException se2) {
 				se2.printStackTrace();
 			}
 		}
 		return loginId;
 	}
 
-	public static String getWachtwoord(String user){
+	public static String getWachtwoord(String user) {
 		dba.createSelect("Login", "pass");
-		dba.addWhere("username", user); 
+		dba.addWhere("username", user);
 		ResultSet rs = dba.commit();
 		try {
-			if(rs.next()){
+			if (rs.next()) {
 				return rs.getString(1);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+		}
 		return user;
 	}
 
-	public static void updateWachtwoord(String password){
+	public static void updateWachtwoord(String password) {
 		dba.createUpdate("Login", "pass", password);
-		dba.addWhere("username", Login.getCurrentUser()); 
-		ResultSet rs = dba.commit();
+		dba.addWhere("username", Login.getCurrentUser());
+		dba.commit();
 	}
-	 
-	public static void updateWachtwoordWhere(int id, String password){
+
+	public static void updateWachtwoordWhere(int id, String password) {
 		dba.createUpdate("Login", "pass", password);
-		dba.addWhere("loginId", id); 
-		ResultSet rs = dba.commit();
+		dba.addWhere("loginId", id);
+		dba.commit();
 	}
-	
-	public static int getActief(int id){
+
+	public static int getActief(int id) {
 		dba.createSelect("Medewerker", "actief");
-		dba.addWhere("loginId", id); 
+		dba.addWhere("loginId", id);
 		ResultSet rs = dba.commit();
 		try {
-			if(rs.next()){
+			if (rs.next()) {
 				id = rs.getInt(1);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+		}
 		return id;
-	}
-	
-	public static void loginWijzigen(Login login) throws Exception{ 
-	}
-	public static Login loginZoekenOpLoginId(int loginId) throws Exception{
-		return null; 
-	}
-	public static Login loginZoekenOpLoginId(Login login) throws Exception{
-		return null;
-		
-	}
-
-	public static Login loginZoekenOpUsername(Login login) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public static Login loginToevoegen(Login login) throws Exception{
-		return null;
-		
 	}
 }

@@ -1,46 +1,53 @@
 package source;
 
 public class Aankoop {
-	
-	protected int aankoopId;
-	protected double korting;
-	protected double prijs;
-	protected VerkoopType verkoop;
-	
+
+	private int aankoopId;
+	private double korting;
+	private double prijs;
+	private VerkoopType verkoop;
+
 	public Aankoop(double korting, double prijs, VerkoopType verkoop) {
-		setKorting(korting);
-		setPrijs(prijs);
-		setVerkoop(verkoop);
+		this.setKorting(korting);
+		this.setPrijs(prijs);
+		this.setVerkoop(verkoop);
 	}
-	
+
 	public Aankoop(int aankoopId, double korting, double prijs, VerkoopType verkoop) {
-		setAankoopId(aankoopId);
-		setKorting(korting);
-		setPrijs(prijs);
-		setVerkoop(verkoop);
+		this.setAankoopId(aankoopId);
+		this.setKorting(korting);
+		this.setPrijs(prijs);
+		this.setVerkoop(verkoop);
 	}
-	
+
 	public int getAankoopId() {
-		return aankoopId;
+		return this.aankoopId;
 	}
+
 	public void setAankoopId(int aankoopId) {
 		this.aankoopId = aankoopId;
 	}
+
 	public double getKorting() {
-		return korting;
+		return this.korting;
 	}
+
 	public void setKorting(double korting) {
 		this.korting = korting;
 	}
+
 	public double getPrijs() {
-		return prijs;
+		return this.prijs;
 	}
+
 	public void setPrijs(double prijs) {
 		this.prijs = prijs;
 	}
+
 	public VerkoopType getVerkoop() {
-		return verkoop;
+		return this.verkoop;
 	}
+
 	public void setVerkoop(VerkoopType verkoop) {
 		this.verkoop = verkoop;
 	}

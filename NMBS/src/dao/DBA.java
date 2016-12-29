@@ -1,44 +1,36 @@
 package dao;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Calendar;
 import java.util.Date;
 
-import source.*;
-
-import java.sql.Connection;
 import com.mysql.jdbc.Statement;
 
 public class DBA {
 	private String sql;
-	private String tableName;
 
 	private enum Type {
 		SELECT, INSERT, UPDATE, NONE
 	}
 
 	private Type type = Type.NONE;
-	boolean isWhere = false;
-	boolean valueAdded = false;
+	private boolean isWhere = false;
 
 	private Connection conn = null;
 	private Statement stmt = null;
 	private ResultSet rs = null;
-	
 
-		public String getSql() {
-		return sql;
+	public String getSql() {
+		return this.sql;
 	}
-
 
 	public void createSelect(String tableName)// SELECT * FROM tableName
 	{
-		reset();
+		this.reset();
 
-		type = Type.SELECT;
-		this.tableName = tableName;
-		sql = "SELECT * FROM " + tableName;
+		this.type = Type.SELECT;
+		this.sql = "SELECT * FROM " + tableName;
 	}
 
 	public void createSelect(String tableName, String columnName)// SELECT
@@ -46,18 +38,17 @@ public class DBA {
 																	// FROM
 																	// tableName
 	{
-		reset();
+		this.reset();
 
-		type = Type.SELECT;
-		this.tableName = tableName;
-		sql = "SELECT " + columnName + " FROM " + tableName;
+		this.type = Type.SELECT;
+		this.sql = "SELECT " + columnName + " FROM " + tableName;
 	}
 
 	public void createTicketstatistiekenSelect() {
-		reset();
+		this.reset();
 
-		type = Type.SELECT;
-		sql = "SELECT verkoopDatum, COUNT(verkoopDatum) FROM Ticket GROUP BY verkoopDatum LIMIT 5";
+		this.type = Type.SELECT;
+		this.sql = "SELECT verkoopDatum, COUNT(verkoopDatum) FROM Ticket GROUP BY verkoopDatum LIMIT 5";
 	}
 
 	public void createUpdate(String tableName, String columnName, String value) // UPDATE
@@ -67,11 +58,10 @@ public class DBA {
 																				// =
 																				// value
 	{
-		reset();
+		this.reset();
 
-		type = Type.UPDATE;
-		this.tableName = tableName;
-		sql = "UPDATE " + tableName + " SET " + columnName + " = \"" + value + "\"";
+		this.type = Type.UPDATE;
+		this.sql = "UPDATE " + tableName + " SET " + columnName + " = \"" + value + "\"";
 	}
 
 	public void createUpdate(String tableName, String columnName, double value) // UPDATE
@@ -81,11 +71,10 @@ public class DBA {
 																				// =
 																				// value
 	{
-		reset();
+		this.reset();
 
-		type = Type.UPDATE;
-		this.tableName = tableName;
-		sql = "UPDATE " + tableName + " SET " + columnName + " = " + value;
+		this.type = Type.UPDATE;
+		this.sql = "UPDATE " + tableName + " SET " + columnName + " = " + value;
 	}
 
 	public void createUpdate(String tableName, String columnName, int value) // UPDATE
@@ -95,79 +84,50 @@ public class DBA {
 																				// =
 																				// value
 	{
-		createUpdate(tableName, columnName, (double) value);
-	}
-
-	public void createUpdate(String tableName, String columnName, boolean value) // UPDATE
-																					// tableName
-																					// SET
-																					// columnName
-																					// =
-																					// value
-	{
-		reset();
-
-		type = Type.UPDATE;
-		this.tableName = tableName;
-		sql = "UPDATE " + tableName + " SET " + columnName + " = ";
-		if (value) {
-			sql = sql + "1";
-		} else {
-			sql = sql + "0";
-		}
+		this.createUpdate(tableName, columnName, (double) value);
 	}
 
 	public void createInsert(String tableName) // INSERT INTO tableName Values
 												// (0,... (autoset id)
 	{
-		reset();
+		this.reset();
 
-		type = Type.INSERT;
-		this.tableName = tableName;
-		sql = "INSERT INTO " + tableName + " VALUES (null";
+		this.type = Type.INSERT;
+		this.sql = "INSERT INTO " + tableName + " VALUES (null";
 	}
 
 	public void addValue(String value) {
-		if (type == Type.INSERT) {
-			sql = sql + ", \"" + value + "\"";
+		if (this.type == Type.INSERT) {
+			this.sql = this.sql + ", \"" + value + "\"";
 		} else {
 			System.out.println("can only add values when type = INSERT");
 		}
 	}
 
 	public void addValue(double value) {
-		if (type == Type.INSERT) {
-			sql = sql + ", " + value;
+		if (this.type == Type.INSERT) {
+			this.sql = this.sql + ", " + value;
 		} else {
 			System.out.println("can only add values when type = INSERT");
 		}
 	}
 
 	public void addValue(int value) {
-		if (type == Type.INSERT) {
-			sql = sql + ", " + value;
+		if (this.type == Type.INSERT) {
+			this.sql = this.sql + ", " + value;
 		} else {
 			System.out.println("can only add values when type = INSERT");
 		}
 	}
 
 	public void addValue(boolean value) {
-		if (type == Type.INSERT) {
-			sql = sql + ", ";
+		if (this.type == Type.INSERT) {
+			this.sql = this.sql + ", ";
 			if (value) {
-				sql = sql + "1";
+				this.sql = this.sql + "1";
 			} else {
-				sql = sql + "0";
+				this.sql = this.sql + "0";
 			}
-		} else {
-			System.out.println("can only add values when type = INSERT");
-		}
-	}
-
-	public void addValue(VerkoopType value) // haal type STRING uit enum
-	{
-		if (type == Type.INSERT) {
-			sql = sql + ", " + value;
 		} else {
 			System.out.println("can only add values when type = INSERT");
 		}
@@ -175,13 +135,15 @@ public class DBA {
 
 	public void addValue(Date value) {
 		String ss = "";
-		if (value.getDate() < 0)
+		if (value.getDate() < 0) {
 			ss = ss + "0";
+		}
 		ss = ss + value.getDate() + "-";
-		if (value.getMonth() < 10)
+		if (value.getMonth() < 10) {
 			ss = ss + "0";
+		}
 		ss = ss + value.getMonth() + "-" + (value.getYear() + 1900);
-		addValue(ss);
+		this.addValue(ss);
 	}
 
 	/*
@@ -198,27 +160,12 @@ public class DBA {
 															// value
 	{
 
-		if (type == Type.UPDATE || type == Type.SELECT) {
-			if (!isWhere) {
-				sql = sql + " WHERE";
-				isWhere = true;
+		if (this.type == Type.UPDATE || this.type == Type.SELECT) {
+			if (!this.isWhere) {
+				this.sql = this.sql + " WHERE";
+				this.isWhere = true;
 			}
-			sql = sql + " " + columnName + " = \"" + value + "\" AND";
-		} else {
-			System.out.println("can only add WHERE clausule when type = UPDATE or type = SELECT");
-		}
-	}
-
-	public void addWhereLike(String columnName, String value) // ... WHERE
-																// columnName =
-																// value
-	{
-		if (type == Type.UPDATE || type == Type.SELECT) {
-			if (!isWhere) {
-				sql = sql + " WHERE";
-				isWhere = true;
-			}
-			sql = sql + " " + columnName + " LIKE '" + value + "' AND";
+			this.sql = this.sql + " " + columnName + " = \"" + value + "\" AND";
 		} else {
 			System.out.println("can only add WHERE clausule when type = UPDATE or type = SELECT");
 		}
@@ -228,12 +175,12 @@ public class DBA {
 															// columnName =
 															// value
 	{
-		if (type == Type.UPDATE || type == Type.SELECT) {
-			if (!isWhere) {
-				sql = sql + " WHERE";
-				isWhere = true;
+		if (this.type == Type.UPDATE || this.type == Type.SELECT) {
+			if (!this.isWhere) {
+				this.sql = this.sql + " WHERE";
+				this.isWhere = true;
 			}
-			sql = sql + " " + columnName + " = " + value + " AND";
+			this.sql = this.sql + " " + columnName + " = " + value + " AND";
 		} else {
 			System.out.println("can only add WHERE clausule when type = UPDATE or type = SELECT");
 		}
@@ -242,12 +189,12 @@ public class DBA {
 	public void addWhere(String columnName, int value) // ... WHERE columnName =
 														// value
 	{
-		if (type == Type.UPDATE || type == Type.SELECT) {
-			if (!isWhere) {
-				sql = sql + " WHERE";
-				isWhere = true;
+		if (this.type == Type.UPDATE || this.type == Type.SELECT) {
+			if (!this.isWhere) {
+				this.sql = this.sql + " WHERE";
+				this.isWhere = true;
 			}
-			sql = sql + " " + columnName + " = " + value + " AND";
+			this.sql = this.sql + " " + columnName + " = " + value + " AND";
 		} else {
 			System.out.println("can only add WHERE clausule when type = UPDATE or type = SELECT");
 		}
@@ -257,18 +204,18 @@ public class DBA {
 															// columnName =
 															// value
 	{
-		if (type == Type.UPDATE || type == Type.SELECT) {
-			if (!isWhere) {
-				sql = sql + " WHERE";
-				isWhere = true;
+		if (this.type == Type.UPDATE || this.type == Type.SELECT) {
+			if (!this.isWhere) {
+				this.sql = this.sql + " WHERE";
+				this.isWhere = true;
 			}
-			sql = sql + " " + columnName + " = ";
+			this.sql = this.sql + " " + columnName + " = ";
 			if (value) {
-				sql = sql + "1";
+				this.sql = this.sql + "1";
 			} else {
-				sql = sql + "0";
+				this.sql = this.sql + "0";
 			}
-			sql = sql + " AND";
+			this.sql = this.sql + " AND";
 		} else {
 			System.out.println("can only add WHERE clausule when type = UPDATE or type = SELECT");
 		}
@@ -276,73 +223,78 @@ public class DBA {
 
 	public void addWhere(String columnName, Date value) {
 		String ss = "";
-		if (value.getDate() < 0)
+		if (value.getDate() < 0) {
 			ss = ss + "0";
+		}
 		ss = ss + value.getDate() + "-";
-		if (value.getMonth() < 10)
+		if (value.getMonth() < 10) {
 			ss = ss + "0";
+		}
 		ss = ss + value.getMonth() + "-" + (value.getYear() + 1900);
-		addWhere(columnName, ss);
+		this.addWhere(columnName, ss);
 	}
 
 	public ResultSet commit() {
 
-		if (type == Type.UPDATE || type == Type.SELECT) {
-			if (isWhere) {
-				sql = sql.substring(0, sql.length() - 4);
+		if (this.type == Type.UPDATE || this.type == Type.SELECT) {
+			if (this.isWhere) {
+				this.sql = this.sql.substring(0, this.sql.length() - 4);
 			}
-			sql = sql + ";";
+			this.sql = this.sql + ";";
 
 		}
-		if (type == Type.INSERT) {
-			sql = sql + ");";
+		if (this.type == Type.INSERT) {
+			this.sql = this.sql + ");";
 		}
-		System.out.println(sql);
+		System.out.println(this.sql);
 
 		try {
-			conn = dao.Connection.getDBConnection();
-			stmt = (Statement) conn.prepareStatement(sql);
+			this.conn = dao.Connection.getDBConnection();
+			this.stmt = (Statement) this.conn.prepareStatement(this.sql);
 
-			if (type == Type.SELECT) {
-				rs = stmt.executeQuery(sql);
-			} else if (type == Type.UPDATE || type == Type.INSERT) {
-				stmt.executeUpdate(sql);
+			if (this.type == Type.SELECT) {
+				this.rs = this.stmt.executeQuery(this.sql);
+			} else if (this.type == Type.UPDATE || this.type == Type.INSERT) {
+				this.stmt.executeUpdate(this.sql);
 			}
 
 		} catch (SQLException se) {
-			System.out.println("SQL STATEMENT: " + sql);
+			System.out.println("SQL STATEMENT: " + this.sql);
 			se.printStackTrace();
 		} catch (Exception e) {
-			System.out.println("SQL STATEMENT: " + sql);
+			System.out.println("SQL STATEMENT: " + this.sql);
 			e.printStackTrace();
 		}
-		return rs;
+		return this.rs;
 	}
 
 	public void reset() {
-		isWhere = false;
-		type = Type.NONE;
+		this.isWhere = false;
+		this.type = Type.NONE;
 
-		if (conn != null)
+		if (this.conn != null) {
 			try {
-				conn.close();
-				conn = null;
+				this.conn.close();
+				this.conn = null;
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		if (stmt != null)
+		}
+		if (this.stmt != null) {
 			try {
-				stmt.close();
-				stmt = null;
+				this.stmt.close();
+				this.stmt = null;
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		if (rs != null)
+		}
+		if (this.rs != null) {
 			try {
-				rs.close();
-				rs = null;
+				this.rs.close();
+				this.rs = null;
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+		}
 	}
 }

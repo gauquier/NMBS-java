@@ -6,16 +6,14 @@ public class Medewerker extends Persoon {
 	private Login login;
 	private boolean actief;
 
-	/** 
-	 * Medewerker1 == Medewerker1 als 
+	/**
+	 * Medewerker1 == Medewerker1 als
 	 * Medewerker1.getPersoonId==Medewerker2.getPersoonId
 	 * Medewerker1.getMedewerkerId==Medewerker2.getMedewerkerId
 	 * Medewerker1.getLogin.getLoginId== Medewerker2.getLogin.getLoginId
 	 * Medewerker1.getLogin.getUsername== Medewerker2.getLogin.getUsername
 	 * 
 	 */
-	
-	
 
 	/**
 	 * @param persoonId
@@ -27,7 +25,8 @@ public class Medewerker extends Persoon {
 	 * @param login
 	 * @param actief
 	 */
-	public Medewerker(int persoonId, String voornaam, String achternaam, String email, Adres adres, int medewerkerId, Rol rol, Login login, boolean actief) {
+	public Medewerker(int persoonId, String voornaam, String achternaam, String email, Adres adres, int medewerkerId,
+			Rol rol, Login login, boolean actief) {
 		super(persoonId, voornaam, achternaam, email, adres);
 		this.medewerkerId = medewerkerId;
 		this.rol = rol;
@@ -36,62 +35,10 @@ public class Medewerker extends Persoon {
 	}
 
 	/**
-	 * @param persoonId
-	 * @param voornaam
-	 * @param achternaam
-	 * @param adresId
-	 * @param rol
-	 * @param login
-	 * @param actief
-	 */
-	public Medewerker(int persoonId, String voornaam, String achternaam, String email, Adres adres, Rol rol, Login login, boolean actief) {
-		super(persoonId, voornaam, achternaam, email, adres);
-		this.rol = rol;
-		this.login = login;
-		this.actief=actief;
-	}
-
-	/**
-	 * @param persoonId
-	 * @param voornaam
-	 * @param achternaam
-	 * @param adres
-	 */
-	public Medewerker(int persoonId, String voornaam, String achternaam, String email, Adres adres) {
-		super(persoonId, voornaam, achternaam, email, adres);
-	}
-
-	/**
-	 * @param persoonId
-	 * @param voornaam
-	 * @param achternaam
-	 */
-	public Medewerker(int persoonId, String voornaam, String achternaam) {
-		super(persoonId, voornaam, achternaam);
-	}
-
-	/**
-	 * @param voornaam
-	 * @param achternaam
-	 * @param adres
-	 */
-	public Medewerker(String voornaam, String achternaam, Adres adres) {
-		super(voornaam, achternaam, adres);
-	}
-
-	/**
-	 * @param voornaam
-	 * @param achternaam
-	 */
-	public Medewerker(String voornaam, String achternaam) {
-		super(voornaam, achternaam);
-	}
-
-	/**
 	 * @return rol van personeel
 	 */
 	public Rol getRol() {
-		return rol;
+		return this.rol;
 	}
 
 	/**
@@ -106,7 +53,7 @@ public class Medewerker extends Persoon {
 	 * @return login
 	 */
 	public Login getLogin() {
-		return login;
+		return this.login;
 	}
 
 	/**
@@ -121,81 +68,94 @@ public class Medewerker extends Persoon {
 	 * @return actief
 	 */
 	public boolean isActief() {
-		return actief;
+		return this.actief;
 	}
 
 	/**
-	 * @param rol 
+	 * @param rol
 	 */
 	public void setRol(Rol rol) {
 		this.rol = rol;
 	}
 
 	/**
-	 * @param actief 
+	 * @param actief
 	 */
 	public void setActief(boolean actief) {
 		this.actief = actief;
 	}
+
 	/**
 	 * @return medewerkerId
 	 */
 	public int getMedewerkerId() {
-		return medewerkerId;
+		return this.medewerkerId;
 	}
+
 	/**
-	 * @param medewerkerId 
+	 * @param medewerkerId
 	 */
 	public void setMedewerkerId(int medewerkerId) {
 		this.medewerkerId = medewerkerId;
 	}
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((login == null) ? 0 : login.hashCode());
-		result = prime * result + medewerkerId;
+		result = prime * result + ((this.login == null) ? 0 : this.login.hashCode());
+		result = prime * result + this.medewerkerId;
 		return result;
 	}
-	/* 
-	 * Medewerker1 == Medewerker2 als 
+
+	/*
+	 * Medewerker1 == Medewerker2 als
 	 * Medewerker1.getPersoonId==Medewerker2.getPersoonId
 	 * Medewerker1.getMedewerkerId==Medewerker2.getMedewerkerId
 	 * Medewerker1.getLogin.getLoginId== Medewerker2.getLogin.getLoginId
-	 * Medewerker1.getLogin.getUsername== Medewerker2.getLogin.getUsername 
-	 *  
+	 * Medewerker1.getLogin.getUsername== Medewerker2.getLogin.getUsername
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (!super.equals(obj))
+		}
+		if (!super.equals(obj)) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (this.getClass() != obj.getClass()) {
 			return false;
+		}
 		Medewerker other = (Medewerker) obj;
-		if (login == null) {
-			if (other.login != null)
+		if (this.login == null) {
+			if (other.login != null) {
 				return false;
-		} else if (!login.equals(other.login))
+			}
+		} else if (!this.login.equals(other.login)) {
 			return false;
-		if (medewerkerId != other.medewerkerId)
+		}
+		if (this.medewerkerId != other.medewerkerId) {
 			return false;
+		}
 		return true;
 	}
-	
-	public String toString()
-	{
-		return getVoornaam() + " " + getAchternaam() + " (" + getRol().getRol() +")";
+
+	@Override
+	public String toString() {
+		return this.getVoornaam() + " " + this.getAchternaam() + " (" + this.getRol().getRol() + ")";
 	}
-	public String test(){
-		return medewerkerId + ": (" + login.toString() + ") + (" + rol.toString() + ") + ("
-				+ "voornaam=" + getVoornaam() + ", achternaam=" + getAchternaam() + ", email="
-						+ getEmail() + ", adres=" + getAdres().toString() + "])!!!";
+
+	public String test() {
+		return this.medewerkerId + ": (" + this.login.toString() + ") + (" + this.rol.toString() + ") + (" + "voornaam="
+				+ this.getVoornaam() + ", achternaam=" + this.getAchternaam() + ", email=" + this.getEmail()
+				+ ", adres=" + this.getAdres().toString() + "])!!!";
 	}
 
 }

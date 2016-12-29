@@ -1,6 +1,6 @@
 package source;
-import java.util.Date;
 
+import java.util.Date;
 
 public class Periode {
 	private int periodeId;
@@ -8,7 +8,7 @@ public class Periode {
 	private Date endDate;
 	private Date verkoopdatum;
 	private int medewerkerId;
-	
+
 	public Periode(int periodeId, Date startDate, Date endDate, Date verkoopdatum) {
 		super();
 		this.periodeId = periodeId;
@@ -18,7 +18,6 @@ public class Periode {
 
 	}
 
-
 	public Periode(int periodeId, int medewerkerId, Date startDate, Date endDate, Date verkoopdatum) {
 		super();
 		this.periodeId = periodeId;
@@ -26,19 +25,16 @@ public class Periode {
 		this.endDate = endDate;
 		this.verkoopdatum = verkoopdatum;
 		this.medewerkerId = medewerkerId;
-		//this.abonnement = abonnement;
+		// this.abonnement = abonnement;
 	}
 
-	
-	
 	public Periode(int periodeId, Date endDate) {
 		this.periodeId = periodeId;
-		this.endDate=endDate;
+		this.endDate = endDate;
 	}
 
-
 	public int getPeriodeId() {
-		return periodeId;
+		return this.periodeId;
 	}
 
 	public void setPeriodeId(int periodeId) {
@@ -46,7 +42,7 @@ public class Periode {
 	}
 
 	public Date getStartDate() {
-		return startDate;
+		return this.startDate;
 	}
 
 	public void setStartDate(Date startDate) {
@@ -54,7 +50,7 @@ public class Periode {
 	}
 
 	public Date getEndDate() {
-		return endDate;
+		return this.endDate;
 	}
 
 	public void setEndDate(Date endDate) {
@@ -62,23 +58,19 @@ public class Periode {
 	}
 
 	public Date getVerkoopdatum() {
-		return verkoopdatum;
+		return this.verkoopdatum;
 	}
 
 	public void setVerkoopdatum(Date verkoopdatum) {
 		this.verkoopdatum = verkoopdatum;
 	}
 
-
 	public int getMedewerkerId() {
-		return medewerkerId;
+		return this.medewerkerId;
 	}
-
 
 	public void setMedewerkerId(int medewerkerId) {
 		this.medewerkerId = medewerkerId;
 	}
-	
-	
-	
+
 }

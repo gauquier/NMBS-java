@@ -7,7 +7,7 @@ public class Persoon {
 	private String achternaam;
 	private String email;
 	private Adres adres;
-	
+
 	public Persoon(int id, String voornaam, String achternaam, String email, Adres adres) {
 		super();
 		this.id = id;
@@ -16,8 +16,8 @@ public class Persoon {
 		this.email = email;
 		this.adres = adres;
 	}
-	
-	public Persoon( String voornaam, String achternaam, String email, Adres adres) {
+
+	public Persoon(String voornaam, String achternaam, String email, Adres adres) {
 		super();
 		this.voornaam = voornaam;
 		this.achternaam = achternaam;
@@ -25,37 +25,20 @@ public class Persoon {
 		this.adres = adres;
 	}
 
-	public Persoon(int persoonId, String voornaam, String achternaam) {
-		super();
-		this.id = persoonId;
-		this.voornaam = voornaam;
-		this.achternaam = achternaam;
-	}
-
-	public Persoon(String voornaam, String achternaam, Adres adres) {
-		this.voornaam = voornaam;
-		this.achternaam = achternaam;
-		this.adres = adres;
-	}
-
-	public Persoon(String voornaam, String achternaam) {
-		this.voornaam = voornaam;
-		this.achternaam = achternaam;
-	}
-
 	public String getNaam() {
-		return voornaam + " " + achternaam;
+		return this.voornaam + " " + this.achternaam;
 	}
-	public String getVoornaam(){
-		return voornaam;
+
+	public String getVoornaam() {
+		return this.voornaam;
 	}
-	
+
 	public void setVoornaam(String voornaam) {
 		this.voornaam = voornaam;
 	}
 
 	public String getAchternaam() {
-		return achternaam;
+		return this.achternaam;
 	}
 
 	public void setAchternaam(String achternaam) {
@@ -63,7 +46,7 @@ public class Persoon {
 	}
 
 	public Adres getAdres() {
-		return adres;
+		return this.adres;
 	}
 
 	public void setAdres(Adres adres) {
@@ -71,16 +54,17 @@ public class Persoon {
 	}
 
 	public int getId() {
-		return id;
+		return this.id;
 	}
 
 	public void setId(int id) {
-		if(id > 0)
-		this.id = id;
+		if (id > 0) {
+			this.id = id;
+		}
 	}
 
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	public void setEmail(String email) {
@@ -89,53 +73,65 @@ public class Persoon {
 
 	@Override
 	public String toString() {
-		return "Persoon [id=" + id + ", voornaam=" + voornaam + ", achternaam=" + achternaam + ", email="
-				+ email + ", adres=" + adres + "]";
+		return "Persoon [id=" + this.id + ", voornaam=" + this.voornaam + ", achternaam=" + this.achternaam + ", email="
+				+ this.email + ", adres=" + this.adres + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((achternaam == null) ? 0 : achternaam.hashCode());
-		result = prime * result + ((adres == null) ? 0 : adres.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((voornaam == null) ? 0 : voornaam.hashCode());
+		result = prime * result + ((this.achternaam == null) ? 0 : this.achternaam.hashCode());
+		result = prime * result + ((this.adres == null) ? 0 : this.adres.hashCode());
+		result = prime * result + ((this.email == null) ? 0 : this.email.hashCode());
+		result = prime * result + this.id;
+		result = prime * result + ((this.voornaam == null) ? 0 : this.voornaam.hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (this.getClass() != obj.getClass()) {
 			return false;
+		}
 		Persoon other = (Persoon) obj;
-		if (achternaam == null) {
-			if (other.achternaam != null)
+		if (this.achternaam == null) {
+			if (other.achternaam != null) {
 				return false;
-		} else if (!achternaam.equals(other.achternaam))
+			}
+		} else if (!this.achternaam.equals(other.achternaam)) {
 			return false;
-		if (adres == null) {
-			if (other.adres != null)
+		}
+		if (this.adres == null) {
+			if (other.adres != null) {
 				return false;
-		} else if (!adres.equals(other.adres))
+			}
+		} else if (!this.adres.equals(other.adres)) {
 			return false;
-		if (email == null) {
-			if (other.email != null)
+		}
+		if (this.email == null) {
+			if (other.email != null) {
 				return false;
-		} else if (!email.equals(other.email))
+			}
+		} else if (!this.email.equals(other.email)) {
 			return false;
-		if (id != other.id)
+		}
+		if (this.id != other.id) {
 			return false;
-		if (voornaam == null) {
-			if (other.voornaam != null)
+		}
+		if (this.voornaam == null) {
+			if (other.voornaam != null) {
 				return false;
-		} else if (!voornaam.equals(other.voornaam))
+			}
+		} else if (!this.voornaam.equals(other.voornaam)) {
 			return false;
+		}
 		return true;
 	}
 }

@@ -1,10 +1,8 @@
 package source;
 
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 
 public class VerlorenVoorwerp {
 
@@ -13,15 +11,15 @@ public class VerlorenVoorwerp {
 	private Date date;
 	private boolean gevonden;
 
-	public VerlorenVoorwerp(int verlorenVoorwerpId, String beschrijving,Date date, boolean gevonden) {
+	public VerlorenVoorwerp(int verlorenVoorwerpId, String beschrijving, Date date, boolean gevonden) {
 		this.verlorenVoorwerpId = verlorenVoorwerpId;
 		this.beschrijving = beschrijving;
 		this.date = date;
-		this.gevonden = gevonden;	
+		this.gevonden = gevonden;
 	}
-	
+
 	public int getVerlorenVoorwerpId() {
-		return verlorenVoorwerpId;
+		return this.verlorenVoorwerpId;
 	}
 
 	public void setVerlorenVoorwerpId(int verlorenVoorwerpId) {
@@ -29,7 +27,7 @@ public class VerlorenVoorwerp {
 	}
 
 	public String getBeschrijving() {
-		return beschrijving;
+		return this.beschrijving;
 	}
 
 	public void setBeschrijving(String beschrijving) {
@@ -37,7 +35,7 @@ public class VerlorenVoorwerp {
 	}
 
 	public Date getDate() {
-		return date;
+		return this.date;
 	}
 
 	public void setDate(Date date) {
@@ -45,18 +43,18 @@ public class VerlorenVoorwerp {
 	}
 
 	public boolean getGevonden() {
-		return gevonden;
+		return this.gevonden;
 	}
 
 	public void setGevonden(boolean gevonden) {
 		this.gevonden = gevonden;
 	}
-	
+
 	@Override
 	public String toString() {
 		DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
 
-		return formatter.format(date) + "         " + beschrijving ; 
+		return formatter.format(this.date) + "         " + this.beschrijving;
 	}
 
 }

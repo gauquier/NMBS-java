@@ -1,75 +1,62 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 
-import javax.swing.*;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
+import Hashing.DualHash;
 import dao.CheckIfConnected;
 import dao.Connection;
 import dao.LoginDao;
 import handler.Controller;
 import source.Login;
-import source.Medewerker;
-import source.Rol;
-import javax.swing.UIManager;
-
-import Hashing.DualHash;
-
-import java.awt.Color;
-import java.awt.Font;
 
 public class LoginGui {
 
-	JFrame frmNmbs;
+	private JFrame frmNmbs;
 	private JTextField txtUsername;
 	private JButton btnLogin;
 	private JPasswordField txtPassword;
-	public static LoginGui window;
-	public static Login login;
+	private static LoginGui window;
+	private static Login login;
 	private static ResourceBundle bundle;
 
 	public LoginGui() {
-		initialize();
+		this.initialize();
 	}
-	
-	public static Login getLogin(){
-		return login;
-	}
-	
+
 	public static void start() {
-		//v system look and feel (i.p.v. niet-zo-mooie java look and feel) Source: https://docs.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+		// v system look and feel (i.p.v. niet-zo-mooie java look and feel)
+		// Source:
+		// https://docs.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
 		try {
-            // Set System L&F
-        UIManager.setLookAndFeel(
-            UIManager.getSystemLookAndFeelClassName());
-	    } 
-	    catch (UnsupportedLookAndFeelException e) {
-	       // handle exception
-	    }
-	    catch (ClassNotFoundException e) {
-	       // handle exception
-	    }
-	    catch (InstantiationException e) {
-	       // handle exception
-	    }
-	    catch (IllegalAccessException e) {
-	       // handle exception
-	    }
-		//^ code system look and feel
+			// Set System L&F
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (UnsupportedLookAndFeelException e) {
+			// handle exception
+		} catch (ClassNotFoundException e) {
+			// handle exception
+		} catch (InstantiationException e) {
+			// handle exception
+		} catch (IllegalAccessException e) {
+			// handle exception
+		}
+		// ^ code system look and feel
 		window = new LoginGui();
 		window.frmNmbs.setVisible(true);
 	}
@@ -87,82 +74,84 @@ public class LoginGui {
 
 	private void initialize() {
 		bundle = ResourceBundle.getBundle("localization.LoginGui");
-		
-		frmNmbs = new JFrame();
-		frmNmbs.setIconImage(Toolkit.getDefaultToolkit().getImage("NMBS/lib/logo.png"));
-		frmNmbs.setTitle("NMBS");
-		frmNmbs.getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 
-		frmNmbs.setBounds(0, 0, 450, 300);
-		frmNmbs.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmNmbs.getContentPane().setLayout(null);
-		frmNmbs.setResizable(false);
-		centreWindow(frmNmbs);
+		this.frmNmbs = new JFrame();
+		this.frmNmbs.setIconImage(Toolkit.getDefaultToolkit().getImage("NMBS/lib/logo.png"));
+		this.frmNmbs.setTitle("NMBS");
+		this.frmNmbs.getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 
-		btnLogin = new JButton(bundle.getString("login"));
-		btnLogin.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		btnLogin.setBounds(234, 196, 149, 38);
-		frmNmbs.getContentPane().add(btnLogin);
+		this.frmNmbs.setBounds(0, 0, 450, 300);
+		this.frmNmbs.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.frmNmbs.getContentPane().setLayout(null);
+		this.frmNmbs.setResizable(false);
+		LoginGui.centreWindow(this.frmNmbs);
 
-		txtUsername = new JTextField();
-		txtUsername.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		txtUsername.setBounds(234, 96, 149, 26);
-		frmNmbs.getContentPane().add(txtUsername);
-		txtUsername.setColumns(10);
+		this.btnLogin = new JButton(bundle.getString("login"));
+		this.btnLogin.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.btnLogin.setBounds(234, 196, 149, 38);
+		this.frmNmbs.getContentPane().add(this.btnLogin);
+
+		this.txtUsername = new JTextField();
+		this.txtUsername.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.txtUsername.setBounds(234, 96, 149, 26);
+		this.frmNmbs.getContentPane().add(this.txtUsername);
+		this.txtUsername.setColumns(10);
 
 		JLabel lblUser = new JLabel(bundle.getString("user"));
 		lblUser.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblUser.setForeground(Color.WHITE);
 		lblUser.setBounds(41, 90, 181, 38);
-		frmNmbs.getContentPane().add(lblUser);
+		this.frmNmbs.getContentPane().add(lblUser);
 
 		JLabel lblPassword = new JLabel(bundle.getString("pass"));
 		lblPassword.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblPassword.setForeground(Color.WHITE);
 		lblPassword.setBounds(41, 140, 181, 38);
-		frmNmbs.getContentPane().add(lblPassword);
+		this.frmNmbs.getContentPane().add(lblPassword);
 
-		txtPassword = new JPasswordField();
-		txtPassword.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		txtPassword.setBounds(234, 146, 149, 26);
-		frmNmbs.getContentPane().add(txtPassword);
-		btnLogin.addActionListener(new ButtonHandler());
-		txtPassword.addActionListener(new ButtonHandler());
+		this.txtPassword = new JPasswordField();
+		this.txtPassword.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.txtPassword.setBounds(234, 146, 149, 26);
+		this.frmNmbs.getContentPane().add(this.txtPassword);
+		this.btnLogin.addActionListener(new ButtonHandler());
+		this.txtPassword.addActionListener(new ButtonHandler());
 
 	}
 
 	private class ButtonHandler implements ActionListener {
+		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (!(CheckIfConnected.checkIfConnected()))//als er geen internetverbinding is
+			if (!(CheckIfConnected.checkIfConnected()))// als er geen
+														// internetverbinding is
 			{
-				closeFrame();
+				LoginGui.this.closeFrame();
 				JOptionPane.showMessageDialog(new JFrame(), bundle.getString("noInternet"));
-				
+
 				JOptionPane.showMessageDialog(new JFrame(), bundle.getString("offlineStart"));
-				
+
 				Controller.offlineInterface = new OfflineGui();
 				Controller.offlineInterface.setHome();
-				
+
 				return;
 			}
-			
+
 			if (!Connection.checkDBConnection()) {
 				JOptionPane.showMessageDialog(new JFrame(), bundle.getString("noDB"));
-				
+
 				JOptionPane.showMessageDialog(new JFrame(), bundle.getString("offlineStart"));
-				
+
 				Controller.offlineInterface = new OfflineGui();
 				Controller.offlineInterface.setHome();
-				
-				return;
-			} 
-			if (e.getSource() == btnLogin || e.getSource() == txtPassword) {
 
-				String username = txtUsername.getText().trim();
-				String password = new String(txtPassword.getPassword());
-				
+				return;
+			}
+			if (e.getSource() == LoginGui.this.btnLogin || e.getSource() == LoginGui.this.txtPassword) {
+
+				String username = LoginGui.this.txtUsername.getText().trim();
+				String password = new String(LoginGui.this.txtPassword.getPassword());
+
 				String databaseUsername = LoginDao.getUserName(username);
-				
+
 				if (databaseUsername == null) {
 					JOptionPane.showMessageDialog(new JFrame(), bundle.getString("userNoAllow"));
 					return;
@@ -170,21 +159,22 @@ public class LoginGui {
 				if (databaseUsername != null) {
 					if (databaseUsername.equals(username)) {
 						String databasePassword = LoginDao.getWachtwoord(username);
-						if(databasePassword!= null){
+						if (databasePassword != null) {
 							try {
-								if(databasePassword.equals(DualHash.hashString(password))){
+								if (databasePassword.equals(DualHash.hashString(password))) {
 									int loginId = LoginDao.getLoginId(username);
-									if(LoginDao.getActief(loginId) == 1){
+									if (LoginDao.getActief(loginId) == 1) {
 										login = new Login(loginId, username, "");
 										Login.setCurrentUser(username);
 
-										closeFrame();
+										LoginGui.this.closeFrame();
 										KiesStationGui.start();
-									}else{
-										JOptionPane.showMessageDialog(new JFrame(), bundle.getString("employeeNoAllow"));
+									} else {
+										JOptionPane.showMessageDialog(new JFrame(),
+												bundle.getString("employeeNoAllow"));
 									}
-									
-								}else {
+
+								} else {
 									JOptionPane.showMessageDialog(new JFrame(), bundle.getString("wrongCredentials"));
 								}
 							} catch (HeadlessException e1) {
@@ -194,7 +184,7 @@ public class LoginGui {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
 							}
-						}else {
+						} else {
 							JOptionPane.showMessageDialog(new JFrame(), bundle.getString("wrongCredentials"));
 						}
 					} else {

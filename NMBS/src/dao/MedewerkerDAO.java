@@ -1,14 +1,11 @@
 package dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.PreparedStatement;
 import java.sql.Statement;
-import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Vector;
 
 import source.Adres;
 import source.Login;
@@ -21,7 +18,6 @@ public class MedewerkerDAO {
 	private static DBA dba = new DBA();
 
 	private static java.sql.Connection connection;
-	private static Statement command;
 	private static ResultSet data;
 	private static PreparedStatement stmt = null;
 
@@ -37,40 +33,6 @@ public class MedewerkerDAO {
 		dba.addValue(rol.getRolId());
 		dba.addValue(1);
 		dba.commit();
-	}
-
-	public static int addMedewerker(Medewerker medewerker) {
-
-		if (getMedewerkerId(medewerker) == 0) {
-			dba.createInsert("Medewerker");
-			dba.addValue(LoginDao.addLogin(medewerker.getLogin()));
-			dba.addValue(PersoonDao.addPersoon(new Persoon(0, medewerker.getVoornaam(), medewerker.getAchternaam(),
-					medewerker.getEmail(), medewerker.getAdres())));
-			dba.addValue(RolDAO.addRol(medewerker.getRol()));
-			dba.addValue(true);
-			dba.commit();
-		}
-
-		return getMedewerkerId(medewerker);
-	}
-
-	public static int getMedewerkerId(Medewerker medewerker) {
-		dba.createSelect("Medewerker", "medewerkerId");
-		dba.addWhere("loginId", LoginDao.getLoginId(medewerker.getLogin()));
-		dba.addWhere("persoonId", PersoonDao.getPersoonId(new Persoon(0, medewerker.getVoornaam(),
-				medewerker.getAchternaam(), medewerker.getEmail(), medewerker.getAdres())));
-		dba.addWhere("rolId", RolDAO.getRolId(medewerker.getRol()));
-		dba.addWhere("actief", true);
-		ResultSet rs = dba.commit();
-		try {
-			if (rs.next()) {
-				return rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return 0;
 	}
 
 	public static Medewerker getMedewerker(int id) {
@@ -134,8 +96,9 @@ public class MedewerkerDAO {
 		dba.addWhere("username", username);
 		ResultSet rs = dba.commit();
 		try {
-			if (rs.next())
+			if (rs.next()) {
 				loginId = rs.getInt(1);
+			}
 
 			rs.close();
 		} catch (SQLException e1) {
@@ -162,10 +125,10 @@ public class MedewerkerDAO {
 		ResultSet rs = null;
 		String sql = "SELECT * FROM Medewerker m JOIN Login l ON m.loginId = l.loginId JOIN Persoon p ON m.persoonId = p.persoonId"
 				+ " JOIN Rol r ON m.rolId = r.rolId JOIN Adres a ON p.adresId = a.adresId WHERE actief = true;";
-		
+
 		Connection conn = dao.Connection.getDBConnection();
 		try {
-			stmt =(Statement) conn.prepareStatement(sql);
+			stmt = conn.prepareStatement(sql);
 			rs = stmt.executeQuery(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -173,8 +136,10 @@ public class MedewerkerDAO {
 		}
 		try {
 			Persoon persoon;
-			while(rs.next()){
-				persoon = new Persoon(rs.getInt(9), rs.getString(11), rs.getString(12), rs.getString(13), new Adres(rs.getInt(16), rs.getString(17), rs.getInt(18), rs.getString(19), rs.getInt(20), rs.getString(21)));
+			while (rs.next()) {
+				persoon = new Persoon(rs.getInt(9), rs.getString(11), rs.getString(12), rs.getString(13),
+						new Adres(rs.getInt(16), rs.getString(17), rs.getInt(18), rs.getString(19), rs.getInt(20),
+								rs.getString(21)));
 				medewerkers.add(new Medewerker(persoon.getId(), persoon.getVoornaam(), persoon.getAchternaam(),
 						persoon.getEmail(), persoon.getAdres(), rs.getInt(1), new Rol(rs.getInt(14), rs.getString(15)),
 						new Login(rs.getInt(6), rs.getString(7), rs.getString(8)), rs.getBoolean(5)));
@@ -183,41 +148,29 @@ public class MedewerkerDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
+
 		return medewerkers;
 		/*
-		ArrayList<Medewerker> medewerkers = new ArrayList<Medewerker>();
-		Persoon persoon = null;
-		dba.createSelect("Medewerker");
-		dba.addWhere("actief", true);
-		ResultSet rs = dba.commit();
-		try {
-			while (rs.next()) {
-				persoon = PersoonDao.getPersoon(rs.getInt(3));
-				medewerkers.add(new Medewerker(persoon.getId(), persoon.getVoornaam(), persoon.getAchternaam(),
-						persoon.getEmail(), persoon.getAdres(), rs.getInt(1), RolDAO.getRol(rs.getInt(4)),
-						LoginDao.getLogin(rs.getInt(2)), true));
-			}
-
-			Collections.sort(medewerkers, new Comparator<Medewerker>() {
-
-				@Override
-				public int compare(Medewerker m1, Medewerker m2) {
-					if (m1.getVoornaam().toLowerCase().equals(m2.getVoornaam().toLowerCase())) {
-						return 0;
-					}
-					return m1.getVoornaam().toLowerCase().compareTo(m2.getVoornaam().toLowerCase());
-				}
-			});
-
-			return medewerkers;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null
-		*/
+		 * ArrayList<Medewerker> medewerkers = new ArrayList<Medewerker>();
+		 * Persoon persoon = null; dba.createSelect("Medewerker");
+		 * dba.addWhere("actief", true); ResultSet rs = dba.commit(); try {
+		 * while (rs.next()) { persoon = PersoonDao.getPersoon(rs.getInt(3));
+		 * medewerkers.add(new Medewerker(persoon.getId(),
+		 * persoon.getVoornaam(), persoon.getAchternaam(), persoon.getEmail(),
+		 * persoon.getAdres(), rs.getInt(1), RolDAO.getRol(rs.getInt(4)),
+		 * LoginDao.getLogin(rs.getInt(2)), true)); }
+		 * 
+		 * Collections.sort(medewerkers, new Comparator<Medewerker>() {
+		 * 
+		 * @Override public int compare(Medewerker m1, Medewerker m2) { if
+		 * (m1.getVoornaam().toLowerCase().equals(m2.getVoornaam().toLowerCase()
+		 * )) { return 0; } return
+		 * m1.getVoornaam().toLowerCase().compareTo(m2.getVoornaam().toLowerCase
+		 * ()); } });
+		 * 
+		 * return medewerkers; } catch (SQLException e) { // TODO Auto-generated
+		 * catch block e.printStackTrace(); } return null
+		 */
 	}
 
 	public static ArrayList<Medewerker> getAllMedewerkersFromSearch(String search) {
@@ -245,10 +198,12 @@ public class MedewerkerDAO {
 			e.printStackTrace();
 		} finally {
 			try {
-				if (data != null)
+				if (data != null) {
 					data.close();
-				if (connection != null)
+				}
+				if (connection != null) {
 					connection.close();
+				}
 			} catch (SQLException se2) {
 				se2.printStackTrace();
 			}
@@ -260,7 +215,7 @@ public class MedewerkerDAO {
 		dba.createUpdate("Medewerker", "actief", 0);
 		;
 		dba.addWhere("medewerkerId", id);
-		ResultSet rs = dba.commit();
+		dba.commit();
 
 	}
 
@@ -297,7 +252,7 @@ public class MedewerkerDAO {
 		dba.createUpdate("Medewerker", "rolId", rol.getRolId());
 		;
 		dba.addWhere("medewerkerId", medewerkerId);
-		ResultSet rs = dba.commit();
+		dba.commit();
 
 	}
 }

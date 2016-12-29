@@ -1,298 +1,269 @@
 package gui;
 /* http://zetcode.com/tutorials/javaswingtutorial/menusandtoolbars/ */
 
-import java.awt.ComponentOrientation;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import javax.imageio.ImageIO;
-import javax.swing.Box;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
-import handler.Controller;
-import handler.VerkoopController;
-import source.Klant;
-import source.Medewerker;
-
-import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
-import java.awt.Color;
 import javax.swing.UIManager;
 
-import dao.AdresDAO;
 import dao.Connection;
-import dao.KlantDAO;
-import dao.MedewerkerDAO;
-
-import java.awt.Toolkit;
-import java.awt.Font;
+import handler.Controller;
 
 public class AdminGui extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5565695250792117145L;
+
 	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.AdminGui");
-	
-	private Container c = getContentPane();	
-	
-	private static JPanel vorigeKeuze, HuidigeKeuze;
-    public String navigation;
-    
-    JMenuBar menubar;
-    JMenuItem home , routeInfo, stationInfo;
-    JMenu verkoop, verlorenVoorwerpen, instellingen, gebruikers, klanten;
-    JMenuItem abonnementBeheer, uitloggen, gebruikersToevoegen, gebruikersBeheer, ticketVerkoop
-    , verlorenVoorwerpToevoegen, verlorenVoorwerpZoeken, wachtwoordVeranderen ,klantenToevoegen, klantenBeheer;
-    private JMenuItem mntmPrijsbeheer;
+
+	private Container c = this.getContentPane();
+
+	private static JPanel HuidigeKeuze;
+	private JMenuBar menubar;
+	private JMenuItem home, routeInfo, stationInfo;
+	private JMenu verkoop, verlorenVoorwerpen, instellingen, gebruikers, klanten;
+	private JMenuItem abonnementBeheer, uitloggen, gebruikersToevoegen, gebruikersBeheer, ticketVerkoop,
+			verlorenVoorwerpToevoegen, verlorenVoorwerpZoeken, wachtwoordVeranderen, klantenToevoegen, klantenBeheer;
+	private JMenuItem mntmPrijsbeheer;
 
 	public static JPanel getHuidigeKeuze() {
 		return HuidigeKeuze;
 	}
-	
+
 	public static void setHuidigeKeuze(JPanel huidigeKeuze) {
-		
-		if (HuidigeKeuze!=null){HuidigeKeuze.setVisible(false);}
-		vorigeKeuze= HuidigeKeuze;
-		HuidigeKeuze = huidigeKeuze;
-		if (HuidigeKeuze!=null)
-		{
-		HuidigeKeuze.setVisible(true);
-		Controller.adminInterface.getContentPane().add(getHuidigeKeuze());
+
+		if (HuidigeKeuze != null) {
+			HuidigeKeuze.setVisible(false);
 		}
-		else {
-		Controller.adminInterface.dispose();
-		Controller.adminInterface.setVisible(false);
-		LoginGui.start();
+		HuidigeKeuze = huidigeKeuze;
+		if (HuidigeKeuze != null) {
+			HuidigeKeuze.setVisible(true);
+			Controller.adminInterface.getContentPane().add(AdminGui.getHuidigeKeuze());
+		} else {
+			Controller.adminInterface.dispose();
+			Controller.adminInterface.setVisible(false);
+			LoginGui.start();
 		}
 	}
 
-	public void setHome(){
-		navigation= "home";
-		setHuidigeKeuze(new HomeGui(false));
+	public void setHome() {
+		AdminGui.setHuidigeKeuze(new HomeGui(false));
 	}
+
 	public Container getC() {
-		return c;
+		return this.c;
 	}
+
 	public void setC(Container c) {
 		this.c = c;
 	}
+
 	public AdminGui() {
 
-		setIconImage(Toolkit.getDefaultToolkit().getImage("NMBS/lib/logo.png"));
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage("NMBS/lib/logo.png"));
 
-		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
-		getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
+		this.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
+		this.getContentPane().setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		this.setResizable(true);
-		menuGUI();		
+		this.menuGUI();
 	}
-	private void menuGUI() {
-		createMenu();
-		setTitle("NMBS");
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		setSize(screenSize);
-		setMinimumSize(new Dimension(850, 550));
-		setLocationRelativeTo(null);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setVisible(true);
-	}
-	
-	private void createMenu() {
-		menubar = new JMenuBar();
-		menubar.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		menubar.setForeground(Color.BLACK);
-		menubar.setBackground(Color.ORANGE);
-		home = new JMenuItem(bundle.getString("home"));
 
-		home.setHorizontalAlignment(SwingConstants.LEFT);
-		home.setFont(new Font("Dialog", Font.BOLD, 20));
-		home.setHorizontalTextPosition(SwingConstants.CENTER);;
-		home.setBackground(Color.ORANGE);
-		home.setOpaque(true);
-		home.addActionListener(new MenuItemHandler());
-		
-		verkoop = new JMenu(bundle.getString("verkoop"));
-		verkoop.setHorizontalAlignment(SwingConstants.CENTER);
-		verkoop.setFont(new Font("Dialog", Font.BOLD, 20));
-		verkoop.setBackground(Color.ORANGE);
-		verkoop.setOpaque(true);
-		routeInfo = new JMenuItem(bundle.getString("routeInfo"));
-		routeInfo.setHorizontalAlignment(SwingConstants.CENTER);
-		routeInfo.setFont(new Font("Dialog", Font.BOLD, 20));
-		routeInfo.setBackground(Color.ORANGE);
-		routeInfo.setOpaque(true);
-		routeInfo.addActionListener(new MenuItemHandler());
-		
-		stationInfo = new JMenuItem(bundle.getString("stationInfo"));
-		stationInfo.setHorizontalAlignment(SwingConstants.CENTER);
-		stationInfo.setFont(new Font("Dialog", Font.BOLD, 20));
-		stationInfo.setBackground(Color.ORANGE);
-		stationInfo.setOpaque(true);
-		stationInfo.addActionListener(new MenuItemHandler());
-		gebruikers = new JMenu(bundle.getString("gebruikers"));
-		gebruikers.setHorizontalAlignment(SwingConstants.CENTER);
-		gebruikers.setFont(new Font("Dialog", Font.BOLD, 20));
-		gebruikers.setBackground(Color.ORANGE);
-		gebruikers.setOpaque(true);
-		
-		klanten = new JMenu(bundle.getString("klanten"));
-		klanten.setHorizontalAlignment(SwingConstants.CENTER);
-		klanten.setFont(new Font("Dialog", Font.BOLD, 20));
-		klanten.setBackground(Color.ORANGE);
-		klanten.setOpaque(true);
-		
-		verlorenVoorwerpen = new JMenu(bundle.getString("verlorenVoorwerpen"));
-		verlorenVoorwerpen.setHorizontalAlignment(SwingConstants.CENTER);
-		verlorenVoorwerpen.setFont(new Font("Dialog", Font.BOLD, 20));
-		verlorenVoorwerpen.setBackground(Color.ORANGE);
-		verlorenVoorwerpen.setOpaque(true);
-		verlorenVoorwerpToevoegen = new JMenuItem(bundle.getString("verlorenVoorwerpToevoegen"));
-		verlorenVoorwerpToevoegen.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		verlorenVoorwerpToevoegen.addActionListener(new MenuItemHandler());
-		verlorenVoorwerpZoeken = new JMenuItem(bundle.getString("verlorenVoorwerpZoeken"));
-		verlorenVoorwerpZoeken.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		verlorenVoorwerpZoeken.addActionListener(new MenuItemHandler());
-		verlorenVoorwerpen.add(verlorenVoorwerpToevoegen);
-		verlorenVoorwerpen.add(verlorenVoorwerpZoeken);
-		
-		instellingen = new JMenu(bundle.getString("instellingen"));
-		instellingen.setHorizontalAlignment(SwingConstants.CENTER);
-		instellingen.setFont(new Font("Dialog", Font.BOLD, 20));
-		instellingen.setBackground(Color.ORANGE);
-		instellingen.setOpaque(true);
-		wachtwoordVeranderen = new JMenuItem(bundle.getString("wachtwoordVeranderen"));
-		wachtwoordVeranderen.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		wachtwoordVeranderen.addActionListener(new MenuItemHandler());
-		
-		mntmPrijsbeheer = new JMenuItem(bundle.getString("mntmPrijsbeheer"));
-		mntmPrijsbeheer.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		mntmPrijsbeheer.addActionListener(new MenuItemHandler());
-		instellingen.add(mntmPrijsbeheer);
-		instellingen.add(wachtwoordVeranderen);
-		
-		abonnementBeheer = new JMenuItem(bundle.getString("abonnementBeheer"));
-		abonnementBeheer.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		abonnementBeheer.setBackground(Color.WHITE);
-		abonnementBeheer.addActionListener(new MenuItemHandler());
-		verkoop.add(abonnementBeheer);
-		
-		gebruikersToevoegen = new JMenuItem(bundle.getString("gebruikersToevoegen"));
-		gebruikersToevoegen.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		gebruikersToevoegen.addActionListener(new MenuItemHandler());
-		gebruikersBeheer = new JMenuItem(bundle.getString("gebruikersBeheer"));
-		gebruikersBeheer.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		gebruikersBeheer.addActionListener(new MenuItemHandler());
-		gebruikers.add(gebruikersToevoegen);
-		gebruikers.add(gebruikersBeheer);
-		
-		klantenToevoegen = new JMenuItem(bundle.getString("klantenToevoegen"));
-		klantenToevoegen.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		klantenToevoegen.addActionListener(new MenuItemHandler());
-		klantenBeheer = new JMenuItem(bundle.getString("klantenBeheer"));
-		klantenBeheer.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		klantenBeheer.addActionListener(new MenuItemHandler());
-		klanten.add(klantenToevoegen);
-		klanten.add(klantenBeheer);
-		
-		ticketVerkoop = new JMenuItem(bundle.getString("ticketVerkoop"));
-		ticketVerkoop.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		ticketVerkoop.setBackground(Color.WHITE);
-		ticketVerkoop.addActionListener(new MenuItemHandler());
-		verkoop.add(ticketVerkoop);
-		
-		uitloggen = new JMenuItem(bundle.getString("uitloggen"));
-		uitloggen.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		uitloggen.addActionListener(new MenuItemHandler());
-		instellingen.add(uitloggen);
-		
-		menubar.add(home);
-		menubar.add(verkoop);
-		menubar.add(klanten);
-		menubar.add(routeInfo);
-		menubar.add(stationInfo);
-		menubar.add(gebruikers);
-		menubar.add(verlorenVoorwerpen);
-		menubar.add(instellingen);
-		setJMenuBar(menubar);
+	private void menuGUI() {
+		this.createMenu();
+		this.setTitle("NMBS");
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setSize(screenSize);
+		this.setMinimumSize(new Dimension(850, 550));
+		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setVisible(true);
 	}
-	
-	public static void Home()
-	{
-		 Thread t1 = new Thread(new Runnable() {
-			    public void run()
-			    {
-			    Controller.adminInterface.setHome();     
-			    }});  
-			    t1.start();
+
+	private void createMenu() {
+		this.menubar = new JMenuBar();
+		this.menubar.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.menubar.setForeground(Color.BLACK);
+		this.menubar.setBackground(Color.ORANGE);
+		this.home = new JMenuItem(bundle.getString("home"));
+
+		this.home.setHorizontalAlignment(SwingConstants.LEFT);
+		this.home.setFont(new Font("Dialog", Font.BOLD, 20));
+		this.home.setHorizontalTextPosition(SwingConstants.CENTER);
+		;
+		this.home.setBackground(Color.ORANGE);
+		this.home.setOpaque(true);
+		this.home.addActionListener(new MenuItemHandler());
+
+		this.verkoop = new JMenu(bundle.getString("verkoop"));
+		this.verkoop.setHorizontalAlignment(SwingConstants.CENTER);
+		this.verkoop.setFont(new Font("Dialog", Font.BOLD, 20));
+		this.verkoop.setBackground(Color.ORANGE);
+		this.verkoop.setOpaque(true);
+		this.routeInfo = new JMenuItem(bundle.getString("routeInfo"));
+		this.routeInfo.setHorizontalAlignment(SwingConstants.CENTER);
+		this.routeInfo.setFont(new Font("Dialog", Font.BOLD, 20));
+		this.routeInfo.setBackground(Color.ORANGE);
+		this.routeInfo.setOpaque(true);
+		this.routeInfo.addActionListener(new MenuItemHandler());
+
+		this.stationInfo = new JMenuItem(bundle.getString("stationInfo"));
+		this.stationInfo.setHorizontalAlignment(SwingConstants.CENTER);
+		this.stationInfo.setFont(new Font("Dialog", Font.BOLD, 20));
+		this.stationInfo.setBackground(Color.ORANGE);
+		this.stationInfo.setOpaque(true);
+		this.stationInfo.addActionListener(new MenuItemHandler());
+		this.gebruikers = new JMenu(bundle.getString("gebruikers"));
+		this.gebruikers.setHorizontalAlignment(SwingConstants.CENTER);
+		this.gebruikers.setFont(new Font("Dialog", Font.BOLD, 20));
+		this.gebruikers.setBackground(Color.ORANGE);
+		this.gebruikers.setOpaque(true);
+
+		this.klanten = new JMenu(bundle.getString("klanten"));
+		this.klanten.setHorizontalAlignment(SwingConstants.CENTER);
+		this.klanten.setFont(new Font("Dialog", Font.BOLD, 20));
+		this.klanten.setBackground(Color.ORANGE);
+		this.klanten.setOpaque(true);
+
+		this.verlorenVoorwerpen = new JMenu(bundle.getString("verlorenVoorwerpen"));
+		this.verlorenVoorwerpen.setHorizontalAlignment(SwingConstants.CENTER);
+		this.verlorenVoorwerpen.setFont(new Font("Dialog", Font.BOLD, 20));
+		this.verlorenVoorwerpen.setBackground(Color.ORANGE);
+		this.verlorenVoorwerpen.setOpaque(true);
+		this.verlorenVoorwerpToevoegen = new JMenuItem(bundle.getString("verlorenVoorwerpToevoegen"));
+		this.verlorenVoorwerpToevoegen.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.verlorenVoorwerpToevoegen.addActionListener(new MenuItemHandler());
+		this.verlorenVoorwerpZoeken = new JMenuItem(bundle.getString("verlorenVoorwerpZoeken"));
+		this.verlorenVoorwerpZoeken.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.verlorenVoorwerpZoeken.addActionListener(new MenuItemHandler());
+		this.verlorenVoorwerpen.add(this.verlorenVoorwerpToevoegen);
+		this.verlorenVoorwerpen.add(this.verlorenVoorwerpZoeken);
+
+		this.instellingen = new JMenu(bundle.getString("instellingen"));
+		this.instellingen.setHorizontalAlignment(SwingConstants.CENTER);
+		this.instellingen.setFont(new Font("Dialog", Font.BOLD, 20));
+		this.instellingen.setBackground(Color.ORANGE);
+		this.instellingen.setOpaque(true);
+		this.wachtwoordVeranderen = new JMenuItem(bundle.getString("wachtwoordVeranderen"));
+		this.wachtwoordVeranderen.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.wachtwoordVeranderen.addActionListener(new MenuItemHandler());
+
+		this.mntmPrijsbeheer = new JMenuItem(bundle.getString("mntmPrijsbeheer"));
+		this.mntmPrijsbeheer.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.mntmPrijsbeheer.addActionListener(new MenuItemHandler());
+		this.instellingen.add(this.mntmPrijsbeheer);
+		this.instellingen.add(this.wachtwoordVeranderen);
+
+		this.abonnementBeheer = new JMenuItem(bundle.getString("abonnementBeheer"));
+		this.abonnementBeheer.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.abonnementBeheer.setBackground(Color.WHITE);
+		this.abonnementBeheer.addActionListener(new MenuItemHandler());
+		this.verkoop.add(this.abonnementBeheer);
+
+		this.gebruikersToevoegen = new JMenuItem(bundle.getString("gebruikersToevoegen"));
+		this.gebruikersToevoegen.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.gebruikersToevoegen.addActionListener(new MenuItemHandler());
+		this.gebruikersBeheer = new JMenuItem(bundle.getString("gebruikersBeheer"));
+		this.gebruikersBeheer.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.gebruikersBeheer.addActionListener(new MenuItemHandler());
+		this.gebruikers.add(this.gebruikersToevoegen);
+		this.gebruikers.add(this.gebruikersBeheer);
+
+		this.klantenToevoegen = new JMenuItem(bundle.getString("klantenToevoegen"));
+		this.klantenToevoegen.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.klantenToevoegen.addActionListener(new MenuItemHandler());
+		this.klantenBeheer = new JMenuItem(bundle.getString("klantenBeheer"));
+		this.klantenBeheer.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.klantenBeheer.addActionListener(new MenuItemHandler());
+		this.klanten.add(this.klantenToevoegen);
+		this.klanten.add(this.klantenBeheer);
+
+		this.ticketVerkoop = new JMenuItem(bundle.getString("ticketVerkoop"));
+		this.ticketVerkoop.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.ticketVerkoop.setBackground(Color.WHITE);
+		this.ticketVerkoop.addActionListener(new MenuItemHandler());
+		this.verkoop.add(this.ticketVerkoop);
+
+		this.uitloggen = new JMenuItem(bundle.getString("uitloggen"));
+		this.uitloggen.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		this.uitloggen.addActionListener(new MenuItemHandler());
+		this.instellingen.add(this.uitloggen);
+
+		this.menubar.add(this.home);
+		this.menubar.add(this.verkoop);
+		this.menubar.add(this.klanten);
+		this.menubar.add(this.routeInfo);
+		this.menubar.add(this.stationInfo);
+		this.menubar.add(this.gebruikers);
+		this.menubar.add(this.verlorenVoorwerpen);
+		this.menubar.add(this.instellingen);
+		this.setJMenuBar(this.menubar);
 	}
-	
+
+	public static void Home() {
+		Thread t1 = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Controller.adminInterface.setHome();
+			}
+		});
+		t1.start();
+	}
+
 	private class MenuItemHandler implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == gebruikersToevoegen) {	
-				navigation= "gebruikerToevoegen";
-				setHuidigeKeuze(new GebruikerToevoegenGui());
+			if (e.getSource() == AdminGui.this.gebruikersToevoegen) {
+				AdminGui.setHuidigeKeuze(new GebruikerToevoegenGui());
+			} else if (e.getSource() == AdminGui.this.gebruikersBeheer) {
+				AdminGui.setHuidigeKeuze(new GebruikerBewerkenGui());
 			}
-			else if (e.getSource() == gebruikersBeheer) {	
-				navigation= "gebruikersBeheer";
-				setHuidigeKeuze(new GebruikersBeheerGui());
-			}
-		
-			else if (e.getSource() == klantenToevoegen) {	
-				navigation= "klantToevoegen";
-				setHuidigeKeuze(new KlantToevoegenGui());
-			}
-			
-			else if (e.getSource() == klantenBeheer) {	
-				navigation= "klantenBeheer";
-				setHuidigeKeuze(new KlantenBeheerGui());
-			}
-			
-			else if (e.getSource()==uitloggen)
-			{
-				Connection.close();
-				setHuidigeKeuze(null);
-			}
-			else if (e.getSource() == home){
 
-				setHuidigeKeuze(new HomeGui(false));
+			else if (e.getSource() == AdminGui.this.klantenToevoegen) {
+				AdminGui.setHuidigeKeuze(new KlantToevoegenGui());
 			}
-			else if (e.getSource() == ticketVerkoop){
-				setHuidigeKeuze(new TicketVerkoopGui(false));
+
+			else if (e.getSource() == AdminGui.this.klantenBeheer) {
+				AdminGui.setHuidigeKeuze(new KlantenBeheerGui());
 			}
-			else if (e.getSource() == mntmPrijsbeheer){
-				setHuidigeKeuze(new PrijsBeheerGui());
+
+			else if (e.getSource() == AdminGui.this.uitloggen) {
+				Connection.close();
+				AdminGui.setHuidigeKeuze(null);
+			} else if (e.getSource() == AdminGui.this.home) {
+
+				AdminGui.setHuidigeKeuze(new HomeGui(false));
+			} else if (e.getSource() == AdminGui.this.ticketVerkoop) {
+				AdminGui.setHuidigeKeuze(new TicketVerkoopGui(false));
+			} else if (e.getSource() == AdminGui.this.mntmPrijsbeheer) {
+				AdminGui.setHuidigeKeuze(new PrijsBeheerGui());
+			} else if (e.getSource() == AdminGui.this.routeInfo) {
+				AdminGui.setHuidigeKeuze(new RouteZoekenGui());
+			} else if (e.getSource() == AdminGui.this.stationInfo) {
+				AdminGui.setHuidigeKeuze(new StationInfoGui());
+			} else if (e.getSource() == AdminGui.this.verlorenVoorwerpZoeken) {
+				AdminGui.setHuidigeKeuze(new VerlorenVoorwerpenZoekenGui());
+			} else if (e.getSource() == AdminGui.this.verlorenVoorwerpToevoegen) {
+				AdminGui.setHuidigeKeuze(new VerlorenVoorwerpenToevoegenGui());
+			} else if (e.getSource() == AdminGui.this.wachtwoordVeranderen) {
+				AdminGui.setHuidigeKeuze(new WachtwoordVeranderenGui());
+			} else if (e.getSource() == AdminGui.this.abonnementBeheer) {
+				AdminGui.setHuidigeKeuze(new AbonnementBeheerGui());
 			}
-			else if (e.getSource() == routeInfo){
-				setHuidigeKeuze(new RouteZoekenGui());
-			}
-			else if (e.getSource() == stationInfo){
-				setHuidigeKeuze(new StationInfoGui());
-			}
-			else if (e.getSource() == verlorenVoorwerpZoeken){
-				setHuidigeKeuze(new VerlorenVoorwerpenZoekenGui());
-			}
-			else if (e.getSource() == verlorenVoorwerpToevoegen){
-				setHuidigeKeuze(new VerlorenVoorwerpenToevoegenGui());
-			}
-			else if (e.getSource() == wachtwoordVeranderen){
-				setHuidigeKeuze(new WachtwoordVeranderenGui());
-			}
-			else if (e.getSource() == abonnementBeheer){
-			setHuidigeKeuze(new AbonnementBeheerGui());
-			}
-		
+
 		}
 	}
-	
+
 }
