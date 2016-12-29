@@ -38,7 +38,7 @@ public class GebruikerToevoegenGui extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -83102949843216643L;
-	private static ResourceBundle bundle;
+	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.GebruikerToevoegenGui");
 	private JTextField txtVoornaam;
 	private JTextField txtAchternaam;
 	private JTextField txtStraat;
@@ -78,31 +78,31 @@ public class GebruikerToevoegenGui extends JPanel {
 	public GebruikerToevoegenGui() {
 		this.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 
-		JLabel lblVoornaam = new JLabel("Voornaam*:");
+		JLabel lblVoornaam = new JLabel(bundle.getString("lblVoornaam"));
 		lblVoornaam.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblVoornaam.setForeground(Color.WHITE);
 
-		JLabel lblAchternaam = new JLabel("Achternaam*:");
+		JLabel lblAchternaam = new JLabel(bundle.getString("lblAchternaam"));
 		lblAchternaam.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblAchternaam.setForeground(Color.WHITE);
 
-		JLabel lblStraat = new JLabel("Straat*:");
+		JLabel lblStraat = new JLabel(bundle.getString("lblStraat"));
 		lblStraat.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblStraat.setForeground(Color.WHITE);
 
-		JLabel lblHuisnummer = new JLabel("Huisnummer*:");
+		JLabel lblHuisnummer = new JLabel(bundle.getString("lblHuisnummer"));
 		lblHuisnummer.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblHuisnummer.setForeground(Color.WHITE);
 
-		JLabel lblGemeente = new JLabel("Gemeente*:");
+		JLabel lblGemeente = new JLabel(bundle.getString("lblGemeente"));
 		lblGemeente.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblGemeente.setForeground(Color.WHITE);
 
-		JLabel lblPostcode = new JLabel("Postcode*:");
+		JLabel lblPostcode = new JLabel(bundle.getString("lblPostcode"));
 		lblPostcode.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblPostcode.setForeground(Color.WHITE);
 
-		JLabel lblBus = new JLabel("Bus:");
+		JLabel lblBus = new JLabel(bundle.getString("lblBus"));
 		lblBus.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblBus.setForeground(Color.WHITE);
 
@@ -134,20 +134,20 @@ public class GebruikerToevoegenGui extends JPanel {
 		this.txtPostcode.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		this.txtPostcode.setColumns(10);
 
-		this.btnToevoegen = new JButton("Toevoegen");
+		this.btnToevoegen = new JButton(bundle.getString("btnToevoegen"));
 		this.btnToevoegen.setFont(new Font("Dialog", Font.BOLD, 20));
 		this.btnToevoegen.setBackground(Color.ORANGE);
 		this.btnToevoegen.addActionListener(new MenuItemHandler());
 
-		this.lblUsername = new JLabel("Username*:");
+		this.lblUsername = new JLabel(bundle.getString("lblUsername"));
 		this.lblUsername.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		this.lblUsername.setForeground(Color.WHITE);
 
-		this.lblPassword = new JLabel("Password*:");
+		this.lblPassword = new JLabel(bundle.getString("lblPassword"));
 		this.lblPassword.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		this.lblPassword.setForeground(Color.WHITE);
 
-		this.lblEmail = new JLabel("Email:");
+		this.lblEmail = new JLabel(bundle.getString("lblEmail"));
 		this.lblEmail.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		this.lblEmail.setForeground(Color.WHITE);
 
@@ -159,16 +159,16 @@ public class GebruikerToevoegenGui extends JPanel {
 		this.txtEmail.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		this.txtEmail.setColumns(10);
 
-		JLabel lblMedewerkerToevoegen = DefaultComponentFactory.getInstance().createTitle("Gebruiker toevoegen");
+		JLabel lblMedewerkerToevoegen = DefaultComponentFactory.getInstance().createTitle(bundle.getString("lblMedewerkerToevoegen"));//Eigenlijk "Gebruiker toevoegen"
 		lblMedewerkerToevoegen.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		this.radiobuttons = new ButtonGroup();
-		this.rbtnAdmin = new JRadioButton("Administrator");
+		this.rbtnAdmin = new JRadioButton(bundle.getString("rbtnAdmin"));
 		this.rbtnAdmin.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		this.rbtnAdmin.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		this.rbtnAdmin.setForeground(Color.WHITE);
 
-		this.rbtnUser = new JRadioButton("Medewerker");
+		this.rbtnUser = new JRadioButton(bundle.getString("rbtnUser"));//"Medewerker"
 		this.rbtnUser.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		this.rbtnUser.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		this.rbtnUser.setForeground(Color.WHITE);
@@ -177,11 +177,11 @@ public class GebruikerToevoegenGui extends JPanel {
 		this.radiobuttons.add(this.rbtnUser);
 		this.rbtnUser.setSelected(true);
 
-		JLabel label = new JLabel("Type*:");
+		JLabel label = new JLabel(bundle.getString("label"));//"Type*:"
 		label.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		label.setForeground(Color.WHITE);
 
-		JLabel label_1 = new JLabel("* Verplichte velden");
+		JLabel label_1 = new JLabel(bundle.getString("label_1"));//"* Required fields"
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		label_1.setForeground(Color.WHITE);
 
@@ -416,49 +416,49 @@ public class GebruikerToevoegenGui extends JPanel {
 					} else {
 						if (!Validation.checkFirstName(GebruikerToevoegenGui.this.txtVoornaam.getText())) {
 							GebruikerToevoegenGui.this.lblVoornaamError
-									.setText("Gelieve een juist voornaam in te vullen!");
+									.setText(bundle.getString("lblVoornaamError"));
 							GebruikerToevoegenGui.this.txtVoornaam.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkvoornaam = false;
 						}
 						if (!Validation.checkLastName(GebruikerToevoegenGui.this.txtAchternaam.getText())) {
 							GebruikerToevoegenGui.this.lblAchternaamError
-									.setText("Gelieve een juist achternaam in te vullen!");
+									.setText(bundle.getString("lblAchternaamError"));
 							GebruikerToevoegenGui.this.txtAchternaam.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkachternaam = false;
 						}
 						if (!Validation.checkAlphabetical(GebruikerToevoegenGui.this.txtStraat.getText())) {
-							GebruikerToevoegenGui.this.lblStraatError.setText("Gelieve een juist straat in te vullen!");
+							GebruikerToevoegenGui.this.lblStraatError.setText(bundle.getString("lblStraatError"));
 							GebruikerToevoegenGui.this.txtStraat.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkstraat = false;
 						}
 						if (!Validation.checkHouseNumber(GebruikerToevoegenGui.this.txtHuisnr.getText())) {
 							GebruikerToevoegenGui.this.lblHuisnrError
-									.setText("Gelieve een juist huisnummer in te vullen!");
+									.setText(bundle.getString("lblHuisnrError"));
 							GebruikerToevoegenGui.this.txtHuisnr.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkhuisnr = false;
 						}
 						if (!Validation.checkAlphabetical(GebruikerToevoegenGui.this.txtGemeente.getText())) {
 							GebruikerToevoegenGui.this.lblGemeenteError
-									.setText("Gelieve een juiste gemeente in te vullen!");
+									.setText(c);
 							GebruikerToevoegenGui.this.txtGemeente.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkgemeente = false;
 						}
 						if (!Validation.checkPostalCode(GebruikerToevoegenGui.this.txtPostcode.getText())) {
 							GebruikerToevoegenGui.this.lblPostcodeError
-									.setText("Gelieve een juiste postocde in te vullen!");
+									.setText(bundle.getString("lblPostcodeError"));
 							GebruikerToevoegenGui.this.txtPostcode.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkpostcode = false;
 						}
 						if (!GebruikerToevoegenGui.this.txtEmail.getText().isEmpty()
 								&& !Validation.checkEmail(GebruikerToevoegenGui.this.txtEmail.getText())) {
 							GebruikerToevoegenGui.this.lblEmailError
-									.setText("Gelieve een juist emailadres in te vullen!");
+									.setText(bundle.getString("lblEmailError"));
 							GebruikerToevoegenGui.this.txtEmail.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkemail = false;
 						}
 						if (!GebruikerToevoegenGui.this.txtBus.getText().isEmpty()
 								&& !Validation.checkBoxNumber(GebruikerToevoegenGui.this.txtBus.getText())) {
-							GebruikerToevoegenGui.this.lblBusError.setText("Gelieve een juiste bus in te vullen!");
+							GebruikerToevoegenGui.this.lblBusError.setText(bundle.getString("lblBusError"));
 							GebruikerToevoegenGui.this.txtBus.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkbus = false;
 						}
@@ -467,7 +467,7 @@ public class GebruikerToevoegenGui extends JPanel {
 						}
 						if (!Validation.checkUsername(GebruikerToevoegenGui.this.txtUsername.getText())) {
 							GebruikerToevoegenGui.this.lblUsernameError
-									.setText("Een username mag niet enkel nummers bevatten!");
+									.setText(bundle.getString("lblUsernameError"));//"Een username mag niet enkel nummers bevatten."
 							GebruikerToevoegenGui.this.txtUsername.setBorder(GebruikerToevoegenGui.this.bordererror);
 						} else {
 							try {
@@ -517,11 +517,11 @@ public class GebruikerToevoegenGui extends JPanel {
 									GebruikerToevoegenGui.this.persoon, GebruikerToevoegenGui.this.rol,
 									GebruikerToevoegenGui.this.adres);
 							GebruikerToevoegenGui.this.close();
-							JOptionPane.showMessageDialog(new JFrame(), "Gebruiker is toegevoegd!");
+							JOptionPane.showMessageDialog(new JFrame(), bundle.getString("userAdded"));
 						}
 					}
 				} else {
-					JOptionPane.showMessageDialog(new JFrame(), "Vul alle verplichte velden in!");
+					JOptionPane.showMessageDialog(new JFrame(), bundle.getString("requiredFieldsWarning"));
 
 				}
 			}
