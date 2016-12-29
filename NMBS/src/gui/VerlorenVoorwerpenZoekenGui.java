@@ -66,7 +66,7 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 		stationLijst.setSelectedIndex(0);//veranderen naar current user station id
 		arrayLijst= new ArrayList<VerlorenVoorwerp>();
 		arrayLijst = verlorenVoorwerpDAO.getVerlorenVoorwerpByStation(1);//veranderen naar current user station id
-		DefaultListModel<VerlorenVoorwerp> dlm = new DefaultListModel<VerlorenVoorwerp>();
+		dlm = new DefaultListModel<VerlorenVoorwerp>();
 		for(VerlorenVoorwerp v : arrayLijst){
 			dlm.addElement(v);
 		}
@@ -81,11 +81,10 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 				
 				arrayLijst.clear();
 				dlm.removeAllElements();
-				list.removeAll();
 				
-				arrayLijst= new ArrayList<VerlorenVoorwerp>();
+				//arrayLijst= new ArrayList<VerlorenVoorwerp>();
 				arrayLijst = verlorenVoorwerpDAO.getVerlorenVoorwerpByStation(stationDAO.checkStation(stationLijst.getSelectedItem().toString()));//veranderen naar current user station id
-				
+				System.out.println(stationLijst.getSelectedItem());
 				
 				for(VerlorenVoorwerp v : arrayLijst){
 					dlm.addElement(v);
@@ -148,14 +147,13 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 			if (e.getSource() == btnBewerken) {
 
 				if (list.getSelectedValue() == null) {
-					JOptionPane.showMessageDialog(new JFrame(), "Er is geen verloren voorwerp aangeduid.");
+					JOptionPane.showMessageDialog(new JFrame(), "Geen verloren voorwerp aangeduid.");
 				} else {
 					 
 					verlorenVoorwerpDAO.verlorenVoowerpUpdate(verlorenVoorwerpDAO.getId(list.getSelectedValue()));
 					JOptionPane.showMessageDialog(new JFrame(), "Verloren verwijdert");
 					AdminGui.setHuidigeKeuze(new VerlorenVoorwerpenZoekenGui());
-					
-
+						
 				}
 			}
 
