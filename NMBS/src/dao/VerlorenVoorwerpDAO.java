@@ -6,8 +6,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-
 import source.VerlorenVoorwerp;
 
 public class VerlorenVoorwerpDAO {
@@ -61,19 +59,7 @@ public class VerlorenVoorwerpDAO {
 		return verlorenVoorwerp;
 	}
 	
-	private static Date formatDatum(String datum){
-		DateFormat formatter;
-		
-		formatter = new SimpleDateFormat("dd-MM-yyyy");
-		Date geformateerdeDatum = null;
-		try {
-			geformateerdeDatum = formatter.parse(datum);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return geformateerdeDatum;
-	}
+	
 	
 	
 	public static ArrayList<VerlorenVoorwerp> getVerlorenVoorwerpByStation(int stationId){
@@ -138,8 +124,8 @@ public class VerlorenVoorwerpDAO {
 		//System.out.println("Report Date: " + reportDate);
 		//verlorenVoorwerpDAO.verlorenVoowerpUpdate(57, test);*/
 		
-		VerlorenVoorwerpDAO vDao = new VerlorenVoorwerpDAO();
-		ArrayList<VerlorenVoorwerp> list = new VerlorenVoorwerpDAO().getVerlorenVoorwerpByStation(1);
+		new VerlorenVoorwerpDAO();
+		ArrayList<VerlorenVoorwerp> list = VerlorenVoorwerpDAO.getVerlorenVoorwerpByStation(1);
 		for (int i = 0; i < list.size(); i++) {
 			System.out.println(list.get(i).getDate());
 		}

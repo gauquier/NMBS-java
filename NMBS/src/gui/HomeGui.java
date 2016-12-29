@@ -25,8 +25,6 @@ import source.Ticketstatistiek;
 public class HomeGui extends JPanel {
 
 	private static final long serialVersionUID = 2564170957766548127L;
-
-	private JPanel jPanel, jPanel2;
 	
 	private static ResourceBundle bundle;
 

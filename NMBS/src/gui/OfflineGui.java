@@ -26,6 +26,11 @@ import javax.swing.UIManager;
 import handler.Controller;
 
 public class OfflineGui extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 957887041197091243L;
+
 	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.OfflineGui");
 	
 	private Container c = getContentPane();	

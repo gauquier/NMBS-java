@@ -7,11 +7,6 @@ import java.sql.SQLException;
 import javax.sql.PooledConnection;
 
 public class Connection {
-	//FTP
-	private static String server = "dtsw.ehb.be";
-	private static int port = 21;
-	private static String user = "";
-	private static String pass = "";
 	//SVN
 	private static String username = "SP2NMBS";
 	private static String password = "JZde2p";
@@ -43,7 +38,7 @@ public class Connection {
 	}
 
 	public void setPool(PooledConnection pool) {
-		this.pool = pool;
+		Connection.pool = pool;
 	}
 	
 	public static void close() {

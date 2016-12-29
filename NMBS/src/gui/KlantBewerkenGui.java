@@ -30,12 +30,15 @@ import source.Klant;
 
 
 public class KlantBewerkenGui extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2857650813142011039L;
 	private JTextField textField;
 	private JButton btnZoeken;
 	private JButton btnBewerken;
 	private JList<Klant> list;
 	private ArrayList<Klant> arrayLijst;
-	private ArrayList<Object> objecten;
 	private JButton btnVerwijderen;
 	public String navigation;
 	public String newline = System.getProperty("line.separator");

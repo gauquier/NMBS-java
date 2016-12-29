@@ -4,17 +4,14 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import source.Login;
 
 public class LoginDao {
-	private static String username1, password1;
-	private static int rollid, loginId;
+	private static int loginId;
 	private static DBA dba = new DBA();
 	
 	private static java.sql.Connection connection;
-	private static Statement command;
 	private static ResultSet data;
 	private static PreparedStatement stmt = null;
 	

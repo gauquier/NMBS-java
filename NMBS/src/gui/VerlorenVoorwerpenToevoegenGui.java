@@ -28,6 +28,11 @@ import source.Station;
 import source.VerlorenVoorwerp;
 public class VerlorenVoorwerpenToevoegenGui extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5501780870042021655L;
+
 	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.VerlorenVoorwerpenToevoegenGui");
 	
 	private JTextArea txtrBeschrijving;

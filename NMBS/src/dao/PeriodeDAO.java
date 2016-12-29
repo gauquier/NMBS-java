@@ -3,7 +3,6 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,8 +17,6 @@ public class PeriodeDAO {
 private static DBA dba = new DBA();
 	
 	private static java.sql.Connection connection;
-	private static Statement command;
-	private static ResultSet data;
 	private static PreparedStatement stmt = null;
 	
 	

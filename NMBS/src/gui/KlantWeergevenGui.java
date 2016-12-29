@@ -18,6 +18,11 @@ public class KlantWeergevenGui extends JPanel {
 	
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2392843966171201473L;
+
 	public KlantWeergevenGui(Klant klant) {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 

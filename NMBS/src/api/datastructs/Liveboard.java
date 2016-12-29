@@ -10,7 +10,11 @@ import java.util.List;
  */
 public class Liveboard  implements Serializable
 {
-    private Date                        timeStamp;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4518110581259345881L;
+	private Date                        timeStamp;
     private Station                     station;
     private ArrayList<ArrivalDeparture> arrivalsAndDepartures;
 

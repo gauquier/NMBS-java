@@ -10,14 +10,15 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
-
-import source.Abonnement;
 import source.Medewerker;
 
 public class GebruikerWeergevenGui extends JPanel {
-
-	private Abonnement doorgegevenAbonnement;
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -878328862101208141L;
+
 	public GebruikerWeergevenGui(Medewerker medewerker) {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 

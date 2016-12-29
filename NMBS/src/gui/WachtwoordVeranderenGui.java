@@ -24,6 +24,11 @@ import dao.LoginDao;
 import source.Login;
 
 public class WachtwoordVeranderenGui extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6274650572795135242L;
+
 	private static ResourceBundle bundle;
 	
 	private JPasswordField pwdHerhaaldWachtwoord;

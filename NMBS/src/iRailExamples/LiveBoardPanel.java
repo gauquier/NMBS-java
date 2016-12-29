@@ -21,7 +21,11 @@ import api.datastructs.Liveboard;
 public class LiveBoardPanel extends JPanel implements Observer
 {
 
-    private static final Color  BACKGROUND_COLOR    = new Color(48, 45, 59);
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5448686831494956912L;
+	private static final Color  BACKGROUND_COLOR    = new Color(48, 45, 59);
     private static final Color  HEADER_COLOR        = new Color(27, 118, 248);
     private static final Color  LINE_COLOR          = new Color(82, 102, 155);
     private static final Color  TEXT_COLOR          = new Color(255, 255, 0);

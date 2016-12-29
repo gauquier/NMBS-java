@@ -9,15 +9,6 @@ public class AdresDAO {
 
 	private static DBA dba = new DBA();
 	
-	private static void insertAdres(String straat, int huisnr, String woonplaats, int postcode, int bus){//kan ook Adres adres
-		dba.createInsert("Adres");
-		dba.addValue(straat);
-		dba.addValue(huisnr);
-		dba.addValue(woonplaats);
-		dba.addValue(postcode);
-		dba.addValue(bus);
-		dba.commit();
-	}
 	
 	public static int insertAdres(Adres adres){
 		dba.createInsert("Adres");

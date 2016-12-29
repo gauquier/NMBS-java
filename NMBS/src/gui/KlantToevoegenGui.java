@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
@@ -29,6 +28,11 @@ import source.Persoon;
 import source.Validation;
 
 public class KlantToevoegenGui extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2290954843880133511L;
+
 	private static ResourceBundle bundle;
 
 	private JTextField txtVoornaam;
@@ -43,7 +47,6 @@ public class KlantToevoegenGui extends JPanel {
 	private JTextField txtEmail;
 	private Adres adres;
 	private Persoon persoon;
-	private List<Persoon> mijnpersonen;
 	private PersoonDao persoonDao = new PersoonDao();
 	private Border border = BorderFactory.createEmptyBorder();
 	private Border bordererror = BorderFactory.createLineBorder(Color.RED, 3);

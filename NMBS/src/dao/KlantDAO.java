@@ -15,8 +15,6 @@ public class KlantDAO {
 	private static DBA dba = new DBA();
 	
 	private static java.sql.Connection connection;
-	private static Statement command;
-	private static ResultSet data;
 	private static PreparedStatement stmt = null;
 
 	public static void addKlant(Persoon persoon, Adres adres, String info){

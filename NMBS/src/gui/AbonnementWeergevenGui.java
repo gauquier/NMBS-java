@@ -20,6 +20,10 @@ import dao.MedewerkerDAO;
 import source.Abonnement;
 
 public class AbonnementWeergevenGui extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5924070135078488735L;
 	private SimpleDateFormat formatDatum = new SimpleDateFormat("dd-MM-yyyy");
 	private JButton btnKlantBekijken;
 	private JButton btnMedewerkerBekijken;

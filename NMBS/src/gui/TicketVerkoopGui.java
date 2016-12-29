@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -133,9 +132,6 @@ public class TicketVerkoopGui extends JPanel {
 		lblTerugDatum.setForeground(Color.WHITE);
 
 		table = new JTable();
-		SimpleDateFormat dagFormat = new SimpleDateFormat("dd");
-		SimpleDateFormat maandFormat = new SimpleDateFormat("MM");
-		SimpleDateFormat jaarFormat = new SimpleDateFormat("yyyy");
 		lblKlasse.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblKlasse.setForeground(Color.WHITE);
 		klasse.setFont(new Font("Lucida Grande", Font.PLAIN, 20));

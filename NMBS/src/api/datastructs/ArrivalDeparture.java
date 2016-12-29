@@ -5,7 +5,11 @@ import java.util.Date;
 
 public class ArrivalDeparture  implements Serializable
 {
-    private Station station;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -1046757633719665371L;
+	private Station station;
     private Vehicle vehicle;
     private Date    date;
     private String  platform;

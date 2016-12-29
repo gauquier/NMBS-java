@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
@@ -24,16 +23,19 @@ import javax.swing.border.Border;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
-import dao.LoginDao;
 import dao.MedewerkerDAO;
 import source.Adres;
-import source.Login;
 import source.Medewerker;
 import source.Persoon;
 import source.Rol;
 import source.Validation;
 
 public class GebruikerBijwerkenGui extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3992250264094765608L;
+
 	private static ResourceBundle bundle;
 	
 	private JTextField txtVoornaam;
@@ -47,11 +49,8 @@ public class GebruikerBijwerkenGui extends JPanel {
 	private JLabel lblEmail;
 	private JTextField txtEmail;
 	private Adres adres;
-	private Login login;
-	private LoginDao loginDao = new LoginDao();
 	private Persoon persoon;
 	private Rol rol;
-	private List<Persoon> mijnpersonen;
 	private ButtonGroup radiobuttons;
 	private JRadioButton rbtnAdmin;
 	private JRadioButton rbtnUser;

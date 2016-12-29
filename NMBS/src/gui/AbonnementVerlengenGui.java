@@ -30,14 +30,16 @@ import dao.MedewerkerDAO;
 import dao.PeriodeDAO;
 import dao.PrijsDAO;
 import source.Abonnement;
-import source.Klant;
 import source.Login;
 import source.Periode;
 import source.VerkoopType;
 
 
 public class AbonnementVerlengenGui extends JPanel {
-	private Klant klant;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6560637230362797041L;
 	private JTextField txtDuur;
 	private JLabel lblNieuweEinddatumValue;
 	private JLabel lblNieuwePrijsValue;

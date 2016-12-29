@@ -10,7 +10,11 @@ import java.util.Date;
 public class ViaTripNode  implements Serializable
 {
 
-    private String platform;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4558061951637327103L;
+	private String platform;
     private Date time;
 
     public ViaTripNode(String platform, Date time)

@@ -8,7 +8,11 @@ import java.io.Serializable;
  */
 public class Via  implements Serializable
 {
-    private ViaTripNode arrival;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2540118664759439435L;
+	private ViaTripNode arrival;
     private ViaTripNode depart;
     private int         timeBetween;
     private Vehicle     vehicle;

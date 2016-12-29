@@ -6,7 +6,11 @@ import api.datastructs.Station;
 
 public class LiveBoard extends JFrame
 {
-    private LiveBoardPanel          liveBoardCanvas;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7244741173118592108L;
+	private LiveBoardPanel          liveBoardCanvas;
     private LiveboardController     liveBoardController;
 
     public LiveBoard(String url, String language, String station)

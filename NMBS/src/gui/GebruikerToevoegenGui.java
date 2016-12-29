@@ -33,6 +33,10 @@ import source.Rol;
 import source.Validation;
 
 public class GebruikerToevoegenGui extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -83102949843216643L;
 	private JTextField txtVoornaam;
 	private JTextField txtAchternaam;
 	private JTextField txtStraat;

@@ -20,6 +20,11 @@ import dao.Connection;
 import handler.Controller;
 
 public class MedewerkerGui  extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5340584543659480631L;
+
 	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.MedewerkerGui");
 	
 	private Container c = getContentPane();	

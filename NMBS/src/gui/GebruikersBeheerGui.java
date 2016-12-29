@@ -33,6 +33,11 @@ import dao.MedewerkerDAO;
 import source.Medewerker;
 
 public class GebruikersBeheerGui extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7156561362019683870L;
+
 	private static ResourceBundle bundle;
 	
 	private JTextField txtZoekveld;
@@ -40,7 +45,6 @@ public class GebruikersBeheerGui extends JPanel {
 	private JButton btnBewerken;
 	private JList<Medewerker> list;
 	private ArrayList<Medewerker> arrayLijst, arrayLijst2;
-	private ArrayList<Object> objecten;
 	private JButton btnVerwijderen;
 	private JButton btnPasswordReset;
 	public String navigation;

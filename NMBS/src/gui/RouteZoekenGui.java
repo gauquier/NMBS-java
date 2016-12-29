@@ -25,6 +25,10 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 import source.Validation;
 
 public class RouteZoekenGui extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1641860326664122840L;
 	private JTextField txtVan;
 	private JTextField txtNaar;
 	private JTextField txtDatum;

@@ -33,10 +33,14 @@ import source.VerlorenVoorwerp;
 
 public class VerlorenVoorwerpenZoekenGui extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3449634391108490909L;
+
 	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.VerlorenVoorwerpenZoekenGui");
 	
 	private JComboBox<Station> stationLijst;
-	private StationDAO stationDAO = new StationDAO();
 	private JButton btnBewerken;
 	private JList<VerlorenVoorwerp> list;
 	

@@ -11,7 +11,6 @@ import source.api.aangepast.Parser;
 public class StationDAO {
 
 	private static DBA dba = new DBA();
-	private VerlorenVoorwerpDAO vvDAO = new VerlorenVoorwerpDAO();
 
 	public int insertStation(Station station) {
 		if (getStationId(station) == 0) {
@@ -20,7 +19,7 @@ public class StationDAO {
 			dba.commit();
 		}
 		for (int i = 0; i < station.getVerlorenVoorwerpen().size(); i++) {
-			vvDAO.insertVerlorenVoorwerp(station.getVerlorenVoorwerpen().get(i), station.getStationID());
+			VerlorenVoorwerpDAO.insertVerlorenVoorwerp(station.getVerlorenVoorwerpen().get(i), station.getStationID());
 		}
 		return getStationId(station);
 	}
@@ -80,7 +79,7 @@ public class StationDAO {
 		ResultSet rs = dba.commit();
 		try {
 			if (rs.next()) {
-				station = new Station(rs.getInt(1), rs.getString(2), vvDAO.getVerlorenVoorwerpByStation(rs.getInt(1)));
+				station = new Station(rs.getInt(1), rs.getString(2), VerlorenVoorwerpDAO.getVerlorenVoorwerpByStation(rs.getInt(1)));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch blocks
@@ -114,10 +113,9 @@ public class StationDAO {
 		dba.createSelect("Station");
 		ResultSet rs = dba.commit();
 		List<Station> stations = new ArrayList<>();
-		VerlorenVoorwerpDAO vvDAO = new VerlorenVoorwerpDAO();
 		try {
 			while (rs.next()) {
-				stations.add( new Station(rs.getInt(1), rs.getString(2), vvDAO.getVerlorenVoorwerpByStation(rs.getInt(1))));
+				stations.add( new Station(rs.getInt(1), rs.getString(2), VerlorenVoorwerpDAO.getVerlorenVoorwerpByStation(rs.getInt(1))));
 			}
 			return stations;
 		} catch (SQLException e) {
@@ -129,7 +127,6 @@ public class StationDAO {
 		dba.createSelect("Station");
 		ResultSet rs = dba.commit();
 		List<Station> stations = new ArrayList<>();
-		VerlorenVoorwerpDAO vvDAO = new VerlorenVoorwerpDAO();
 		try {
 			while (rs.next()) {
 

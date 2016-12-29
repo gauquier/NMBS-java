@@ -9,7 +9,11 @@ import java.util.List;
  */
 public class VehicleInformation  implements Serializable
 {
-    private Vehicle     vehicle;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4323075808184582020L;
+	private Vehicle     vehicle;
     private List<Stop>  stops;
 
     public VehicleInformation(Vehicle vehicle, List<Stop> stops)

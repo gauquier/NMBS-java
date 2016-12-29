@@ -20,9 +20,6 @@ public class AbonnementDAO {
 	private static DBA dba = new DBA();
 	
 	private static java.sql.Connection connection;
-	private static Statement command;
-	private static ResultSet data;
-	private static PreparedStatement stmt = null;
 	
 	public static int addAbonnement(Abonnement abonnement){
         
@@ -68,7 +65,6 @@ public class AbonnementDAO {
 	
 	public static ArrayList<Abonnement> getAllAbonnementen(){
 		ArrayList<Abonnement> abonnementen = new ArrayList<Abonnement>();
-		ArrayList<Periode> periodes = new ArrayList<Periode>();
 
 		String sql = "SELECT * FROM Abonnement b JOIN Klant k ON b.klantId = k.klantId JOIN Persoon p ON k.persoonId = p.persoonId JOIN Adres a ON p.adresId = a.adresId WHERE b.actief = true;";
 		String sql2 = "SELECT * FROM Periode;";
@@ -80,8 +76,8 @@ public class AbonnementDAO {
 		DateFormat compareFormat = new SimpleDateFormat("yyyyMMdd");
 
 		try {
-			stmt = (Statement) conn.prepareStatement(sql);
-			stmt2 = (Statement) conn.prepareStatement(sql2);
+			stmt = conn.prepareStatement(sql);
+			stmt2 = conn.prepareStatement(sql2);
 			rs = stmt.executeQuery(sql);
 			rs2 = stmt2.executeQuery(sql2);
 		

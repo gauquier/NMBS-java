@@ -21,6 +21,10 @@ import dao.StationDAO;
 import source.Station;
 
 public class StationInfoGui extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5817901539274419340L;
 	private JTextField txtDatum;
 	private JTextField txtTijd;
 	public StationInfoGui() {

@@ -34,13 +34,16 @@ import source.Login;
 import source.VerkoopType;
 
 public class AbonnementBeheerGui extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2914230901692734881L;
 	private JTextField textField;
 	private JButton btnZoeken;
 	private JButton btnVerlengen;
 	private JButton btnVerwijderen;
 	private JList<Abonnement> list;
 	private ArrayList<Abonnement> arrayLijst;
-	private ArrayList<Object> objecten;
 	private JButton btnAnnuleren;
 	public String navigation;
 	private JButton btnNieuwAbonnement;

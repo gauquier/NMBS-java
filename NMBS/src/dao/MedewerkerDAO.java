@@ -18,7 +18,6 @@ public class MedewerkerDAO {
 	private static DBA dba = new DBA();
 
 	private static java.sql.Connection connection;
-	private static Statement command;
 	private static ResultSet data;
 	private static PreparedStatement stmt = null;
 
@@ -162,7 +161,7 @@ public class MedewerkerDAO {
 		
 		Connection conn = dao.Connection.getDBConnection();
 		try {
-			stmt =(Statement) conn.prepareStatement(sql);
+			stmt =conn.prepareStatement(sql);
 			rs = stmt.executeQuery(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -12,6 +12,10 @@ import javax.swing.JTextField;
 
 public class AutoComboBox extends JComboBox<Object> {
 
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4127002739909805989L;
 Vector<String> myVector = new Vector<String>();
 
 public AutoComboBox() {

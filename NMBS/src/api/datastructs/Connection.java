@@ -10,7 +10,11 @@ import java.util.List;
 
 public class Connection implements Serializable
 {
-    private TripNode    arrival;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6387671419985271150L;
+	private TripNode    arrival;
     private TripNode    departure;
     private int         duration;
     private List<Via>   vias;

@@ -8,7 +8,11 @@ import java.util.Date;
  */
 public class TripNode  implements Serializable
 {
-    private Station station;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1773224137967410143L;
+	private Station station;
     private String  platform;
     private Vehicle vehicle;
     private Date    time;

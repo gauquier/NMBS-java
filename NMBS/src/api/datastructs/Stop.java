@@ -9,7 +9,11 @@ import java.util.Date;
  */
 public class Stop  implements Serializable
 {
-    private Station station;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -3505628328412149605L;
+	private Station station;
     private Date    time;
     private int     delay;
 

@@ -8,7 +8,11 @@ import java.io.Serializable;
  */
 public class Vehicle  implements Serializable
 {
-    private String  id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 4609935944653910102L;
+	private String  id;
     private int     number;
     private String  company;
     private String  country;

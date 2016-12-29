@@ -32,11 +32,13 @@ import source.Station;
 import source.VerkoopType;
 
 public class AbonnementToevoegenGui extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3577832484359598364L;
 	private JButton btnAanmaken;
 	private JButton btnZoeken;
-	private Klant klant;
 	private ArrayList<Klant> arrayLijst;
-	private ArrayList<Object> objecten;
 	private JList<Klant> list;
 	private JTextField txtKlant;
 	public String navigation;

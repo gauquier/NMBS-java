@@ -30,6 +30,11 @@ import source.Klant;
 
 
 public class KlantenBeheerGui extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5220308317573994715L;
+
 	private static ResourceBundle bundle;
 	
 	private JTextField textField;
@@ -37,7 +42,6 @@ public class KlantenBeheerGui extends JPanel {
 	private JButton btnBewerken;
 	private JList<Klant> list;
 	private ArrayList<Klant> arrayLijst;
-	private ArrayList<Object> objecten;
 	private JButton btnVerwijderen;
 	public String navigation;
 	
