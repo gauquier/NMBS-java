@@ -99,6 +99,7 @@ public class AbonnementToevoegenGui extends JPanel {
 		this.list = new JList<Klant>(this.dlm);
 		list.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 
+		
 		JScrollPane scrollPane = new JScrollPane(this.list);
 		scrollPane.setViewportView(this.list);
 		scrollPane.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
