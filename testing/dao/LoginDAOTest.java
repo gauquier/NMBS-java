@@ -16,11 +16,11 @@ import org.junit.Test;
 import dao.LoginDao;
 import source.Adres;
 import source.Login;
-import source.Medewerker;
-import source.Persoon;
+import source.Medewerker; 
 import source.Rol;
 
-public class LoginDAOTest { 
+public class LoginDAOTest {
+	private String testClassName = "LoginDAOTest";
 	private Adres adres;
 	private Rol rol;
 	private Medewerker medewerker;
@@ -28,7 +28,7 @@ public class LoginDAOTest {
 
 	@Before
 	public void initialize() { 
-		login = new Login("testusernameLoginDAOTest", "testpasswordLoginDAOTest"); 
+		login = new Login("username"+testClassName, "password" +testClassName); 
 	}
 
 	@After
@@ -163,16 +163,9 @@ public class LoginDAOTest {
 	@Test
 	public void testGetActief() {
 		adres = adresToevoegen(new Adres("teststraatnaamLoginDAOTest", 170, "testwoonplaatsLoginDAOTest", 1070, "6"));
-		rol = rolToevoegen(new Rol(0, "testrolLoginDAOTest"));
-		Persoon persoon=new Persoon(
-				"testvoornaamLoginDAOTest", "testachternaamLoginDAOTest",
-				"testemailLoginDAOTest", adres);
-		medewerker=new Medewerker("testvoornaamLoginDAOTest", "testachternaamLoginDAOTest");
-		medewerker.setEmail(persoon.getEmail());
-		medewerker.setAdres(persoon.getAdres());
-		medewerker.setRol(rol);
-		medewerker.setLogin(loginToevoegen(login));
-		medewerker.setActief(true);
+		rol = rolToevoegen(new Rol(0, "testrolLoginDAOTest")); 
+		medewerker=new Medewerker(0, "voornaam"+testClassName, "achternaam"+testClassName, "email"+testClassName, adres, 0,
+				rol, login, true);  
 		medewerker=medewerkerOpslaanInDB(medewerker); 
 		assertEquals(1,LoginDao.getActief(medewerker.getLogin().getLoginId()));
 		medewerkerVerwijderen(medewerker);
@@ -180,16 +173,9 @@ public class LoginDAOTest {
 	@Test
 	public void testGetNietActiefLogin() {
 		adres = adresToevoegen(new Adres("teststraatnaamLoginDAOTest", 170, "testwoonplaatsLoginDAOTest", 1070, "6"));
-		rol = rolToevoegen(new Rol(0, "testrolLoginDAOTest")); 
-		Persoon persoon=new Persoon(
-				"testvoornaamLoginDAOTest", "testachternaamLoginDAOTest",
-				"testemailLoginDAOTest", adres);
-		medewerker=new Medewerker("testvoornaamLoginDAOTest", "testachternaamLoginDAOTest");
-		medewerker.setEmail(persoon.getEmail());
-		medewerker.setAdres(persoon.getAdres());
-		medewerker.setRol(rol);
-		medewerker.setLogin(loginToevoegen(login));
-		medewerker.setActief(false);
+		rol = rolToevoegen(new Rol(0, "testrolLoginDAOTest"));  
+		medewerker=new Medewerker(0, "voornaam"+testClassName, "achternaam"+testClassName, "email"+testClassName, adres, 0,
+				rol, login, true);  
 		medewerker=medewerkerOpslaanInDB(medewerker); 
 		assertEquals(0,LoginDao.getActief(medewerker.getLogin().getLoginId())); 
 		medewerkerVerwijderen(medewerker);

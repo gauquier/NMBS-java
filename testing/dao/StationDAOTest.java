@@ -41,19 +41,7 @@ private StationDAO stationDao;
 	public void testGetStationIdMetOnbestaandeStation() { 
 		int stationId=stationDao.getStationId(station);
 		assertEquals(0, stationId);
-	}
-	@Test
-	public void testGetStation() {
-		Station stationDB= Help.stationToevoegen(station); 
-		Station stationTmp=stationDao.getStation(stationDB.getStationID());
-		assertEquals(stationDB, stationTmp);
-	}
-	@Test
-	public void testGetStationMetOnbestaandeStationId() { 
-		int onbestaandeStationId=9119;
-		Station stationTmp=stationDao.getStation(onbestaandeStationId);
-		assertNull(stationTmp);
-	}
+	} 
 	@Test
 	public void testGetAll() { 
 		int before=StationDAO.getAll().size();

@@ -96,6 +96,7 @@ public class AbonnementToevoegenGui extends JPanel {
 
 		this.list = new JList<Klant>(this.dlm);
 
+		
 		JScrollPane scrollPane = new JScrollPane(this.list);
 		scrollPane.setViewportView(this.list);
 

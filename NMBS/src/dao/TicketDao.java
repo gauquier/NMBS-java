@@ -69,7 +69,7 @@ public class TicketDao {
 		ResultSet rs = dba.commit();
 		try {
 			if (rs.next()) {
-				DateFormat dt = new SimpleDateFormat("dd-MM-YYYY");// aan te
+				DateFormat dt = new SimpleDateFormat("dd-MM-yyyy");// aan te
 																	// passen
 																	// wijzing
 																	// boris

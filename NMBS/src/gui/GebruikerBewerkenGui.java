@@ -113,17 +113,17 @@ public class GebruikerBewerkenGui extends JPanel {
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblGebruikerBewerken)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(label, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-									.addComponent(txtZoekveld, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)))
+									.addPreferredGap(ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+									.addComponent(txtZoekveld, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
+								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE))
 							.addGap(10)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnVerwijderen, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-								.addComponent(btnBewerken, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-								.addComponent(btnPasswordReset, GroupLayout.PREFERRED_SIZE, 130, Short.MAX_VALUE))))
+								.addComponent(btnVerwijderen, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+								.addComponent(btnBewerken, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+								.addComponent(btnPasswordReset, GroupLayout.PREFERRED_SIZE, 213, Short.MAX_VALUE))))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -138,7 +138,7 @@ public class GebruikerBewerkenGui extends JPanel {
 								.addComponent(txtZoekveld, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
 								.addComponent(label))
 							.addGap(12)
-							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE))
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(97)
 							.addComponent(btnBewerken)
@@ -146,7 +146,7 @@ public class GebruikerBewerkenGui extends JPanel {
 							.addComponent(btnVerwijderen)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(btnPasswordReset, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addContainerGap())
 		);
 
 		this.list = new JList<Medewerker>(this.dlm);

@@ -32,9 +32,9 @@ public class AbonnementDAOTest {
 		prijs = 10.00;
 		bestaandeDepZone = "testdepZoneAbonement";
 		bestaandeArrZone = "testarrZoneAbonement"; 
-		bestaandeKlantAdres = AdresOpslaanInDB(new Adres("teststraatnaam", 170, "testwoonplaats", 1070, "6"));
+		bestaandeKlantAdres = AdresOpslaanInDB(new Adres("teststraatnaam", 170, "testwoonplaats", 1070, "6")); 
 		bestaandeKlant = KlantOpslaanInDB(new Klant(0, "testvoornaamAbonnement", "testachternaamAbonnement",
-				"testemailAbonnement", bestaandeKlantAdres, "testinfoAbonnement", false));
+				"testemailAbonnement", bestaandeKlantAdres, 0,"testinfoAbonnement", false));
 		abonnement = new Abonnement(korting, prijs, VerkoopType.STANDAARD, bestaandeKlant, bestaandeDepZone,
 				bestaandeArrZone);
 	}

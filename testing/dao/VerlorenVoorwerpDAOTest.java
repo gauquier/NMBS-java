@@ -16,13 +16,11 @@ import source.VerlorenVoorwerp;
 public class VerlorenVoorwerpDAOTest {
 	private String testClassName = "VerlorenVoorwerpDAOTest";
 	private Station station;
-	private VerlorenVoorwerpDAO verlorenVoorwerpDAO;
 	private VerlorenVoorwerp verlorenVoorwerp;
 	@Before
 	public void initialize() throws ParseException{
 		station=Help.stationToevoegen(new Station(0,testClassName)); 
-		DateFormat date = new SimpleDateFormat("dd-MM-yyyy"); 
-		verlorenVoorwerpDAO=new VerlorenVoorwerpDAO();
+		DateFormat date = new SimpleDateFormat("dd-MM-yyyy");  
 		verlorenVoorwerp=new VerlorenVoorwerp(0, testClassName, date.parse("26-12-2016"), false);
 	} 
 	@After
@@ -31,37 +29,26 @@ public class VerlorenVoorwerpDAOTest {
 	}  
 	@Test
 	public void testInsertVerlorenVoorwerp() { 
-		int nieuweVerlorenVoorwerpId= verlorenVoorwerpDAO.insertVerlorenVoorwerp(verlorenVoorwerp, station.getStationID());
+		int nieuweVerlorenVoorwerpId= VerlorenVoorwerpDAO.insertVerlorenVoorwerp(verlorenVoorwerp, station.getStationID());
 		assertEquals(Help.verlorenVoorwerpOphalen(verlorenVoorwerp).getVerlorenVoorwerpId(), nieuweVerlorenVoorwerpId); 
 	}
 	@Test
 	public void testGetId() { 
 		VerlorenVoorwerp verlorenVoorwerpTmp=Help.verlorenVoorwerpToevoegen(verlorenVoorwerp, station.getStationID()); 
-		assertEquals(verlorenVoorwerpTmp.getVerlorenVoorwerpId(), verlorenVoorwerpDAO.getId(verlorenVoorwerpTmp));  
+		assertEquals(verlorenVoorwerpTmp.getVerlorenVoorwerpId(), VerlorenVoorwerpDAO.getId(verlorenVoorwerpTmp));  
 	}
 	@Test
 	public void testGetIdMetOnbestaandeVerlorenVoorwerp() { 
-		assertEquals(0, verlorenVoorwerpDAO.getId(verlorenVoorwerp)); 
-	}
-	@Test
-	public void testGetVerlorenVoorwerp() { 
-		VerlorenVoorwerp verlorenVoorwerpTmp=Help.verlorenVoorwerpToevoegen(verlorenVoorwerp, station.getStationID()); 
-		assertEquals(verlorenVoorwerpTmp, verlorenVoorwerpDAO.getVerlorenVoorwerp(verlorenVoorwerpTmp.getVerlorenVoorwerpId()));  
-  
-	}
-	@Test
-	public void testGetVerlorenVoorwerpMetOnbestaandeVerlorenVoorwerpId() { 
-		int onbestaandeVerlorenVoorwerpId=9119;
-		assertNull(verlorenVoorwerpDAO.getVerlorenVoorwerp(onbestaandeVerlorenVoorwerpId));  
-	}
+		assertEquals(0, VerlorenVoorwerpDAO.getId(verlorenVoorwerp)); 
+	} 
 	@Test
 	public void testGetVerlorenVoorwerpByStation() { 
 		Help.verlorenVoorwerpToevoegen(verlorenVoorwerp, station.getStationID()); 
-		assertEquals(1, verlorenVoorwerpDAO.getVerlorenVoorwerpByStation(station.getStationID()).size()); 
+		assertEquals(1, VerlorenVoorwerpDAO.getVerlorenVoorwerpByStation(station.getStationID()).size()); 
 	}@Test
 	public void testGetVerlorenVoorwerpByStationMetOnbestaandeStationId() { 
 		int onbestaandeStationId=9119;
-		 assertEquals(0, verlorenVoorwerpDAO.getVerlorenVoorwerpByStation(onbestaandeStationId).size()); 
+		 assertEquals(0, VerlorenVoorwerpDAO.getVerlorenVoorwerpByStation(onbestaandeStationId).size()); 
 	}
 	
 	private void verlorenVoorwerpVerwijderen() {

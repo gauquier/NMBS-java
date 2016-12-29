@@ -128,6 +128,7 @@ public class AbonnementBeheerGui extends JPanel {
 
 		this.label = new JLabel("Zoeken op naam:");
 		this.label.setForeground(Color.WHITE);
+		this.label.setFont(new Font("Dialog", Font.BOLD, 20));
 
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout
@@ -140,7 +141,7 @@ public class AbonnementBeheerGui extends JPanel {
 														.createParallelGroup(Alignment.TRAILING).addGroup(groupLayout
 																.createSequentialGroup()
 																.addComponent(this.label, GroupLayout.PREFERRED_SIZE,
-																		132, GroupLayout.PREFERRED_SIZE)
+																		175, GroupLayout.PREFERRED_SIZE)
 																.addGap(72).addComponent(this.txtZoekveld,
 																		GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
 														.addComponent(this.list, GroupLayout.DEFAULT_SIZE, 246,
