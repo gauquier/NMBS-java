@@ -56,5 +56,35 @@ public class VerlorenVoorwerp {
 
 		return formatter.format(this.date) + "         " + this.beschrijving;
 	}
+@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((beschrijving == null) ? 0 : beschrijving.hashCode());
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		return result;
+	}
 
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		VerlorenVoorwerp other = (VerlorenVoorwerp) obj;
+		if (beschrijving == null) {
+			if (other.beschrijving != null)
+				return false;
+		} else if (!beschrijving.equals(other.beschrijving))
+			return false;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
+		return true;
+	}
 }
