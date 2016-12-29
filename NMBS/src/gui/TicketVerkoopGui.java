@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,6 +16,7 @@ import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -132,6 +135,9 @@ public class TicketVerkoopGui extends JPanel {
 		this.lblTerugDatum.setForeground(Color.WHITE);
 
 		this.table = new JTable();
+		new SimpleDateFormat("dd");
+		new SimpleDateFormat("MM");
+		new SimpleDateFormat("yyyy");
 		this.lblKlasse.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		this.lblKlasse.setForeground(Color.WHITE);
 		this.klasse.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
@@ -146,6 +152,9 @@ public class TicketVerkoopGui extends JPanel {
 		this.paneTickettenVerkocht.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		this.paneTickettenVerkocht.setBackground((UIManager.getColor("CheckBoxMenuItem.selectionBackground")));
 		this.paneTickettenVerkocht.setVisible(false);
+		
+		heenDatum.setDateFormatString("dd-MM-yyyy");
+		terugDatum.setDateFormatString("dd-MM-yyyy");
 
 		ArrayList<Station> stations;
 
@@ -324,17 +333,17 @@ public class TicketVerkoopGui extends JPanel {
 	public void setTickettenVerkocht(boolean visible) {
 
 		this.paneTickettenVerkocht.setVisible(visible);
-
+		DateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 		this.paneTickettenVerkocht.setText(this.aantal.getValue() + " " + bundle.getString("ticketsSold") + "\n\n"
 				+ bundle.getString("lblVan") + " " + this.comboVan.getSelectedItem() + "\n"
 				+ bundle.getString("lblNaar") + " " + this.comboNaar.getSelectedItem() + "\n"
-				+ bundle.getString("lblDatum") + " " + this.heenDatum.getDateFormatString() + "\n"
-				+ bundle.getString("lblTerugDatum") + " " + this.terugDatum.getDateFormatString() + "\n"
+				+ bundle.getString("lblDatum") + " " + format.format(this.heenDatum.getDate()) + "\n"
+				+ bundle.getString("lblTerugDatum") + " " + format.format(this.terugDatum.getDate()) + "\n"
 				+ bundle.getString("lblKlasse") + " " + this.klasse.getValue() + "\n" + this.getSelectedButton() + "\n"
 				+ bundle.getString("lblSoortBiljet") + " " + this.comboVerkoopType.getSelectedItem() + "\n"
 				+ bundle.getString("lblPrijs") + " " + this.ticket.getPrijs() * this.ticket.getAantal() + "");
 		this.btnPdf.setVisible(visible);
-
+		this.reset();
 	}
 
 	private String getSelectedButton() {
@@ -394,7 +403,23 @@ public class TicketVerkoopGui extends JPanel {
 			JOptionPane.showMessageDialog(new JFrame(), errorText);
 		}
 	}
-
+	
+	
+	
+	public void reset(){
+		comboVan.setSelectedIndex(-1);
+		comboNaar.setSelectedIndex(-1);
+		heenDatum.setDate(new Date());
+		terugDatum.setDate(new Date());
+		comboVerkoopType.setSelectedIndex(0);
+		TicketVerkoopGui.this.txtPrijs.setText(String.valueOf(PrijsDAO.getPrijsByVerkoopType(VerkoopType
+				.VerkoopTypeCasting((String) TicketVerkoopGui.this.comboVerkoopType.getSelectedItem()))));
+		klasse.setValue(2);
+		aantal.setValue(1);
+		rdbtnHeen.setSelected(true);
+	}
+	
+	
 	class ButtonHandler implements ActionListener {
 		private boolean isOffline;
 
@@ -442,6 +467,15 @@ public class TicketVerkoopGui extends JPanel {
 			}
 		}
 
+		/*
+		 * private Date converter(int dag, int maand, int jaar){
+		 * SimpleDateFormat setFormat = new SimpleDateFormat("dd-MM-yyyy");
+		 * String dateString = ""; if(dag < 10){ dateString = dateString + "0";}
+		 * dateString = dateString + dag + "-"; if(maand < 10){ dateString =
+		 * dateString + "0";} dateString = dateString + maand + "-" + jaar; try
+		 * { return setFormat.parse(dateString); } catch (ParseException e) { //
+		 * TODO Auto-generated catch block e.printStackTrace(); } return null; }
+		 */
 		public boolean isOffline() {
 			return this.isOffline;
 		}
