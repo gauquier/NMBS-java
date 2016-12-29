@@ -46,7 +46,7 @@ public class GebruikerBewerkenGui extends JPanel {
 		this.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 
 		JLabel lblGebruikerBewerken = DefaultComponentFactory.getInstance().createTitle("Gebruikers beheren");
-		lblGebruikerBewerken.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblGebruikerBewerken.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		this.arrayLijst = new ArrayList<Medewerker>();
 
@@ -59,6 +59,7 @@ public class GebruikerBewerkenGui extends JPanel {
 		}
 
 		this.txtZoekveld = new JTextField();
+		txtZoekveld.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		this.txtZoekveld.setColumns(10);
 		this.txtZoekveld.getDocument().addDocumentListener(new DocumentListener() {
 
@@ -98,6 +99,7 @@ public class GebruikerBewerkenGui extends JPanel {
 		JScrollPane scrollPane = new JScrollPane(this.list);
 
 		this.label = new JLabel("Zoeken op naam:");
+		label.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		this.label.setForeground(Color.WHITE);
 
 		GroupLayout groupLayout = new GroupLayout(this);

@@ -53,7 +53,7 @@ public class AbonnementToevoegenGui extends JPanel {
 		this.btnAanmaken.addActionListener(new MenuItemHandler());
 
 		JLabel lblAbonnementAanmaken = DefaultComponentFactory.getInstance().createTitle("Abonnement aanmaken");
-		lblAbonnementAanmaken.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblAbonnementAanmaken.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		JLabel lblKlant = new JLabel("Klant:");
 		lblKlant.setForeground(Color.WHITE);

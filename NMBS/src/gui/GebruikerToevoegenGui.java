@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -37,6 +38,7 @@ public class GebruikerToevoegenGui extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -83102949843216643L;
+	private static ResourceBundle bundle;
 	private JTextField txtVoornaam;
 	private JTextField txtAchternaam;
 	private JTextField txtStraat;
@@ -71,6 +73,7 @@ public class GebruikerToevoegenGui extends JPanel {
 	private Border border = BorderFactory.createEmptyBorder();
 	private Border bordererror = BorderFactory.createLineBorder(Color.RED, 3);
 	private JLabel lblUsernameError;
+	private boolean checkvoornaam, checkachternaam, checkstraat, checkhuisnr, checkbus, checkgemeente, checkpostcode, checkemail;
 
 	public GebruikerToevoegenGui() {
 		this.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
@@ -444,6 +447,7 @@ public class GebruikerToevoegenGui extends JPanel {
 				GebruikerToevoegenGui.this.txtEmail.setBorder(GebruikerToevoegenGui.this.border);
 				GebruikerToevoegenGui.this.lblBusError.setText("");
 				GebruikerToevoegenGui.this.txtBus.setBorder(GebruikerToevoegenGui.this.border);
+				checkbus = true;
 
 				if (!GebruikerToevoegenGui.this.txtVoornaam.getText().isEmpty()
 						&& !GebruikerToevoegenGui.this.txtAchternaam.getText().isEmpty()
@@ -464,41 +468,52 @@ public class GebruikerToevoegenGui extends JPanel {
 							GebruikerToevoegenGui.this.lblVoornaamError
 									.setText("Gelieve een juist voornaam in te vullen!");
 							GebruikerToevoegenGui.this.txtVoornaam.setBorder(GebruikerToevoegenGui.this.bordererror);
+							checkvoornaam = false;
 						}
 						if (!Validation.checkLastName(GebruikerToevoegenGui.this.txtAchternaam.getText())) {
 							GebruikerToevoegenGui.this.lblAchternaamError
 									.setText("Gelieve een juist achternaam in te vullen!");
 							GebruikerToevoegenGui.this.txtAchternaam.setBorder(GebruikerToevoegenGui.this.bordererror);
+							checkachternaam = false;
 						}
 						if (!Validation.checkAlphabetical(GebruikerToevoegenGui.this.txtStraat.getText())) {
 							GebruikerToevoegenGui.this.lblStraatError.setText("Gelieve een juist straat in te vullen!");
 							GebruikerToevoegenGui.this.txtStraat.setBorder(GebruikerToevoegenGui.this.bordererror);
+							checkstraat = false;
 						}
 						if (!Validation.checkHouseNumber(GebruikerToevoegenGui.this.txtHuisnr.getText())) {
 							GebruikerToevoegenGui.this.lblHuisnrError
 									.setText("Gelieve een juist huisnummer in te vullen!");
 							GebruikerToevoegenGui.this.txtHuisnr.setBorder(GebruikerToevoegenGui.this.bordererror);
+							checkhuisnr = false;
 						}
 						if (!Validation.checkAlphabetical(GebruikerToevoegenGui.this.txtGemeente.getText())) {
 							GebruikerToevoegenGui.this.lblGemeenteError
 									.setText("Gelieve een juiste gemeente in te vullen!");
 							GebruikerToevoegenGui.this.txtGemeente.setBorder(GebruikerToevoegenGui.this.bordererror);
+							checkgemeente = false;
 						}
 						if (!Validation.checkPostalCode(GebruikerToevoegenGui.this.txtPostcode.getText())) {
 							GebruikerToevoegenGui.this.lblPostcodeError
 									.setText("Gelieve een juiste postocde in te vullen!");
 							GebruikerToevoegenGui.this.txtPostcode.setBorder(GebruikerToevoegenGui.this.bordererror);
+							checkpostcode = false;
 						}
 						if (!GebruikerToevoegenGui.this.txtEmail.getText().isEmpty()
 								&& !Validation.checkEmail(GebruikerToevoegenGui.this.txtEmail.getText())) {
 							GebruikerToevoegenGui.this.lblEmailError
 									.setText("Gelieve een juist emailadres in te vullen!");
 							GebruikerToevoegenGui.this.txtEmail.setBorder(GebruikerToevoegenGui.this.bordererror);
+							checkemail = false;
 						}
 						if (!GebruikerToevoegenGui.this.txtBus.getText().isEmpty()
 								&& !Validation.checkBoxNumber(GebruikerToevoegenGui.this.txtBus.getText())) {
 							GebruikerToevoegenGui.this.lblBusError.setText("Gelieve een juiste bus in te vullen!");
 							GebruikerToevoegenGui.this.txtBus.setBorder(GebruikerToevoegenGui.this.bordererror);
+							checkbus = false;
+						}
+						if (checkvoornaam == false || checkachternaam == false || checkstraat == false || checkhuisnr == false || checkgemeente == false || checkpostcode == false || checkemail == false || checkbus == false){
+							return;
 						}
 						if (!Validation.checkUsername(GebruikerToevoegenGui.this.txtUsername.getText())) {
 							GebruikerToevoegenGui.this.lblUsernameError
