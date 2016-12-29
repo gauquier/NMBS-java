@@ -126,7 +126,8 @@ public class TicketVerkoopGui extends JPanel {
 		this.buttonGroup.add(this.rdbtnHeen);
 		this.buttonGroup.add(this.rdbtnHeenEnTerug);
 		this.buttonGroup.setSelected(this.rdbtnHeen.getModel(), true);
-
+		this.rdbtnHeen.setBackground(new Color(51, 153, 255));
+		this.rdbtnHeenEnTerug.setBackground(new Color(51, 153, 255));
 		JLabel lblTicketVerkoop = DefaultComponentFactory.getInstance()
 				.createTitle(bundle.getString("lblTicketVerkoop"));
 		lblTicketVerkoop.setFont(new Font("Tahoma", Font.PLAIN, 20));
@@ -336,7 +337,7 @@ public class TicketVerkoopGui extends JPanel {
 	}
 
 	private String getSelectedButton() {
-		if (this.buttonGroup.isSelected(this.rdbtnHeen.getModel())) {
+		if (this.rdbtnHeen.isSelected()) {
 			return bundle.getString("rdbtnHeen");
 		} else {
 			return bundle.getString("rdbtnHeenEnTerug");
@@ -492,7 +493,6 @@ public class TicketVerkoopGui extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			System.out.println("printed how many times?");
 			Pdf.TicketGenerator(TicketVerkoopGui.this.ticket);
 
 		}
