@@ -170,6 +170,9 @@ public class TicketVerkoopGui extends JPanel {
 		}
 		this.comboNaar.setKeyWord(stationNamen);
 		this.comboVan.setKeyWord(stationNamen);
+		comboVan.setSelectedItem(Station.getCurrentStation());
+
+
 
 		this.txtPrijs = new JTextField();
 		this.txtPrijs.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
@@ -410,7 +413,7 @@ public class TicketVerkoopGui extends JPanel {
 	
 	
 	public void reset(){
-		comboVan.setSelectedIndex(-1);
+		comboVan.setSelectedItem(Station.getCurrentStation());
 		comboNaar.setSelectedIndex(-1);
 		heenDatum.setDate(new Date());
 		terugDatum.setDate(new Date());
