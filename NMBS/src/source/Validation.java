@@ -25,7 +25,7 @@ public class Validation {
 	}
 
 	public static boolean checkHouseNumber(String name) {
-		String regex = "[1-9][0-9]{0,3}[A-Za-z]{0,2}";
+		String regex = "[1-9][0-9]{0,3}{0,2}";
 		if (Pattern.matches(regex, name)) {
 			return true;
 		} else {

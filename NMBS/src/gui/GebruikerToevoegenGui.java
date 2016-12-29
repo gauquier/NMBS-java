@@ -73,7 +73,7 @@ public class GebruikerToevoegenGui extends JPanel {
 	private Border border = BorderFactory.createEmptyBorder();
 	private Border bordererror = BorderFactory.createLineBorder(Color.RED, 3);
 	private JLabel lblUsernameError;
-	private boolean checkvoornaam, checkachternaam, checkstraat, checkhuisnr, checkbus, checkgemeente, checkpostcode, checkemail;
+	private boolean checkvoornaam = true, checkachternaam = true, checkstraat = true, checkhuisnr = true, checkbus = true, checkgemeente = true, checkpostcode = true, checkemail = true;
 
 	public GebruikerToevoegenGui() {
 		this.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
@@ -419,35 +419,41 @@ public class GebruikerToevoegenGui extends JPanel {
 									.setText("Gelieve een juist voornaam in te vullen!");
 							GebruikerToevoegenGui.this.txtVoornaam.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkvoornaam = false;
+							System.out.println("hier zit em1");
 						}
 						if (!Validation.checkLastName(GebruikerToevoegenGui.this.txtAchternaam.getText())) {
 							GebruikerToevoegenGui.this.lblAchternaamError
 									.setText("Gelieve een juist achternaam in te vullen!");
 							GebruikerToevoegenGui.this.txtAchternaam.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkachternaam = false;
+							System.out.println("hier zit em2");
 						}
 						if (!Validation.checkAlphabetical(GebruikerToevoegenGui.this.txtStraat.getText())) {
 							GebruikerToevoegenGui.this.lblStraatError.setText("Gelieve een juist straat in te vullen!");
 							GebruikerToevoegenGui.this.txtStraat.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkstraat = false;
+							System.out.println("hier zit em3");
 						}
 						if (!Validation.checkHouseNumber(GebruikerToevoegenGui.this.txtHuisnr.getText())) {
 							GebruikerToevoegenGui.this.lblHuisnrError
 									.setText("Gelieve een juist huisnummer in te vullen!");
 							GebruikerToevoegenGui.this.txtHuisnr.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkhuisnr = false;
+							System.out.println("hier zit em4");
 						}
 						if (!Validation.checkAlphabetical(GebruikerToevoegenGui.this.txtGemeente.getText())) {
 							GebruikerToevoegenGui.this.lblGemeenteError
 									.setText("Gelieve een juiste gemeente in te vullen!");
 							GebruikerToevoegenGui.this.txtGemeente.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkgemeente = false;
+							System.out.println("hier zit em5");
 						}
 						if (!Validation.checkPostalCode(GebruikerToevoegenGui.this.txtPostcode.getText())) {
 							GebruikerToevoegenGui.this.lblPostcodeError
 									.setText("Gelieve een juiste postocde in te vullen!");
 							GebruikerToevoegenGui.this.txtPostcode.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkpostcode = false;
+							System.out.println("hier zit em6");
 						}
 						if (!GebruikerToevoegenGui.this.txtEmail.getText().isEmpty()
 								&& !Validation.checkEmail(GebruikerToevoegenGui.this.txtEmail.getText())) {
@@ -455,12 +461,14 @@ public class GebruikerToevoegenGui extends JPanel {
 									.setText("Gelieve een juist emailadres in te vullen!");
 							GebruikerToevoegenGui.this.txtEmail.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkemail = false;
+							System.out.println("hier zit em7");
 						}
 						if (!GebruikerToevoegenGui.this.txtBus.getText().isEmpty()
 								&& !Validation.checkBoxNumber(GebruikerToevoegenGui.this.txtBus.getText())) {
 							GebruikerToevoegenGui.this.lblBusError.setText("Gelieve een juiste bus in te vullen!");
 							GebruikerToevoegenGui.this.txtBus.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkbus = false;
+							System.out.println("hier zit em8");
 						}
 						if (checkvoornaam == false || checkachternaam == false || checkstraat == false || checkhuisnr == false || checkgemeente == false || checkpostcode == false || checkemail == false || checkbus == false){
 							return;
@@ -469,7 +477,7 @@ public class GebruikerToevoegenGui extends JPanel {
 							GebruikerToevoegenGui.this.lblUsernameError
 									.setText("Een username mag niet enkel nummers bevatten!");
 							GebruikerToevoegenGui.this.txtUsername.setBorder(GebruikerToevoegenGui.this.bordererror);
-						} else {
+						}
 							try {
 								GebruikerToevoegenGui.this.login = new Login(
 										GebruikerToevoegenGui.this.txtUsername.getText().trim(),
@@ -526,5 +534,4 @@ public class GebruikerToevoegenGui extends JPanel {
 				}
 			}
 		}
-	}
 }
