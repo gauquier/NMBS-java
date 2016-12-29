@@ -1,44 +1,51 @@
 package gui;
 
-import java.awt.Color;
-import java.awt.Font;
+import dao.PersoonDao;
+import source.Abonnement;
+import source.Adres;
+import dao.AbonnementDAO;
+import dao.KlantDAO;
+import source.Klant;
+import source.Persoon;
+
+import javax.swing.JPanel;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.UIManager;
-
+import java.awt.Color;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
-
-import dao.AbonnementDAO;
-import dao.KlantDAO;
-import source.Abonnement;
-import source.Klant;
+import java.awt.Font;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JPasswordField;
 
 
 public class KlantBewerkenGui extends JPanel {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2857650813142011039L;
-	private JTextField textField;
-	private JButton btnZoeken;
+	private JTextField txtZoeken;
 	private JButton btnBewerken;
 	private JList<Klant> list;
 	private ArrayList<Klant> arrayLijst;
+	private DefaultListModel<Klant> dlm;
 	private JButton btnVerwijderen;
 	public String navigation;
 	public String newline = System.getProperty("line.separator");
@@ -47,7 +54,7 @@ public class KlantBewerkenGui extends JPanel {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
 		JLabel lblKlantBewerken = DefaultComponentFactory.getInstance().createTitle("Klanten beheren");
-		lblKlantBewerken.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblKlantBewerken.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		
 		arrayLijst= new ArrayList<Klant>();
@@ -56,7 +63,7 @@ public class KlantBewerkenGui extends JPanel {
 		
 		
 		
-		DefaultListModel<Klant> dlm = new DefaultListModel<Klant>();
+		dlm = new DefaultListModel<Klant>();
 		
 		
 		for(Klant m : arrayLijst)
@@ -65,7 +72,8 @@ public class KlantBewerkenGui extends JPanel {
 		}
 		
 		list = new JList<Klant>(dlm);
-		list.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
+		JScrollPane scrollPane = new JScrollPane(list);
+		scrollPane.setViewportView(list);
 		
 		list.addMouseListener(new MouseAdapter() {
 		    public void mouseClicked(MouseEvent evt) {
@@ -76,23 +84,40 @@ public class KlantBewerkenGui extends JPanel {
 		    }
 		});
 		
-		textField = new JTextField();
-		textField.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
-		textField.setColumns(10);
-		
-		btnZoeken = new JButton("Zoeken");
-		btnZoeken.setFont(new Font("Dialog", Font.BOLD, 20));
-		btnZoeken.setBackground(Color.ORANGE);
+		txtZoeken = new JTextField();
+		txtZoeken.setColumns(10);
+		txtZoeken.getDocument().addDocumentListener(new DocumentListener(){
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				
+				updateLijst();
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				updateLijst();
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				updateLijst();
+			}	
+			
+		});
 		
 		btnBewerken = new JButton("Bewerken");
-		btnBewerken.setFont(new Font("Dialog", Font.BOLD, 20));
+		btnBewerken.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnBewerken.setBackground(Color.ORANGE);
 		btnBewerken.addActionListener(new MenuItemHandler());
 		
 		btnVerwijderen = new JButton("Verwijderen");
-		btnVerwijderen.setFont(new Font("Dialog", Font.BOLD, 20));
+		btnVerwijderen.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnVerwijderen.setBackground(Color.ORANGE);
 		btnVerwijderen.addActionListener(new MenuItemHandler());
+		
+		JLabel lblZoekenOpNaam = new JLabel("Zoeken op naam:");
+		lblZoekenOpNaam.setForeground(Color.WHITE);
 		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -102,36 +127,35 @@ public class KlantBewerkenGui extends JPanel {
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblKlantBewerken)
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(btnZoeken)
-									.addGap(18)
-									.addComponent(textField, GroupLayout.PREFERRED_SIZE, 174, GroupLayout.PREFERRED_SIZE)
-									.addGap(0, 0, Short.MAX_VALUE))
-								.addComponent(list, GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE))
+							.addComponent(lblZoekenOpNaam, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+							.addComponent(txtZoeken, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(list, GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)))
-					.addGap(25)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+					.addGap(10)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnVerwijderen, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnBewerken, GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE))
+						.addComponent(btnBewerken, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(12)
-					.addComponent(lblKlantBewerken)
-					.addGap(27)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnZoeken)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))
-					.addGap(12)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(list, GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGap(12)
+							.addComponent(lblKlantBewerken)
+							.addGap(27)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(txtZoeken, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblZoekenOpNaam))
+							.addGap(12)
+							.addComponent(list, GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(97)
 							.addComponent(btnBewerken)
-							.addGap(14)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(btnVerwijderen)))
 					.addContainerGap())
 		);
@@ -193,12 +217,35 @@ public class KlantBewerkenGui extends JPanel {
 		return false;
 	}
 	
+	public void updateLijst(){
+		ArrayList <Klant> t = new ArrayList<Klant>();
+		if(!txtZoeken.getText().isEmpty()){
+			
+			for(int i=0;i<arrayLijst.size();i++){
+				if(arrayLijst.get(i).getNaam().toLowerCase().contains(txtZoeken.getText().toLowerCase())){
+					t.add(arrayLijst.get(i));
+				}
+				
+			}
+		} else {
+			t=arrayLijst;
+		}
+		
+		
+	
+		dlm.clear();
+		for(Klant m: t){
+			dlm.addElement(m);
+		}
+		
+		list.setModel(dlm);
+	}
+	
 	private class MenuItemHandler implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-		
-		
+	
 			
 			if (e.getSource() == btnBewerken) {
 				
