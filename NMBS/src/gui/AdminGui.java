@@ -231,7 +231,7 @@ public class AdminGui extends JFrame {
 			}
 			else if (e.getSource() == gebruikersBeheer) {	
 				navigation= "gebruikersBeheer";
-				setHuidigeKeuze(new GebruikersBeheerGui());
+				setHuidigeKeuze(new GebruikerBewerkenGui());
 			}
 		
 			else if (e.getSource() == klantenToevoegen) {	
