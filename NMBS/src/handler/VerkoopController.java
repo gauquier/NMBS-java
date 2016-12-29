@@ -53,7 +53,7 @@ public class VerkoopController {
 		} else {
 			heenDatum = false;
 		}
-		if (Integer.parseInt(compareFormat.format(ticket.getTerugDatum())) >= Integer
+		if (ticket.getTerugDatum() == null || Integer.parseInt(compareFormat.format(ticket.getTerugDatum())) >= Integer
 				.parseInt(compareFormat.format(ticket.getHeenDatum()))
 				&& Integer.parseInt(compareFormat.format(ticket.getTerugDatum())) >= Integer
 						.parseInt(compareFormat.format(new Date()))) {

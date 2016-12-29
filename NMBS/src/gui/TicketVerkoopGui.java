@@ -5,6 +5,10 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.InputMethodEvent;
+import java.awt.event.InputMethodListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.DateFormat;
@@ -121,8 +125,10 @@ public class TicketVerkoopGui extends JPanel {
 		this.rdbtnHeen.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 
 		this.rdbtnHeen.setForeground(Color.BLACK);
+		rdbtnHeen.addActionListener(new TerugDatumListener());
 		this.rdbtnHeenEnTerug.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		this.rdbtnHeenEnTerug.setForeground(Color.BLACK);
+		rdbtnHeenEnTerug.addActionListener(new TerugDatumListener());
 		this.buttonGroup.add(this.rdbtnHeen);
 		this.buttonGroup.add(this.rdbtnHeenEnTerug);
 		this.buttonGroup.setSelected(this.rdbtnHeen.getModel(), true);
@@ -157,7 +163,7 @@ public class TicketVerkoopGui extends JPanel {
 		
 		heenDatum.setDateFormatString("dd-MM-yyyy");
 		terugDatum.setDateFormatString("dd-MM-yyyy");
-
+		terugDatum.setEnabled(false);
 		ArrayList<Station> stations;
 
 		if (!isOffline) {
@@ -426,7 +432,7 @@ public class TicketVerkoopGui extends JPanel {
 						|| TicketVerkoopGui.this.comboVan.getSelectedItem() == null) {
 					JOptionPane.showMessageDialog(new JFrame(), "Vul alle velden in!");
 				} else {
-
+					
 					if (!this.isOffline) {
 
 						TicketVerkoopGui.this.ticket = new Ticket(0,
@@ -439,7 +445,7 @@ public class TicketVerkoopGui extends JPanel {
 										(String) TicketVerkoopGui.this.comboVerkoopType.getSelectedItem()),
 								0, (int) TicketVerkoopGui.this.klasse.getValue(),
 								(int) TicketVerkoopGui.this.aantal.getValue(), Calendar.getInstance().getTime(),
-								TicketVerkoopGui.this.heenDatum.getDate(), TicketVerkoopGui.this.terugDatum.getDate());
+								TicketVerkoopGui.this.heenDatum.getDate(), rdbtnHeen.isSelected()? null : TicketVerkoopGui.this.terugDatum.getDate());
 					} else {
 						TicketVerkoopGui.this.ticket = new Ticket(0, 0,
 								(String) TicketVerkoopGui.this.comboVan.getSelectedItem(),
@@ -449,7 +455,7 @@ public class TicketVerkoopGui extends JPanel {
 										(String) TicketVerkoopGui.this.comboVerkoopType.getSelectedItem()),
 								0, (int) TicketVerkoopGui.this.klasse.getValue(),
 								(int) TicketVerkoopGui.this.aantal.getValue(), Calendar.getInstance().getTime(),
-								TicketVerkoopGui.this.heenDatum.getDate(), TicketVerkoopGui.this.terugDatum.getDate());
+								TicketVerkoopGui.this.heenDatum.getDate(), rdbtnHeen.isSelected()? null : TicketVerkoopGui.this.terugDatum.getDate());
 					}
 					VerkoopController.ticketValidate(TicketVerkoopGui.this.ticket, TicketVerkoopGui.this,
 							this.isOffline);
@@ -487,7 +493,20 @@ public class TicketVerkoopGui extends JPanel {
 			}
 		}
 	}
-
+	class TerugDatumListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			if(rdbtnHeen.isSelected()){
+				terugDatum.setEnabled(false);
+				terugDatum.setDate(heenDatum.getDate());
+			}
+			else{
+				terugDatum.setEnabled(true);
+				terugDatum.setDate(heenDatum.getDate());
+			}
+		}
+		
+	}
 	class PdfListener implements ActionListener {
 
 		@Override

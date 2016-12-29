@@ -156,7 +156,7 @@ public class KlantDAOTest {
 				persoon.getVoornaam(), 
 				persoon.getAchternaam(), 
 				persoon.getEmail(), 
-				adres, 
+				adres, 0,
 				info, 
 				false) ;
 		nieuweKant.setKlantId((int)map.get(0)[0]);

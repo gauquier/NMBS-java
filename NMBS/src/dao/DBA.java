@@ -132,8 +132,19 @@ public class DBA {
 			System.out.println("can only add values when type = INSERT");
 		}
 	}
+	public void addValue() {
+		if (this.type == Type.INSERT) {
+			this.sql = this.sql + ", " + null;
+		} else {
+			System.out.println("can only add values when type = INSERT");
+		}
+	}
 
 	public void addValue(Date value) {
+		if(value == null){
+			addValue();
+		}
+		else{
 		String ss = "";
 		if (value.getDate() < 0) {
 			ss = ss + "0";
@@ -144,6 +155,7 @@ public class DBA {
 		}
 		ss = ss + value.getMonth() + "-" + (value.getYear() + 1900);
 		this.addValue(ss);
+		}
 	}
 
 	/*
@@ -222,6 +234,8 @@ public class DBA {
 	}
 
 	public void addWhere(String columnName, Date value) {
+		if(value != null)
+		{
 		String ss = "";
 		if (value.getDate() < 0) {
 			ss = ss + "0";
@@ -232,6 +246,7 @@ public class DBA {
 		}
 		ss = ss + value.getMonth() + "-" + (value.getYear() + 1900);
 		this.addWhere(columnName, ss);
+		}
 	}
 
 	public ResultSet commit() {
