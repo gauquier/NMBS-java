@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -37,6 +38,7 @@ public class GebruikerToevoegenGui extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -83102949843216643L;
+	private static ResourceBundle bundle;
 	private JTextField txtVoornaam;
 	private JTextField txtAchternaam;
 	private JTextField txtStraat;
@@ -71,6 +73,7 @@ public class GebruikerToevoegenGui extends JPanel {
 	private Border border = BorderFactory.createEmptyBorder();
 	private Border bordererror = BorderFactory.createLineBorder(Color.RED, 3);
 	private JLabel lblUsernameError;
+	private boolean checkvoornaam, checkachternaam, checkstraat, checkhuisnr, checkbus, checkgemeente, checkpostcode, checkemail;
 
 	public GebruikerToevoegenGui() {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
@@ -380,20 +383,28 @@ public class GebruikerToevoegenGui extends JPanel {
 			if (e.getSource() == btnToevoegen) {
 				lblVoornaamError.setText("");
 				txtVoornaam.setBorder(border);
+				checkvoornaam = true;
 				lblAchternaamError.setText("");
 				txtAchternaam.setBorder(border);
+				checkachternaam = true;
 				lblStraatError.setText("");
 				txtStraat.setBorder(border);
+				checkstraat = true;
 				lblHuisnrError.setText("");
 				txtHuisnr.setBorder(border);
+				checkhuisnr = true;
 				lblGemeenteError.setText("");
 				txtGemeente.setBorder(border);
+				checkgemeente = true;
 				lblPostcodeError.setText("");
 				txtPostcode.setBorder(border);
+				checkpostcode = true;
 				lblEmailError.setText("");
 				txtEmail.setBorder(border);
+				checkemail = true;
 				lblBusError.setText("");
 				txtBus.setBorder(border);
+				checkbus = true;
 
 				if (!txtVoornaam.getText().isEmpty() && !txtAchternaam.getText().isEmpty()
 						&& !txtPassword.getText().isEmpty() && !txtUsername.getText().isEmpty()
@@ -407,41 +418,49 @@ public class GebruikerToevoegenGui extends JPanel {
 						return;
 					} else {
 						if (!Validation.checkFirstName(txtVoornaam.getText())) {
-							lblVoornaamError.setText("Gelieve een juist voornaam in te vullen!");
+							lblVoornaamError.setText(bundle.getString("lblVoornaamError"));
 							txtVoornaam.setBorder(bordererror);
+							checkvoornaam = false;
 						}
 						if (!Validation.checkLastName(txtAchternaam.getText())) {
-							lblAchternaamError.setText("Gelieve een juist achternaam in te vullen!");
+							lblAchternaamError.setText(bundle.getString("lblAchternaamError"));
 							txtAchternaam.setBorder(bordererror);
+							checkachternaam = false;
 						}
 						if (!Validation.checkAlphabetical(txtStraat.getText())) {
-							lblStraatError.setText("Gelieve een juist straat in te vullen!");
+							lblStraatError.setText(bundle.getString("lblStraatError"));
 							txtStraat.setBorder(bordererror);
+							checkstraat = false;
 						}
 						if (!Validation.checkHouseNumber(txtHuisnr.getText())) {
-							lblHuisnrError.setText("Gelieve een juist huisnummer in te vullen!");
+							lblHuisnrError.setText(bundle.getString("lblHuisnrError"));
 							txtHuisnr.setBorder(bordererror);
+							checkhuisnr = false;
 						}
 						if (!Validation.checkAlphabetical(txtGemeente.getText())) {
-							lblGemeenteError.setText("Gelieve een juiste gemeente in te vullen!");
+							lblGemeenteError.setText(bundle.getString("lblGemeenteError"));
 							txtGemeente.setBorder(bordererror);
+							checkgemeente = false;
 						}
 						if (!Validation.checkPostalCode(txtPostcode.getText())) {
-							lblPostcodeError.setText("Gelieve een juiste postocde in te vullen!");
+							lblPostcodeError.setText(bundle.getString("lblPostcodeError"));
 							txtPostcode.setBorder(bordererror);
+							checkpostcode = false;
 						}
 						if (!txtEmail.getText().isEmpty() && !Validation.checkEmail(txtEmail.getText())) {
-							lblEmailError.setText("Gelieve een juist emailadres in te vullen!");
+							lblEmailError.setText(bundle.getString("lblEmailError"));
 							txtEmail.setBorder(bordererror);
+							checkemail = false;
 						}
 						if (!txtBus.getText().isEmpty() && !Validation.checkBoxNumber(txtBus.getText())) {
-							lblBusError.setText("Gelieve een juiste bus in te vullen!");
+							lblBusError.setText(bundle.getString("lblBusError"));
 							txtBus.setBorder(bordererror);
+							checkbus = false;
 						}
-						if (!Validation.checkUsername(txtUsername.getText())) {
-							lblUsernameError.setText("Een username mag niet enkel nummers bevatten!");
-							txtUsername.setBorder(bordererror);
-						} else {
+						if (checkvoornaam == false || checkachternaam == false || checkstraat == false || checkhuisnr == false || checkgemeente == false || checkpostcode == false || checkemail == false || checkbus == false){
+							return;
+						}
+						else {
 							try {
 								login = new Login(txtUsername.getText().trim(), DualHash.hashString(txtPassword.getText().trim()));
 							} catch (Exception e1) {
