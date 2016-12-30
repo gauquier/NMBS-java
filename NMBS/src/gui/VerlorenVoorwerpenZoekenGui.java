@@ -17,8 +17,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 import java.util.ArrayList;
-
-
+import java.util.ResourceBundle;
 
 import javax.swing.DefaultListModel;
 
@@ -62,6 +61,8 @@ import source.VerlorenVoorwerp;
 
 public class VerlorenVoorwerpenZoekenGui extends JPanel {
 
+	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.VerlorenVoorwerpenZoekenGui");
+	
 	private int huidigeRol=MedewerkerDAO.getMedewerkerByLogin(LoginDao.getLoginId(Login.getCurrentUser()))
 			.getRol().getRolId();
 
@@ -89,7 +90,7 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 
 
 
-		JLabel lblStation = new JLabel("Station:");
+		JLabel lblStation = new JLabel(bundle.getString("lblStation"));
 
 		lblStation.setFont(new Font("Dialog", Font.PLAIN, 20));
 
@@ -99,7 +100,7 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 
 		JLabel lblVerlorenVoorwerpenZoeken = DefaultComponentFactory.getInstance()
 
-				.createTitle("Verloren voorwerpen zoeken");
+				.createTitle(bundle.getString("lblVerlorenVoorwerpenZoeken"));
 
 		lblVerlorenVoorwerpenZoeken.setForeground(Color.BLACK);
 
@@ -184,7 +185,7 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 
 
 
-		this.btnBewerken = new JButton("gevonden");
+		this.btnBewerken = new JButton(bundle.getString("btnBewerken"));
 		btnBewerken.setFont(new Font("Dialog", Font.BOLD, 20));
 
 		this.btnBewerken.addActionListener(new MenuItemHandler());
@@ -255,7 +256,7 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 
 				if (VerlorenVoorwerpenZoekenGui.this.list.getSelectedValue() == null) {
 
-					JOptionPane.showMessageDialog(new JFrame(), "Geen verloren voorwerp aangeduid.");
+					JOptionPane.showMessageDialog(new JFrame(), bundle.getString("noItemSelected"));
 
 				} else {
 
@@ -265,7 +266,7 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 
 							VerlorenVoorwerpDAO.getId(VerlorenVoorwerpenZoekenGui.this.list.getSelectedValue()));
 
-					JOptionPane.showMessageDialog(new JFrame(), "Verloren voorwerp gevonden");
+					JOptionPane.showMessageDialog(new JFrame(), bundle.getString("itemFound"));
 
 					if(huidigeRol==1){
 						AdminGui.setHuidigeKeuze(new VerlorenVoorwerpenZoekenGui());
