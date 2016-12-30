@@ -73,12 +73,16 @@ public abstract class URLHelper {
 	{
 		StringBuilder builder = new StringBuilder();
         builder.append(input);
-		for(int i = 0; i< input.length();i++)
+        int lengte = input.length();
+		for(int i = 0; i< lengte;i++)
 		{
 			if(input.charAt(i)==' '||input.charAt(i)=='-' )
 			{
 				 builder.deleteCharAt(i);
 				builder.insert(i,"%20");
+				System.out.println(builder);
+				i=i+2;
+				lengte=lengte+2;
 			}
 		}
 		return builder.toString();
