@@ -24,6 +24,34 @@ public class Vertrek {
 	public void setVertraging(int vertraging) {
 		this.vertraging = vertraging;
 	}
+	public String getStation() {
+		return station;
+	}
+	public int getVertraging() {
+		return vertraging;
+	}
+	public String getRichting() {
+		return richting;
+	}
+	public String getTijd() {
+		return tijd;
+	}
+	public String getDatum() {
+		return datum;
+	}
+	public String getTrein() {
+		return trein;
+	}
+	public String getPerron() {
+		if(perron > 0)
+		{
+		return Integer.toString(perron);
+		}
+		return "/";
+	}
+	public boolean isCanceled() {
+		return canceled;
+	}
 	public void setRichting(String richting) {
 		this.richting = richting;
 	}

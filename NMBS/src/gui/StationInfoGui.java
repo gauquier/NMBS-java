@@ -10,10 +10,9 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import javax.swing.JTextField;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.UIManager;
 import java.awt.Color;
@@ -22,32 +21,32 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
-import api.Trip;
-import api.TripLoader;
+
 import dao.StationDAO;
 import source.Station;
 import api.BillBoard;
 import api.BillBoardLoader;
-import com.toedter.calendar.JDateChooser;
-import javax.swing.ListModel;
-import java.awt.SystemColor;
-import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 
 public class StationInfoGui extends JPanel {
 	private JTextField txtTijd;
 	private JButton btnZoeken;
 	private JComboBox<String> cmbbStation;
-	private JList<String> list;
 	private StationDAO stationDAO = new StationDAO();
 	private ArrayList<BillBoard> billBoardLijst;
-	private JDateChooser dateChooser = new JDateChooser();
 	private DefaultListModel<BillBoard> dlm;
+	private JTable table;
+	private JLabel lblTijdstip;
+	private JLabel lblRichting;
+	private JLabel lblPerron;
+	private JLabel lblTrein;
+	private JLabel lblAfgeschaft;
 	public StationInfoGui() {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
@@ -59,9 +58,6 @@ public class StationInfoGui extends JPanel {
 		for (Station station : lijst) {
 			cmbbStation.addItem(station.getNaam());
 		}
-		 
-		JLabel lblDatum = new JLabel("Datum");
-		lblDatum.setForeground(Color.WHITE);
 		
 		JLabel lblTijd = new JLabel("Tijd");
 		lblTijd.setForeground(Color.WHITE);
@@ -73,43 +69,61 @@ public class StationInfoGui extends JPanel {
 		
 		btnZoeken = new JButton("Zoeken");
 		btnZoeken.addActionListener(new MenuItemHandler());
-		
 		JLabel lblStationInfo = DefaultComponentFactory.getInstance().createTitle("Station info");
 		
-		dateChooser.setDate(new Date());
-		dateChooser.setDateFormatString("dd-MM-yyyy");
+		table = new JTable();
 		
-		list = new JList<String>();
-		list.setBackground(SystemColor.menu);	
+		lblTijdstip = new JLabel("Tijdstip");
+		
+		lblRichting = new JLabel("Richting");
+		
+		lblPerron = new JLabel("Perron");
+		
+		lblTrein = new JLabel("Trein");
+		
+		lblAfgeschaft = new JLabel("Afgeschaft");
 		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(65)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblStation)
-						.addComponent(lblDatum)
-						.addComponent(lblTijd))
-					.addGap(30)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(cmbbStation, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(37)
+							.addComponent(lblStationInfo))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(65)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(txtTijd, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, 116, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED, 205, Short.MAX_VALUE)))
-					.addGap(65)
-					.addComponent(btnZoeken)
-					.addGap(304))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(37)
-					.addComponent(lblStationInfo)
-					.addContainerGap(629, Short.MAX_VALUE))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(list, GroupLayout.PREFERRED_SIZE, 701, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								.addComponent(table, GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addComponent(lblStation)
+												.addComponent(lblTijd))
+											.addGap(30)
+											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addComponent(txtTijd, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addGroup(groupLayout.createSequentialGroup()
+													.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+														.addComponent(cmbbStation, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE)
+														.addGroup(groupLayout.createSequentialGroup()
+															.addGap(110)
+															.addComponent(lblRichting)))
+													.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+														.addGroup(groupLayout.createSequentialGroup()
+															.addGap(65)
+															.addComponent(btnZoeken))
+														.addGroup(groupLayout.createSequentialGroup()
+															.addGap(109)
+															.addComponent(lblPerron))))))
+										.addComponent(lblTijdstip))
+									.addPreferredGap(ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
+									.addComponent(lblTrein)
+									.addGap(100)
+									.addComponent(lblAfgeschaft)
+									.addGap(47)))))
+					.addGap(36))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -121,17 +135,20 @@ public class StationInfoGui extends JPanel {
 						.addComponent(lblStation)
 						.addComponent(cmbbStation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnZoeken))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblDatum)
-						.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(8)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtTijd, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblTijd))
 					.addGap(18)
-					.addComponent(list, GroupLayout.PREFERRED_SIZE, 237, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblTijd)
+						.addComponent(txtTijd, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblTijdstip)
+						.addComponent(lblTrein)
+						.addComponent(lblAfgeschaft)
+						.addComponent(lblRichting)
+						.addComponent(lblPerron))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(table, GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		setLayout(groupLayout); 
 	}
@@ -150,8 +167,7 @@ public class StationInfoGui extends JPanel {
 			if (e.getSource() == btnZoeken)
 			{
 				DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
-				Date date = dateChooser.getDate();
-				String datum = dateFormat.format(date);
+				Date date = new Date();				String datum = dateFormat.format(date);
 				if (cmbbStation.getSelectedItem() != null && txtTijd.getText().isEmpty())
 				{
 				station = cmbbStation.getSelectedItem().toString();
@@ -159,19 +175,31 @@ public class StationInfoGui extends JPanel {
 					try 
 					{
 						billBoardLijst = new ArrayList<BillBoard>();
-						billBoardLijst = BillBoardLoader.getDepartures(station, datum);
-						DefaultListModel<String> dlm = new DefaultListModel<String>();
-						for(BillBoard  b: billBoardLijst)
+						billBoardLijst = BillBoardLoader.getDepartures(station,datum);//.toString();
+						Object [][] rowData = new Object [billBoardLijst.size()][5];
+						for(int i = 0; i < billBoardLijst.size(); i++)
 						{
-							dlm.addElement(b.toString());
-							System.out.println(b.toString());
+							rowData[i][0] = billBoardLijst.get(i).getTime()+" vertraging: + "+ billBoardLijst.get(i).getDelay();
+							rowData[i][1] = billBoardLijst.get(i).getDirection();
+							rowData[i][2] = billBoardLijst.get(i).getPlatform();
+							rowData[i][3] = billBoardLijst.get(i).getTrain();
+							rowData[i][4] = billBoardLijst.get(i).isCanceled();
 						}
-						list.setModel(dlm);
-					    list.setSelectedIndex(0);
+							
+						String columnNames[] = {"Tijd","Richting", "Spoor", "Trein", "canceled" };
+						TableModel model = new DefaultTableModel(rowData, columnNames);
+						table.setModel(model);
+					    table.setShowVerticalLines(false);
+					    table.getColumnModel().getColumn(0).setPreferredWidth(80);
+					    table.getColumnModel().getColumn(1).setPreferredWidth(50);
+					    table.getColumnModel().getColumn(2).setPreferredWidth(5);
+					    table.getColumnModel().getColumn(3).setPreferredWidth(40);
+					    table.getColumnModel().getColumn(4).setPreferredWidth(10);
+						
 					}
 					catch (Exception e1)
 					{
-						JOptionPane.showMessageDialog(new JFrame(), "Fout bij het ophalen van de data, probeer het later opnieuw.");
+						JOptionPane.showMessageDialog(new JFrame(), "Geen vertrekken gevonden.");
 					}
 				
 				}
@@ -188,59 +216,56 @@ public class StationInfoGui extends JPanel {
 						String uur = time.substring(0,2);
 						try
 						{
-						int mintel = Integer.parseInt(min);
-							try
+							int mintel = Integer.parseInt(min);
+							int uurtel = Integer.parseInt(uur);
+							if(mintel < 0 || mintel >59 || uurtel <0 || uurtel > 23)
 							{
-								int uurtel = Integer.parseInt(uur);
-								if(mintel < 0 || mintel >59 || uurtel <0 || uurtel > 23)
-								{
-									JOptionPane.showMessageDialog(new JFrame(), "Foutieve invoer voor uur, probeer een ander tijdstip");
-									txtTijd.setText("uu:mm");
-								}
-								else
-								{
-									try 
-									{
-										tijd = uur+min;
-										billBoardLijst = new ArrayList<BillBoard>();
-										billBoardLijst = BillBoardLoader.getDepartures(station,datum, tijd);//.toString();
-										DefaultListModel<String> dlm = new DefaultListModel<String>();
-										for(BillBoard  b: billBoardLijst)
-										{
-											dlm.addElement(b.toString());
-											System.out.println(b.toString());
-										}
-										list.setModel(dlm);
-									    list.setSelectedIndex(0);
-									}
-									catch (Exception e1)
-									{
-										JOptionPane.showMessageDialog(new JFrame(), "Fout bij het ophalen van de data, probeer het later opnieuw.");
-									}
-								}
+								JOptionPane.showMessageDialog(new JFrame(), "Foutieve invoer voor uur, probeer een ander tijdstip");
+								txtTijd.setText("uu:mm");
 							}
-							
-							catch(Exception e1)
+							else
 							{
-								JOptionPane.showMessageDialog(new JFrame(), "Niet numerieke invoer");
+								try 
+								{
+									//uur +vertraging, richting, perron, trainnr, canceled
 
+									tijd = uur+min;
+									billBoardLijst = new ArrayList<BillBoard>();
+									billBoardLijst = BillBoardLoader.getDepartures(station,datum, tijd);//.toString();
+									Object [][] rowData = new Object [billBoardLijst.size()][5];
+									for(int i = 0; i < billBoardLijst.size(); i++)
+									{
+										rowData[i][0] = billBoardLijst.get(i).getTime()+" vertraging: + "+ billBoardLijst.get(i).getDelay();
+										rowData[i][1] = billBoardLijst.get(i).getDirection();
+										rowData[i][2] = billBoardLijst.get(i).getPlatform();
+										rowData[i][3] = billBoardLijst.get(i).getTrain();
+										rowData[i][4] = billBoardLijst.get(i).isCanceled();
+									}
+									
+									String columnNames[] = {"Tijd","Richting", "Spoor", "Trein", "canceled" };
+									TableModel model = new DefaultTableModel(rowData, columnNames);
+									table.setModel(model);
+									table.setShowVerticalLines(false);
+									table.getColumnModel().getColumn(0).setPreferredWidth(80);
+									table.getColumnModel().getColumn(1).setPreferredWidth(50);
+									table.getColumnModel().getColumn(2).setPreferredWidth(5);
+									table.getColumnModel().getColumn(3).setPreferredWidth(40);
+									table.getColumnModel().getColumn(4).setPreferredWidth(10);
+								}
+								catch (Exception e1)
+								{
+									JOptionPane.showMessageDialog(new JFrame(), "Geen vertrekken gevonden.");
+								}	
 							}
 						}
 						catch(Exception e1)
 						{
 							JOptionPane.showMessageDialog(new JFrame(), "Niet numerieke invoer");
-
 						}
-					}
-						
-						
-					else
-					{
-						JOptionPane.showMessageDialog(new JFrame(), "Foutieve invoer voor uur, probeer een ander formaat");
-						txtTijd.setText("uu:mm");
 					}
 				}
 			}	
 		}
 	}
 }
+

@@ -3,13 +3,15 @@ package api;
 import java.util.Date;
 
 public abstract class URLHelper {
-	public static String URLMaker(String base, String departure, String arrival, boolean sel ){
+	public static String URLMaker(String base, String departure, String arrival, String datum, boolean sel ){
         StringBuilder builder = new StringBuilder();
         builder.append(base);
         builder.append(STRFormatter(departure));
         builder.append("&to=");
         builder.append(STRFormatter(arrival));
         builder.append("&lang=nl");
+        builder.append("&date=");
+        builder.append(datum);
         return builder.toString();
 }
 	
@@ -21,16 +23,16 @@ public abstract class URLHelper {
         builder.append(STRFormatter(arrival));
         builder.append("&lang=nl");
         builder.append("&date=");
-        builder.append(dateFormat(datum));
+        builder.append(datum);
         builder.append("&time=");
-        builder.append(timeFormat(time));
+        builder.append(time);
         builder.append("&timeSel=");
         builder.append(timeSelFormat(sel));
         return builder.toString();
 }
 	public static String timeSelFormat(boolean input)
 	{
-		if (input = true)
+		if (input == true)
 		{
 			return "arrive";
 		}
@@ -39,22 +41,13 @@ public abstract class URLHelper {
 			return "depart";
 		}
 	}
-	public static String timeFormat(String input)
-	{
-		return "1218";
-	}
-	public static String dateFormat(String input)
-	{
-		return "281216";
-	}
+
 	public static String URLMaker(String base, String request){
         StringBuilder builder = new StringBuilder();
         builder.append(base);
         builder.append(STRFormatter(request));
         builder.append("&fast=true");
-        System.out.println(builder.toString());
         return builder.toString();
-        //"https://api.irail.be/liveboard/?station=LIEDEKERKE&fast=true"
 }
 	public static String URLMaker(String base, String request, String datum, String tijd){
         StringBuilder builder = new StringBuilder();
@@ -65,9 +58,7 @@ public abstract class URLHelper {
         builder.append(datum.toString());
         builder.append("&time=");
         builder.append(tijd);
-        System.out.println(builder.toString());
         return builder.toString();
-        //"https://api.irail.be/liveboard/?station=LIEDEKERKE&fast=true"
 }
 	public static String URLMaker(String base, String request, String datum){
         StringBuilder builder = new StringBuilder();
@@ -76,9 +67,7 @@ public abstract class URLHelper {
         builder.append("&fast=true");
         builder.append("&date=");
         builder.append(datum.toString());
-        System.out.println(builder.toString());
         return builder.toString();
-        //"https://api.irail.be/liveboard/?station=LIEDEKERKE&fast=true"
 }
 	public static String STRFormatter(String input)
 	{

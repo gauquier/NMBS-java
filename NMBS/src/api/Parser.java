@@ -29,7 +29,7 @@ public abstract class Parser {
 	{
 		StringBuilder builder = new StringBuilder();
     	builder.append(input);
-    	int trips = -1;
+    	int trips = 0;
     	int lastIndex = 0;
     	while(lastIndex != -1){
 
@@ -69,13 +69,13 @@ public abstract class Parser {
     	departure.append("\"");
     	builder.delete(0, builder.indexOf(departure.toString()));
     	builder.delete(builder.indexOf("</departure>")+12,builder.length());
-    	int delay = Integer.parseInt(Parser.getDelay(builder.toString()));
+    	int delay = Parser.getDelay(builder.toString());
     	boolean canceled = Boolean.parseBoolean(Parser.getState(builder.toString()));
     	String direction = Parser.getBillStation(builder.toString());
     	String date = Parser.getDate(builder.toString());
     	String time = Parser.getTime(builder.toString());;
     	String train = Parser.getVehicle(builder.toString());
-    	int platform = Integer.parseInt(Parser.getPlatform(builder.toString()));
+    	int platform = Parser.getPlatform(builder.toString());
 		BillBoard billboard = new BillBoard(pl, delay, canceled, direction, date, time, train, platform);
 		return billboard;
 	}
@@ -178,13 +178,40 @@ public abstract class Parser {
 		 }
 			return train.toString();
 		}
-	 public static String getPlatform(String input)
-		{
+	 public static int getPlatform(String input)
+	{
 		 StringBuilder platform = new StringBuilder();
 		 platform.append(input);
-		 platform.delete(0, platform.indexOf("<platform normal=")+21);
-		 platform.delete(platform.indexOf("</platform>"), platform.length());
-			return platform.toString();
+		 platform.delete(0, platform.indexOf("<platform normal=")+18);
+		 platform.delete(0, platform.indexOf(">")+1);
+		 try
+		 {
+			 platform.delete((platform.indexOf("</platform>")), platform.length());
+			 return Integer.parseInt(platform.toString());
+		 }
+		 catch (Exception e1)
+		 {
+			 System.out.println("geen platform");
+			 return -1;
+		 }
+	}
+	 public static int getDuration(String input)
+		{
+			 StringBuilder duration = new StringBuilder();
+			 duration.append(input);
+			 duration.delete(0, duration.indexOf("<duration>")+10);
+			 try
+			 {
+				 duration.delete((duration.indexOf("</duration>")), duration.length());
+				 int duur = Integer.parseInt(duration.toString());
+				 duur = duur/60;
+				 return duur;
+			 }
+			 catch (Exception e1)
+			 {
+				 System.out.println("geen platform");
+				 return -1;
+			 }
 		}
 	 public static String getState(String input)
 		{
@@ -194,13 +221,16 @@ public abstract class Parser {
 		 state.delete(state.indexOf("\""), state.length());
 			return state.toString();
 		}
-	 public static String getDelay(String input)
+	 public static int getDelay(String input)
 		{
+		 
 		 StringBuilder delay = new StringBuilder();
 		 delay.append(input);
 		 delay.delete(0, delay.indexOf("delay=\"")+7);
 		 delay.delete(delay.indexOf("\""), delay.length());
-			return delay.toString();
+		 int vertraging = Integer.parseInt(delay.toString());
+		 vertraging = vertraging/60;
+			return vertraging;
 		}
 	public static String GetTrip(String input, int tripNo)
 	{

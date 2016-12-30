@@ -1,14 +1,14 @@
 package api;
 
 public class Aankomst {
-	public String station;
-	public int vertraging;
-	public String richting;
-	public String tijd;
-	public String datum;
-	public String trein;
-	public int perron;
-	public boolean canceled;
+	private String station;
+	private int vertraging;
+	private String richting;
+	private String tijd;
+	private String datum;
+	private String trein;
+	private int perron;
+	private boolean canceled;
 	public Aankomst() {
 		super();
 	}
@@ -23,6 +23,34 @@ public class Aankomst {
 	}
 	public void setTijd(String tijd) {
 		this.tijd = tijd;
+	}
+	public String getStation() {
+		return station;
+	}
+	public int getVertraging() {
+		return vertraging;
+	}
+	public String getRichting() {
+		return richting;
+	}
+	public String getTijd() {
+		return tijd;
+	}
+	public String getDatum() {
+		return datum;
+	}
+	public String getTrein() {
+		return trein;
+	}
+	public String getPerron() {
+		if(perron > 0)
+		{
+		return Integer.toString(perron);
+		}
+		return "/";
+	}
+	public boolean isCanceled() {
+		return canceled;
 	}
 	public void setDatum(String datum) {
 		this.datum = datum;

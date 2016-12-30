@@ -10,10 +10,10 @@ import source.*;
 
 public class TripLoader {
 	
-	 public static ArrayList<Trip> getTrips(String departure, String arrival) throws Exception
+	 public static ArrayList<Trip> getTrips(String departure, String arrival, String datum) throws Exception
 	   {
-		 	String URLRequest = URLHelper.URLMaker("https://api.irail.be/connections/?from=", departure, arrival, true);
-		 	
+		 	String URLRequest = URLHelper.URLMaker("https://api.irail.be/connections/?from=", departure, arrival, datum, false);
+		 	System.out.println(URLRequest);
 			if(DataLoader.checkURL(URLRequest)== true)
 			{
 				 String input = DataLoader.getHTML(URLRequest);
@@ -29,8 +29,8 @@ public class TripLoader {
 	 public static ArrayList<Trip> getTrips(String departure, String arrival, String datum, String tijd, boolean sel) throws Exception
 	   {
 		 	String URLRequest = URLHelper.URLMaker("https://api.irail.be/connections/?from=", departure, arrival, datum, tijd, sel);
-		 	
-			if(DataLoader.checkURL(URLRequest)== true)
+		 	System.out.println(URLRequest);
+		 	if(DataLoader.checkURL(URLRequest)== true)
 			{
 				 String input = DataLoader.getHTML(URLRequest);
 				 return tripCatcher(input);
@@ -54,31 +54,31 @@ public class TripLoader {
 			StringBuilder builder = new StringBuilder();
 			builder.append(reis);
 			builder.delete(builder.indexOf("</departure>"), builder.length());
+
 			Vertrek vertrek = new Vertrek();
 			vertrek.setStation(Parser.getStation(builder.toString()));
-			vertrek.setVertraging(Integer.parseInt(Parser.getDelay(builder.toString())));
+			vertrek.setVertraging(Parser.getDelay(builder.toString()));
 			vertrek.setRichting(Parser.getDirection(builder.toString()));
-			vertrek.setDatum(Parser.getTime(builder.toString()));
-			//vertrek.setTijd(tijd);
+			vertrek.setDatum(Parser.getDate(builder.toString()));
+			vertrek.setTijd(Parser.getTime(builder.toString()));
 			vertrek.setTrein(Parser.getVehicle(builder.toString()));
-			vertrek.setPerron(Integer.parseInt(Parser.getPlatform(builder.toString())));
+			vertrek.setPerron(Parser.getPlatform(builder.toString()));
 			vertrek.setCanceled(Boolean.parseBoolean(Parser.getState(builder.toString())));
-			
-			
+
 			builder.append(reis);
 			builder.delete(0, builder.indexOf("<arrival"));
 			builder.delete(builder.indexOf("</arrival>"), builder.length());
 			Aankomst aankomst = new Aankomst();
 			aankomst.setStation(Parser.getStation(builder.toString()));
-			aankomst.setVertraging(Integer.parseInt(Parser.getDelay(builder.toString())));
+			aankomst.setVertraging(Parser.getDelay(builder.toString()));
 			aankomst.setRichting(Parser.getDirection(builder.toString()));
-			aankomst.setDatum(Parser.getTime(builder.toString()));
-			//aankomst.setTijd(tijd);
+			aankomst.setDatum(Parser.getDate(builder.toString()));
+			aankomst.setTijd(Parser.getTime(builder.toString()));
 			aankomst.setTrein(Parser.getVehicle(builder.toString()));
-			aankomst.setPerron(Integer.parseInt(Parser.getPlatform(builder.toString())));
-			aankomst.setCanceled(Boolean.parseBoolean(Parser.getState(builder.toString())));
+			aankomst.setPerron(Parser.getPlatform(builder.toString()));
+			aankomst.setCanceled(Boolean.parseBoolean(Parser.getState(reis.toString())));
 
-			Trip trip = new Trip(i, vertrek, aankomst);
+			Trip trip = new Trip(i, vertrek, aankomst, Parser.getDuration(reis.toString()));
 
 			builder.append(reis);
 			if(builder.indexOf("<vias")!= -1)
@@ -98,9 +98,9 @@ public class TripLoader {
 					via.delete(via.indexOf("</departure>"), via.length());
 					
 					Vertrek viaVertrek = new Vertrek();
-					viaVertrek.setVertraging(Integer.parseInt(Parser.getDelay(via.toString())));
+					viaVertrek.setVertraging(Parser.getDelay(via.toString()));
 					viaVertrek.setTijd(Parser.getTime(via.toString()));
-					viaVertrek.setPerron(Integer.parseInt(Parser.getPlatform(via.toString())));
+					viaVertrek.setPerron(Parser.getPlatform(via.toString()));
 					viaVertrek.setCanceled(Boolean.parseBoolean(Parser.getState(via.toString())));
 					
 					
@@ -109,9 +109,9 @@ public class TripLoader {
 					via.delete(via.indexOf("</arrival>"), via.length());
 					
 					Aankomst viaAankomst = new Aankomst();
-					viaAankomst.setVertraging(Integer.parseInt(Parser.getDelay(via.toString())));
+					viaAankomst.setVertraging(Parser.getDelay(via.toString()));
 					viaAankomst.setTijd(Parser.getTime(via.toString()));
-					viaAankomst.setPerron(Integer.parseInt(Parser.getPlatform(via.toString())));
+					viaAankomst.setPerron(Parser.getPlatform(via.toString()));
 					viaAankomst.setCanceled(Boolean.parseBoolean(Parser.getState(via.toString())));
 
 					via.append(overstap);
@@ -129,9 +129,5 @@ public class TripLoader {
 		}
 		return tripList;
 		}
-		/*public static Station GetDepStation(String reis)
-		{
-			
-			return Station();
-		}*/
+
 }
