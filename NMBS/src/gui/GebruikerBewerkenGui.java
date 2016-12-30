@@ -288,7 +288,7 @@ public class GebruikerBewerkenGui extends JPanel {
 						JOptionPane.showMessageDialog(new JFrame(),
                                 bundle.getString("postPassResetMessagePart1") + " " + GebruikerBewerkenGui.this.list.getSelectedValue().getVoornaam()
 										+ " " + GebruikerBewerkenGui.this.list.getSelectedValue().getAchternaam()
-										+ " " + bundle.getString("postPassResetMessagePart2");
+										+ " " + bundle.getString("postPassResetMessagePart2"));
 
 
 					} else if (n == 1) {

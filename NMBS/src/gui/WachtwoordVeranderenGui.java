@@ -167,7 +167,7 @@ public class WachtwoordVeranderenGui extends JPanel {
 									// TODO Auto-generated catch block
 									e1.printStackTrace();
 								}
-								JOptionPane.showMessageDialog(new JFrame(), bundle.getString("wachtwoordAangepast");
+								JOptionPane.showMessageDialog(new JFrame(), bundle.getString("wachtwoordAangepast"));
 								if(huidigeRol==1){
 									AdminGui.setHuidigeKeuze(new HomeGui(false));
 								} else {
