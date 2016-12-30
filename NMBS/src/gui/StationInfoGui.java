@@ -50,6 +50,7 @@ public class StationInfoGui extends JPanel {
 	private int start, stop,max = 0;
 	private JButton btnVorige;
 	private JButton btnVolgende;
+	private JLabel lblPagina;
 	public StationInfoGui() {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
@@ -93,6 +94,9 @@ public class StationInfoGui extends JPanel {
 		btnVolgende = new JButton("Volgende");
 		btnVolgende.setVisible(false);
 		btnVolgende.addActionListener(new MenuItemHandler());
+		
+		lblPagina = new JLabel("pagina");
+		lblPagina.setVisible(false);
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -130,7 +134,9 @@ public class StationInfoGui extends JPanel {
 								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(btnVorige)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(btnVolgende)))))
+									.addComponent(btnVolgende)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(lblPagina)))))
 					.addGap(36))
 		);
 		groupLayout.setVerticalGroup(
@@ -150,7 +156,8 @@ public class StationInfoGui extends JPanel {
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnVorige)
-						.addComponent(btnVolgende))
+						.addComponent(btnVolgende)
+						.addComponent(lblPagina))
 					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblTijdstip)
@@ -170,6 +177,8 @@ public class StationInfoGui extends JPanel {
 	}
 	public void addData(ArrayList<BillBoard> billBoardLijst, int start, int stop)
 	{
+		lblPagina.setVisible(true);
+		lblPagina.setText("Doorkomst: " + (start+1)+ " - " + (stop) + " / " + (max)); 
 		System.out.println(start);
 		System.out.println(stop);
 		System.out.println(max);
@@ -211,12 +220,13 @@ public class StationInfoGui extends JPanel {
 		{			
 			if (e.getSource() == btnZoeken)
 			{
+				btnVorige.setVisible(false);
+				btnVolgende.setVisible(false);
 				DateFormat dateFormat = new SimpleDateFormat("ddMMyy");
 				Date date = new Date();				String datum = dateFormat.format(date);
 				if (cmbbStation.getSelectedItem() != null && txtTijd.getText().isEmpty())
 				{
-				btnVorige.setVisible(false);
-				btnVolgende.setVisible(false);
+				
 				station = cmbbStation.getSelectedItem().toString();
 
 					try 
@@ -225,7 +235,7 @@ public class StationInfoGui extends JPanel {
 						billBoardLijst = BillBoardLoader.getDepartures(station);
 					
 						max = billBoardLijst.size();
-						if(max<10)
+						if(max<=10)
 						{
 							stop = billBoardLijst.size();
 							start = 0;
@@ -275,7 +285,7 @@ public class StationInfoGui extends JPanel {
 									billBoardLijst = new ArrayList<BillBoard>();
 									billBoardLijst = BillBoardLoader.getDepartures(station,datum, tijd);//.toString();
 									max = billBoardLijst.size();
-									if(max<10)
+									if(max<=10)
 									{
 										stop = billBoardLijst.size();
 										start = 0;
