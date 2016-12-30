@@ -16,14 +16,18 @@ import javax.swing.UIManager;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
+import dao.LoginDao;
 import dao.MedewerkerDAO;
 import source.Abonnement;
+import source.Login;
 
 public class AbonnementWeergevenGui extends JPanel {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5924070135078488735L;
+	private int huidigeRol=MedewerkerDAO.getMedewerkerByLogin(LoginDao.getLoginId(Login.getCurrentUser()))
+			.getRol().getRolId();
 	private SimpleDateFormat formatDatum = new SimpleDateFormat("dd-MM-yyyy");
 	private JButton btnKlantBekijken;
 	private JButton btnMedewerkerBekijken;
@@ -261,14 +265,26 @@ public class AbonnementWeergevenGui extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 
 			if (e.getSource() == AbonnementWeergevenGui.this.btnKlantBekijken) {
-				AdminGui.setHuidigeKeuze(
-						new KlantWeergevenGui(AbonnementWeergevenGui.this.doorgegevenAbonnement.getKlant()));
+				if(huidigeRol==1){
+					AdminGui.setHuidigeKeuze(
+							new KlantWeergevenGui(AbonnementWeergevenGui.this.doorgegevenAbonnement.getKlant()));
+				} else {
+					MedewerkerGui.setHuidigeKeuze(
+							new KlantWeergevenGui(AbonnementWeergevenGui.this.doorgegevenAbonnement.getKlant()));
+				}
+				
 
 			}
 
 			if (e.getSource() == AbonnementWeergevenGui.this.btnMedewerkerBekijken) {
-				AdminGui.setHuidigeKeuze(new GebruikerWeergevenGui(MedewerkerDAO
-						.getMedewerker(AbonnementWeergevenGui.this.doorgegevenAbonnement.getP().getMedewerkerId())));
+				if(huidigeRol==1){
+					AdminGui.setHuidigeKeuze(new GebruikerWeergevenGui(MedewerkerDAO
+							.getMedewerker(AbonnementWeergevenGui.this.doorgegevenAbonnement.getP().getMedewerkerId())));
+				} else {
+					MedewerkerGui.setHuidigeKeuze(new GebruikerWeergevenGui(MedewerkerDAO
+							.getMedewerker(AbonnementWeergevenGui.this.doorgegevenAbonnement.getP().getMedewerkerId())));
+				}
+				
 			}
 		}
 	}

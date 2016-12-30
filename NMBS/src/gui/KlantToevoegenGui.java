@@ -22,8 +22,11 @@ import javax.swing.border.Border;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import dao.KlantDAO;
+import dao.LoginDao;
+import dao.MedewerkerDAO;
 import dao.PersoonDao;
 import source.Adres;
+import source.Login;
 import source.Persoon;
 import source.Validation;
 
@@ -32,7 +35,9 @@ public class KlantToevoegenGui extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -2290954843880133511L;
-
+	private int huidigeRol=MedewerkerDAO.getMedewerkerByLogin(LoginDao.getLoginId(Login.getCurrentUser()))
+			.getRol().getRolId();
+	
 	private static ResourceBundle bundle;
 
 	private JTextField txtVoornaam;
@@ -497,7 +502,12 @@ public class KlantToevoegenGui extends JPanel {
 							String info = KlantToevoegenGui.this.txtInfo.getText().trim();
 							KlantDAO.addKlant(KlantToevoegenGui.this.persoon, KlantToevoegenGui.this.adres, info);
 							JOptionPane.showMessageDialog(new JFrame(), bundle.getString("customerAdded"));
-							AdminGui.setHuidigeKeuze(new KlantBewerkenGui());
+							if(huidigeRol==1){
+								AdminGui.setHuidigeKeuze(new KlantBewerkenGui());
+							}
+							else {
+								MedewerkerGui.setHuidigeKeuze(new KlantBewerkenGui());
+							}
 						}
 					}
 				} else {

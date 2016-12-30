@@ -39,6 +39,8 @@ public class AbonnementVerlengenGui extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -6560637230362797041L;
+	private int huidigeRol=MedewerkerDAO.getMedewerkerByLogin(LoginDao.getLoginId(Login.getCurrentUser()))
+			.getRol().getRolId();
 	private JTextField txtDuur;
 	private JLabel lblNieuweEinddatumValue;
 	private JLabel lblNieuwePrijsValue;
@@ -364,8 +366,12 @@ public class AbonnementVerlengenGui extends JPanel {
 							JOptionPane.showMessageDialog(new JFrame(), "Het abonnement is verlengd.");
 
 						}
-
-						AdminGui.setHuidigeKeuze(new AbonnementBeheerGui());
+						if(huidigeRol==1){
+							AdminGui.setHuidigeKeuze(new AbonnementBeheerGui());
+						}else{
+							MedewerkerGui.setHuidigeKeuze(new AbonnementBeheerGui());
+						}
+						
 
 					}
 				} else {

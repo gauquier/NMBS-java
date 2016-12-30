@@ -43,6 +43,7 @@ import javax.swing.border.Border;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 import com.toedter.calendar.JDateChooser;
 
+import dao.LoginDao;
 import dao.MedewerkerDAO;
 import dao.PrijsDAO;
 import dao.StationDAO;
@@ -58,7 +59,6 @@ import source.VerkoopType;
 @SuppressWarnings("serial")
 public class TicketVerkoopGui extends JPanel {
 	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.TicketVerkoopGui");
-
 	private JTable table;
 
 	private JDateChooser heenDatum = new JDateChooser(new Date());

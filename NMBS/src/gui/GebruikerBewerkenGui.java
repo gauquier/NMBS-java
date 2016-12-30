@@ -29,9 +29,12 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 import Hashing.DualHash;
 import dao.LoginDao;
 import dao.MedewerkerDAO;
+import source.Login;
 import source.Medewerker;
 
 public class GebruikerBewerkenGui extends JPanel {
+	private int huidigeRol=MedewerkerDAO.getMedewerkerByLogin(LoginDao.getLoginId(Login.getCurrentUser()))
+			.getRol().getRolId();
 	private JTextField txtZoekveld;
 	private JButton btnBewerken;
 	private JList<Medewerker> list;
@@ -153,8 +156,14 @@ public class GebruikerBewerkenGui extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent evt) {
 				if (evt.getClickCount() == 2) {
-					AdminGui.setHuidigeKeuze(
+					if(huidigeRol==1){
+						AdminGui.setHuidigeKeuze(
 							new GebruikerWeergevenGui(GebruikerBewerkenGui.this.list.getSelectedValue()));
+					}else{
+						MedewerkerGui.setHuidigeKeuze(
+								new GebruikerWeergevenGui(GebruikerBewerkenGui.this.list.getSelectedValue()));
+					}
+					
 				}
 			}
 		});
@@ -209,7 +218,7 @@ public class GebruikerBewerkenGui extends JPanel {
 	}
 
 	private class MenuItemHandler implements ActionListener {
-
+		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
@@ -219,8 +228,15 @@ public class GebruikerBewerkenGui extends JPanel {
 					return;
 				} else {
 					GebruikerBewerkenGui.this.navigation = "gebruikerBijwerken";
+					if(huidigeRol==1){
+						
 					AdminGui.setHuidigeKeuze(
-							new GebruikerBijwerkenGui(GebruikerBewerkenGui.this.list.getSelectedValue()));
+							new GebruikerBijwerkenGui(GebruikerBewerkenGui.this.list.getSelectedValue()));	
+					} else {
+					MedewerkerGui.setHuidigeKeuze(
+							new GebruikerWeergevenGui(GebruikerBewerkenGui.this.list.getSelectedValue()));
+					}
+					
 				}
 			}
 
@@ -270,6 +286,8 @@ public class GebruikerBewerkenGui extends JPanel {
 								"Het wachtwoord van " + GebruikerBewerkenGui.this.list.getSelectedValue().getVoornaam()
 										+ " " + GebruikerBewerkenGui.this.list.getSelectedValue().getAchternaam()
 										+ " is gereset naar 'reset1'.");
+						
+						
 					} else if (n == 1) {
 						return;
 					}

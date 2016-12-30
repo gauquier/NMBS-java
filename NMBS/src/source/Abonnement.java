@@ -1,8 +1,10 @@
 package source;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
+
+import dao.KlantDAO;
+import dao.PeriodeDAO;
 
 public class Abonnement extends Aankoop {
 	private Klant klant;
@@ -10,6 +12,15 @@ public class Abonnement extends Aankoop {
 	private boolean actief;
 	private int abonnementId;
 	private Periode p;
+	
+	public Abonnement(double korting, double prijs, VerkoopType verkoop, Klant klant, String depZone, String arrZone,
+			boolean actief) {
+		super(korting, prijs, verkoop);
+		this.klant = klant;
+		this.depZone = depZone;
+		this.arrZone = arrZone;
+		this.actief = actief;
+	}
 
 	public Abonnement(double korting, double prijs, VerkoopType verkoop, Klant klant, String depZone, String arrZone) {
 		super(korting, prijs, verkoop);
@@ -17,20 +28,21 @@ public class Abonnement extends Aankoop {
 		this.depZone = depZone;
 		this.arrZone = arrZone;
 	}
+	
 
-	public Abonnement(int abonnementId, Klant klant, String depZone, String arrZone, double prijs, VerkoopType verkoop,
-			double korting, Periode periode, boolean actief) {
+	public Abonnement(int abonnementId, Klant klant, String depZone, String arrZone , double prijs ,  VerkoopType verkoop,double korting, 
+			boolean actief) {
 		super(korting, prijs, verkoop);
 		this.klant = klant;
 		this.depZone = depZone;
 		this.arrZone = arrZone;
 		this.actief = actief;
 		this.abonnementId = abonnementId;
-		this.p = periode;
+		this.p=PeriodeDAO.getPeriode(this);
 	}
-
+	
 	public Periode getP() {
-		return this.p;
+		return p;
 	}
 
 	public void setP(Periode p) {
@@ -38,7 +50,7 @@ public class Abonnement extends Aankoop {
 	}
 
 	public Klant getKlant() {
-		return this.klant;
+		return klant;
 	}
 
 	public void setKlant(Klant klant) {
@@ -46,7 +58,7 @@ public class Abonnement extends Aankoop {
 	}
 
 	public String getDepZone() {
-		return this.depZone;
+		return depZone;
 	}
 
 	public void setDepZone(String depZone) {
@@ -54,7 +66,7 @@ public class Abonnement extends Aankoop {
 	}
 
 	public String getArrZone() {
-		return this.arrZone;
+		return arrZone;
 	}
 
 	public void setArrZone(String arrZone) {
@@ -62,53 +74,53 @@ public class Abonnement extends Aankoop {
 	}
 
 	public boolean isActief() {
-		return this.actief;
+		return actief;
 	}
 
 	public void setActief(boolean actief) {
 		this.actief = actief;
 	}
-
+	
 	public int getAbonnementId() {
-		return this.abonnementId;
+		return abonnementId;
 	}
 
 	public void setAbonnementId(int abonnementId) {
 		this.abonnementId = abonnementId;
 	}
 
-	public long getResterendeDagen() {
-		long resterendeDagen = 0;
-
-		if (this.p != null) {
-			resterendeDagen = TimeUnit.DAYS.convert(
-					(this.p.getEndDate().getTime() - Calendar.getInstance().getTime().getTime()),
-					TimeUnit.MILLISECONDS);
-			resterendeDagen += 1;
+	public long getResterendeDagen(){
+		long resterendeDagen=0;
+		
+		if(p!=null){
+			resterendeDagen= TimeUnit.DAYS.convert((p.getEndDate().getTime()-Calendar.getInstance().getTime().getTime()), TimeUnit.MILLISECONDS);
+			resterendeDagen+=1;
 		}
-
+		
 		return resterendeDagen;
 	}
-
-	@Override
-	public String toString() {
-		String resultaat = null;
+	
+	
+	public String toString()
+	{
+		String resultaat=null;
 		SimpleDateFormat formatDatum = new SimpleDateFormat("dd-MM-yyyy");
-		long resterendeDagen = this.getResterendeDagen();
+		long resterendeDagen=getResterendeDagen();
 
-		if (resterendeDagen > 0) {
-			resultaat = this.getKlant().getVoornaam() + " " + this.getKlant().getAchternaam() + " / "
-					+ formatDatum.format(this.p.getStartDate()) + " -> " + formatDatum.format(this.p.getEndDate())
-					+ " / " + resterendeDagen + " dag(en) resterend";
-
-		} else {
-			this.setP(null);
-			resultaat = this.getKlant().getVoornaam() + " " + this.getKlant().getAchternaam()
-					+ " / Geen actieve periode gelinkt aan dit abonnement";
-
+		
+		
+		if(resterendeDagen > 0){
+		resultaat = getKlant().getVoornaam() + " " + getKlant().getAchternaam() + " / " + formatDatum.format(p.getStartDate()) + " -> " + formatDatum.format(p.getEndDate()) + " / " + resterendeDagen + " dag(en) resterend";
+		
+		}else {
+		this.setP(null);
+		resultaat= getKlant().getVoornaam() + " " + getKlant().getAchternaam() + " / Geen actieve periode gelinkt aan dit abonnement";
+			
 		}
-
+		
 		return resultaat;
 	}
-
+	
+	
+	
 }

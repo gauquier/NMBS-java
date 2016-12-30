@@ -28,15 +28,20 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import dao.AbonnementDAO;
 import dao.KlantDAO;
+import dao.LoginDao;
+import dao.MedewerkerDAO;
 import dao.PrijsDAO;
 import dao.StationDAO;
 import source.Abonnement;
 import source.AutoComboBox;
 import source.Klant;
+import source.Login;
 import source.Station;
 import source.VerkoopType;
 
 public class AbonnementToevoegenGui extends JPanel {
+	private int huidigeRol=MedewerkerDAO.getMedewerkerByLogin(LoginDao.getLoginId(Login.getCurrentUser()))
+			.getRol().getRolId();
 	private JButton btnAanmaken;
 	private ArrayList<Klant> arrayLijst;
 	private DefaultListModel<Klant> dlm;
@@ -326,7 +331,12 @@ public class AbonnementToevoegenGui extends JPanel {
 						abonnement.setAbonnementId(AbonnementDAO.addAbonnement(abonnement));
 						JOptionPane.showMessageDialog(new JFrame(), "Abonnement is aangemaakt!");
 						AbonnementToevoegenGui.this.navigation = "AbonnementVerlengen";
-						AdminGui.setHuidigeKeuze(new AbonnementVerlengenGui(abonnement));
+						if(huidigeRol==1){
+						AdminGui.setHuidigeKeuze(new AbonnementVerlengenGui(abonnement));	
+						}else{
+						MedewerkerGui.setHuidigeKeuze(new AbonnementVerlengenGui(abonnement));
+						}
+						
 					}
 				}
 

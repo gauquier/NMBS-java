@@ -38,6 +38,8 @@ public class GebruikerToevoegenGui extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -83102949843216643L;
+	private int huidigeRol=MedewerkerDAO.getMedewerkerByLogin(LoginDao.getLoginId(Login.getCurrentUser()))
+			.getRol().getRolId();
 	private static ResourceBundle bundle;
 	private JTextField txtVoornaam;
 	private JTextField txtAchternaam;
@@ -533,7 +535,12 @@ public class GebruikerToevoegenGui extends JPanel {
 									GebruikerToevoegenGui.this.persoon, GebruikerToevoegenGui.this.rol,
 									GebruikerToevoegenGui.this.adres);
 							JOptionPane.showMessageDialog(new JFrame(), "Gebruiker is toegevoegd!");
-							AdminGui.setHuidigeKeuze(new GebruikerBewerkenGui());
+							if(huidigeRol==1){
+								AdminGui.setHuidigeKeuze(new GebruikerBewerkenGui());
+							} else {
+								MedewerkerGui.setHuidigeKeuze(new GebruikerBewerkenGui());
+							}
+							
 					}
 				} else {
 					JOptionPane.showMessageDialog(new JFrame(), "Vul alle verplichte velden in!");

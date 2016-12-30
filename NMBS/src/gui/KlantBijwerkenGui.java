@@ -22,9 +22,12 @@ import javax.swing.border.Border;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import dao.KlantDAO;
+import dao.LoginDao;
+import dao.MedewerkerDAO;
 import dao.PersoonDao;
 import source.Adres;
 import source.Klant;
+import source.Login;
 import source.Persoon;
 import source.Validation;
 
@@ -33,7 +36,9 @@ public class KlantBijwerkenGui extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -1840455749314699755L;
-
+	private int huidigeRol=MedewerkerDAO.getMedewerkerByLogin(LoginDao.getLoginId(Login.getCurrentUser()))
+			.getRol().getRolId();
+	
 	private static ResourceBundle bundle;
 
 	private JTextField txtVoornaam;
@@ -465,7 +470,12 @@ public class KlantBijwerkenGui extends JPanel {
 									KlantBijwerkenGui.this.persoon, info, KlantBijwerkenGui.this.adresId,
 									KlantBijwerkenGui.this.adres);
 							JOptionPane.showMessageDialog(new JFrame(), bundle.getString("customerEdited"));
-							AdminGui.setHuidigeKeuze(new KlantBewerkenGui());
+							if(huidigeRol==1){
+								AdminGui.setHuidigeKeuze(new KlantBewerkenGui());
+							}else{
+								MedewerkerGui.setHuidigeKeuze(new KlantBewerkenGui());	
+							}
+							
 						}
 					}
 				} else {
