@@ -75,11 +75,9 @@ public class GebruikerToevoegenGui extends JPanel {
 	private Border border = BorderFactory.createEmptyBorder();
 	private Border bordererror = BorderFactory.createLineBorder(Color.RED, 3);
 	private JLabel lblUsernameError;
-<<<<<<< HEAD
+
 	private boolean checkvoornaam = true, checkachternaam = true, checkstraat = true, checkhuisnr = true, checkbus = true, checkgemeente = true, checkpostcode = true, checkemail = true;
-=======
-	private boolean checkvoornaam=true, checkachternaam=true, checkstraat=true, checkhuisnr=true, checkbus=true, checkgemeente=true, checkpostcode=true, checkemail=true;
->>>>>>> 5d0c00a81ad5cedf81badd256f87ba988bba388b
+
 
 	public GebruikerToevoegenGui() {
 		this.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
@@ -464,24 +462,24 @@ public class GebruikerToevoegenGui extends JPanel {
 									.setText("Gelieve een juiste gemeente in te vullen!");
 							GebruikerToevoegenGui.this.txtGemeente.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkgemeente = false;
-<<<<<<< HEAD
+
 							System.out.println("hier zit em5");
-=======
+
 						}else {
 							checkgemeente=true;
->>>>>>> 5d0c00a81ad5cedf81badd256f87ba988bba388b
+
 						}
 						if (!Validation.checkPostalCode(GebruikerToevoegenGui.this.txtPostcode.getText())) {
 							GebruikerToevoegenGui.this.lblPostcodeError
 									.setText("Gelieve een juiste postocde in te vullen!");
 							GebruikerToevoegenGui.this.txtPostcode.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkpostcode = false;
-<<<<<<< HEAD
+
 							System.out.println("hier zit em6");
-=======
+
 						}else {
 							checkpostcode=true;
->>>>>>> 5d0c00a81ad5cedf81badd256f87ba988bba388b
+
 						}
 						if (!GebruikerToevoegenGui.this.txtEmail.getText().isEmpty()
 								&& !Validation.checkEmail(GebruikerToevoegenGui.this.txtEmail.getText())) {
@@ -489,37 +487,36 @@ public class GebruikerToevoegenGui extends JPanel {
 									.setText("Gelieve een juist emailadres in te vullen!");
 							GebruikerToevoegenGui.this.txtEmail.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkemail = false;
-<<<<<<< HEAD
+
 							System.out.println("hier zit em7");
-=======
+
 						}else {
 							checkemail=true;
->>>>>>> 5d0c00a81ad5cedf81badd256f87ba988bba388b
+
 						}
 						if (!GebruikerToevoegenGui.this.txtBus.getText().isEmpty()
 								&& !Validation.checkBoxNumber(GebruikerToevoegenGui.this.txtBus.getText())) {
 							GebruikerToevoegenGui.this.lblBusError.setText("Gelieve een juiste bus in te vullen!");
 							GebruikerToevoegenGui.this.txtBus.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkbus = false;
-<<<<<<< HEAD
+
 							System.out.println("hier zit em8");
-=======
+
 						}else {
 							checkbus=true;
->>>>>>> 5d0c00a81ad5cedf81badd256f87ba988bba388b
+
 						}
 						if (checkvoornaam == false || checkachternaam == false || checkstraat == false || checkhuisnr == false || checkgemeente == false || checkpostcode == false || checkemail == false || checkbus == false){
 							return;
 						}
-<<<<<<< HEAD
+
 						if (!Validation.checkUsername(GebruikerToevoegenGui.this.txtUsername.getText())) {
 							GebruikerToevoegenGui.this.lblUsernameError
 									.setText("Een username mag niet enkel nummers bevatten!");
 							GebruikerToevoegenGui.this.txtUsername.setBorder(GebruikerToevoegenGui.this.bordererror);
 						}
-=======
-				
->>>>>>> 5d0c00a81ad5cedf81badd256f87ba988bba388b
+
+					
 							try {
 								GebruikerToevoegenGui.this.login = new Login(
 										GebruikerToevoegenGui.this.txtUsername.getText().trim(),
@@ -580,4 +577,5 @@ public class GebruikerToevoegenGui extends JPanel {
 				}
 			}
 		}
+	}
 }
