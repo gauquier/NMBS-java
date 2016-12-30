@@ -76,18 +76,16 @@ public abstract class URLHelper {
 	        builder.replace(index, index + 1, "%20");
 	        index += 3; // Move to the end of the replacement
 	        index = builder.indexOf("-");
-	        System.out.println(builder);
+	       
 	    }
-	    System.out.println(builder);
+	    
 	    index = builder.indexOf(" ");
 	    while (index != -1)
 	    {
 	        builder.replace(index, index + 1, "%20");
 	        index += 3; // Move to the end of the replacement
 	        index = builder.indexOf(" ");
-	        System.out.println(builder);
 	    }
-	    System.out.println(builder);
 	    return builder.toString();
 	}
 

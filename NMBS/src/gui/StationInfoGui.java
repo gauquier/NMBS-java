@@ -47,6 +47,9 @@ public class StationInfoGui extends JPanel {
 	private JLabel lblPerron;
 	private JLabel lblTrein;
 	private JLabel lblAfgeschaft;
+	private int start, stop,max = 0;
+	private JButton btnVorige;
+	private JButton btnVolgende;
 	public StationInfoGui() {
 		setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		
@@ -83,6 +86,13 @@ public class StationInfoGui extends JPanel {
 		
 		lblAfgeschaft = new JLabel("Afgeschaft");
 		
+		btnVorige = new JButton("Vorige");
+		btnVorige.setVisible(false);
+		btnVorige.addActionListener(new MenuItemHandler());
+		
+		btnVolgende = new JButton("Volgende");
+		btnVolgende.setVisible(false);
+		btnVolgende.addActionListener(new MenuItemHandler());
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -94,35 +104,33 @@ public class StationInfoGui extends JPanel {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(65)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(table, GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(lblStation)
+										.addComponent(lblTijd))
+									.addGap(30)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(txtTijd, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 										.addGroup(groupLayout.createSequentialGroup()
-											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(lblStation)
-												.addComponent(lblTijd))
-											.addGap(30)
-											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(txtTijd, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addGroup(groupLayout.createSequentialGroup()
-													.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-														.addComponent(cmbbStation, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE)
-														.addGroup(groupLayout.createSequentialGroup()
-															.addGap(110)
-															.addComponent(lblRichting)))
-													.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-														.addGroup(groupLayout.createSequentialGroup()
-															.addGap(65)
-															.addComponent(btnZoeken))
-														.addGroup(groupLayout.createSequentialGroup()
-															.addGap(109)
-															.addComponent(lblPerron))))))
-										.addComponent(lblTijdstip))
-									.addPreferredGap(ComponentPlacement.RELATED, 154, Short.MAX_VALUE)
+											.addComponent(cmbbStation, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE)
+											.addGap(65)
+											.addComponent(btnZoeken))))
+								.addComponent(table, GroupLayout.DEFAULT_SIZE, 743, Short.MAX_VALUE)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblTijdstip)
+									.addGap(140)
+									.addComponent(lblRichting)
+									.addGap(117)
+									.addComponent(lblPerron)
+									.addGap(157)
 									.addComponent(lblTrein)
-									.addGap(100)
+									.addPreferredGap(ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
 									.addComponent(lblAfgeschaft)
-									.addGap(47)))))
+									.addGap(47))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(btnVorige)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(btnVolgende)))))
 					.addGap(36))
 		);
 		groupLayout.setVerticalGroup(
@@ -139,16 +147,20 @@ public class StationInfoGui extends JPanel {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblTijd)
 						.addComponent(txtTijd, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnVorige)
+						.addComponent(btnVolgende))
+					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblTijdstip)
-						.addComponent(lblTrein)
-						.addComponent(lblAfgeschaft)
 						.addComponent(lblRichting)
-						.addComponent(lblPerron))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(table, GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
-					.addContainerGap())
+						.addComponent(lblPerron)
+						.addComponent(lblTrein)
+						.addComponent(lblAfgeschaft))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(table, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)
+					.addGap(23))
 		);
 		setLayout(groupLayout); 
 	}
@@ -158,16 +170,25 @@ public class StationInfoGui extends JPanel {
 	}
 	public void addData(ArrayList<BillBoard> billBoardLijst, int start, int stop)
 	{
-		Object [][] rowData = new Object [billBoardLijst.size()][5];
-		for(int i = 0; i < billBoardLijst.size(); i++)
+		System.out.println(start);
+		System.out.println(stop);
+		System.out.println(max);
+		int lengte = stop-start;
+		int stap = 0;
+		Object [][] rowData = new Object [lengte][5];
+		for(int i = start; i < stop; i++)
 		{
-			rowData[i][0] = billBoardLijst.get(i).getTime()+" vertraging: + "+ billBoardLijst.get(i).getDelay();
-			rowData[i][1] = billBoardLijst.get(i).getDirection();
-			rowData[i][2] = billBoardLijst.get(i).getPlatform();
-			rowData[i][3] = billBoardLijst.get(i).getTrain();
-			rowData[i][4] = billBoardLijst.get(i).isCanceled();
-		}
 			
+			rowData[stap][0] = billBoardLijst.get(i).getTime()+" vertraging: + "+ billBoardLijst.get(i).getDelay();
+			rowData[stap][1] = billBoardLijst.get(i).getDirection();
+			rowData[stap][2] = billBoardLijst.get(i).getPlatform();
+			rowData[stap][3] = billBoardLijst.get(i).getTrain();
+			rowData[stap][4] = billBoardLijst.get(i).isCanceled();
+			stap++;
+		}
+		System.out.println(start);
+		System.out.println(stop);
+		System.out.println(max);
 		String columnNames[] = {"Tijd","Richting", "Spoor", "Trein", "canceled" };
 		TableModel model = new DefaultTableModel(rowData, columnNames);
 		table.setModel(model);
@@ -177,6 +198,9 @@ public class StationInfoGui extends JPanel {
 	    table.getColumnModel().getColumn(2).setPreferredWidth(5);
 	    table.getColumnModel().getColumn(3).setPreferredWidth(40);
 	    table.getColumnModel().getColumn(4).setPreferredWidth(10);
+	    System.out.println(start);
+		System.out.println(stop);
+		System.out.println(max);
 	}
 	private class MenuItemHandler implements ActionListener
 	{
@@ -191,33 +215,29 @@ public class StationInfoGui extends JPanel {
 				Date date = new Date();				String datum = dateFormat.format(date);
 				if (cmbbStation.getSelectedItem() != null && txtTijd.getText().isEmpty())
 				{
+				btnVorige.setVisible(false);
+				btnVolgende.setVisible(false);
 				station = cmbbStation.getSelectedItem().toString();
 
 					try 
 					{
 						billBoardLijst = new ArrayList<BillBoard>();
 						billBoardLijst = BillBoardLoader.getDepartures(station);
-						/*Object [][] rowData = new Object [billBoardLijst.size()][5];
-						for(int i = 0; i < billBoardLijst.size(); i++)
+					
+						max = billBoardLijst.size();
+						if(max<10)
 						{
-							rowData[i][0] = billBoardLijst.get(i).getTime()+" vertraging: + "+ billBoardLijst.get(i).getDelay();
-							rowData[i][1] = billBoardLijst.get(i).getDirection();
-							rowData[i][2] = billBoardLijst.get(i).getPlatform();
-							rowData[i][3] = billBoardLijst.get(i).getTrain();
-							rowData[i][4] = billBoardLijst.get(i).isCanceled();
+							stop = billBoardLijst.size();
+							start = 0;
 						}
-							
-						String columnNames[] = {"Tijd","Richting", "Spoor", "Trein", "canceled" };
-						TableModel model = new DefaultTableModel(rowData, columnNames);
-						table.setModel(model);
-					    table.setShowVerticalLines(false);
-					    table.getColumnModel().getColumn(0).setPreferredWidth(80);
-					    table.getColumnModel().getColumn(1).setPreferredWidth(50);
-					    table.getColumnModel().getColumn(2).setPreferredWidth(5);
-					    table.getColumnModel().getColumn(3).setPreferredWidth(40);
-					    table.getColumnModel().getColumn(4).setPreferredWidth(10);
-						*/
-						addData(billBoardLijst,0,billBoardLijst.size());
+						else if(max>10)
+						{
+							btnVolgende.setVisible(true);
+							stop = 10;
+							start = 0;
+
+						}
+						addData(billBoardLijst,start,stop);
 					}
 					catch (Exception e1)
 					{
@@ -254,26 +274,20 @@ public class StationInfoGui extends JPanel {
 									tijd = uur+min;
 									billBoardLijst = new ArrayList<BillBoard>();
 									billBoardLijst = BillBoardLoader.getDepartures(station,datum, tijd);//.toString();
-									/*Object [][] rowData = new Object [billBoardLijst.size()][5];
-									for(int i = 0; i < billBoardLijst.size(); i++)
+									max = billBoardLijst.size();
+									if(max<10)
 									{
-										rowData[i][0] = billBoardLijst.get(i).getTime()+" vertraging: + "+ billBoardLijst.get(i).getDelay();
-										rowData[i][1] = billBoardLijst.get(i).getDirection();
-										rowData[i][2] = billBoardLijst.get(i).getPlatform();
-										rowData[i][3] = billBoardLijst.get(i).getTrain();
-										rowData[i][4] = billBoardLijst.get(i).isCanceled();
+										stop = billBoardLijst.size();
+										start = 0;
 									}
-									
-									String columnNames[] = {"Tijd","Richting", "Spoor", "Trein", "canceled" };
-									TableModel model = new DefaultTableModel(rowData, columnNames);
-									table.setModel(model);
-									table.setShowVerticalLines(false);
-									table.getColumnModel().getColumn(0).setPreferredWidth(80);
-									table.getColumnModel().getColumn(1).setPreferredWidth(50);
-									table.getColumnModel().getColumn(2).setPreferredWidth(5);
-									table.getColumnModel().getColumn(3).setPreferredWidth(40);
-									table.getColumnModel().getColumn(4).setPreferredWidth(10);*/
-									addData(billBoardLijst,0,billBoardLijst.size());
+									else if(max>10)
+									{
+										btnVolgende.setVisible(true);
+										stop = 10;
+										start = 0;
+
+									}
+									addData(billBoardLijst,start,stop);
 								}
 								catch (Exception e1)
 								{
@@ -287,7 +301,51 @@ public class StationInfoGui extends JPanel {
 						}
 					}
 				}
-			}	
+			}
+			if (e.getSource() == btnVolgende)
+			{
+				if(start+10 < max)
+				{
+					start = start +10;
+					if(stop+10 >= max)
+					{
+						stop = max;
+						btnVolgende.setVisible(false);
+
+					}
+					else if(stop+10 < max)
+					{
+						stop = start +10;
+					}
+				}
+				else if(start + 10 > max)
+				{
+					btnVolgende.setVisible(false);
+				}
+				
+					btnVorige.setVisible(true);
+				
+				addData(billBoardLijst,start,stop);
+			}
+			if (e.getSource() == btnVorige)
+			{
+				
+				if(start-10 <= 0)
+				{
+					stop = 10;
+					start = 0;
+					btnVorige.setVisible(false);
+					btnVolgende.setVisible(true);
+				}
+				else if(start-10 > 0)
+				{
+					start = start-10;
+					stop = start +10;
+					btnVorige.setVisible(true);
+					btnVolgende.setVisible(true);
+				}
+				addData(billBoardLijst,start,stop);
+			}
 		}
 	}
 }
