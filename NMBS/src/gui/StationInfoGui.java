@@ -156,7 +156,28 @@ public class StationInfoGui extends JPanel {
 	{
 		this.setVisible(false);
 	}
-	
+	public void addData(ArrayList<BillBoard> billBoardLijst, int start, int stop)
+	{
+		Object [][] rowData = new Object [billBoardLijst.size()][5];
+		for(int i = 0; i < billBoardLijst.size(); i++)
+		{
+			rowData[i][0] = billBoardLijst.get(i).getTime()+" vertraging: + "+ billBoardLijst.get(i).getDelay();
+			rowData[i][1] = billBoardLijst.get(i).getDirection();
+			rowData[i][2] = billBoardLijst.get(i).getPlatform();
+			rowData[i][3] = billBoardLijst.get(i).getTrain();
+			rowData[i][4] = billBoardLijst.get(i).isCanceled();
+		}
+			
+		String columnNames[] = {"Tijd","Richting", "Spoor", "Trein", "canceled" };
+		TableModel model = new DefaultTableModel(rowData, columnNames);
+		table.setModel(model);
+	    table.setShowVerticalLines(false);
+	    table.getColumnModel().getColumn(0).setPreferredWidth(80);
+	    table.getColumnModel().getColumn(1).setPreferredWidth(50);
+	    table.getColumnModel().getColumn(2).setPreferredWidth(5);
+	    table.getColumnModel().getColumn(3).setPreferredWidth(40);
+	    table.getColumnModel().getColumn(4).setPreferredWidth(10);
+	}
 	private class MenuItemHandler implements ActionListener
 	{
 		String station;
@@ -175,8 +196,8 @@ public class StationInfoGui extends JPanel {
 					try 
 					{
 						billBoardLijst = new ArrayList<BillBoard>();
-						billBoardLijst = BillBoardLoader.getDepartures(station,datum);//.toString();
-						Object [][] rowData = new Object [billBoardLijst.size()][5];
+						billBoardLijst = BillBoardLoader.getDepartures(station);
+						/*Object [][] rowData = new Object [billBoardLijst.size()][5];
 						for(int i = 0; i < billBoardLijst.size(); i++)
 						{
 							rowData[i][0] = billBoardLijst.get(i).getTime()+" vertraging: + "+ billBoardLijst.get(i).getDelay();
@@ -195,7 +216,8 @@ public class StationInfoGui extends JPanel {
 					    table.getColumnModel().getColumn(2).setPreferredWidth(5);
 					    table.getColumnModel().getColumn(3).setPreferredWidth(40);
 					    table.getColumnModel().getColumn(4).setPreferredWidth(10);
-						
+						*/
+						addData(billBoardLijst,0,billBoardLijst.size());
 					}
 					catch (Exception e1)
 					{
@@ -232,7 +254,7 @@ public class StationInfoGui extends JPanel {
 									tijd = uur+min;
 									billBoardLijst = new ArrayList<BillBoard>();
 									billBoardLijst = BillBoardLoader.getDepartures(station,datum, tijd);//.toString();
-									Object [][] rowData = new Object [billBoardLijst.size()][5];
+									/*Object [][] rowData = new Object [billBoardLijst.size()][5];
 									for(int i = 0; i < billBoardLijst.size(); i++)
 									{
 										rowData[i][0] = billBoardLijst.get(i).getTime()+" vertraging: + "+ billBoardLijst.get(i).getDelay();
@@ -250,7 +272,8 @@ public class StationInfoGui extends JPanel {
 									table.getColumnModel().getColumn(1).setPreferredWidth(50);
 									table.getColumnModel().getColumn(2).setPreferredWidth(5);
 									table.getColumnModel().getColumn(3).setPreferredWidth(40);
-									table.getColumnModel().getColumn(4).setPreferredWidth(10);
+									table.getColumnModel().getColumn(4).setPreferredWidth(10);*/
+									addData(billBoardLijst,0,billBoardLijst.size());
 								}
 								catch (Exception e1)
 								{

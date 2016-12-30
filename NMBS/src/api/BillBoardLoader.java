@@ -3,9 +3,9 @@ package api;
 import java.util.ArrayList;
 
 public class BillBoardLoader {
-	 public static ArrayList<BillBoard> getDepartures(String station, String datum) throws Exception
+	 public static ArrayList<BillBoard> getDepartures(String station) throws Exception
 	   {
-		 	String URLRequest = URLHelper.URLMaker("https://api.irail.be/liveboard/?station=", station, datum);
+		 	String URLRequest = URLHelper.URLMaker("https://api.irail.be/liveboard/?station=", station);
 		 	
 			if(DataLoader.checkURL(URLRequest)== true)
 			{

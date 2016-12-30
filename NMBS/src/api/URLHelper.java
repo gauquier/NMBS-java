@@ -46,6 +46,7 @@ public abstract class URLHelper {
         StringBuilder builder = new StringBuilder();
         builder.append(base);
         builder.append(STRFormatter(request));
+        System.out.println(builder.toString());
         builder.append("&fast=true");
         return builder.toString();
 }
@@ -60,32 +61,25 @@ public abstract class URLHelper {
         builder.append(tijd);
         return builder.toString();
 }
-	public static String URLMaker(String base, String request, String datum){
-        StringBuilder builder = new StringBuilder();
-        builder.append(base);
-        builder.append(STRFormatter(request));
-        builder.append("&fast=true");
-        builder.append("&date=");
-        builder.append(datum.toString());
-        return builder.toString();
-}
+	
 	public static String STRFormatter(String input)
 	{
 		StringBuilder builder = new StringBuilder();
-        builder.append(input);
-        int lengte = input.length();
-		for(int i = 0; i< lengte;i++)
+		builder.append(input);
+		if(builder.indexOf("/") != -1)
 		{
-			if(input.charAt(i)==' '||input.charAt(i)=='-' )
-			{
-				 builder.deleteCharAt(i);
-				builder.insert(i,"%20");
-				System.out.println(builder);
-				i=i+2;
-				lengte=lengte+2;
-			}
+		builder.delete(builder.indexOf("/"), builder.length());
 		}
-		return builder.toString();
+		int index = builder.indexOf("-");
+	    while (index != -1)
+	    {
+	        builder.replace(index, index + 1, "%20");
+	        index += 3; // Move to the end of the replacement
+	        index = builder.indexOf("-");
+	        System.out.println(builder);
+	    }
+	    System.out.println(builder);
+	    return builder.toString();
 	}
 
 }
