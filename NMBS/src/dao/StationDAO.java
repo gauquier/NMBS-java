@@ -3,8 +3,11 @@ package dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import source.Medewerker;
 import source.Station;
 
 public class StationDAO {
@@ -66,6 +69,18 @@ public class StationDAO {
 
 				lijst.add(station);
 			}
+			
+			Collections.sort(lijst, new Comparator<Station>() {
+
+	            @Override
+	            public int compare(Station m1, Station m2) {
+	                if (m1.getNaam().toLowerCase().equals(m2.getNaam().toLowerCase())) {
+	                    return 0;
+	                }
+	                return m1.getNaam().toLowerCase().compareTo(m2.getNaam().toLowerCase());
+	            }
+	        });
+			
 			return lijst;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

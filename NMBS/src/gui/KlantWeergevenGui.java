@@ -12,7 +12,10 @@ import javax.swing.UIManager;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
+import dao.LoginDao;
+import dao.MedewerkerDAO;
 import source.Klant;
+import source.Login;
 
 public class KlantWeergevenGui extends JPanel {
 
@@ -20,7 +23,7 @@ public class KlantWeergevenGui extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 2392843966171201473L;
-
+	
 	public KlantWeergevenGui(Klant klant) {
 		this.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 
@@ -85,13 +88,13 @@ public class KlantWeergevenGui extends JPanel {
 								.addComponent(lblInfoValue, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblEmailValue, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblBusValue, GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblAdresValue, GroupLayout.PREFERRED_SIZE, 296, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(lblAdresValue, GroupLayout.PREFERRED_SIZE, 381, GroupLayout.PREFERRED_SIZE)))
 						.addComponent(lblKlant, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(316, Short.MAX_VALUE))
+					.addContainerGap(231, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lblKlant, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
@@ -99,7 +102,7 @@ public class KlantWeergevenGui extends JPanel {
 						.addComponent(lblEmail)
 						.addComponent(lblEmailValue, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE, false)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblAdres)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(6)

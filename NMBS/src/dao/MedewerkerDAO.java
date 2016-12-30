@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import source.Adres;
 import source.Login;
@@ -149,6 +151,17 @@ public class MedewerkerDAO {
 			e.printStackTrace();
 		}
 
+		 Collections.sort(medewerkers, new Comparator<Medewerker>() {
+
+	            @Override
+	            public int compare(Medewerker m1, Medewerker m2) {
+	                if (m1.getVoornaam().toLowerCase().equals(m2.getVoornaam().toLowerCase())) {
+	                    return 0;
+	                }
+	                return m1.getVoornaam().toLowerCase().compareTo(m2.getVoornaam().toLowerCase());
+	            }
+	        });
+		
 		return medewerkers;
 		/*
 		 * ArrayList<Medewerker> medewerkers = new ArrayList<Medewerker>();

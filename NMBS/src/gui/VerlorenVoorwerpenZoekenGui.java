@@ -48,12 +48,12 @@ import javax.swing.UIManager;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
-
-
+import dao.LoginDao;
+import dao.MedewerkerDAO;
 import dao.StationDAO;
 
 import dao.VerlorenVoorwerpDAO;
-
+import source.Login;
 import source.Station;
 
 import source.VerlorenVoorwerp;
@@ -62,7 +62,8 @@ import source.VerlorenVoorwerp;
 
 public class VerlorenVoorwerpenZoekenGui extends JPanel {
 
-
+	private int huidigeRol=MedewerkerDAO.getMedewerkerByLogin(LoginDao.getLoginId(Login.getCurrentUser()))
+			.getRol().getRolId();
 
 	private JComboBox stationLijst;
 
@@ -142,8 +143,6 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 		this.list.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 
 		this.list.setBackground(SystemColor.menu);
-
-
 
 		this.stationLijst.addItemListener(new ItemListener() {
 
@@ -268,7 +267,12 @@ public class VerlorenVoorwerpenZoekenGui extends JPanel {
 
 					JOptionPane.showMessageDialog(new JFrame(), "Verloren voorwerp gevonden");
 
-					AdminGui.setHuidigeKeuze(new VerlorenVoorwerpenZoekenGui());
+					if(huidigeRol==1){
+						AdminGui.setHuidigeKeuze(new VerlorenVoorwerpenZoekenGui());
+					}else{
+						MedewerkerGui.setHuidigeKeuze(new VerlorenVoorwerpenZoekenGui());
+					}
+					
 
 				}
 

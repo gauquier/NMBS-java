@@ -25,7 +25,7 @@ public class VerkoopController {
 				depZone = false;
 			}
 
-			if (StationDAO.checkStation(ticket.getArrZone()) != 0) {
+			if (StationDAO.checkStation(ticket.getArrZone()) != 0 && ticket.getArrZone()!=ticket.getDepZone()) {
 				arrZone = true;
 			} else {
 				arrZone = false;

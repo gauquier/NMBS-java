@@ -43,6 +43,7 @@ import javax.swing.border.Border;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 import com.toedter.calendar.JDateChooser;
 
+import dao.LoginDao;
 import dao.MedewerkerDAO;
 import dao.PrijsDAO;
 import dao.StationDAO;
@@ -58,7 +59,6 @@ import source.VerkoopType;
 @SuppressWarnings("serial")
 public class TicketVerkoopGui extends JPanel {
 	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.TicketVerkoopGui");
-
 	private JTable table;
 
 	private JDateChooser heenDatum = new JDateChooser(new Date());
@@ -331,7 +331,7 @@ public class TicketVerkoopGui extends JPanel {
 				+ bundle.getString("lblVan") + " " + this.comboVan.getSelectedItem() + "\n"
 				+ bundle.getString("lblNaar") + " " + this.comboNaar.getSelectedItem() + "\n"
 				+ bundle.getString("lblDatum") + " " + format.format(this.heenDatum.getDate()) + "\n"
-				+ bundle.getString("lblTerugDatum") + " " + format.format(this.terugDatum.getDate()) + "\n"
+				+ bundle.getString("lblTerugDatum") + " " + (ticket.getTerugDatum()==null ? "Niet van toepassing" : format.format(this.terugDatum.getDate())) + "\n"
 				+ bundle.getString("lblKlasse") + " " + this.klasse.getValue() + "\n" + this.getSelectedButton() + "\n"
 				+ bundle.getString("lblSoortBiljet") + " " + this.comboVerkoopType.getSelectedItem() + "\n"
 				+ bundle.getString("lblPrijs") + " " + this.ticket.getPrijs() * this.ticket.getAantal() + "");

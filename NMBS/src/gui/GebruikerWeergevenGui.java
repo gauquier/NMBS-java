@@ -12,6 +12,9 @@ import javax.swing.UIManager;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
+import dao.LoginDao;
+import dao.MedewerkerDAO;
+import source.Login;
 import source.Medewerker;
 
 public class GebruikerWeergevenGui extends JPanel {
@@ -20,7 +23,9 @@ public class GebruikerWeergevenGui extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -878328862101208141L;
-
+	private int huidigeRol=MedewerkerDAO.getMedewerkerByLogin(LoginDao.getLoginId(Login.getCurrentUser()))
+			.getRol().getRolId();
+	
 	public GebruikerWeergevenGui(Medewerker medewerker) {
 		this.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 

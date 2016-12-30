@@ -21,6 +21,7 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import Hashing.DualHash;
 import dao.LoginDao;
+import dao.MedewerkerDAO;
 import source.Login;
 
 public class WachtwoordVeranderenGui extends JPanel {
@@ -28,7 +29,9 @@ public class WachtwoordVeranderenGui extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 6274650572795135242L;
-
+	private int huidigeRol=MedewerkerDAO.getMedewerkerByLogin(LoginDao.getLoginId(Login.getCurrentUser()))
+			.getRol().getRolId();
+	
 	private static ResourceBundle bundle;
 
 	private JPasswordField pwdHerhaaldWachtwoord;
@@ -95,11 +98,12 @@ public class WachtwoordVeranderenGui extends JPanel {
 									.addComponent(lblHuidigWachtwoord, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 								.addComponent(lblUsername))
 							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblGebruikersnaam, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(pwdHuidigWachtwoord, GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
-								.addComponent(pwdNieuwwachtwoord)
-								.addComponent(pwdHerhaaldWachtwoord)))
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+									.addComponent(pwdHuidigWachtwoord, GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+									.addComponent(pwdNieuwwachtwoord)
+									.addComponent(pwdHerhaaldWachtwoord))))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(150)
 							.addComponent(btnWijzigen))
@@ -112,13 +116,12 @@ public class WachtwoordVeranderenGui extends JPanel {
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblWachtwoordWijzigen)
-							.addGap(47)
-							.addComponent(lblUsername))
+					.addComponent(lblWachtwoordWijzigen)
+					.addGap(47)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblUsername)
 						.addComponent(lblGebruikersnaam, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE))
-					.addGap(15)
+					.addGap(7)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblHuidigWachtwoord)
 						.addComponent(pwdHuidigWachtwoord, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
@@ -165,7 +168,11 @@ public class WachtwoordVeranderenGui extends JPanel {
 									e1.printStackTrace();
 								}
 								JOptionPane.showMessageDialog(new JFrame(), "Uw wachtwoord is aangepast!");
-								WachtwoordVeranderenGui.this.close();
+								if(huidigeRol==1){
+									AdminGui.setHuidigeKeuze(new HomeGui(false));
+								} else {
+									MedewerkerGui.setHuidigeKeuze(new HomeGui(false));
+								}
 							} else {
 								JOptionPane.showMessageDialog(new JFrame(), "De wachtwoorden komen niet overeen!");
 								WachtwoordVeranderenGui.this.pwdNieuwwachtwoord.setText("");
