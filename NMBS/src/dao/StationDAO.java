@@ -9,6 +9,7 @@ import java.util.List;
 
 import source.Medewerker;
 import source.Station;
+import api.Parser;
 
 public class StationDAO {
 
@@ -121,4 +122,18 @@ public class StationDAO {
 		}
 		return null;
 	}
+	public void updateStationsInDB() {
+		try {
+			List<Station> bestaandeStations = getStations();
+			List<Station> nieuwStations = new ArrayList<>();
+			for (Station station : Parser.parseStations()) {
+				if (!bestaandeStations.contains(station))
+					nieuwStations.add(station);
+			}
+			for (Station station : nieuwStations)
+				insertStation(station); 
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 }
