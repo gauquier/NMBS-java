@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ResourceBundle;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -24,6 +25,8 @@ public class KlantWeergevenGui extends JPanel {
 	 */
 	private static final long serialVersionUID = 2392843966171201473L;
 	
+	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.KlantWeergevenGui");
+	
 	public KlantWeergevenGui(Klant klant) {
 		this.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 
@@ -31,7 +34,7 @@ public class KlantWeergevenGui extends JPanel {
 		lblKlant.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblKlant.setText(klant.getNaam());
 
-		JLabel lblEmail = new JLabel("Email:");
+		JLabel lblEmail = new JLabel(bundle.getString("lblEmail"));
 		lblEmail.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblEmail.setForeground(Color.WHITE);
 
@@ -40,7 +43,7 @@ public class KlantWeergevenGui extends JPanel {
 		lblEmailValue.setForeground(Color.WHITE);
 		lblEmailValue.setText(klant.getEmail());
 
-		JLabel lblAdres = new JLabel("Adres:");
+		JLabel lblAdres = new JLabel(bundle.getString("lblAdres"));
 		lblAdres.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblAdres.setForeground(Color.WHITE);
 
@@ -49,7 +52,7 @@ public class KlantWeergevenGui extends JPanel {
 		lblAdresValue.setForeground(Color.WHITE);
 		lblAdresValue.setText(klant.getAdres().toString());
 
-		JLabel lblBus = new JLabel("Bus:");
+		JLabel lblBus = new JLabel(bundle.getString("lblBus"));
 		lblBus.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblBus.setForeground(Color.WHITE);
 
@@ -57,12 +60,12 @@ public class KlantWeergevenGui extends JPanel {
 		lblBusValue.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblBusValue.setForeground(Color.WHITE);
 		if (klant.getAdres().getBus() == null || klant.getAdres().getBus() == "" || klant.getAdres().getBus() == " ") {
-			lblBusValue.setText("Niet van toepassing");
+			lblBusValue.setText(bundle.getString("NA"));//tekst: "Niet van toepassing"
 		} else {
 			lblBusValue.setText(klant.getAdres().getBus());
 		}
 
-		JLabel lblInfo = new JLabel("Info:");
+		JLabel lblInfo = new JLabel(bundle.getString("lblInfo"));
 		lblInfo.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblInfo.setForeground(Color.WHITE);
 
