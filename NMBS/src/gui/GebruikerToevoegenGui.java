@@ -412,7 +412,7 @@ public class GebruikerToevoegenGui extends JPanel {
 
 					String username = GebruikerToevoegenGui.this.txtUsername.getText().trim();
 					if (GebruikerToevoegenGui.this.loginDao.checkUsername(username) > 0) {
-						JOptionPane.showMessageDialog(new JFrame(), "Deze gebruiker bestaat al.");
+						JOptionPane.showMessageDialog(new JFrame(), bundle.getString("userAlreadyExists"));
 						GebruikerToevoegenGui.this.txtPassword.setText("");
 						return;
 					} else {
@@ -453,7 +453,7 @@ public class GebruikerToevoegenGui extends JPanel {
 						}
 						if (!Validation.checkAlphabetical(GebruikerToevoegenGui.this.txtGemeente.getText())) {
 							GebruikerToevoegenGui.this.lblGemeenteError
-									.setText("Gelieve een juiste gemeente in te vullen!");
+									.setText(bundle.getString("lblGemeenteError"));
 							GebruikerToevoegenGui.this.txtGemeente.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkgemeente = false;
 						}else {
