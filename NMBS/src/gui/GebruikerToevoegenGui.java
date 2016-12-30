@@ -39,6 +39,8 @@ public class GebruikerToevoegenGui extends JPanel {
 	 */
 	private static final long serialVersionUID = -83102949843216643L;
 	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.GebruikerToevoegenGui");
+	private int huidigeRol=MedewerkerDAO.getMedewerkerByLogin(LoginDao.getLoginId(Login.getCurrentUser()))
+			.getRol().getRolId();
 	private JTextField txtVoornaam;
 	private JTextField txtAchternaam;
 	private JTextField txtStraat;
@@ -73,7 +75,7 @@ public class GebruikerToevoegenGui extends JPanel {
 	private Border border = BorderFactory.createEmptyBorder();
 	private Border bordererror = BorderFactory.createLineBorder(Color.RED, 3);
 	private JLabel lblUsernameError;
-	private boolean checkvoornaam, checkachternaam, checkstraat, checkhuisnr, checkbus, checkgemeente, checkpostcode, checkemail;
+	private boolean checkvoornaam=true, checkachternaam=true, checkstraat=true, checkhuisnr=true, checkbus=true, checkgemeente=true, checkpostcode=true, checkemail=true;
 
 	public GebruikerToevoegenGui() {
 		this.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
@@ -420,16 +422,25 @@ public class GebruikerToevoegenGui extends JPanel {
 							GebruikerToevoegenGui.this.txtVoornaam.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkvoornaam = false;
 						}
+						else {
+							checkvoornaam=true;
+						}
 						if (!Validation.checkLastName(GebruikerToevoegenGui.this.txtAchternaam.getText())) {
 							GebruikerToevoegenGui.this.lblAchternaamError
 									.setText(bundle.getString("lblAchternaamError"));
 							GebruikerToevoegenGui.this.txtAchternaam.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkachternaam = false;
 						}
+						else {
+							checkachternaam=true;
+						}
 						if (!Validation.checkAlphabetical(GebruikerToevoegenGui.this.txtStraat.getText())) {
 							GebruikerToevoegenGui.this.lblStraatError.setText(bundle.getString("lblStraatError"));
 							GebruikerToevoegenGui.this.txtStraat.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkstraat = false;
+						}
+						else {
+							checkstraat=true;
 						}
 						if (!Validation.checkHouseNumber(GebruikerToevoegenGui.this.txtHuisnr.getText())) {
 							GebruikerToevoegenGui.this.lblHuisnrError
@@ -437,17 +448,24 @@ public class GebruikerToevoegenGui extends JPanel {
 							GebruikerToevoegenGui.this.txtHuisnr.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkhuisnr = false;
 						}
+						else {
+							checkhuisnr=true;
+						}
 						if (!Validation.checkAlphabetical(GebruikerToevoegenGui.this.txtGemeente.getText())) {
 							GebruikerToevoegenGui.this.lblGemeenteError
-									.setText(c);
+									.setText("Gelieve een juiste gemeente in te vullen!");
 							GebruikerToevoegenGui.this.txtGemeente.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkgemeente = false;
+						}else {
+							checkgemeente=true;
 						}
 						if (!Validation.checkPostalCode(GebruikerToevoegenGui.this.txtPostcode.getText())) {
 							GebruikerToevoegenGui.this.lblPostcodeError
 									.setText(bundle.getString("lblPostcodeError"));
 							GebruikerToevoegenGui.this.txtPostcode.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkpostcode = false;
+						}else {
+							checkpostcode=true;
 						}
 						if (!GebruikerToevoegenGui.this.txtEmail.getText().isEmpty()
 								&& !Validation.checkEmail(GebruikerToevoegenGui.this.txtEmail.getText())) {
@@ -455,21 +473,21 @@ public class GebruikerToevoegenGui extends JPanel {
 									.setText(bundle.getString("lblEmailError"));
 							GebruikerToevoegenGui.this.txtEmail.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkemail = false;
+						}else {
+							checkemail=true;
 						}
 						if (!GebruikerToevoegenGui.this.txtBus.getText().isEmpty()
 								&& !Validation.checkBoxNumber(GebruikerToevoegenGui.this.txtBus.getText())) {
 							GebruikerToevoegenGui.this.lblBusError.setText(bundle.getString("lblBusError"));
 							GebruikerToevoegenGui.this.txtBus.setBorder(GebruikerToevoegenGui.this.bordererror);
 							checkbus = false;
+						}else {
+							checkbus=true;
 						}
 						if (checkvoornaam == false || checkachternaam == false || checkstraat == false || checkhuisnr == false || checkgemeente == false || checkpostcode == false || checkemail == false || checkbus == false){
 							return;
 						}
-						if (!Validation.checkUsername(GebruikerToevoegenGui.this.txtUsername.getText())) {
-							GebruikerToevoegenGui.this.lblUsernameError
-									.setText(bundle.getString("lblUsernameError"));//"Een username mag niet enkel nummers bevatten."
-							GebruikerToevoegenGui.this.txtUsername.setBorder(GebruikerToevoegenGui.this.bordererror);
-						} else {
+
 							try {
 								GebruikerToevoegenGui.this.login = new Login(
 										GebruikerToevoegenGui.this.txtUsername.getText().trim(),
@@ -516,9 +534,13 @@ public class GebruikerToevoegenGui extends JPanel {
 							MedewerkerDAO.addMedewerker(GebruikerToevoegenGui.this.login,
 									GebruikerToevoegenGui.this.persoon, GebruikerToevoegenGui.this.rol,
 									GebruikerToevoegenGui.this.adres);
-							GebruikerToevoegenGui.this.close();
 							JOptionPane.showMessageDialog(new JFrame(), bundle.getString("userAdded"));
-						}
+							if(huidigeRol==1){
+								AdminGui.setHuidigeKeuze(new GebruikerBewerkenGui());
+							} else {
+								MedewerkerGui.setHuidigeKeuze(new GebruikerBewerkenGui());
+							}
+
 					}
 				} else {
 					JOptionPane.showMessageDialog(new JFrame(), bundle.getString("requiredFieldsWarning"));

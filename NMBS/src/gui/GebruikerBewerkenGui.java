@@ -30,9 +30,12 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 import Hashing.DualHash;
 import dao.LoginDao;
 import dao.MedewerkerDAO;
+import source.Login;
 import source.Medewerker;
 
 public class GebruikerBewerkenGui extends JPanel {
+	private int huidigeRol=MedewerkerDAO.getMedewerkerByLogin(LoginDao.getLoginId(Login.getCurrentUser()))
+			.getRol().getRolId();
 	private JTextField txtZoekveld;
 	private JButton btnBewerken;
 	private JList<Medewerker> list;
@@ -42,9 +45,9 @@ public class GebruikerBewerkenGui extends JPanel {
 	private JButton btnPasswordReset;
 	public String navigation;
 	private JLabel label;
-	
+
 	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.GebruikerBewerkenGui");
-	
+
 	public GebruikerBewerkenGui() {
 		this.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 
@@ -121,9 +124,9 @@ public class GebruikerBewerkenGui extends JPanel {
 								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE))
 							.addGap(10)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(btnPasswordReset, GroupLayout.PREFERRED_SIZE, 213, Short.MAX_VALUE)
 								.addComponent(btnVerwijderen, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-								.addComponent(btnBewerken, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-								.addComponent(btnPasswordReset, GroupLayout.PREFERRED_SIZE, 213, Short.MAX_VALUE))))
+								.addComponent(btnBewerken, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE))))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -145,7 +148,7 @@ public class GebruikerBewerkenGui extends JPanel {
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(btnVerwijderen)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(btnPasswordReset, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(btnPasswordReset)))
 					.addContainerGap())
 		);
 
@@ -156,8 +159,14 @@ public class GebruikerBewerkenGui extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent evt) {
 				if (evt.getClickCount() == 2) {
-					AdminGui.setHuidigeKeuze(
+					if(huidigeRol==1){
+						AdminGui.setHuidigeKeuze(
 							new GebruikerWeergevenGui(GebruikerBewerkenGui.this.list.getSelectedValue()));
+					}else{
+						MedewerkerGui.setHuidigeKeuze(
+								new GebruikerWeergevenGui(GebruikerBewerkenGui.this.list.getSelectedValue()));
+					}
+
 				}
 			}
 		});
@@ -222,8 +231,15 @@ public class GebruikerBewerkenGui extends JPanel {
 					return;
 				} else {
 					GebruikerBewerkenGui.this.navigation = "gebruikerBijwerken";
+					if(huidigeRol==1){
+
 					AdminGui.setHuidigeKeuze(
 							new GebruikerBijwerkenGui(GebruikerBewerkenGui.this.list.getSelectedValue()));
+					} else {
+					MedewerkerGui.setHuidigeKeuze(
+							new GebruikerWeergevenGui(GebruikerBewerkenGui.this.list.getSelectedValue()));
+					}
+
 				}
 			}
 
@@ -241,6 +257,7 @@ public class GebruikerBewerkenGui extends JPanel {
 								.removeMedewerker(GebruikerBewerkenGui.this.list.getSelectedValue().getMedewerkerId());
 						((DefaultListModel<Medewerker>) GebruikerBewerkenGui.this.list.getModel())
 								.remove(GebruikerBewerkenGui.this.list.getSelectedIndex());
+						arrayLijst = MedewerkerDAO.getAllMedewerkers();
 						JOptionPane.showMessageDialog(new JFrame(), bundle.getString("userDeleted"));
 					} else if (n == 1) {
 						return;
@@ -269,9 +286,11 @@ public class GebruikerBewerkenGui extends JPanel {
 							e1.printStackTrace();
 						}
 						JOptionPane.showMessageDialog(new JFrame(),
-								bundle.getString("postPassResetMessagePart1") + " " + GebruikerBewerkenGui.this.list.getSelectedValue().getVoornaam()
+                                bundle.getString("postPassResetMessagePart1") + " " + GebruikerBewerkenGui.this.list.getSelectedValue().getVoornaam()
 										+ " " + GebruikerBewerkenGui.this.list.getSelectedValue().getAchternaam()
-										+ " " + bundle.getString("postPassResetMessagePart2"));
+										+ " " + bundle.getString("postPassResetMessagePart2");
+
+
 					} else if (n == 1) {
 						return;
 					}

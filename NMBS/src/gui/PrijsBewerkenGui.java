@@ -19,13 +19,18 @@ import javax.swing.UIManager;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
+import dao.LoginDao;
+import dao.MedewerkerDAO;
 import dao.PrijsDAO;
+import source.Login;
 import source.Prijs;
 
 @SuppressWarnings("serial")
 public class PrijsBewerkenGui extends JPanel {
 	private static ResourceBundle bundle;
-
+	private int huidigeRol=MedewerkerDAO.getMedewerkerByLogin(LoginDao.getLoginId(Login.getCurrentUser()))
+			.getRol().getRolId();
+	
 	private JTextField txtVerkooptype;
 	private JTextField txtPrijs;
 	private JButton btnBijwerken;
@@ -128,7 +133,12 @@ public class PrijsBewerkenGui extends JPanel {
 			// refresh();
 
 			if (e.getSource() == PrijsBewerkenGui.this.btnTerug) {
-				AdminGui.setHuidigeKeuze(new PrijsBeheerGui());
+				if(huidigeRol==1){
+					AdminGui.setHuidigeKeuze(new PrijsBeheerGui());
+				}else{
+					MedewerkerGui.setHuidigeKeuze(new PrijsBeheerGui());
+				}
+				
 			}
 
 			if (e.getSource() == PrijsBewerkenGui.this.btnBijwerken) {
@@ -137,11 +147,21 @@ public class PrijsBewerkenGui extends JPanel {
 						&& !PrijsBewerkenGui.this.txtPrijs.getText().isEmpty()) {
 					String verkooptype = PrijsBewerkenGui.this.txtVerkooptype.getText().trim();
 					Double prijs = Double.parseDouble(PrijsBewerkenGui.this.txtPrijs.getText());
-
+					if(prijs<=0){
+						JOptionPane.showMessageDialog(new JFrame(), "Prijs kan niet kleiner dan of gelijk aan 0 zijn.");
+						return;
+					}
+					
+					
 					PrijsDAO.updatePrijsByVerkoopType(verkooptype, prijs);
 
 					JOptionPane.showMessageDialog(new JFrame(), "Prijs is bijgewerkt!");
-					AdminGui.setHuidigeKeuze(new PrijsBeheerGui());
+					if(huidigeRol==1){
+						AdminGui.setHuidigeKeuze(new PrijsBeheerGui());
+					}else{
+						MedewerkerGui.setHuidigeKeuze(new PrijsBeheerGui());
+					}
+					
 				} else {
 					JOptionPane.showMessageDialog(new JFrame(), "Vul alle verplichte velden in!");
 

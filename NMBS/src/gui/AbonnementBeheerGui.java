@@ -28,6 +28,7 @@ import javax.swing.event.DocumentListener;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import dao.AbonnementDAO;
+import dao.KlantDAO;
 import dao.LoginDao;
 import dao.MedewerkerDAO;
 import dao.PeriodeDAO;
@@ -41,6 +42,8 @@ public class AbonnementBeheerGui extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 2914230901692734881L;
+	private int huidigeRol=MedewerkerDAO.getMedewerkerByLogin(LoginDao.getLoginId(Login.getCurrentUser()))
+			.getRol().getRolId();
 	private JTextField txtZoekveld;
 	private JButton btnVerlengen;
 	private JButton btnVerwijderen;
@@ -78,8 +81,13 @@ public class AbonnementBeheerGui extends JPanel {
 			public void mouseClicked(MouseEvent evt) {
 				if (evt.getClickCount() == 2) {
 
-					AdminGui.setHuidigeKeuze(
-							new AbonnementWeergevenGui(AbonnementBeheerGui.this.list.getSelectedValue()));
+					if(huidigeRol==1){
+						AdminGui.setHuidigeKeuze(
+								new AbonnementWeergevenGui(AbonnementBeheerGui.this.list.getSelectedValue()));
+					} else {
+						MedewerkerGui.setHuidigeKeuze(
+								new AbonnementWeergevenGui(AbonnementBeheerGui.this.list.getSelectedValue()));
+					}
 				}
 			}
 		});
@@ -233,17 +241,27 @@ public class AbonnementBeheerGui extends JPanel {
 					.getMedewerkerId();
 
 			if (e.getSource() == AbonnementBeheerGui.this.btnNieuwAbonnement) {
-				AdminGui.setHuidigeKeuze(new AbonnementToevoegenGui());
+				if(huidigeRol==1){
+					AdminGui.setHuidigeKeuze(new AbonnementToevoegenGui());
+				} else {
+					MedewerkerGui.setHuidigeKeuze(new AbonnementToevoegenGui());
+				}
+				
+				
 			}
 
 			if (e.getSource() == AbonnementBeheerGui.this.btnVerlengen) {
 				if (!AbonnementBeheerGui.this.unknownIndex()) {
 					return;
 				} else {
-
-					AdminGui.setHuidigeKeuze(
+					if(huidigeRol==1){
+						AdminGui.setHuidigeKeuze(
 							new AbonnementVerlengenGui(AbonnementBeheerGui.this.list.getSelectedValue()));
-
+					} else {
+						MedewerkerGui.setHuidigeKeuze(
+								new AbonnementVerlengenGui(AbonnementBeheerGui.this.list.getSelectedValue()));
+					}
+					
 				}
 
 			}
@@ -285,7 +303,13 @@ public class AbonnementBeheerGui extends JPanel {
 									+ AbonnementBeheerGui.this.list.getSelectedValue().getKlant().getAchternaam()
 									+ " wordt binnen de 24 uur geannuleerd. Het terug te betalen bedrag bedraagt "
 									+ terugTeBetalen + " euro.");
-							AdminGui.setHuidigeKeuze(new AbonnementBeheerGui());
+							
+							if(huidigeRol==1){
+								AdminGui.setHuidigeKeuze(new AbonnementBeheerGui());
+							} else {
+								MedewerkerGui.setHuidigeKeuze(new AbonnementBeheerGui());
+							}
+							
 						}
 
 					}
@@ -307,6 +331,7 @@ public class AbonnementBeheerGui extends JPanel {
 									AbonnementBeheerGui.this.list.getSelectedValue().getAbonnementId());
 							((DefaultListModel<Abonnement>) AbonnementBeheerGui.this.list.getModel())
 									.remove(AbonnementBeheerGui.this.list.getSelectedIndex());
+							arrayLijst = AbonnementDAO.getAllAbonnementen();
 							JOptionPane.showMessageDialog(new JFrame(), "Abonnement is succesvol verwijdert.");
 						} else if (n == 1) {
 							return;

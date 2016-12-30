@@ -21,11 +21,16 @@ import javax.swing.UIManager;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
+import dao.LoginDao;
+import dao.MedewerkerDAO;
 import dao.PrijsDAO;
+import source.Login;
 import source.Prijs;
 
 @SuppressWarnings("serial")
 public class PrijsBeheerGui extends JPanel {
+	private int huidigeRol=MedewerkerDAO.getMedewerkerByLogin(LoginDao.getLoginId(Login.getCurrentUser()))
+			.getRol().getRolId();
 	private static ResourceBundle bundle;
 
 	private JButton btnBewerken;
@@ -112,8 +117,12 @@ public class PrijsBeheerGui extends JPanel {
 				if (!PrijsBeheerGui.this.unknownIndex()) {
 					return;
 				} else {
-
-					AdminGui.setHuidigeKeuze(new PrijsBewerkenGui(PrijsBeheerGui.this.list.getSelectedValue()));
+					if(huidigeRol==1){
+						AdminGui.setHuidigeKeuze(new PrijsBewerkenGui(PrijsBeheerGui.this.list.getSelectedValue()));
+					}else{
+						MedewerkerGui.setHuidigeKeuze(new PrijsBewerkenGui(PrijsBeheerGui.this.list.getSelectedValue()));
+					}
+					
 
 				}
 			}

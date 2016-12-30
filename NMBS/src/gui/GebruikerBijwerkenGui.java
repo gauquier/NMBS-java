@@ -23,8 +23,10 @@ import javax.swing.border.Border;
 
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 
+import dao.LoginDao;
 import dao.MedewerkerDAO;
 import source.Adres;
+import source.Login;
 import source.Medewerker;
 import source.Persoon;
 import source.Rol;
@@ -35,7 +37,8 @@ public class GebruikerBijwerkenGui extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = -3992250264094765608L;
-
+	private int huidigeRol=MedewerkerDAO.getMedewerkerByLogin(LoginDao.getLoginId(Login.getCurrentUser()))
+			.getRol().getRolId();
 	private static ResourceBundle bundle;
 
 	private JTextField txtVoornaam;
@@ -475,7 +478,13 @@ public class GebruikerBijwerkenGui extends JPanel {
 								GebruikerBijwerkenGui.this.rol, GebruikerBijwerkenGui.this.adresId,
 								GebruikerBijwerkenGui.this.adres);
 						JOptionPane.showMessageDialog(new JFrame(), bundle.getString("userEdited"));
-						AdminGui.setHuidigeKeuze(new GebruikerBewerkenGui());
+						
+						if(huidigeRol==1){
+							AdminGui.setHuidigeKeuze(new GebruikerBewerkenGui());
+						}else {
+							MedewerkerGui.setHuidigeKeuze(new GebruikerBewerkenGui());
+						}
+						
 					}
 				} else {
 					JOptionPane.showMessageDialog(new JFrame(), bundle.getString("requiredFieldsWarning"));

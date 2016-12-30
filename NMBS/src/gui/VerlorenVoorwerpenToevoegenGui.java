@@ -22,8 +22,11 @@ import javax.swing.UIManager;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
 import com.toedter.calendar.JDateChooser;
 
+import dao.LoginDao;
+import dao.MedewerkerDAO;
 import dao.StationDAO;
 import dao.VerlorenVoorwerpDAO;
+import source.Login;
 import source.Station;
 import source.VerlorenVoorwerp;
 
@@ -33,6 +36,8 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 5501780870042021655L;
+	private int huidigeRol=MedewerkerDAO.getMedewerkerByLogin(LoginDao.getLoginId(Login.getCurrentUser()))
+			.getRol().getRolId();
 
 	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.VerlorenVoorwerpenToevoegenGui");
 
@@ -160,10 +165,13 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel {
 					vv = new VerlorenVoorwerp(-1, beschrijving, date, gevonden);
 					VerlorenVoorwerpDAO.insertVerlorenVoorwerp(vv, StationDAO.checkStation(station));
 					JOptionPane.showMessageDialog(new JFrame(), bundle.getString("itemAdded"));
-					AdminGui.setHuidigeKeuze(new VerlorenVoorwerpenToevoegenGui());// reset
-																					// functie
-																					// van
-																					// maken
+					if(huidigeRol==1){
+						AdminGui.setHuidigeKeuze(new VerlorenVoorwerpenToevoegenGui());
+					}else{
+						MedewerkerGui.setHuidigeKeuze(new VerlorenVoorwerpenToevoegenGui());
+					}
+
+
 				}
 
 				else {

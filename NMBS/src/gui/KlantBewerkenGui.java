@@ -28,10 +28,15 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 import dao.AbonnementDAO;
 import dao.KlantDAO;
+import dao.LoginDao;
+import dao.MedewerkerDAO;
 import source.Abonnement;
 import source.Klant;
+import source.Login;
 
 public class KlantBewerkenGui extends JPanel {
+	private int huidigeRol=MedewerkerDAO.getMedewerkerByLogin(LoginDao.getLoginId(Login.getCurrentUser()))
+			.getRol().getRolId();
 	private JTextField txtZoeken;
 	private JButton btnBewerken;
 	private JList<Klant> list;
@@ -66,8 +71,12 @@ public class KlantBewerkenGui extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent evt) {
 				if (evt.getClickCount() == 2) {
-
-					AdminGui.setHuidigeKeuze(new KlantWeergevenGui(KlantBewerkenGui.this.list.getSelectedValue()));
+					if(huidigeRol==1){
+						AdminGui.setHuidigeKeuze(new KlantWeergevenGui(KlantBewerkenGui.this.list.getSelectedValue()));
+					} else {
+						MedewerkerGui.setHuidigeKeuze(new KlantWeergevenGui(KlantBewerkenGui.this.list.getSelectedValue()));
+					}
+					
 				}
 			}
 		});
@@ -227,7 +236,12 @@ public class KlantBewerkenGui extends JPanel {
 				} else {
 
 					KlantBewerkenGui.this.navigation = "gebruikerBijwerken";
-					AdminGui.setHuidigeKeuze(new KlantBijwerkenGui(KlantBewerkenGui.this.list.getSelectedValue()));
+					if(huidigeRol==1){
+						AdminGui.setHuidigeKeuze(new KlantBijwerkenGui(KlantBewerkenGui.this.list.getSelectedValue()));
+					}else {
+						MedewerkerGui.setHuidigeKeuze(new KlantBijwerkenGui(KlantBewerkenGui.this.list.getSelectedValue()));
+					}
+					
 
 				}
 			}
@@ -260,6 +274,7 @@ public class KlantBewerkenGui extends JPanel {
 						KlantDAO.removeKlant(KlantBewerkenGui.this.list.getSelectedValue().getKlantId());
 						((DefaultListModel<Klant>) KlantBewerkenGui.this.list.getModel())
 								.remove(KlantBewerkenGui.this.list.getSelectedIndex());
+						arrayLijst = KlantDAO.getAllKlanten();
 						JOptionPane.showMessageDialog(new JFrame(), "Klant is succesvol verwijdert.");
 					} else if (n == 1) {
 						return;
