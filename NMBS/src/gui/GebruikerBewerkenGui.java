@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
@@ -45,10 +46,12 @@ public class GebruikerBewerkenGui extends JPanel {
 	public String navigation;
 	private JLabel label;
 
+	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.GebruikerBewerkenGui");
+
 	public GebruikerBewerkenGui() {
 		this.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 
-		JLabel lblGebruikerBewerken = DefaultComponentFactory.getInstance().createTitle("Gebruikers beheren");
+		JLabel lblGebruikerBewerken = DefaultComponentFactory.getInstance().createTitle(bundle.getString("lblGebruikerBewerken"));
 		lblGebruikerBewerken.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
 		this.arrayLijst = new ArrayList<Medewerker>();
@@ -84,24 +87,24 @@ public class GebruikerBewerkenGui extends JPanel {
 
 		});
 
-		this.btnBewerken = new JButton("Bewerken");
+		this.btnBewerken = new JButton(bundle.getString("btnBewerken"));
 		this.btnBewerken.setFont(new Font("Dialog", Font.BOLD, 20));
 		this.btnBewerken.setBackground(Color.ORANGE);
 		this.btnBewerken.addActionListener(new MenuItemHandler());
 
-		this.btnVerwijderen = new JButton("Verwijderen");
+		this.btnVerwijderen = new JButton(bundle.getString("btnVerwijderen"));
 		this.btnVerwijderen.setFont(new Font("Dialog", Font.BOLD, 20));
 		this.btnVerwijderen.setBackground(Color.ORANGE);
 		this.btnVerwijderen.addActionListener(new MenuItemHandler());
 
-		this.btnPasswordReset = new JButton("Password Reset");
+		this.btnPasswordReset = new JButton(bundle.getString("btnPasswordReset"));
 		this.btnPasswordReset.setFont(new Font("Dialog", Font.BOLD, 20));
 		this.btnPasswordReset.setBackground(Color.ORANGE);
 		this.btnPasswordReset.addActionListener(new MenuItemHandler());
 
 		JScrollPane scrollPane = new JScrollPane(this.list);
 
-		this.label = new JLabel("Zoeken op naam:");
+		this.label = new JLabel(bundle.getString("searchByName"));
 		label.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		this.label.setForeground(Color.WHITE);
 
@@ -163,7 +166,7 @@ public class GebruikerBewerkenGui extends JPanel {
 						MedewerkerGui.setHuidigeKeuze(
 								new GebruikerWeergevenGui(GebruikerBewerkenGui.this.list.getSelectedValue()));
 					}
-					
+
 				}
 			}
 		});
@@ -171,7 +174,7 @@ public class GebruikerBewerkenGui extends JPanel {
 	}
 
 	public int OkCancel(String message) {
-		int n = JOptionPane.showConfirmDialog(null, message, "Bevestiging", JOptionPane.YES_NO_OPTION);
+		int n = JOptionPane.showConfirmDialog(null, message, bundle.getString("confirmation"), JOptionPane.YES_NO_OPTION);
 
 		if (n == JOptionPane.YES_OPTION) {
 			return n;
@@ -188,7 +191,7 @@ public class GebruikerBewerkenGui extends JPanel {
 
 	public Boolean unknownIndex() {
 		if (this.list.getSelectedValue() == null || this.list.getSelectedIndex() < 0) {
-			JOptionPane.showMessageDialog(new JFrame(), "Er is geen gebruiker aangeduid.");
+			JOptionPane.showMessageDialog(new JFrame(), bundle.getString("noSelectedUserError"));
 			return false;
 		} else {
 			return true;
@@ -218,7 +221,7 @@ public class GebruikerBewerkenGui extends JPanel {
 	}
 
 	private class MenuItemHandler implements ActionListener {
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 
@@ -229,14 +232,14 @@ public class GebruikerBewerkenGui extends JPanel {
 				} else {
 					GebruikerBewerkenGui.this.navigation = "gebruikerBijwerken";
 					if(huidigeRol==1){
-						
+
 					AdminGui.setHuidigeKeuze(
-							new GebruikerBijwerkenGui(GebruikerBewerkenGui.this.list.getSelectedValue()));	
+							new GebruikerBijwerkenGui(GebruikerBewerkenGui.this.list.getSelectedValue()));
 					} else {
 					MedewerkerGui.setHuidigeKeuze(
 							new GebruikerWeergevenGui(GebruikerBewerkenGui.this.list.getSelectedValue()));
 					}
-					
+
 				}
 			}
 
@@ -245,9 +248,9 @@ public class GebruikerBewerkenGui extends JPanel {
 
 					return;
 				} else {
-					int n = GebruikerBewerkenGui.this.OkCancel("Ben je zeker dat je "
+					int n = GebruikerBewerkenGui.this.OkCancel(bundle.getString("wantToRemoveUserPart1") + " "
 							+ GebruikerBewerkenGui.this.list.getSelectedValue().getVoornaam() + " "
-							+ GebruikerBewerkenGui.this.list.getSelectedValue().getAchternaam() + " wil verwijderen?");
+							+ GebruikerBewerkenGui.this.list.getSelectedValue().getAchternaam() + " " + bundle.getString("wantToRemoveUserPart2"));
 
 					if (n == 0) {
 						MedewerkerDAO
@@ -255,7 +258,7 @@ public class GebruikerBewerkenGui extends JPanel {
 						((DefaultListModel<Medewerker>) GebruikerBewerkenGui.this.list.getModel())
 								.remove(GebruikerBewerkenGui.this.list.getSelectedIndex());
 						arrayLijst = MedewerkerDAO.getAllMedewerkers();
-						JOptionPane.showMessageDialog(new JFrame(), "Gebruiker is succesvol verwijdert.");
+						JOptionPane.showMessageDialog(new JFrame(), bundle.getString("userDeleted"));
 					} else if (n == 1) {
 						return;
 					}
@@ -269,7 +272,7 @@ public class GebruikerBewerkenGui extends JPanel {
 					String wachtwoord = new String("reset1");
 
 					int n = GebruikerBewerkenGui.this
-							.OkCancel("Ben je zeker dat je een password reset wil uitvoeren op "
+							.OkCancel(bundle.getString("confirmPassResetQuestion") + " "
 									+ GebruikerBewerkenGui.this.list.getSelectedValue().getVoornaam() + " "
 									+ GebruikerBewerkenGui.this.list.getSelectedValue().getAchternaam() + "?");
 
@@ -283,11 +286,11 @@ public class GebruikerBewerkenGui extends JPanel {
 							e1.printStackTrace();
 						}
 						JOptionPane.showMessageDialog(new JFrame(),
-								"Het wachtwoord van " + GebruikerBewerkenGui.this.list.getSelectedValue().getVoornaam()
+                                bundle.getString("postPassResetMessagePart1") + " " + GebruikerBewerkenGui.this.list.getSelectedValue().getVoornaam()
 										+ " " + GebruikerBewerkenGui.this.list.getSelectedValue().getAchternaam()
-										+ " is gereset naar 'reset1'.");
-						
-						
+										+ " " + bundle.getString("postPassResetMessagePart2"));
+
+
 					} else if (n == 1) {
 						return;
 					}

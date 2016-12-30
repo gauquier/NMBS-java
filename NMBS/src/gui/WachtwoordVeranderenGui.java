@@ -31,7 +31,7 @@ public class WachtwoordVeranderenGui extends JPanel {
 	private static final long serialVersionUID = 6274650572795135242L;
 	private int huidigeRol=MedewerkerDAO.getMedewerkerByLogin(LoginDao.getLoginId(Login.getCurrentUser()))
 			.getRol().getRolId();
-	
+
 	private static ResourceBundle bundle;
 
 	private JPasswordField pwdHerhaaldWachtwoord;
@@ -167,19 +167,19 @@ public class WachtwoordVeranderenGui extends JPanel {
 									// TODO Auto-generated catch block
 									e1.printStackTrace();
 								}
-								JOptionPane.showMessageDialog(new JFrame(), "Uw wachtwoord is aangepast!");
+								JOptionPane.showMessageDialog(new JFrame(), bundle.getString("wachtwoordAangepast"));
 								if(huidigeRol==1){
 									AdminGui.setHuidigeKeuze(new HomeGui(false));
 								} else {
 									MedewerkerGui.setHuidigeKeuze(new HomeGui(false));
 								}
 							} else {
-								JOptionPane.showMessageDialog(new JFrame(), "De wachtwoorden komen niet overeen!");
+								JOptionPane.showMessageDialog(new JFrame(), bundle.getString("unmatchingPasswords"));
 								WachtwoordVeranderenGui.this.pwdNieuwwachtwoord.setText("");
 								WachtwoordVeranderenGui.this.pwdHerhaaldWachtwoord.setText("");
 							}
 						} else {
-							JOptionPane.showMessageDialog(new JFrame(), "Het huidige wachtwoord is fout.");
+							JOptionPane.showMessageDialog(new JFrame(), bundle.getString("wrongCurrentPassword"));
 							WachtwoordVeranderenGui.this.pwdHuidigWachtwoord.setText("");
 						}
 					} catch (HeadlessException e1) {
@@ -190,7 +190,7 @@ public class WachtwoordVeranderenGui extends JPanel {
 						e1.printStackTrace();
 					}
 				} else {
-					JOptionPane.showMessageDialog(new JFrame(), "Gelieve alle velden in te vullen!");
+					JOptionPane.showMessageDialog(new JFrame(), bundle.getString("requiredFieldsWarning"));
 				}
 			}
 		}

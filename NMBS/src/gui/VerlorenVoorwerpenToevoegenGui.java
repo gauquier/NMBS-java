@@ -38,7 +38,7 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel {
 	private static final long serialVersionUID = 5501780870042021655L;
 	private int huidigeRol=MedewerkerDAO.getMedewerkerByLogin(LoginDao.getLoginId(Login.getCurrentUser()))
 			.getRol().getRolId();
-	
+
 	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.VerlorenVoorwerpenToevoegenGui");
 
 	private JTextArea txtrBeschrijving;
@@ -164,14 +164,14 @@ public class VerlorenVoorwerpenToevoegenGui extends JPanel {
 
 					vv = new VerlorenVoorwerp(-1, beschrijving, date, gevonden);
 					VerlorenVoorwerpDAO.insertVerlorenVoorwerp(vv, StationDAO.checkStation(station));
-					JOptionPane.showMessageDialog(new JFrame(), "Verloren voorwerp toegevoegd!");
+					JOptionPane.showMessageDialog(new JFrame(), bundle.getString("itemAdded"));
 					if(huidigeRol==1){
 						AdminGui.setHuidigeKeuze(new VerlorenVoorwerpenToevoegenGui());
 					}else{
 						MedewerkerGui.setHuidigeKeuze(new VerlorenVoorwerpenToevoegenGui());
 					}
-					
-																					
+
+
 				}
 
 				else {

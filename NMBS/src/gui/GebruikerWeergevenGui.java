@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ResourceBundle;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -20,11 +21,13 @@ import source.Medewerker;
 public class GebruikerWeergevenGui extends JPanel {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -878328862101208141L;
 	private int huidigeRol=MedewerkerDAO.getMedewerkerByLogin(LoginDao.getLoginId(Login.getCurrentUser()))
 			.getRol().getRolId();
+	
+	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.GebruikerWeergevenGui");
 	
 	public GebruikerWeergevenGui(Medewerker medewerker) {
 		this.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
@@ -32,12 +35,12 @@ public class GebruikerWeergevenGui extends JPanel {
 		JLabel lblGebruiker = DefaultComponentFactory.getInstance().createTitle("<dynamic>");
 		lblGebruiker.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		if (!medewerker.isActief()) {
-			lblGebruiker.setText(medewerker.getNaam() + " (Inactief)");
+			lblGebruiker.setText(medewerker.getNaam() + " " + bundle.getString("inactiefBetweenBrackets"));
 		} else {
 			lblGebruiker.setText(medewerker.getNaam());
 		}
 
-		JLabel lblEmail = new JLabel("Email:");
+		JLabel lblEmail = new JLabel(bundle.getString("lblEmail"));
 		lblEmail.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblEmail.setForeground(Color.WHITE);
 
@@ -46,7 +49,7 @@ public class GebruikerWeergevenGui extends JPanel {
 		lblEmailValue.setForeground(Color.WHITE);
 		lblEmailValue.setText(medewerker.getEmail());
 
-		JLabel lblVertrek = new JLabel("Adres:");
+		JLabel lblVertrek = new JLabel(bundle.getString("lblVertrek"));
 		lblVertrek.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblVertrek.setForeground(Color.WHITE);
 
@@ -55,7 +58,7 @@ public class GebruikerWeergevenGui extends JPanel {
 		lblAdresValue.setForeground(Color.WHITE);
 		lblAdresValue.setText(medewerker.getAdres().toString());
 
-		JLabel lblBus = new JLabel("Bus:");
+		JLabel lblBus = new JLabel(bundle.getString("lblBus"));
 		lblBus.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblBus.setForeground(Color.WHITE);
 
@@ -64,12 +67,12 @@ public class GebruikerWeergevenGui extends JPanel {
 		lblBusValue.setForeground(Color.WHITE);
 		if (medewerker.getAdres().getBus() == null || medewerker.getAdres().getBus() == ""
 				|| medewerker.getAdres().getBus() == " ") {
-			lblBusValue.setText("Niet van toepassing");
+			lblBusValue.setText(bundle.getString("NA"));//tekst: "Niet van toepassing"
 		} else {
 			lblBusValue.setText(medewerker.getAdres().getBus());
 		}
 
-		JLabel lblUsername = new JLabel("Username:");
+		JLabel lblUsername = new JLabel(bundle.getString("username"));
 		lblUsername.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblUsername.setForeground(Color.WHITE);
 
@@ -78,7 +81,7 @@ public class GebruikerWeergevenGui extends JPanel {
 		lblUsernameValue.setForeground(Color.WHITE);
 		lblUsernameValue.setText(medewerker.getLogin().getUsername());
 
-		JLabel lblType = new JLabel("Type:");
+		JLabel lblType = new JLabel(bundle.getString("type"));
 		lblType.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblType.setForeground(Color.WHITE);
 
