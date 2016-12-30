@@ -27,7 +27,7 @@ public class MedewerkerGui extends JFrame {
 	 */
 	private static final long serialVersionUID = 5565695250792117145L;
 
-	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.AdminGui");
+	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.MedewerkerGui");
 
 	private Container c = this.getContentPane();
 
