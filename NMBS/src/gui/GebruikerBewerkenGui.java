@@ -250,7 +250,7 @@ public class GebruikerBewerkenGui extends JPanel {
 				} else {
 					int n = GebruikerBewerkenGui.this.OkCancel(bundle.getString("wantToRemoveUserPart1") + " "
 							+ GebruikerBewerkenGui.this.list.getSelectedValue().getVoornaam() + " "
-							+ GebruikerBewerkenGui.this.list.getSelectedValue().getAchternaam() + " " + bundle.getString("wantToRemoveUserPart1"));
+							+ GebruikerBewerkenGui.this.list.getSelectedValue().getAchternaam() + " " + bundle.getString("wantToRemoveUserPart2"));
 
 					if (n == 0) {
 						MedewerkerDAO
