@@ -34,7 +34,7 @@ public class LoginGui {
 	private JPasswordField txtPassword;
 	private static LoginGui window;
 	private static Login login;
-	private static ResourceBundle bundle;
+	private static ResourceBundle bundle = ResourceBundle.getBundle("localization.LoginGui");
 
 	public LoginGui() {
 		this.initialize();
@@ -73,7 +73,7 @@ public class LoginGui {
 	}
 
 	private void initialize() {
-		bundle = ResourceBundle.getBundle("localization.LoginGui");
+		
 
 		this.frmNmbs = new JFrame();
 		this.frmNmbs.setIconImage(Toolkit.getDefaultToolkit().getImage("NMBS/lib/logo.png"));
