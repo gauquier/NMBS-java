@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry including="*/" kind="src" path="NMBS/src"/>
+	<classpathentry including="Hashing/|api/|api_logic/|dao/|gui/|handler/|iRailExamples/|localization/|source/" kind="src" path="NMBS/src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="NMBS/lib/mysql-connector-java-5.1.40-bin.jar"/>
