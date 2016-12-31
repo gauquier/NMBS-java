@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.UIManager;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
@@ -27,6 +28,7 @@ import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 
 import dao.StationDAO;
+import source.AutoComboBox;
 import source.Station;
 import api.BillBoard;
 import api.BillBoardLoader;
@@ -37,7 +39,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 public class StationInfoGui extends JPanel {
 	private JTextField txtTijd;
 	private JButton btnZoeken;
-	private JComboBox<String> cmbbStation;
+	private AutoComboBox cmbbStation;
 	private StationDAO stationDAO = new StationDAO();
 	private ArrayList<BillBoard> billBoardLijst;
 	private DefaultListModel<BillBoard> dlm;
@@ -56,46 +58,60 @@ public class StationInfoGui extends JPanel {
 		
 		JLabel lblStation = new JLabel("Station");
 		lblStation.setForeground(Color.WHITE);
+		lblStation.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		
-		cmbbStation = new JComboBox();
-		ArrayList<Station> lijst = stationDAO.getAll();
+		cmbbStation = new AutoComboBox();
+		ArrayList<Station> lijst = StationDAO.getAll();
+		ArrayList<String> stringLijst = new ArrayList<String>();
 		for (Station station : lijst) {
-			cmbbStation.addItem(station.getNaam());
+			stringLijst.add(station.getNaam());
 		}
+		cmbbStation.setKeyWord(stringLijst);
 		
 		JLabel lblTijd = new JLabel("Tijd");
 		lblTijd.setForeground(Color.WHITE);
+		lblTijd.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		
 		txtTijd = new JTextField();
 		txtTijd.setColumns(10);
 		
-		ButtonGroup buttonGroup = new ButtonGroup();
+		//ButtonGroup buttonGroup = new ButtonGroup();
 		
 		btnZoeken = new JButton("Zoeken");
 		btnZoeken.addActionListener(new MenuItemHandler());
+		btnZoeken.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		JLabel lblStationInfo = DefaultComponentFactory.getInstance().createTitle("Station info");
+		lblStationInfo.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		
 		table = new JTable();
 		
 		lblTijdstip = new JLabel("Tijdstip");
+		lblTijdstip.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		
 		lblRichting = new JLabel("Richting");
+		lblRichting.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		
 		lblPerron = new JLabel("Perron");
+		lblPerron.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		
 		lblTrein = new JLabel("Trein");
+		lblTrein.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		
-		lblAfgeschaft = new JLabel("Afgeschaft");
+		lblAfgeschaft = new JLabel("Toestand");
+		lblAfgeschaft.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		
 		btnVorige = new JButton("Vorige");
 		btnVorige.setVisible(false);
 		btnVorige.addActionListener(new MenuItemHandler());
+		btnVorige.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		
 		btnVolgende = new JButton("Volgende");
 		btnVolgende.setVisible(false);
 		btnVolgende.addActionListener(new MenuItemHandler());
+		btnVolgende.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		
 		lblPagina = new JLabel("pagina");
+		lblPagina.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		lblPagina.setVisible(false);
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -113,31 +129,33 @@ public class StationInfoGui extends JPanel {
 										.addComponent(lblStation)
 										.addComponent(lblTijd))
 									.addGap(30)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(txtTijd, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(cmbbStation, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE)
-											.addGap(65)
-											.addComponent(btnZoeken))))
-								.addComponent(table, GroupLayout.DEFAULT_SIZE, 743, Short.MAX_VALUE)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(txtTijd)
+										.addComponent(cmbbStation, GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
+									.addGap(68)
+									.addComponent(btnZoeken))
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblTijdstip)
-									.addGap(140)
-									.addComponent(lblRichting)
-									.addGap(117)
-									.addComponent(lblPerron)
-									.addGap(157)
-									.addComponent(lblTrein)
-									.addPreferredGap(ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
-									.addComponent(lblAfgeschaft)
-									.addGap(47))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(btnVorige)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(btnVolgende)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(lblPagina)))))
-					.addGap(36))
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(lblTijdstip)
+											.addGap(124)
+											.addComponent(lblRichting)
+											.addGap(73)
+											.addComponent(lblPerron)
+											.addGap(53)
+											.addComponent(lblTrein)
+											.addGap(91)
+											.addComponent(lblAfgeschaft))
+										.addComponent(table, GroupLayout.PREFERRED_SIZE, 691, GroupLayout.PREFERRED_SIZE)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(btnVorige)
+											.addGap(28)
+											.addComponent(btnVolgende)
+											.addGap(26)
+											.addComponent(lblPagina)))))
+							.addPreferredGap(ComponentPlacement.RELATED)))
+					.addGap(194))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -147,18 +165,13 @@ public class StationInfoGui extends JPanel {
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblStation)
-						.addComponent(cmbbStation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnZoeken))
+						.addComponent(cmbbStation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblTijd)
-						.addComponent(txtTijd, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnVorige)
-						.addComponent(btnVolgende)
-						.addComponent(lblPagina))
-					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(txtTijd, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnZoeken))
+					.addGap(61)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblTijdstip)
 						.addComponent(lblRichting)
@@ -166,8 +179,13 @@ public class StationInfoGui extends JPanel {
 						.addComponent(lblTrein)
 						.addComponent(lblAfgeschaft))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(table, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)
-					.addGap(23))
+					.addComponent(table, GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE)
+					.addGap(39)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnVorige)
+						.addComponent(btnVolgende)
+						.addComponent(lblPagina))
+					.addContainerGap(260, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout); 
 	}
