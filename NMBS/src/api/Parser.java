@@ -176,6 +176,14 @@ public abstract class Parser {
 		 {
 				return "Piekuur Trein: " + train.toString();
 		 }
+		 if(train.indexOf("EUR") != -1)
+		 {
+				return "Eurostar: " + train.toString();
+		 }
+		 if(train.indexOf("THA") != -1)
+		 {
+				return "Thalys: " + train.toString();
+		 }
 			return train.toString();
 		}
 	 public static int getPlatform(String input)

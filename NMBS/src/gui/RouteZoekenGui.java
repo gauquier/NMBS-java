@@ -98,9 +98,11 @@ public class RouteZoekenGui extends JPanel {
 		ButtonGroup buttonGroup = new ButtonGroup();
 		rdbtnVertrek = new JRadioButton("Vertrek");
 		rdbtnVertrek.setForeground(Color.BLACK);
+		rdbtnVertrek.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		rdbtnVertrek.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		rdbtnAankomst = new JRadioButton("Aankomst");
 		rdbtnAankomst.setForeground(Color.BLACK);
+		rdbtnAankomst.setBackground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
 		rdbtnAankomst.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		buttonGroup.add(rdbtnVertrek);
 		buttonGroup.add(rdbtnAankomst);
